@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  color: #000;
+  font-size: 1.6rem;
+  font-family: "Inter", sans-serif;
+}
+.btn {
+  display: inline-block;
+  padding: 0 16px;
+  color: #df2127;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  border-radius: 999px;
+  background: #efd7af;
+  line-height: 50px;
+  text-align: center;
+  min-width: 118px;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+/* =============header============ */
+.logo {
+  width: 10rem;
+  height: 2rem;
+  object-fit: cover;
+}
+.header.fixed {
+  z-index: 1;
+  background-color: #fff;
+  position: sticky;
+  top: -28px;
+}
+.header .body {
+  display: flex;
+  align-items: center;
+  padding-left: 8rem;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+}
+.header-content {
+  padding: 6.4rem 8rem;
+}
+.header-content .tag strong {
+  font-size: 1rem;
+  line-height: 0.18;
+  font-weight: 700;
+}
+.split-line {
+  margin-top: 1rem;
+  background-color: #000;
+  height: 0.5px;
+  align-self: stretch;
+}
+.main-content {
+  margin-left: 10rem;
+  width: 50%;
+}
+.main-content .news-title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.news-detail {
+  margin-top: 3rem;
+}
+.news-detail strong {
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.news-detail p {
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6; /* 22.4px */
+}
+.news-detail strong:nth-child(2) {
+  margin-left: 32px;
+}
+.main-content .sub-title {
+  margin-top: 5rem;
+  font-size: 2.2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.8; /* 39.6px */
+}
+.news-body {
+  margin-top: 6.4rem;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.8; /* 28.8px */
+}
+img {
+  width: 100%;
+  object-fit: cover;
+}
+figcaption {
+  font-size: 1.4rem;
+  color: #5f5b53;
+}
+.split-line-end {
+  margin: 1rem 8rem;
+  background-color: #000;
+  height: 0.5px;
+  align-self: stretch;
+}
+.comment-secction {
+  padding: 6.4rem 8rem;
+  font-size: 3rem;
+  line-height: 0.18;
+  font-weight: 500;
+}
