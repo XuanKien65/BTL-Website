@@ -1,0 +1,344 @@
+:root{
+    --widthkhung : 1160px;
+    --thanh: 2px solid black;
+    --padsize: 5px;
+}
+
+.ft{
+    height: 470px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ft .khung1{
+    height: 100%;
+    width: var(--widthkhung);
+    background-color: none;
+    border-top: var(--thanh);
+    padding-bottom: var(--padsize);
+    padding-top: var(--padsize);
+    border-bottom: var(--thanh);
+}
+.ft .khung2{
+    height: 426px;
+    width: var(--widthkhung);
+    background-color: none;
+    border-top: var(--thanh);
+}
+
+.ft .khung1 .khung2 .khungcontent{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-top: 30px;
+    padding-bottom: 0px;
+}
+.ft .khung1 .khung2 .khungcontent .khunganh{
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-right: 25px;
+}
+.ft .khung1 .khung2 .khungcontent .menufull{
+    width: 865px;
+    height: 332.05px;
+    border-bottom: var(--thanh);
+    display: flex;
+    flex-wrap: wrap;
+}
+.ft .khung1 .khung2 .khungcontent .menu{
+    width: 865px;
+    height: 332.05px;
+    border-bottom: var(--thanh);
+    display: flex;
+    flex-wrap: wrap;
+}
+.ft .khung1 .khung2 .khungcontent .menu1{
+    width: 260.53px;
+    height: 302.5px;
+    border-right: var(--thanh);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 25px;
+}
+.ft .khung1 .khung2 .khungcontent .menu1 .box1{
+    width: 225px;
+    height: 35px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    border: var(--thanh);
+    background-color: black;
+    font-weight: bold;
+}
+.ft .khung1 .khung2 .khungcontent .menu1 .box2{
+    width: 225px;
+    height: 35px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    border: var(--thanh);
+    background-color: white;
+    font-weight: bold;
+}
+.ft .khung1 .khung2 .khungcontent .menu1 .box1:hover {
+    background-color: red;
+}
+.ft .khung1 .khung2 .khungcontent .menu1 .box2:hover {
+    background-color: red;
+    color: white;
+}
+.ft .khung1 .khung2 .khungcontent .menu2{
+    width: 485.38px;
+    height: 302.5px;
+    border-right: var(--thanh);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1{
+    width: 56.25%;
+    height: 100%;
+    display: flex;
+    border-right: var(--thanh);
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1 h4{
+    width: 82%;
+    height: 25px;
+    text-transform: uppercase;
+    border-bottom: var(--thanh);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1 .topic{
+    width: 82%;
+    list-style-type: none;
+    margin-top: 4px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1 .topic .t1{
+    width: 50%;
+    height: 16px;
+    margin-bottom: 6.4px;
+    margin-top: 6.4px;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1 .topic .t1 .a1{
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: maroon;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv1 .topic .t1 .a1:hover{
+    color: grey;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2{
+    width: calc(100% - 56.25%);
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2 h4{
+    width: 82%;
+    height: 25px;
+    text-transform: uppercase;
+    border-bottom: var(--thanh);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2 .topic2{
+    width: 82%;
+    list-style-type: none;
+    margin-top: 4px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2 .topic2 .t2{
+    width: 100%;
+    height: 20px;
+    padding-top: 6.4px;
+    padding-bottom: 6.4px;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2 .topic2 .t2 .a2{
+    height: auto;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: maroon;
+}
+.ft .khung1 .khung2 .khungcontent .menu2 .nv2 .topic2 .t2 .a2:hover{
+    color: grey;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3{
+    width: calc(865px - 262.13px - 486.98px);
+    height: 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 h4{
+    width: 87%;
+    height: 25px;
+    border-bottom: var(--thanh);
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3{
+    width: 87%;
+    height: 10%;    
+    list-style-type: none;
+    margin-top: 4px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3{
+    width: 100%;
+    height: 20px;
+    padding-top: 6.4px;
+    padding-bottom: 6.4px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 .a3{
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: maroon;
+    font-size: 15px;
+    margin-left: 0.5rem;
+    padding-left: 5px;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 svg{
+    width: 16px;
+    height: 16px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi{
+    width: 100%;
+    height: 48px;
+    display: flex;
+    margin-top: 15px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi1{
+    width: 530px;
+    display: flex;
+    border-right: var(--thanh);
+    padding-top: 0px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 0px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki h3{
+    padding-top: 0px;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 15px;    
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki .email-capture .email-field{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki .email-capture .email-field1{
+    border-bottom: var(--thanh);
+    width: 400px;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki .email-capture .email-field .email-field-capture{
+    color: silver;
+    font-size: 15px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki .email-capture .email-field .b1{
+    height: 30px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    border: var(--thanh);
+    background-color: white;
+    font-weight: bold;
+    margin: 0px 24px 10px 24px;
+    font-size: 14px;
+    font-family: segoe ui;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2{
+    width: 300px;
+    display: flex;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi2 .news{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 24px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2 .news h3{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-transform: uppercase;
+    font-size: 15px;    
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2 .news p{
+    font-size: 13px;
+    width: 200px;
+    margin-top: 3px;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2 .guitin{
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center; 
+    padding: 10px 0px 10px 0px;
+    margin-left: 24px;
+    margin-top: 17px;
+    width: auto;
+    min-width: 82px;
+    height: 8.5px; 
+    border: 2px solid black; 
+    text-transform: uppercase;
+    font-weight: bold; 
+    font-size: 14px; 
+    text-align: center; 
+    text-decoration: none; 
+    color: black; 
+    background-color: white; 
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2 .guitin .guitin2{
+    font-size: 14px;
+    width: 100%;
+    display: block;
+}
+.ft .khung1 .khung2 .khungcontent .end{
+    font-size: 11px;
+    padding-top: 10px;
+}
+img{
+    width: 270px;
+    height: 352.3px;
+}
