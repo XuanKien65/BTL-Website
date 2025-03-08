@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 *
 {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body
@@ -92,7 +92,7 @@ form
 
 .input-box input::placeholder
 {
-    columns: #888;
+    color: #888;
     font-weight: 400;
 }
 
@@ -280,8 +280,8 @@ form
 
     .container.active .toggle-panel.toggle-left
     {
+        top: -30%;
         left: 0;
-        right: -30%;
     }
 
     .toggle-panel.toggle-right
@@ -296,7 +296,7 @@ form
     }
 }
 
-@media screen and (max-width: 4000px)
+@media screen and (max-width: 400px)
 {
     .form-box
     {

@@ -1,6 +1,6 @@
 :root{
     --widthkhung : 1160px;
-    --thanh: 2px solid black;
+    --thanh: 1.5px solid silver;
     --padsize: 5px;
 }
 
@@ -17,9 +17,6 @@
     height: 100%;
     width: var(--widthkhung);
     background-color: none;
-    border-top: var(--thanh);
-    padding-bottom: var(--padsize);
-    padding-top: var(--padsize);
     border-bottom: var(--thanh);
 }
 .ft .khung2{
@@ -33,7 +30,7 @@
     width: 100%;
     height: 100%;
     display: flex;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 0px;
 }
 .ft .khung1 .khung2 .khungcontent .khunganh{
@@ -75,6 +72,7 @@
     align-items: center;
     text-transform: uppercase;
     border: var(--thanh);
+    border-radius: 4px;
     background-color: black;
     font-weight: bold;
 }
@@ -88,6 +86,7 @@
     align-items: center;
     text-transform: uppercase;
     border: var(--thanh);
+    border-radius: 4px;
     background-color: white;
     font-weight: bold;
 }
@@ -219,9 +218,9 @@
     padding-bottom: 6.4px;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 .ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 .a3{
     text-decoration: none;
@@ -230,6 +229,12 @@
     font-size: 15px;
     margin-left: 0.5rem;
     padding-left: 5px;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 .a32:hover{
+    color: silver;
+}
+.ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 svg:hover{
+    color: silver;
 }
 .ft .khung1 .khung2 .khungcontent .menu .menu3 .topic3 .t3 svg{
     width: 16px;
@@ -283,11 +288,16 @@
     align-items: center;
     text-transform: uppercase;
     border: var(--thanh);
+    border-radius: 4px;
     background-color: white;
     font-weight: bold;
     margin: 0px 24px 10px 24px;
     font-size: 14px;
     font-family: segoe ui;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .dangki .email-capture .email-field .b1:hover{
+    color: white;
+    background-color: red;
 }
 .ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2{
     width: 300px;
@@ -320,7 +330,8 @@
     width: auto;
     min-width: 82px;
     height: 8.5px; 
-    border: 2px solid black; 
+    border: var(--thanh); 
+    border-radius: 4px;
     text-transform: uppercase;
     font-weight: bold; 
     font-size: 14px; 
@@ -333,6 +344,10 @@
     font-size: 14px;
     width: 100%;
     display: block;
+}
+.ft .khung1 .khung2 .khungcontent .menuduoi .menuduoi2 .guitin:hover{
+    color: white;
+    background-color: red;
 }
 .ft .khung1 .khung2 .khungcontent .end{
     font-size: 11px;

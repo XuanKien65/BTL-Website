@@ -9,7 +9,7 @@ body {
   font-size: 1.6rem;
   font-family: "Inter", sans-serif;
 }
-.btn {
+/* .btn {
   display: inline-block;
   padding: 0 16px;
   color: #df2127;
@@ -24,11 +24,30 @@ body {
 }
 .btn:hover {
   opacity: 0.9;
+} */
+/* ==============common========== */
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+:root {
+  --Moderate-blue: hsl(238, 40%, 52%);
+  --Soft-Red: hsl(358, 79%, 66%);
+  --Light-grayish-blue: hsl(239, 57%, 85%);
+  --Pale-red: hsl(357, 100%, 86%);
+
+  --Dark-blue: hsl(212, 24%, 26%);
+  --Grayish-Blue: hsl(211, 10%, 45%);
+  --Light-gray: hsl(223, 19%, 93%);
+  --Very-light-gray: hsl(228, 33%, 97%);
+  --White: hsl(0, 0%, 100%);
+  --primary-color: #000;
+  --font-heading: "Merriweather", "serif";
 }
 /* =============header============ */
 .logo {
-  width: 10rem;
-  height: 2rem;
+  width: 20rem;
+  height: 3rem;
   object-fit: cover;
 }
 .header.fixed {
@@ -44,34 +63,36 @@ body {
   padding-top: 4rem;
   padding-bottom: 1rem;
 }
-.header-content {
-  padding: 6.4rem 8rem;
+/* ===========body================== */
+
+.content {
+  margin: 6.4rem 15rem;
+}
+.tag {
+  margin-bottom: 1rem;
 }
 .header-content .tag strong {
-  font-size: 1rem;
+  font-size: 1.6rem;
   line-height: 0.18;
-  font-weight: 700;
-}
-.split-line {
-  margin-top: 1rem;
-  background-color: #000;
-  height: 0.5px;
-  align-self: stretch;
+  font-weight: 500;
 }
 .main-content {
-  margin-left: 10rem;
-  width: 50%;
+  width: 100%;
 }
 .main-content .news-title {
+  font-family: var(--font-heading);
   font-size: 3rem;
-  font-weight: 600;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 4rem; /* 123.81% */
+  letter-spacing: -0.2px;
 }
 .news-detail {
-  margin-top: 3rem;
+  margin-top: 1.2rem;
 }
 .news-detail strong {
-  color: #000;
-  font-size: 14px;
+  color: var(--primary-color);
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 600;
   line-height: 1.6;
@@ -85,37 +106,86 @@ body {
 .news-detail strong:nth-child(2) {
   margin-left: 32px;
 }
-.main-content .sub-title {
-  margin-top: 5rem;
-  font-size: 2.2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8; /* 39.6px */
-}
 .news-body {
-  margin-top: 6.4rem;
+  margin-top: 2rem;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1.8; /* 28.8px */
 }
+.news-body p {
+  margin-bottom: 1rem;
+}
 img {
   width: 100%;
+  border-radius: 1rem;
   object-fit: cover;
 }
 figcaption {
   font-size: 1.4rem;
   color: #5f5b53;
 }
-.split-line-end {
-  margin: 1rem 8rem;
-  background-color: #000;
-  height: 0.5px;
-  align-self: stretch;
+/* =================comment================ */
+.comment-section {
+  margin: 3rem 15rem;
 }
-.comment-secction {
-  padding: 6.4rem 8rem;
-  font-size: 3rem;
-  line-height: 0.18;
-  font-weight: 500;
+.split-line {
+  background-color: #e1e8f0;
+  height: 1px;
+  width: 100%;
+}
+
+.comment-section .title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 4rem; /* 123.81% */
+  letter-spacing: -0.2px;
+  padding-bottom: 3rem;
+}
+.cmt-input {
+  display: flex;
+  gap: 3rem;
+}
+.cmt-input .user-ava {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.5px solid #5f5b53;
+}
+.cmt-input .area {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  padding: 1rem;
+  width: 80%;
+  height: 10rem;
+  border: 1.5px solid #ccc; /* Viền xám */
+  border-radius: 0.5rem; /* Bo góc */
+  font-size: 1.6rem;
+  color: #333;
+  background-color: #f9f9f9;
+  resize: none;
+}
+.cmt-input .area:focus {
+  outline: none; /* Bỏ viền xanh mặc định của trình duyệt */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng đổ bóng */
+}
+.comment-section .btn-sent {
+  font-size: 1.6rem;
+  width: 10rem;
+  height: 4rem;
+  background-color: #262626;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.others-new {
+  margin: 3rem 15rem;
+}
+.others-new .title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: 1.6;
 }

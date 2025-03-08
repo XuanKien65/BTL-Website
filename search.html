@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="search.css">
+    <!-- FontAwesome 6.2.0 CSS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    
+    <!-- (Optional) Use CSS or JS implementation -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+        integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    
+</head>
+<body>
+    <div class="page-content">
+        <div class="main">
+            <article id = "post" class ="search-res" role="article">
+                <section class = "entry-content">
+                    <div class="container-block">
+                        <div class="main-container">
+                            <div class="layout-header">
+                                <div class="search-form">
+                                    <div class="combo-box">
+                                        <form role = "combobox" action="" id = "0">
+                                            <div class="search-box">
+                                                <div class="search-box-wrap">
+                                                    <input type="text" id = "input-box" placeholder="Search" autocomplete="off" class = "text-box-input">
+                                                    <input type="submit" class = "submit-box" value="Search">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="header-block">
+                                    <div class="block-group">
+                                        <span class = "res">
+                                            <span class = "paging-info">
+                                                Hiển thị kết quả
+                                            <span class = "page-start">
+                                                1
+                                            </span>
+                                                -
+                                            <span class = "page-end">
+                                                10
+                                            </span>
+                                                of
+                                            <span class = "total">
+                                                10000
+                                            </span>
+                                                for
+                                            <span class = "query">
+                                                Taylor Swift
+                                            </span>    
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layout-body">
+                                <div class="side-bar">
+                                    <div class="main-side-bar">
+                                        <div id="sort-selector">
+                                            <div class="sorting">
+                                                <div class="sorting-label">
+                                                    Tìm kiếm bằng
+                                                </div>
+                                                <div class="sort-select">
+                                                    <div class="sort-select-value">
+                                                        Liên quan
+                                                    </div>
+                                                    <div class="sort-select-indicator">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="facet-container" id = "date-option">
+                                            <div class="base-options">
+                                                <div class="base-options-label">
+                                                    <span>Khoảng thời gian</span>
+                                                </div>
+                                                <div class="base-options-control">
+                                                    <input class = "radio-control-button" id= "radio-control" type="radio">
+                                                    <label class = "radio-control-label" for=""> Tất cả</label>
+                                                </div>
+                                                <div class="base-options-control">
+                                                    <input class = "radio-control-button" id= "radio-control" type="radio">
+                                                    <label class = "radio-control-label" for=""> 24 giờ trước</label>
+                                                </div>
+                                                <div class="base-options-control">
+                                                    <input class = "radio-control-button" id= "radio-control" type="radio">
+                                                    <label class = "radio-control-label" for=""> 7 giờ trước</label>
+                                                </div>
+                                                <div class="base-options-control">
+                                                    <input class = "radio-control-button" id= "radio-control" type="radio">
+                                                    <label class = "radio-control-label" for=""> 30 ngày trước</label>
+                                                </div>
+                                                <div class="base-options-control">
+                                                    <input class = "radio-control-button" id= "radio-control" type="radio">
+                                                    <label class = "radio-control-label" for=""> 12 ngày trước </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="facet-container">
+                                            <button type="button" class = "tmp-button">
+                                                Clear
+                                            </button>
+                                            <fieldset class = "s-facet">
+                                                <legend class = "s-facet--title">
+                                                    <span class="s-facet-title">Loại nội dung</span>
+                                                </legend>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="facet-container">
+                                            <button type="button" class = "tmp-button">
+                                                Clear
+                                            </button>
+                                            <fieldset class = "s-facet">
+                                                <legend class = "s-facet--title">
+                                                    <span class="s-facet-title">Loại nội dung</span>
+                                                </legend>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="facet-container">
+                                            <button type="button" class = "tmp-button">
+                                                Clear
+                                            </button>
+                                            <fieldset class = "s-facet">
+                                                <legend class = "s-facet--title">
+                                                    <span class="s-facet-title">Loại nội dung</span>
+                                                </legend>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="facet-container">
+                                            <button type="button" class = "tmp-button">
+                                                Clear
+                                            </button>
+                                            <fieldset class = "s-facet">
+                                                <legend class = "s-facet--title">
+                                                    <span class="s-facet-title">Loại nội dung</span>
+                                                </legend>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="facet-options">
+                                                    <div class="facet-options-label">
+                                                        <label for="facet-content" class = "multi-checkbox">
+                                                            <input data-transaction-name=""  type="checkbox" class = "facet-checkbox">
+                                                            <span class = "facet-input-text"> Article 
+                                                            </span>
+                                                        </label>
+                                                        <span class = "count">
+                                                            4,482
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="main-body">
+                                    <div class="main-block">
+                                        <ul class = "result-container">
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class = "result-block">
+                                                <div class="result-image">
+                                                    <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/">
+                                                        <img src="https://www.rollingstone.com/wp-content/uploads/2025/01/bad-bunny-taylor-swift-parallels.jpg?w=411&h=274&crop=1" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="result-content">
+                                                    <div class="result-title">
+                                                        <a href="https://www.rollingstone.com/music/music-news/bad-bunny-taylor-swift-parallels-1235237192/"> Are Bad Bunny and Taylor Swift Twin Flames?</a>
+                                                    </div>
+                                                    <div class="byline">
+                                                        Jan 17, 2025
+                                                    </div>
+                                                    <div class="text-block">
+                                                        Fans online have drawn compelling parallels between each artist's discography as the two battle for the top slot on Billboard's album chart…
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+</body>
+</html>
