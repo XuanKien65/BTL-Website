@@ -509,7 +509,7 @@ body {
 }
 .main .main-container-body .main-topic .l-main .second-article {
   width: 98%;
-  height: 35vh;
+  height: 50vh;
   display: flex;
   justify-content: flex-start;
   border-bottom: 0.1rem solid #b8c2ce;
