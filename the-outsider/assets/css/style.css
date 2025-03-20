@@ -186,9 +186,13 @@ i {
   flex: 1;
 }
 /* ===========body================== */
-
+.article {
+  display: flex;
+  flex-direction: row;
+  margin: 6.4rem 5% 0 10%;
+}
 .content {
-  margin: 6.4rem 10%;
+  flex: 3;
 }
 .tag {
   margin-bottom: 1rem;
@@ -199,7 +203,7 @@ i {
   font-weight: 500;
 }
 .content .main-content {
-  width: 60%;
+  width: 80%;
 }
 .main-content .news-title {
   font-family: var(--font-heading);
@@ -246,6 +250,40 @@ i {
 figcaption {
   font-size: 1.4rem;
   color: #5f5b53;
+}
+/* ==============tin xem nhiều ==================*/
+.most-view {
+  flex: 1.5;
+}
+.most-view h3 {
+  font-size: 1.6rem;
+  width: fit-content;
+  padding-bottom: 5px;
+  font-family: var(--font-heading);
+  border-bottom: solid 1px var(--heading-color);
+  font-weight: 600;
+}
+.most-view img {
+  width: 150px;
+  height: 90px;
+  object-fit: cover;
+}
+.news .n1 {
+  padding-bottom: 20px;
+  border-bottom: solid 0.5px #e1e8f0;
+}
+.news .n1 a {
+  display: flex;
+}
+.most-view .news {
+  width: 350px;
+}
+.news .title {
+  padding-left: 10px;
+  font-family: var(--font-heading);
+}
+.news {
+  margin-top: 2rem;
 }
 /* =================comment================ */
 .comment-section {

@@ -454,6 +454,7 @@ body {
 
 .main .main-container-body .main-topic .l-main {
   width: 90%;
+  height: fit-content;
   border-right: 0.1rem solid #b8c2ce;
   display: flex;
 }
@@ -472,6 +473,7 @@ body {
   border-bottom: 0.1rem solid #b8c2ce;
   /* margin-bottom: 3%; */
   margin-top: 2%;
+  padding-bottom: 2%;
 }
 .main .main-container-body .main-topic .l-main .one-article .article-image {
   width: 30%;
@@ -507,7 +509,7 @@ body {
 }
 .main .main-container-body .main-topic .l-main .second-article {
   width: 98%;
-  height: 15%;
+  height: 50vh;
   display: flex;
   justify-content: flex-start;
   border-bottom: 0.1rem solid #b8c2ce;

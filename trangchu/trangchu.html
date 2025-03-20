@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- reset css -->
-    <link rel="stylesheet" href="/the-outsider/assets/css/reset.css" />
-    <!-- responsive -->
-    <link rel="stylesheet" href="/the-outsider/assets/css/responsive.css" />
-    <!-- style -->
-    <link rel="stylesheet" href="trangchu.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive News Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="trangchu.css">
+    <link rel="stylesheet" href="../the-outsider/assets/css/reset.css">
+    <link rel="stylesheet" href="../the-outsider/assets/css/responsive.css">
+    <link rel="stylesheet" href="header.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,19 +21,14 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       rel="stylesheet"
     />
-    <!-- font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <title>The Outsider</title>
-  </head>
-  <body >
-    <!-- header -->
+</head>
+<body>
+    <header>
+       <!-- header -->
     <header class="header fixed">
       <div class="header banner">
         <img
-          src="/the-outsider/assets/img/banner.jpg"
+          src="../the-outsider/assets/img/banner.jpg"
           alt="the outsider"
           class="banner-logo"
         />
@@ -40,7 +40,7 @@
     <nav class="nav">
       <div id="backtohome">
         <a href="#">
-          <img class="logo" src="/the-outsider/assets/img/logo.jpg" alt="" />
+          <img class="logo" src="../the-outsider/assets/img/logo.jpg" alt="" />
         </a>
       </div>
       <a href="#" class="home"><i class="fa-solid fa-house"></i></a>
@@ -63,7 +63,7 @@
           </ul>
         </li>
         <li class="main-category">
-          <a href="/beo-dan/topic.html"  class="category">Công nghệ</a>
+          <a href="../beo-dan/topic.html"  class="category">Công nghệ</a>
           <ul class="subnav">
             <li><a class="subnav-link" href="#">AI</a></li>
             <li><a class="subnav-link" href="#">Chuyển đổi số</a></li>
@@ -102,353 +102,392 @@
       <div class="register">
         <div class="search">
           <input type="text" placeholder="Tìm kiếm...">
-          <a href="/beo-dan/search2.html">
+          <a href="../beo-dan/search2.html">
             <i class="fa-solid fa-magnifying-glass">
               </i>
               </a>
           </i>
         </div>
-        <a href="/login/login_ver2.html" class="dn-text"><i class="fa-solid fa-user"></i>Đăng nhập</a>
+        <a href="../login/login_ver2.html" class="dn-text"><i class="fa-solid fa-user"></i>Đăng nhập</a>
         <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
       </div>
     </nav>
     <div class="split-line"></div>
+<<<<<<< HEAD
     <!-- start: body -->
-    <div class="body">
-      <!-- Tin hôm nay -->
-      <div class="today-news">
-        <!-- cho tạm vào bài viết này -->
-        <a class="todaybignews" href="/the-outsider/index.html">
-          <div class="todaybignews-content">
-            <p>
-              Chủ mưu vụ lũng đoạn đấu giá đất 30 tỷ đồng một m2 bị tuyên 3 năm tù
-            </p>
-          </div>
-        </a>
-        <div class="todaysmallnews">
-          <div class="title">Hôm nay</div>
-          <a class="todaysmallnews-content--layout1" href="">
-              <div class="content">
-                <p>
-                  Đề xuất lập đơn vị hành chính mới: 'Nội đô' tại Hà Nội, TP HCM
-                </p>
+    <div class="container">
+      <!-- 1 -->
+      <div class="row">
+          <!-- Slider (50%) -->
+          <div class="col-12 col-lg-6 mb-3">
+              <div class="slider">
+                  <div class="slides">
+                      <!-- Slide 1 -->
+                      <div class="slide">
+                          <img src="https://tinyurl.com/n2cu6ym5" alt="Slide 1">
+                          <div class="caption">
+                              <h2>Livestream lùm xùm Kim Soo Hyun ngày 5: Mẹ Kim Sae Ron lo sợ nam diễn viên có lựa chọn cực đoan, đọc tâm thư tha thiết 1 nguyện vọng</h2>
+                          </div>
+                      </div>
+              
+                      <!-- Slide 2 -->
+                      <div class="slide">
+                          <img src="https://tinyurl.com/56dhxc6h" alt="Slide 2">
+                          <div class="caption">
+                              <h2>Lập biên bản vụ Quang Linh, Hằng Du Mục tổ chức gặp mặt báo chí khi chưa được phép</h2>
+                          </div>
+                      </div>
+              
+                      <!-- Slide 3 -->
+                      <div class="slide">
+                          <img src="https://tinyurl.com/2efpkp46" alt="Slide 3">
+                          <div class="caption">
+                              <h2>Prada chính thức tạm biệt Kim Soo Hyun nhưng vẫn còn 1 hành động vương vấn</h2>
+                          </div>
+                      </div>
+                  </div>
+              
+                  <!-- Nút điều hướng -->
+                  <button class="prev" onclick="moveSlide(-1)">❮</button>
+                  <button class="next" onclick="moveSlide(1)">❯</button>
+              
+                  <!-- Thanh trượt dot -->
+                  <div class="dots">
+                      <span class="dot" onclick="currentSlide(1)"></span>
+                      <span class="dot" onclick="currentSlide(2)"></span>
+                      <span class="dot" onclick="currentSlide(3)"></span>
+                  </div>
               </div>
-          </a>
-          <a class="todaysmallnews-content--layout2" href="">
-            <div class="content">
-              <p>
-                Quả Bóng Vàng Thùy Trang: 'Tôi chưa hết thời'
-              </p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Tin nóng -->
-      <div class="trending-news">
-        <div class="trending-news--layout1">
-          <div class="trending-news--title">Tin Nóng</div>
-
-          <a class="trending-news--content" href="#">
-            <img
-              class="trending-news--img"
-              src="https://tinyurl.com/2b27jeef"
-              alt=""
-            />
-            <div class="trending-news--text">
-              <h3>Giá xăng RON 95 xuống dưới 20.500 đồng</h3>
-              <p>
-                Giá xăng, dầu cùng giảm 460-760 đồng một lít từ 15h hôm nay, sau
-                điều chỉnh của liên Bộ Công Thương - Tài chính.
-              </p>
-            </div>
-          </a>
-
-          <a class="trending-news--content" href="#">
-            <img
-              class="trending-news--img"
-              src="https://tinyurl.com/ytvvdpv4"
-              alt=""
-            />
-            <div class="trending-news--text">
-              <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-              <p>
-                Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua
-                đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.
-              </p>
-            </div>
-          </a>
-
-          <a class="trending-news--content" href="#">
-            <img
-              class="trending-news--img"
-              src="https://tinyurl.com/bdpuxbbv"
-              alt=""
-            />
-            <div class="trending-news--text">
-              <h3>
-                Đề xuất luật hóa về mã vạch để truy xuất nguồn gốc sản phẩm
-              </h3>
-              <p>
-                Bộ Khoa học và Công nghệ đề xuất luật hóa quy định mã vạch để
-                ứng dụng công nghệ trong truy xuất sản phẩm hàng hóa và phù hợp
-                quy định quốc tế.
-              </p>
-            </div>
-          </a>
-        </div>
-
-        <a class="trending-news--layout2" href="#">
-          <h2>
-            Cảnh đổ nát sau vụ tiêm kích Hàn Quốc thả bom nhầm mục tiêu
-          </h2>
-        </a>
-      </div>
-
-      <div class="slider">
-        <div class="slides">
-          <a class="slide active" href="">
-            <img src="https://tinyurl.com/4bnynyyu" alt="Thời sự" />
-            <div class="overlay">
-              <span class="category">Thời sự</span>
-              <h2>Quản lý chặt chẽ tài sản, trụ sở cơ quan sau sắp xếp</h2>
-              <p class="desc">
-                Thường trực Ban Bí thư Trần Cẩm Tú yêu cầu quản lý chặt chẽ tài
-                chính, tài sản, trụ sở của cơ quan, đơn vị sau sắp xếp tổ chức
-                bộ máy.
-              </p>
-            </div>
-          </a>
-          <!-- Thêm các slide khác -->
-          <a class="slide" href="">
-            <img src="https://tinyurl.com/2u9rma6n" alt="Công nghệ" />
-            <div class="overlay">
-              <span class="category">Công nghệ</span>
-              <h2>Oppo Find N5 - điện thoại 'gập mà như thanh</h2>
-              <p class="desc">
-                Find N5 có pin tốt, thiết kế mỏng nhẹ, màn hình ngoài lớn giúp
-                trải nghiệm sử dụng như với điện thoại thanh thông thường.
-              </p>
-            </div>
-          </a>
-          <a class="slide" href="">
-            <img src="https://tinyurl.com/mtvxdyk6" alt="Kinh doanh" />
-            <div class="overlay">
-              <span class="category">Kinh doanh</span>
-              <h2>
-                Tổng thống Mỹ ký sắc lệnh lập Kho dự trữ Bitcoin chiến lược
-              </h2>
-              <p class="desc">
-                Cố vấn AI và tiền số Nhà Trắng David Sacks cho biết Tổng thống
-                Mỹ Donald Trump vừa ký sắc lệnh thành lập Kho dự trữ Bitcoin
-                chiến lược.
-              </p>
-            </div>
-          </a>
-          <a class="slide" href="">
-            <img src="https://tinyurl.com/mr2kkdcf" alt="Sức khỏe" />
-            <div class="overlay">
-              <span class="category">Sức khỏe</span>
-              <h2>Hay gặp ác mộng có phải mắc bệnh thần kinh?</h2>
-              <p class="desc">
-                Tôi thường gặp ác mộng, tỉnh dậy mệt mỏi, tim đập nhanh, có hôm
-                còn hét giữa đêm. Tôi có đang mắc bệnh thần kinh không?
-              </p>
-            </div>
-          </a>
-          <a class="slide" href="">
-            <img src="https://tinyurl.com/4k6naawj" alt="Thể thao" />
-            <div class="overlay">
-              <span class="category">Thể thao</span>
-              <h2>Amorim: 'Man Utd mất kiểm soát sau phạt đền của Sociedad'</h2>
-              <p class="desc">
-                Theo HLV Ruben Amorim, Man Utd sa sút thể lực và mất kiểm soát
-                sau khi nhận phạt đền, trong trận hòa Sociedad 1-1 ở lượt đi
-                vòng 1/8 Europa League.
-              </p>
-            </div>
-          </a>
-          <a class="slide" href="">
-            <img src="https://tinyurl.com/m8ycw3zz" alt="Giải trí" />
-            <div class="overlay">
-              <span class="category">Giải trí</span>
-              <h2>Hòa Minzy đưa người thôn Lạc Xá đi diễn</h2>
-              <p class="desc">
-                Hòa Minzy đưa gần 20 người thôn Lạc Xá, Bắc Ninh, trong đó có
-                nhiều cụ bà, lên sân khấu diễn live "Bắc Bling".
-              </p>
-            </div>
-          </a>
-        </div>
-        <div class="pagination-container">
-          <button class="prev">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-          </button>
-          <div class="pagination"></div>
-          <button class="next">
-            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="recent-news--title">Tin tức gần đây</div>
-      <div class="recent-news">
-        <a class="recent-news--layout1" href="#">
-          <h2>
-            Thiết bị 5G Việt Nam lần đầu dùng cho mạng nước ngoài
-          </h2>
-        </a>
-
-        <div class="recent-news--layout2">
-          <a class="recent-news--content" href="#">
-            <img
-              class="recent-news--img"
-              src="https://tinyurl.com/bddw39dr"
-              alt=""
-            />
-            <div class="recent-news--text">
-              <h3>
-                Cảnh sát đột kích 2 sòng bạc lớn do người Trung Quốc cầm đầu
-              </h3>
-            </div>
-          </a>
-
-          <a class="recent-news--content" href="#">
-            <img
-              class="recent-news--img"
-              src="https://tinyurl.com/bdvzrbxw"
-              alt=""
-            />
-            <div class="recent-news--text">
-              <h3>
-                Gần 200 người bị triệu tập đến phiên xử 'đại gia cát miền Tây'
-              </h3>
-            </div>
-          </a>
-
-          <a class="recent-news--content" href="#">
-            <img
-              class="recent-news--img"
-              src="https://tinyurl.com/525p7yw5"
-              alt=""
-            />
-            <div class="recent-news--text">
-              <h3>Giám đốc Sở Y tế Bạc Liêu bị khởi tố</h3>
-            </div>
-          </a>
-          <button>
-            Xem thêm <i class="fa fa-arrow-right" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="article-title">Bạn có thể thích</div>
-      <div class="article">
-        <a class="article-content" href="#">
-          <img class="article-img" src="https://tinyurl.com/bddw39dr" alt="" />
-          <div class="article-text">
-            <h3>
-              Cảnh sát đột kích 2 sòng bạc lớn do người Trung Quốc cầm đầu
-            </h3>
           </div>
-        </a>
-
-        <a class="article-content" href="#">
-          <img class="article-img" src="https://tinyurl.com/bdvzrbxw" alt="" />
-          <div class="article-text">
-            <h3>
-              Gần 200 người bị triệu tập đến phiên xử 'đại gia cát miền Tây'
-            </h3>
+  
+          <!-- News item 1 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item" >
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                  <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+              </div>
           </div>
-        </a>
-
-        <a class="article-content" href="#">
-          <img class="article-img" src="https://tinyurl.com/525p7yw5" alt="" />
-          <div class="article-text">
-            <h3>Giám đốc Sở Y tế Bạc Liêu bị khởi tố</h3>
+  
+          <!-- News item 2 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item">
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                  <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+              </div>
           </div>
-        </a>
       </div>
-    </div>    
+
+      <!-- 2 -->
+      <div class="row">
+          <!-- News item 1 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item" >
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                  <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+              </div>
+          </div>
+  
+          <!-- News item 2 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item">
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                  <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+              </div>
+          </div>
+
+          <!-- News item 3 (50%) -->
+          <div class="col-12 col-lg-6 mb-3">
+              <div class="slider-1">
+                  <div class="slides-1">
+                      <!-- Slide 1 -->
+                      <div class="slide-1">
+                          <img src="https://tinyurl.com/mj43wd87" >
+                          <div class="caption">
+                              <h2>Sự trùng hợp trong lần Park Bo Gum đóng chồng của IU</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container">
+      <!-- 1 -->
+      <div class="row">
+          <!-- Slider (50%) -->
+          <div class="col-12 col-lg-6 mb-3">
+              <div class="slider-1">
+                  <div class="slides-1">
+                      <!-- Slide 1 -->
+                      <div class="slide-1">
+                          <img src="https://tinyurl.com/3jnk26hx" alt="Slide 1">
+                          <div class="caption">
+                              <h2>Khám phá chấn động về oxy gây chia rẽ giới khoa học</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- News item 1 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item" >
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                  <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+              </div>
+          </div>
+  
+          <!-- News item 2 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item">
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                  <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="row">
+          <!-- News item 1 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item" >
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                  <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+              </div>
+          </div>
+  
+          <!-- News item 2 (25%) -->
+          <div class="col-12 col-lg-3 mb-3">
+              <div class="news-item">
+                  <img src="https://tinyurl.com/2efpkp46" alt="">
+                  <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                  <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+              </div>
+          </div>
+
+          <!-- News item 3 (50%) -->
+          <div class="col-12 col-lg-6 mb-3">
+              <div class="slider">
+                  <div class="slides">
+                      <!-- Slide 1 -->
+                      <div class="slide">
+                          <img src="https://tinyurl.com/2h5p6bja" alt="Slide 1">
+                          <div class="caption">
+                              <h2>Gen Z tìm về những thú chơi thời ông bà</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script src="trangchu.js"></script>
+    </div>   
     <!-- end: body -->
 
     <!-- start: footer -->
     <!-- footer -->
     <footer class="footer">
       <div class="main-content">
-        <div class="row">
-          <!-- column1 -->
-          <div class="column">
-            <img src="/the-outsider/assets/img/logo.jpg" alt="The Outsider" class="logo">
-            <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
-              <div class="social">
-                <a href="">
-                  <i class="fa-brands fa-facebook"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-x-twitter"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-linkedin"></i>
-                </a>
-              </div>
-          </div>
-          <!-- column 2 -->
-          <div class="column">
-            <h3 class="title">Về chúng tôi</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Tầm nhìn</a>
-              </li>
-              <li>
-                <a href="#!">Sứ mệnh</a>
-              </li>
-              <li>
-                <a href="#!">Mục tiêu</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 3 -->
-          <div class="column">
-            <h3 class="title">Hợp pháp</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Chính sách bảo mật</a>
-              </li>
-              <li>
-                <a href="#!">Điều khoản sử dụng</a>
-              </li>
-              <li>
-                <a href="#!">Tùy chọn quảng cáo</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 4 -->
-          <div class="column">
-            <h3 class="title">Liên hệ</h3>
-            <ul class="list">
-              <li>
-                <a href="#!"><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a>
-              </li>
-              <li>
-                <a href="#!"><strong>Email:</strong> email@gmail.com</a>
-              </li>
-              <li>
-                <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="copyright">
-          <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
-      </div>
-     </footer>
-    <!-- end: footer -->
-    <script src="trangchu.js"></script>
-    <script src="/the-outsider/script.js"></script>
-  </body>
-</html>
+=======
+    </header>
 
+      <div class="container">
+        <!-- 1 -->
+>>>>>>> f6b4d6be1cc0f78e71e1237a57dcf9108079f8f7
+        <div class="row">
+            <!-- Slider (50%) -->
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="slider">
+                    <div class="slides">
+                        <!-- Slide 1 -->
+                        <div class="slide">
+                            <img src="https://tinyurl.com/n2cu6ym5" alt="Slide 1">
+                            <div class="caption">
+                                <h2>Livestream lùm xùm Kim Soo Hyun ngày 5: Mẹ Kim Sae Ron lo sợ nam diễn viên có lựa chọn cực đoan, đọc tâm thư tha thiết 1 nguyện vọng</h2>
+                            </div>
+                        </div>
+                
+                        <!-- Slide 2 -->
+                        <div class="slide">
+                            <img src="https://tinyurl.com/56dhxc6h" alt="Slide 2">
+                            <div class="caption">
+                                <h2>Lập biên bản vụ Quang Linh, Hằng Du Mục tổ chức gặp mặt báo chí khi chưa được phép</h2>
+                            </div>
+                        </div>
+                
+                        <!-- Slide 3 -->
+                        <div class="slide">
+                            <img src="https://tinyurl.com/2efpkp46" alt="Slide 3">
+                            <div class="caption">
+                                <h2>Prada chính thức tạm biệt Kim Soo Hyun nhưng vẫn còn 1 hành động vương vấn</h2>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Nút điều hướng -->
+                    <button class="prev" onclick="moveSlide(-1)">❮</button>
+                    <button class="next" onclick="moveSlide(1)">❯</button>
+                
+                    <!-- Thanh trượt dot -->
+                    <div class="dots">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- News item 1 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item" >
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                    <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+                </div>
+            </div>
+    
+            <!-- News item 2 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item">
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                    <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="row">
+            <!-- News item 1 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item" >
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                    <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+                </div>
+            </div>
+    
+            <!-- News item 2 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item">
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                    <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+                </div>
+            </div>
+
+            <!-- News item 3 (50%) -->
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="slider-1">
+                    <div class="slides-1">
+                        <!-- Slide 1 -->
+                        <div class="slide-1">
+                            <img src="https://tinyurl.com/mj43wd87" >
+                            <div class="caption">
+                                <h2>Sự trùng hợp trong lần Park Bo Gum đóng chồng của IU</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 1 -->
+        <div class="row">
+            <!-- Slider (50%) -->
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="slider-1">
+                    <div class="slides-1">
+                        <!-- Slide 1 -->
+                        <div class="slide-1">
+                            <img src="https://tinyurl.com/3jnk26hx" alt="Slide 1">
+                            <div class="caption">
+                                <h2>Khám phá chấn động về oxy gây chia rẽ giới khoa học</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- News item 1 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item" >
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                    <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+                </div>
+            </div>
+    
+            <!-- News item 2 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item">
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                    <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="row">
+            <!-- News item 1 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item" >
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Hằng Du Mục bán sản phẩm của ông trùm livestream bị "phong sát" ở Trung Quốc?</h2>
+                    <p>Khi câu chuyện về những viên kẹo rau củ chưa có dấu hiệu hạ nhiệt thì mới đây mạng xã hội lan truyền video của một TikToker người Việt Nam hiện sinh sống tại Trung Quốc, đặt ra nghi vấn về chất lượng của sản phẩm mì ăn liền từng được Hằng Du Mục quảng cáo trên sóng livestream.</p>
+                </div>
+            </div>
+    
+            <!-- News item 2 (25%) -->
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="news-item">
+                    <img src="https://tinyurl.com/2efpkp46" alt="">
+                    <h2>Biến chồng biến: "Tổng tài" When the Phone Rings bị điều tra</h2>
+                    <p>Ồn ào đời tư của Kim Soo Hyun còn chưa kịp lắng, showbiz Hàn Quốc đã xảy ra bê bối khác có liên quan đến cáo buộc vi phạm pháp luật của nam nghệ sĩ này.</p>
+                </div>
+            </div>
+
+            <!-- News item 3 (50%) -->
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="slider">
+                    <div class="slides">
+                        <!-- Slide 1 -->
+                        <div class="slide">
+                            <img src="https://tinyurl.com/2h5p6bja" alt="Slide 1">
+                            <div class="caption">
+                                <h2>Gen Z tìm về những thú chơi thời ông bà</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="trangchu.js"></script>
+    <script src="../the-outsider/script.js"></script>
+</body>
+</html>
