@@ -216,7 +216,7 @@ body {
   left: 5%;
   display: flex;
   width: 88%;
-  height: 55vh;
+  height: 70vh;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -509,7 +509,7 @@ body {
 }
 .main .main-container-body .main-topic .l-main .second-article {
   width: 98%;
-  height: 50vh;
+  height: 48vh;
   display: flex;
   justify-content: flex-start;
   border-bottom: 0.1rem solid #b8c2ce;
@@ -619,7 +619,7 @@ body {
 .main .main-container-body .r-main .r-list .first {
   margin-bottom: 5%;
   border-bottom: 0.1rem solid #b8c2ce;
-  height: 47%;
+  height: 43%;
 }
 .main .main-container-body .r-main .r-list .first .first-image {
   width: 100%;
