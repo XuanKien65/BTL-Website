@@ -20,7 +20,7 @@ a {
   color: var(--primary-color);
 }
 :root {
-  --heading-color: #325172;
+  --heading-color: #c22b2b;
   --primary-color: #000;
   --font-heading: "Merriweather", "serif";
 }
