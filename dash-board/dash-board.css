@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+.wrapper{
+    display: flex;
+    height: 100vh;
+    /* flex-direction: column; */
+}
+
+.main{
+    min-width: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background-color: #fafbfe;
+}
+
+#sidebar .d-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.sidebar-nav{
+    list-style: none;
+    margin-top: 5rem;
+}
+
+
+#sidebar{
+    width: 70px;
+    min-width: 70px;
+    z-index: 1000;
+    transition: all .25s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #c22b2b;
+    box-shadow: 5px 5px 15px rgba(249, 211, 35, 2);
+    
+}
+
+#sidebar.expand{
+    width: 260px;
+    min-width: 260px;
+}
+
+#toggle-btn{
+    width: 100%;
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem 1.5rem;
+    align-items: center;
+}
+
+#toggle-btn img{
+    width: 120%;
+    display: block;
+    margin: 0 auto;
+}
+
+
+#sidebar:not(.expand) a.sidebar-link span:last-child {
+    display: none; 
+}
+#sidebar:not(.expand) .sidebar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+}
+
+#sidebar:not(.expand) .sidebar-logo a {
+    display: none;
+}
+
+
+.sidebar-nav{
+    height: fit-content;
+    padding: 2rem 0;
+    flex: 1 1 auto;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+a.sidebar-link{
+    padding: .625rem 1.625rem;
+    color: #FFF;
+    display: flex;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    /* border-left: 3px solid transparent; */
+    text-decoration: none;
+    align-items: center; 
+}
+
+.sidebar-link .material-icons{
+    font-size: 1.1rem;
+    margin-right: 1rem;
+}
+
+a.sidebar-link:hover{
+    background-color: rgba(255,255,255, .075);
+    border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item{
+    position: relative;
+}
+
+#sidebar .sidebar-footer{
+    position: relative;
+    bottom: 5%;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown{
+    position: absolute;
+    top: 0;
+    /* left: 70px; */
+    background-color: #0e2238;
+    padding: 0;
+    min-width: 15rem;
+    display:none;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown{
+    display: block;
+    max-height: 15em;
+    left: 100%;
+    width: 80%;
+    opacity: 1;
+    /* transition: all 0.3s ease-in-out; */
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after{
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.2rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after{
+   transform: rotate(45deg);
+   transition: all .2s ease-out;
+   position: absolute;
+   right: 1.5rem;
+   top: 1.2rem;
+}
+
+.main nav{
+    margin: 0;
+    background-color: #f9d232;
+    border-bottom: 0.5px solid #FFF;
+}
+.container-fluid {
+    border: 2px solid black;
+    border-radius: 4rem;
+    width: 20%;
+    margin-left: 3rem; 
+    padding-left: 10px;
+}
+
+.container-fluid .d-flex{
+    width: 100%;
+    justify-content: flex-start;
+}
+.container-fluid .d-flex .material-icons{
+    padding-right: 5px;
+}
+
+
+.container-fluid .d-flex form{
+    width: 100%;
+    border: none;
+    background-color: #f9d232;
+}
+.container-fluid .d-flex form input{
+    width: 100%;
+    border: none;
+    background-color: #f9d232;
+}
+input::placeholder {
+    color: black;  /* Thay đổi thành màu bạn muốn */
+    opacity: 1;    /* Đảm bảo hiển thị rõ */
+}
+
+input:focus {
+    border: none; /* Đảm bảo border không bị mất khi focus */
+    outline: none; /* Đảm bảo không có viền xanh mặc định */
+}
+
+input:focus::placeholder {
+    display: none;
+}
+
+.main .navbar #user{
+    margin-right: 3rem;
+}
+
+
+/* Styling for the cards */
+.card {
+    display: flex;
+    justify-content: center;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lift the card slightly on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
+
+/* Styling for the card titles */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Styling for the card numbers */
+.card h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Styling for the links inside the cards */
+.card a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: #0e2238; 
+    transition: color 0.2s ease-in-out;
+}
+
+.card a:hover {
+    color: #3b7ddd; /* Darker shade of blue on hover */
+}
+
+.container{
+    padding: 0;
+    margin: 0;
+    width: 98%;
+    max-width: none;
+    margin-left: 2%;
+}
+
+.container .row .card .card-body h5{
+    margin: 0 !important;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+} 
+.container .row .card .card-body h3{
+    margin: 5px 0 0 0;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 400;
+} 
+
+.card-footer{   
+    width: 95%;
+    background-color: #FFF;
+    /* border: none; */
+}
+
