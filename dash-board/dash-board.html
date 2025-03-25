@@ -123,47 +123,115 @@
                             </div>
                             <div class="card-footer d-flex align-items-center">
                                 <span class="material-icons" style="font-size: 1.5rem;">info</span>
-                                <a href="#">See Detailed Report</a>
+                                <a href="#">Xem báo cáo chi tiết</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Column 2 -->
-                    <div class="col-md-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <span class="material-icons text-danger" style="font-size: 2rem;">shopping_cart</span>
-                                <h5 class="card-title mt-2">Orders</h5>
-                                <h3>102</h3>
-                                <a href="#" class="text-primary">Product-Wise Sales</a>
+                    <div class="col-md-3 height-fit-content">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
+                                <span class="material-icons text-success" style="font-size: 5rem;">bar_chart</span>
+                                <div class="card-text">    
+                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h3>70,340</h3>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                                <span class="material-icons" style="font-size: 1.5rem;">info</span>
+                                <a href="#">Xem báo cáo chi tiết</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Column 3 -->
-                    <div class="col-md-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <span class="material-icons text-success" style="font-size: 2rem;">attach_money</span>
-                                <h5 class="card-title mt-2">Revenue</h5>
-                                <h3>$23,100</h3>
-                                <a href="#" class="text-primary">Weekly Sales</a>
+                    <div class="col-md-3 height-fit-content">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
+                                <span class="material-icons text-danger" style="font-size: 5rem;">bar_chart</span>
+                                <div class="card-text">    
+                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h3>70,340</h3>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                                <span class="material-icons" style="font-size: 1.5rem;">info</span>
+                                <a href="#">Xem báo cáo chi tiết</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Column 4 -->
-                    <div class="col-md-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <span class="material-icons text-info" style="font-size: 2rem;">group</span>
-                                <h5 class="card-title mt-2">Followers</h5>
-                                <h3>+245</h3>
-                                <a href="#" class="text-primary">Just Updated</a>
+                    <div class="col-md-3 height-fit-content">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
+                                <span class="material-icons text-info" style="font-size: 5rem;">bar_chart</span>
+                                <div class="card-text">    
+                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h3>70,340</h3>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex align-items-center">
+                                <span class="material-icons" style="font-size: 1.5rem;">info</span>
+                                <a href="#">Xem báo cáo chi tiết</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="main-content">
+                <div class="col-lg-7 col-md-12">
+                    <canvas id = "chart">
+                        
+                    </canvas>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <div class="card" style="min-height: 485px">
+                        <div class="card-header card-header-text min-height-485">
+                            <h4 class="card-title">Activities</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="streamline">
+                                <div class="sl-item sl-primary">
+                                    <div class="sl-content">
+                                        <small class="text-muted">5 mins ago</small>
+                                        <p>Williams has just joined Project X</p>
+                                    </div>
+                                </div>
+                                <div class="sl-item sl-danger">
+                                    <div class="sl-content">
+                                        <small class="text-muted">25 mins ago</small>
+                                        <p>Jane has sent a request for access to the project folder</p>
+                                    </div>
+                                </div>
+                                <div class="sl-item sl-success">
+                                    <div class="sl-content">
+                                        <small class="text-muted">40 mins ago</small>
+                                        <p>Kate added you to her team</p>
+                                    </div>
+                                </div>
+                                <div class="sl-item">
+                                    <div class="sl-content">
+                                        <small class="text-muted">45 minutes ago</small>
+                                        <p>John has finished his task</p>
+                                    </div>
+                                </div>
+                                <div class="sl-item sl-warning">
+                                    <div class="sl-content">
+                                        <small class="text-muted">55 mins ago</small>
+                                        <p>Jim shared a folder with you</p>
+                                    </div>
+                                </div>
+                                <div class="sl-item">
+                                    <div class="sl-content">
+                                        <small class="text-muted">60 minutes ago</small>
+                                        <p>John has finished his task</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
-        <script src="script.js"></script>
 </body>
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </html>

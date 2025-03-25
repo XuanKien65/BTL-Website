@@ -208,8 +208,8 @@ input:focus::placeholder {
 
 /* Styling for the cards */
 .card {
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
     border-radius: 10px; /* Rounded corners */
@@ -218,7 +218,7 @@ input:focus::placeholder {
 
 .card:hover {
     transform: translateY(-5px); /* Lift the card slightly on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
 }
 
 /* Styling for the card titles */
@@ -271,6 +271,99 @@ input:focus::placeholder {
 .card-footer{   
     width: 95%;
     background-color: #FFF;
+    margin-left: 10px;
     /* border: none; */
 }
 
+.card-footer a{
+    margin-left: 5px;
+}
+
+.main-content{
+    width: 96.75%;
+    max-width: none;
+    margin: 3% 2% 0 2%;
+    display: flex;
+    flex-direction: row;
+    /* gap: 2%; */
+    /* justify-content: space-between; */
+}
+
+.card .card-content {
+    padding: 15px 20px;
+    position: relative;
+}
+
+.streamline .sl-primary {
+    border-left-color: #188ae2;
+}
+
+.streamline .sl-item {
+    position: relative;
+    padding-bottom: 12px;
+    border-left: 1px solid #ccc;
+}
+
+
+
+.streamline .sl-item:before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0;
+    background-color: #ccc;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+}
+.streamline .sl-primary:before, .streamline .sl-primary:last-child:after {
+    background-color: #188ae2;
+}
+
+
+.streamline .sl-danger:before, .streamline .sl-danger:last-child:after {
+    background-color: #ff5b5b;
+}
+
+.streamline .sl-success {
+    border-left-color: #10c469;
+}
+
+.streamline .sl-success:before, .streamline .sl-success:last-child:after {
+    background-color: #10c469;
+}
+
+.streamline .sl-warning {
+    border-left-color: #f9c851;
+}
+
+.streamline .sl-warning:before, .streamline .sl-warning:last-child:after {
+    background-color: #f9c851;
+}
+
+
+
+.streamline .sl-danger {
+    border-left-color: #ff5b5b;
+}
+.streamline .sl-item .sl-content {
+    margin-left: 24px;
+}
+
+.streamline .sl-item .text-muted {
+    color: inherit;
+    opacity: .6;
+	font-size:12px;
+}
+
+.streamline .sl-item p {
+	font-size:14px;
+	color:#333;
+}
+
+.main-content .col-lg-7 canvas {
+    /* border: 1px solid #0e2238; */
+    width: 97% !important;
+    height: 485px !important;
+    flex: 1;
+}
