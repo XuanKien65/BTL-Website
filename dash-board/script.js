@@ -38,7 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 devicePixelRatio: 2, // Tăng chất lượng hiển thị
                 plugins: {
                 legend: {
+                    position: 'top',
                     labels: {
+                        boxWidth: 15,  // 🔹 Giảm kích thước ô màu
+                        padding: 10,
                         font: {
                             size: 16, // Tăng kích thước chữ
                             weight: 'bold'
