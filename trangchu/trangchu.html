@@ -4,14 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- reset css -->
-    <link rel="stylesheet" href="../the-outsider/assets/css/reset.css" />
-    <!-- responsive -->
-    <link rel="stylesheet" href="../the-outsider/assets/css/responsive.css" />   
-    <!-- Swiper.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/the-outsider/assets/css/reset.css" />
     <!-- style -->
     <link rel="stylesheet" href="trangchu.css" />
-    <link rel="stylesheet" href="trangchuresponsive.css">   
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,8 +17,10 @@
     <!-- font awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
+        <!-- responsive -->
+        <link rel="stylesheet" href="responsive.css">
     <title>The Outsider</title>
   </head>
   <body >
@@ -31,7 +28,7 @@
     <header class="header fixed">
       <div class="header banner">
         <img
-          src="https://scontent.fhan5-6.fna.fbcdn.net/v/t1.15752-9/486024928_3821320521513398_7113828699233009977_n.png?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=w1b0MvvIVtkQ7kNvgEUq9D_&_nc_oc=AdmjCPDHABCMXnmqL9pfVjiTH2dPM4Qd0YPoyicJe0W4hqEgULGVqGoqmLyRasQpXvvcUTOcrPa_f-bv4nvImrMD&_nc_zt=23&_nc_ht=scontent.fhan5-6.fna&oh=03_Q7cD1wGGdVKtbfS48hB4uzNfCjzQ1lhJrbM1iRcNu6celDKw8g&oe=680A38C5"
+          src="/the-outsider/assets/img/banner.jpg"
           alt="the outsider"
           class="banner-logo"
         />
@@ -43,7 +40,7 @@
     <nav class="nav">
       <div id="backtohome">
         <a href="#">
-          <img class="logo" src="../the-outsider/assets/img/Giờ outsider.png" alt="" />
+          <img class="logo" src="/the-outsider/assets/img/logo.jpg" alt="" />
         </a>
       </div>
       <a href="#" class="home"><i class="fa-solid fa-house"></i></a>
@@ -105,13 +102,12 @@
       <div class="register">
         <div class="search">
           <input type="text" placeholder="Tìm kiếm...">
-          <a href="../beo-dan/search2.html">
+          <a href="/beo-dan/search2.html">
             <i class="fa-solid fa-magnifying-glass">
               </i>
-              </a>
-          </i>
+          </a>
         </div>
-        <a href="../login/login_ver2.html" class="dn-text"><i class="fa-solid fa-user"></i>Đăng nhập</a>
+        <a href="/login/login_ver2.html" class="dn-text"><i class="fa-solid fa-user"></i>Đăng nhập</a>
         <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
       </div>
     </nav>
@@ -121,99 +117,37 @@
       <!-- Tin hôm nay -->
       <div class="today-news">
         <!-- cho tạm vào bài viết này -->
-        <div class="todaybignews">
-          <div class="todaybignews-layout2">
-            <a class="todaybignews-layout2--link" href="../the-outsider/index.html">
-              <img src="https://tinyurl.com/hw8pehe4" alt="">
-              <div class="todaybignews-layout2--content">
-                <h1>Khi cuộc đời cho bạn quả quýt: Một vòng lặp của những người phụ nữ Hàn Quốc mang theo vết thương từ thế hệ trước</h1>
-              </div>
-            </a>
-            <a class="todaybignews-layout2--link" href="../the-outsider/index.html">
-              <img src="https://tinyurl.com/hw8pehe4" alt="">
-              <div class="todaybignews-layout2--content">
-                <h1>Khi cuộc đời cho bạn quả quýt: Một vòng lặp của những người phụ nữ Hàn Quốc mang theo vết thương từ thế hệ trước</h1>
-              </div>
-            </a>
+        <a class="todaybignews" href="/the-outsider/index.html">
+          <div class="todaybignews-content">
+            <p>
+              Chủ mưu vụ lũng đoạn đấu giá đất 30 tỷ đồng một m2 bị tuyên 3 năm tù
+            </p>
           </div>
-          <a class="todaybignews-layout1" href="../the-outsider/index.html">
-            <img src="https://tinyurl.com/hw8pehe4" alt="">
-            <div class="todaybignews-layout1--content">
-              <h1>Khi cuộc đời cho bạn quả quýt: Một vòng lặp của những người phụ nữ Hàn Quốc mang theo vết thương từ thế hệ trước</h1>
+        </a>
+        <div class="todaysmallnews">
+          <div class="title">Hôm nay</div>
+          <a class="todaysmallnews-content--layout1" href="">
+              <div class="content">
+                <p>
+                  Đề xuất lập đơn vị hành chính mới: 'Nội đô' tại Hà Nội, TP HCM
+                </p>
+              </div>
+          </a>
+          <a class="todaysmallnews-content--layout2" href="">
+            <div class="content">
               <p>
-                When Life Gives You Tangerines - Khi cuộc đời cho bạn quả quýt, không chỉ là bộ phim về cuộc đời của một cặp đôi mà ẩn sau đó còn là cả những câu chuyện về nhiều thế hệ phụ nữ Hàn Quốc.
+                Quả Bóng Vàng Thùy Trang: 'Tôi chưa hết thời'
               </p>
             </div>
           </a>
-          <div class="todaybignews-layout2">
-            <a class="todaybignews-layout2--link" href="../the-outsider/index.html">
-              <img src="https://tinyurl.com/hw8pehe4" alt="">
-              <div class="todaybignews-layout2--content">
-                <h1>Khi cuộc đời cho bạn quả quýt: Một vòng lặp của những người phụ nữ Hàn Quốc mang theo vết thương từ thế hệ trước</h1>
-              </div>
-            </a>
-            <a class="todaybignews-layout2--link" href="../the-outsider/index.html">
-              <img src="https://tinyurl.com/hw8pehe4" alt="">
-              <div class="todaybignews-layout2--content">
-                <h1>Khi cuộc đời cho bạn quả quýt: Một vòng lặp của những người phụ nữ Hàn Quốc mang theo vết thương từ thế hệ trước</h1>
-              </div>
-            </a>
-          </div>
         </div>
       </div>
 
-      <!-- Tin nhỏ -->
-       <div class="smallnews">
-        <a class="smallnews-content" href="#">
-          <img
-            class="smallnews-img"
-            src="https://tinyurl.com/5n7c3k6c"
-            alt=""
-          />
-          <div class="smallnews-text">
-            <h3>Phim ảnh</h3>
-            <p>
-              Mỹ nhân thời Tần đẹp nhất Trung Quốc hiện tại: Nhan sắc ma mị ngắm hoài không chán
-            </p>
-          </div>
-        </a>
-
-        <div class="small-line"></div>
-
-        <a class="smallnews-content" href="#">
-          <img
-            class="smallnews-img"
-            src="https://tinyurl.com/5n7c3k6c"
-            alt=""
-          />
-          <div class="smallnews-text">
-            <h3>Diễn viên</h3>
-            <p>
-              Mỹ nhân thời Tần đẹp nhất Trung Quốc hiện tại: Nhan sắc ma mị ngắm hoài không chán
-            </p>
-          </div>
-        </a>
-
-        <div class="small-line"></div>
-
-        <a class="smallnews-content" href="#">
-          <img
-            class="smallnews-img"
-            src="https://tinyurl.com/5n7c3k6c"
-            alt=""
-          />
-          <div class="smallnews-text">
-            <h3>Âm nhạc</h3>
-            <p>
-              Mỹ nhân thời Tần đẹp nhất Trung Quốc hiện tại: Nhan sắc ma mị ngắm hoài không chán
-            </p>
-          </div>
-        </a>
-       </div>
-
-      <!-- Tin trong ngày -->
-      <div class="topic">Tin tức trong ngày</div>
+      <!-- Tin nóng -->
       <div class="trending-news">
+        <div class="trending-news--layout1">
+          <div class="trending-news--title">Tin Nóng</div>
+
           <a class="trending-news--content" href="#">
             <img
               class="trending-news--img"
@@ -261,1346 +195,21 @@
               </p>
             </div>
           </a>
-
-          <a class="trending-news--content" href="#">
-            <img
-              class="trending-news--img"
-              src="https://tinyurl.com/ytvvdpv4"
-              alt=""
-            />
-            <div class="trending-news--text">
-              <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-              <p>
-                Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua
-                đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.
-              </p>
-            </div>
-          </a>
-
-          <a class="trending-news--content" href="#">
-            <img
-              class="trending-news--img"
-              src="https://tinyurl.com/ytvvdpv4"
-              alt=""
-            />
-            <div class="trending-news--text">
-              <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-              <p>
-                Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua
-                đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.
-              </p>
-            </div>
-          </a>
-      </div> 
-
-      <!-- Tin theo chủ đề -->
-       <div class="topic">Tin theo chủ đề</div>
-       <!-- container 1 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Phim ảnh</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+
+        <a class="trending-news--layout2" href="#">
+          <h2>
+            Cảnh đổ nát sau vụ tiêm kích Hàn Quốc thả bom nhầm mục tiêu
+          </h2>
+        </a>
       </div>
 
-        <!-- read more -->
-        <ul class="readmore-container">
-          <li><span>Đọc thêm</span></li>
-        </ul>
-
-      <!-- container 2 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Âm nhạc</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- ĐỌC THÊM -->
-        <ul class="readmore-container">
-          <li><span>Đọc thêm</span></li>
-        </ul>
-
-      <!-- container 3 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Beauty & Fashion</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-          <!-- ĐỌC THÊM -->
-          <ul class="readmore-container">
-            <li><span >Đọc thêm</span></li>
-          </ul>
-
-      <!-- container 4 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Đời sống</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- ĐỌC THÊM -->
-        <ul class="readmore-container">
-          <li><span>Đọc thêm</span></li>
-        </ul>
-
-      <!-- container 5 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Xã hội</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- ĐỌC THÊM -->
-        <ul class="readmore-container">
-          <li><span>Đọc thêm</span></li>
-        </ul>
-
-      <!-- container 6 -->
-      <div class="container">
-        <div class="grid">
-          <div class="grid_row app_content">
-            <div class="grid_column12">
-              <div class="news-header">
-                <h2 class="news-heading">Sức khỏe</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-anh">Phim ảnh</a>
-                  <a href="#" data-category="am-nhac">Âm nhạc</a>
-                  <a href="#" data-category="beauty-fashion">Beauty & Fashion</a>
-                  <a href="#" data-category="doi-song">Đời sống</a>
-                  <a href="#" data-category="xa-hoi">Xã hội</a>
-                  <a href="#" data-category="suc-khoe">Sức khỏe</a>
-                </div>                
-              </div>
-
-              <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a class="grid__column-2" href="#" data-category="phim-anh">
-                    <div class="news-home-item">
-                      <div class="news-home-item--img"
-                        style="background-image: url(https://tinyurl.com/ms6p2r93);"
-                      ></div>
-                      <h4 class="news-home-item--name">
-                        Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi vào thứ mấy?
-                      </h4>
-                      <span class="news-home-item--content">
-                        Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp 30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường nên công chức, người lao động được nghỉ liền kề, hoán đổi để có kỳ nghỉ dài 3-5 ngày.
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <!-- ĐỌC THÊM -->
-        <ul class="readmore-container">
-          <li><span>Đọc thêm</span></li>
-        </ul>
-
-      <!-- Bạn có thể thích -->
-      <div class="news-slider-container">
-        <div class="topic">Bạn có thể thích</div>
-        <div class="swiper news-slider">
-          <div class="swiper-wrapper">
-            <!-- Bài viết 1 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 2 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 3 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 4 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 5 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 6 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 7 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 8 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 9 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-            <!-- Bài viết 10 -->
-            <div class="swiper-slide">
-              <a href="#">
-                <div class="swiper-news-item">
-                  <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
-                  <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
-                </div>
-              </a>
-            </div>
-          </div>
-          <!-- Nút điều hướng -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-      
-      <!-- Tin khác -->
-       <div class="tinkhac">
-        <div class="tinkhac1">
-          <div class="highlighted-articles">
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/2b27jeef" alt="news image">
-              <div class="article-text">
-                <h3>Giá xăng RON 95 xuống dưới 20.500 đồng</h3>
-                <p>Giá xăng, dầu cùng giảm 460-760 đồng một lít từ 15h hôm nay, sau điều chỉnh của liên Bộ Công Thương - Tài chính.</p>
-              </div>
-            </a>
-          
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/ytvvdpv4" alt="news image">
-              <div class="article-text">
-                <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-                <p>Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.</p>
-              </div>
-            </a>
-
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/2b27jeef" alt="news image">
-              <div class="article-text">
-                <h3>Giá xăng RON 95 xuống dưới 20.500 đồng</h3>
-                <p>Giá xăng, dầu cùng giảm 460-760 đồng một lít từ 15h hôm nay, sau điều chỉnh của liên Bộ Công Thương - Tài chính.</p>
-              </div>
-            </a>
-          
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/ytvvdpv4" alt="news image">
-              <div class="article-text">
-                <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-                <p>Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.</p>
-              </div>
-            </a>
-
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/2b27jeef" alt="news image">
-              <div class="article-text">
-                <h3>Giá xăng RON 95 xuống dưới 20.500 đồng</h3>
-                <p>Giá xăng, dầu cùng giảm 460-760 đồng một lít từ 15h hôm nay, sau điều chỉnh của liên Bộ Công Thương - Tài chính.</p>
-              </div>
-            </a>
-          
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/ytvvdpv4" alt="news image">
-              <div class="article-text">
-                <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-                <p>Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.</p>
-              </div>
-            </a>
-
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/2b27jeef" alt="news image">
-              <div class="article-text">
-                <h3>Giá xăng RON 95 xuống dưới 20.500 đồng</h3>
-                <p>Giá xăng, dầu cùng giảm 460-760 đồng một lít từ 15h hôm nay, sau điều chỉnh của liên Bộ Công Thương - Tài chính.</p>
-              </div>
-            </a>
-          
-            <a class="highlighted-article">
-              <img src="https://tinyurl.com/ytvvdpv4" alt="news image">
-              <div class="article-text">
-                <h3>Diễn viên Quý Bình qua đời ở tuổi 42</h3>
-                <p>Quý Bình - tài tử đoạt nhiều danh hiệu diễn viên xuất sắc - qua đời ở tuổi 42, sau thời gian mắc ung thư, vào 11h ngày 6/3.</p>
-              </div>
-            </a>
-          </div>
-          
-
-            <!-- ĐỌC THÊM -->
-            <ul class="readmore-container">
-              <li><span>Đọc thêm</span></li>
-            </ul>
-         </div>
-
-         <div class="tinkhac2">
-          <div class="news-container">
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          
-            <article class="news-article">
-              <h2 class="article-title">10 lời thoại nhói lòng trong Khi Cuộc Đời Cho Bạn Quả Quýt: Cuối cùng, ai rồi cũng sống như những đứa trẻ mồ côi...</h2>
-              <p class="article-subtitle">Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
-              <p class="article-author">By Van Nguyen</p>
-            </article>
-          </div>
-         </div>
-       </div>
-
-      <!-- silder -->
       <div class="slider">
         <div class="slides">
           <a class="slide active" href="">
             <img src="https://tinyurl.com/4bnynyyu" alt="Thời sự" />
             <div class="overlay">
+              <span class="category">Thời sự</span>
               <h2>Quản lý chặt chẽ tài sản, trụ sở cơ quan sau sắp xếp</h2>
               <p class="desc">
                 Thường trực Ban Bí thư Trần Cẩm Tú yêu cầu quản lý chặt chẽ tài
@@ -1613,6 +222,7 @@
           <a class="slide" href="">
             <img src="https://tinyurl.com/2u9rma6n" alt="Công nghệ" />
             <div class="overlay">
+              <span class="category">Công nghệ</span>
               <h2>Oppo Find N5 - điện thoại 'gập mà như thanh</h2>
               <p class="desc">
                 Find N5 có pin tốt, thiết kế mỏng nhẹ, màn hình ngoài lớn giúp
@@ -1623,6 +233,7 @@
           <a class="slide" href="">
             <img src="https://tinyurl.com/mtvxdyk6" alt="Kinh doanh" />
             <div class="overlay">
+              <span class="category">Kinh doanh</span>
               <h2>
                 Tổng thống Mỹ ký sắc lệnh lập Kho dự trữ Bitcoin chiến lược
               </h2>
@@ -1636,6 +247,7 @@
           <a class="slide" href="">
             <img src="https://tinyurl.com/mr2kkdcf" alt="Sức khỏe" />
             <div class="overlay">
+              <span class="category">Sức khỏe</span>
               <h2>Hay gặp ác mộng có phải mắc bệnh thần kinh?</h2>
               <p class="desc">
                 Tôi thường gặp ác mộng, tỉnh dậy mệt mỏi, tim đập nhanh, có hôm
@@ -1646,6 +258,7 @@
           <a class="slide" href="">
             <img src="https://tinyurl.com/4k6naawj" alt="Thể thao" />
             <div class="overlay">
+              <span class="category">Thể thao</span>
               <h2>Amorim: 'Man Utd mất kiểm soát sau phạt đền của Sociedad'</h2>
               <p class="desc">
                 Theo HLV Ruben Amorim, Man Utd sa sút thể lực và mất kiểm soát
@@ -1657,6 +270,7 @@
           <a class="slide" href="">
             <img src="https://tinyurl.com/m8ycw3zz" alt="Giải trí" />
             <div class="overlay">
+              <span class="category">Giải trí</span>
               <h2>Hòa Minzy đưa người thôn Lạc Xá đi diễn</h2>
               <p class="desc">
                 Hòa Minzy đưa gần 20 người thôn Lạc Xá, Bắc Ninh, trong đó có
@@ -1675,6 +289,85 @@
           </button>
         </div>
       </div>
+
+      <div class="recent-news--title">Tin tức gần đây</div>
+      <div class="recent-news">
+        <a class="recent-news--layout1" href="#">
+          <h2>
+            Thiết bị 5G Việt Nam lần đầu dùng cho mạng nước ngoài
+          </h2>
+        </a>
+
+        <div class="recent-news--layout2">
+          <a class="recent-news--content" href="#">
+            <img
+              class="recent-news--img"
+              src="https://tinyurl.com/bddw39dr"
+              alt=""
+            />
+            <div class="recent-news--text">
+              <h3>
+                Cảnh sát đột kích 2 sòng bạc lớn do người Trung Quốc cầm đầu
+              </h3>
+            </div>
+          </a>
+
+          <a class="recent-news--content" href="#">
+            <img
+              class="recent-news--img"
+              src="https://tinyurl.com/bdvzrbxw"
+              alt=""
+            />
+            <div class="recent-news--text">
+              <h3>
+                Gần 200 người bị triệu tập đến phiên xử 'đại gia cát miền Tây'
+              </h3>
+            </div>
+          </a>
+
+          <a class="recent-news--content" href="#">
+            <img
+              class="recent-news--img"
+              src="https://tinyurl.com/525p7yw5"
+              alt=""
+            />
+            <div class="recent-news--text">
+              <h3>Giám đốc Sở Y tế Bạc Liêu bị khởi tố</h3>
+            </div>
+          </a>
+          <button>
+            Xem thêm <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="article-title">Bạn có thể thích</div>
+      <div class="article">
+        <a class="article-content" href="#">
+          <img class="article-img" src="https://tinyurl.com/bddw39dr" alt="" />
+          <div class="article-text">
+            <h3>
+              Cảnh sát đột kích 2 sòng bạc lớn do người Trung Quốc cầm đầu
+            </h3>
+          </div>
+        </a>
+
+        <a class="article-content" href="#">
+          <img class="article-img" src="https://tinyurl.com/bdvzrbxw" alt="" />
+          <div class="article-text">
+            <h3>
+              Gần 200 người bị triệu tập đến phiên xử 'đại gia cát miền Tây'
+            </h3>
+          </div>
+        </a>
+
+        <a class="article-content" href="#">
+          <img class="article-img" src="https://tinyurl.com/525p7yw5" alt="" />
+          <div class="article-text">
+            <h3>Giám đốc Sở Y tế Bạc Liêu bị khởi tố</h3>
+          </div>
+        </a>
+      </div>
     </div>    
     <!-- end: body -->
 
@@ -1685,7 +378,7 @@
         <div class="row">
           <!-- column1 -->
           <div class="column">
-            <img src="../the-outsider/assets/img/Giờ outsider.png" alt="The Outsider" class="logo">
+            <img src="/the-outsider/assets/img/logo.jpg" alt="The Outsider" class="logo">
             <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
               <div class="social">
                 <a href="">
@@ -1754,8 +447,6 @@
      </footer>
     <!-- end: footer -->
     <script src="trangchu.js"></script>
-    <script src="/the-outsider/script.js"></script>
-    <!-- Swiper.js Script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   </body>
+
 </html>
