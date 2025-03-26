@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hệ Thống Quản Lý Bài Báo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .form-container, .list-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 45%;
+        }
+        .form-container h2, .list-container h2 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+        .checkbox-group label {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            display: inline-block;
+            line-height: 20px;
+        }
+        .checkbox-group label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .checkbox-group label::after {
+            content: '✔';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            font-size: 14px;
+            color: white;
+            display: none;
+        }
+        .checkbox-group input[type="checkbox"]:checked + label::before {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+        .checkbox-group input[type="checkbox"]:checked + label::after {
+            display: block;
+        }
+        .btn-add {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .search-bar {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+        }
+        .article-item {
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-item .tag {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+        .article-item .tag.tech { background-color: #2196F3; color: white; }
+        .article-item .tag.health { background-color: #4CAF50; color: white; }
+        .article-item .tag.featured { background-color: #FFC107; color: white; }
+        .article-item .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .article-item .actions button {
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .article-item .actions .edit { background-color: #FFC107; color: white; }
+        .article-item .actions .delete { background-color: #F44336; color: white; }
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .tag-input .tag {
+            background-color: #e0e0e0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tag-input .tag-remove {
+            cursor: pointer;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Thêm Bài Báo Mới</h2>
+        <form id="articleForm">
+            <div class="form-group">
+                <label>Tiêu đề:</label>
+                <input type="text" id="articleTitle" placeholder="Nhập tiêu đề bài báo" required>
+            </div>
+            <div class="form-group">
+                <label>Danh mục:</label>
+                <select id="articleCategory">
+                    <option>-- Chọn danh mục --</option>
+                    <option>Công nghệ</option>
+                    <option>Sức khỏe</option>
+                    <option>Thời sự</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Thẻ:</label>
+                <input type="text" id="tagInput" placeholder="Nhập thẻ và nhấn Enter">
+                <div id="tagContainer" class="tag-input"></div>
+            </div>
+            <div class="form-group">
+                <label>Nội dung:</label>
+                <textarea id="articleContent" placeholder="Nhập nội dung bài báo"></textarea>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="featuredCheckbox">
+                <label for="featuredCheckbox">Đánh dấu là bài nổi bật</label>
+            </div>
+            <button type="submit" class="btn-add">Thêm Bài Báo</button>
+        </form>
+    </div>
+
+    <div class="list-container">
+        <h2>Danh Sách Bài Báo</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm bài báo...">
+            <button onclick="searchArticles()">🔍</button>
+        </div>
+        
+        <div id="articleList"></div>
+    </div>
+
+    <script>
+        let articles = [];
+        let editingIndex = -1;
+
+        function renderArticles(articlesToRender = articles) {
+            const articleList = document.getElementById('articleList');
+            articleList.innerHTML = '';
+
+            articlesToRender.forEach((article, index) => {
+                const articleElement = document.createElement('div');
+                articleElement.classList.add('article-item');
+                
+                const featuredTag = article.featured 
+                    ? '<span class="tag featured">Nổi bật</span>' 
+                    : '';
+
+                articleElement.innerHTML = `
+                    <div>
+                        <span class="tag ${article.category.toLowerCase() === 'công nghệ' ? 'tech' : 'health'}">${article.category}</span>
+                        ${featuredTag}
+                        <strong>${article.title}</strong>
+                        <p>${article.content.substring(0, 100)}${article.content.length > 100 ? '...' : ''}</p>
+                        <small>Tags: ${article.tags.join(', ')}</small>
+                        <br>
+                        <small>Ngày đăng: ${new Date().toLocaleDateString()}</small>
+                    </div>
+                    <div class="actions">
+                        <button class="edit" onclick="editArticle(${index})">Sửa</button>
+                        <button class="delete" onclick="deleteArticle(${index})">Xóa</button>
+                    </div>
+                `;
+
+                articleList.appendChild(articleElement);
+            });
+        }
+
+        const tagInput = document.getElementById('tagInput');
+        const tagContainer = document.getElementById('tagContainer');
+        let tags = [];
+
+        tagInput.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter' && this.value.trim()) {
+                const tagValue = this.value.trim();
+                if (!tags.includes(tagValue)) {
+                    tags.push(tagValue);
+                    renderTags();
+                    this.value = '';
+                }
+            }
+        });
+
+        function renderTags() {
+            tagContainer.innerHTML = tags.map((tag, index) => `
+                <div class="tag">
+                    ${tag}
+                    <span class="tag-remove" onclick="removeTag(${index})">×</span>
+                </div>
+            `).join('');
+        }
+
+        function removeTag(index) {
+            tags.splice(index, 1);
+            renderTags();
+        }
+
+        document.getElementById('articleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const article = {
+                title: document.getElementById('articleTitle').value,
+                category: document.getElementById('articleCategory').value,
+                tags: tags,
+                content: document.getElementById('articleContent').value,
+                featured: document.getElementById('featuredCheckbox').checked
+            };
+
+            if (editingIndex === -1) {
+                // Thêm bài báo mới
+                articles.push(article);
+            } else {
+                // Cập nhật bài báo
+                articles[editingIndex] = article;
+                editingIndex = -1;
+            }
+
+            renderArticles();
+            resetForm();
+        });
+
+        function editArticle(index) {
+            const article = articles[index];
+            editingIndex = index;
+
+            document.getElementById('articleTitle').value = article.title;
+            document.getElementById('articleCategory').value = article.category;
+            document.getElementById('articleContent').value = article.content;
+            document.getElementById('featuredCheckbox').checked = article.featured;
+
+            tags = [...article.tags];
+            renderTags();
+        }
+
+        function deleteArticle(index) {
+            if (confirm('Bạn có chắc chắn muốn xóa bài báo này?')) {
+                articles.splice(index, 1);
+                renderArticles();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('articleForm').reset();
+            tags = [];
+            renderTags();
+        }
+
+        function searchArticles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredArticles = articles.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) ||
+                article.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            renderArticles(filteredArticles);
+        }
+
+        // Khởi tạo một số bài báo mẫu
+        articles = [
+            {
+                title: 'Smartphone mới nhất của Apple đã ra mắt',
+                category: 'Công nghệ',
+                tags: ['Apple', 'iPhone', 'Điện thoại thông minh'],
+                content: 'Apple vừa giới thiệu dòng iPhone mới với nhiều tính năng đột phá và thiết kế hiện đại. Sản phẩm dự kiến sẽ tạo ra một làn sóng mới trong ngành công nghệ...',
+                featured: true
+            },
+            {
+                title: '5 cách tập luyện hiệu quả tại nhà',
+                category: 'Sức khỏe',
+                tags: ['Sức khỏe', 'Bài tập tại gia'],
+                content: 'Bài viết chia sẻ những phương pháp tập luyện đơn giản nhưng hiệu quả mà bạn có thể thực hiện ngay tại nhà...',
+                featured: false
+            }
+        ];
+
+        renderArticles();
+    </script>
+</body>
+</html>
