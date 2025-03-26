@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
+
+
 .wrapper{
     display: flex;
-    height: fit-content;
+    height: 100vh;
     /* flex-direction: column; */
 }
 
@@ -30,6 +32,7 @@
 #sidebar{
     width: 70px;
     min-width: 70px;
+    height: 100%;
     z-index: 1000;
     transition: all .25s ease-in-out;
     display: flex;
@@ -78,7 +81,7 @@
 
 .sidebar-nav{
     height: fit-content;
-    padding: 2rem 0;
+    padding: 8rem 0;
     flex: 1 1 auto;
     /* display: flex;
     flex-direction: column;
@@ -97,13 +100,14 @@ a.sidebar-link{
 }
 
 .sidebar-link .material-icons{
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     margin-right: 1rem;
+    margin-left: -0.25rem;
 }
 
 a.sidebar-link:hover{
-    background-color: rgba(255,255,255, .075);
-    border-left: 3px solid #3b7ddd;
+    background-color: #ff2323b0;
+    border-left: 3px solid #f9d232;
 }
 
 .sidebar-item{
@@ -112,16 +116,16 @@ a.sidebar-link:hover{
 
 #sidebar .sidebar-footer{
     position: relative;
-    bottom: 5%;
+    bottom: 2%;  
 }
 
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown{
     position: absolute;
     top: 0;
     /* left: 70px; */
-    background-color: #0e2238;
+    background-color: #c22b2b;
     padding: 0;
-    min-width: 15rem;
+    min-width: 10rem;
     display:none;
 }
 
@@ -129,7 +133,7 @@ a.sidebar-link:hover{
     display: block;
     max-height: 15em;
     left: 100%;
-    width: 80%;
+    width: 70%;
     opacity: 1;
     /* transition: all 0.3s ease-in-out; */
 }
@@ -142,7 +146,7 @@ a.sidebar-link:hover{
     padding: 2px;
     position: absolute;
     right: 1.5rem;
-    top: 1.2rem;
+    top: 1.5rem;
     transform: rotate(-135deg);
     transition: all .2s ease-out;
 }
@@ -205,11 +209,15 @@ input:focus::placeholder {
     margin-right: 3rem;
 }
 
+.navbar{
+    height: 7vh;
+}
 
 /* Styling for the cards */
 .card {
     /* display: flex;
     justify-content: center; */
+    height: 100%;
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
     border-radius: 10px; /* Rounded corners */
@@ -244,7 +252,7 @@ input:focus::placeholder {
 }
 
 .card a:hover {
-    color: #3b7ddd; /* Darker shade of blue on hover */
+    color: #dd973b; /* Darker shade of blue on hover */
 }
 
 .container{
@@ -285,85 +293,88 @@ input:focus::placeholder {
     margin: 3% 2% 0 2%;
     display: flex;
     flex-direction: row;
+    height: 60vh;
     /* gap: 2%; */
     /* justify-content: space-between; */
 }
+
+
 
 .card .card-content {
     padding: 15px 20px;
     position: relative;
 }
 
-.streamline .sl-primary {
-    border-left-color: #188ae2;
+.streamline {
+    position: relative;
+}
+
+.streamline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10px; /* Đảm bảo đường thẳng căn chỉnh hợp lý */
+    width: 2px;
+    height: 100%;
+    background: #ddd;
 }
 
 .streamline .sl-item {
     position: relative;
-    padding-bottom: 12px;
-    border-left: 1px solid #ccc;
+    display: flex; /* Dùng flexbox để căn chỉnh */
+    align-items: flex-start; 
+    margin-bottom: 20px;
 }
-
-
 
 .streamline .sl-item:before {
-    content: '';
+    content: "";
     position: absolute;
-    left: -6px;
-    top: 0;
-    background-color: #ccc;
-    width: 12px;
-    height: 12px;
-    border-radius: 100%;
-}
-.streamline .sl-primary:before, .streamline .sl-primary:last-child:after {
-    background-color: #188ae2;
+    left: 6px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
 }
 
+.streamline .sl-primary:before { background-color: #007bff; }
+.streamline .sl-danger:before { background-color: #ff5b5b; }
+.streamline .sl-success:before { background-color: #10c469; }
+.streamline .sl-warning:before { background-color: #f9c851; }
 
-.streamline .sl-danger:before, .streamline .sl-danger:last-child:after {
-    background-color: #ff5b5b;
+.streamline .sl-content {
+    margin-left: 30px; /* Đẩy nội dung ra xa timeline */
+    max-width: 500px; /* Giới hạn chiều rộng nội dung */
 }
 
-.streamline .sl-success {
-    border-left-color: #10c469;
+.streamline .text-muted {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-bottom: 5px;
 }
 
-.streamline .sl-success:before, .streamline .sl-success:last-child:after {
-    background-color: #10c469;
-}
-
-.streamline .sl-warning {
-    border-left-color: #f9c851;
-}
-
-.streamline .sl-warning:before, .streamline .sl-warning:last-child:after {
-    background-color: #f9c851;
-}
-
-
-
-.streamline .sl-danger {
-    border-left-color: #ff5b5b;
-}
-.streamline .sl-item .sl-content {
-    margin-left: 24px;
+.streamline p {
+    font-size: 14px;
+    color: #333;
 }
 
 .streamline .sl-item .text-muted {
     color: inherit;
     opacity: .6;
-	font-size:12px;
+	font-size:12px; 
 }
 
 .streamline .sl-item p {
+    margin-top: 10px;
 	font-size:14px;
 	color:#333;
 }
 
+
+
 .main-content .col-lg-7 canvas {
     /* border: 1px solid #0e2238; */
     width: 97% !important;
-    height: 485px !important;
+    height: 100% !important;
     flex: 1;
 }

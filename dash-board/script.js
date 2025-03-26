@@ -33,15 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     display: true,
                     text: 'Biểu đồ thống kê',
                     fontSize: 18,
+                    padding: 0,
                 },
+                maintainAspectRatio: false,
                 responsive: true,
                 devicePixelRatio: 2, // Tăng chất lượng hiển thị
-                plugins: {
-                legend: {
+                legends: {
                     position: 'top',
                     labels: {
-                        boxWidth: 15,  // 🔹 Giảm kích thước ô màu
-                        padding: 10,
+                        boxWidth: 20,  // 🔹 Giảm kích thước ô màu
+                        padding: 100,
                         font: {
                             size: 16, // Tăng kích thước chữ
                             weight: 'bold'
@@ -49,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     color: '#000' // Chữ đậm màu hơn
                 }
             }
-        }
             }
         }
     )
