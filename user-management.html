@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Người Dùng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f8f9fa;
+            --accent-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            color: var(--dark-color);
+            font-size: 24px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .badge-inactive {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .badge-pending {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+
+        .pagination button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .pagination button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quản lý người dùng</h1>
+            <button class="btn btn-primary" id="addUserBtn">Thêm người dùng</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm người dùng...">
+            <button class="btn btn-primary" id="searchBtn">Tìm kiếm</button>
+        </div>
+
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Quyền</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Data will be loaded via JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Thêm người dùng mới</h3>
+                <span class="modal-close" id="closeModal">&times;</span>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-group">
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Quyền</label>
+                    <select id="role" required>
+                        <option value="user">Người dùng</option>
+                        <option value="editor">Biên tập viên</option>
+                        <option value="admin">Quản trị viên</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Trạng thái</label>
+                    <select id="status" required>
+                        <option value="active">Hoạt động</option>
+                        <option value="inactive">Không hoạt động</option>
+                        <option value="pending">Chờ xác nhận</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Lưu</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Xác nhận xóa</h3>
+                <span class="modal-close" id="closeDeleteModal">&times;</span>
+            </div>
+            <p>Bạn có chắc chắn muốn xóa người dùng này?</p>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button class="btn" id="cancelDelete">Hủy</button>
+                <button class="btn btn-danger" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample user data
+        let users = [
+            { id: 1, fullName: 'Nguyễn Văn A', email: 'nguyenvana@example.com', role: 'admin', status: 'active', created: '20/02/2025' },
+            { id: 2, fullName: 'Trần Thị B', email: 'tranthib@example.com', role: 'editor', status: 'active', created: '15/02/2025' },
+            { id: 3, fullName: 'Lê Văn C', email: 'levanc@example.com', role: 'user', status: 'inactive', created: '10/02/2025' },
+            { id: 4, fullName: 'Phạm Thị D', email: 'phamthid@example.com', role: 'editor', status: 'pending', created: '05/02/2025' },
+            { id: 5, fullName: 'Hoàng Văn E', email: 'hoangvane@example.com', role: 'user', status: 'active', created: '01/02/2025' },
+            { id: 6, fullName: 'Đỗ Thị F', email: 'dothif@example.com', role: 'user', status: 'active', created: '28/01/2025' },
+            { id: 7, fullName: 'Vũ Văn G', email: 'vuvang@example.com', role: 'editor', status: 'inactive', created: '25/01/2025' },
+            { id: 8, fullName: 'Ngô Thị H', email: 'ngothih@example.com', role: 'user', status: 'active', created: '20/01/2025' },
+            { id: 9, fullName: 'Đặng Văn I', email: 'dangvani@example.com', role: 'user', status: 'pending', created: '15/01/2025' },
+            { id: 10, fullName: 'Bùi Thị K', email: 'buithik@example.com', role: 'editor', status: 'active', created: '10/01/2025' },
+        ];
+
+        let currentPage = 1;
+        const usersPerPage = 5;
+        let currentUserIdToDelete = null;
+
+        // DOM elements
+        const userTableBody = document.getElementById('userTableBody');
+        const pagination = document.getElementById('pagination');
+        const userModal = document.getElementById('userModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const userForm = document.getElementById('userForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        // Open add user modal
+        document.getElementById('addUserBtn').addEventListener('click', () => {
+            modalTitle.textContent = 'Thêm người dùng mới';
+            userForm.reset();
+            document.getElementById('userId').value = '';
+            userModal.style.display = 'flex';
+        });
+
+        // Close modals
+        document.getElementById('closeModal').addEventListener('click', () => {
+            userModal.style.display = 'none';
+        });
+
+        document.getElementById('closeDeleteModal').addEventListener('click', () => {
+            deleteModal.style.display = 'none';
+        });
+
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            deleteModal.style.display = 'none';
+        });
+
+        // Handle form submission
+        userForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const userId = document.getElementById('userId').value;
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const role = document.getElementById('role').value;
+            const status = document.getElementById('status').value;
+            
+            if (userId) {
+                // Update existing user
+                const index = users.findIndex(user => user.id === parseInt(userId));
+                if (index !== -1) {
+                    users[index] = {
+                        ...users[index],
+                        fullName,
+                        email,
+                        role,
+                        status
+                    };
+                }
+            } else {
+                // Add new user
+                const newUser = {
+                    id: users.length > 0 ? Math.max(...users.map(user => user.id)) + 1 : 1,
+                    fullName,
+                    email,
+                    role,
+                    status,
+                    created: new Date().toLocaleDateString('vi-VN')
+                };
+                users.push(newUser);
+            }
+            
+            userModal.style.display = 'none';
+            renderUsers();
+        });
+
+        // Handle delete confirmation
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            if (currentUserIdToDelete) {
+                users = users.filter(user => user.id !== currentUserIdToDelete);
+                renderUsers();
+                deleteModal.style.display = 'none';
+                currentUserIdToDelete = null;
+            }
+        });
+
+        // Handle search
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm) {
+                const filteredUsers = users.filter(user => 
+                    user.fullName.toLowerCase().includes(searchTerm) || 
+                    user.email.toLowerCase().includes(searchTerm) ||
+                    user.role.toLowerCase().includes(searchTerm) ||
+                    user.status.toLowerCase().includes(searchTerm)
+                );
+                renderUsersTable(filteredUsers);
+                pagination.innerHTML = '';
+            } else {
+                renderUsers();
+            }
+        });
+
+        // Enter key for search
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        // Render users table
+        function renderUsersTable(usersToRender) {
+            userTableBody.innerHTML = '';
+            
+            usersToRender.forEach(user => {
+                const row = document.createElement('tr');
+                
+                const roleDisplay = {
+                    'admin': 'Quản trị viên',
+                    'editor': 'Biên tập viên',
+                    'user': 'Người dùng'
+                };
+                
+                const statusDisplay = {
+                    'active': '<span class="badge badge-active">Hoạt động</span>',
+                    'inactive': '<span class="badge badge-inactive">Không hoạt động</span>',
+                    'pending': '<span class="badge badge-pending">Chờ xác nhận</span>'
+                };
+                
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.email}</td>
+                    <td>${roleDisplay[user.role]}</td>
+                    <td>${statusDisplay[user.status]}</td>
+                    <td>${user.created}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-warning btn-edit" data-id="${user.id}">Sửa</button>
+                            <button class="btn btn-danger btn-delete" data-id="${user.id}">Xóa</button>
+                        </div>
+                    </td>
+                `;
+                
+                userTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to edit buttons
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const userId = parseInt(e.target.getAttribute('data-id'));
+                    const user = users.find(u => u.id === userId);
+                    
+                    if (user) {
+                        modalTitle.textContent = 'Sửa thông tin người dùng';
+                        document.getElementById('userId').value = user.id;
+                        document.getElementById('fullName').value = user.fullName;
+                        document.getElementById('email').value = user.email;
+                        document.getElementById('password').value = '********';
+                        document.getElementById('role').value = user.role;
+                        document.getElementById('status').value = user.status;
+                        
+                        userModal.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const userId = parseInt(e.target.getAttribute('data-id'));
+                    currentUserIdToDelete = userId;
+                    deleteModal.style.display = 'flex';
+                });
+            });
+        }
+
+        // Render users with pagination
+        function renderUsers() {
+            const indexOfLastUser = currentPage * usersPerPage;
+            const indexOfFirstUser = indexOfLastUser - usersPerPage;
+            const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+            
+            renderUsersTable(currentUsers);
+            renderPagination();
+        }
+
+        // Render pagination
+        function renderPagination() {
+            pagination.innerHTML = '';
+            const pageCount = Math.ceil(users.length / usersPerPage);
+            
+            for (let i = 1; i <= pageCount; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    renderUsers();
+                });
+                
+                pagination.appendChild(button);
+            }
+        }
+
+        // Initial render
+        renderUsers();
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === userModal) {
+                userModal.style.display = 'none';
+            }
+            if (e.target === deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
