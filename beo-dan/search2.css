@@ -95,6 +95,7 @@ body {
 }
 .main .main-search .s-body .l-s-body .l-s-body-header {
   font-size: 1.1rem;
+  font-weight: 700;
   font-family: var(--font-header);
   margin-left: -1%;
 }
@@ -147,7 +148,7 @@ body {
   margin-left: 10px;
 }
 .main .main-search .s-body .l-s-body .button-filter {
-  width: 60%;
+  width: 80%;
   /* margin-top: 5%; */
 }
 .main .main-search .s-body .l-s-body .button-filter button {
@@ -251,4 +252,8 @@ body {
   padding-right: 10px;
   transition: transform 0.3s ease-in-out;
   transform: translate(-50%,-100%);
+}
+
+.s-header h1{
+  font-size: 36px;
 }
