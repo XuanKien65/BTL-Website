@@ -249,22 +249,94 @@
           </div>
         </div>
         <!-- comment -->
-        <div class="comment-section">
-          <h2 class="title">Bình luận</h2>
-          <div class="comment">
-            <div class="cmt-input">
+        <div class="eee">
+          <h3 class="header">Bình luận</h3>
+          <template class="reply-input-template">
+            <div class="reply-input container">
               <img
-                src="./assets/img/Screenshot 2025-03-07 142551.jpg"
-                alt="user ava"
-                class="user-ava"
+                src="./assets/img/image-amyrobson.png"
+                alt=""
+                class="usr-img"
               />
               <textarea
-                class="cmt-input area"
-                placeholder="Chia sẻ ý kiến của bạn"
+                class="cmnt-input"
+                placeholder="Add a comment..."
               ></textarea>
-              <button class="btn btn-sent">Gửi</button>
+              <button class="bu-primary">Gửi</button>
             </div>
-          </div>
+          </template>
+          <template class="comment-template">
+            <div class="comment-wrp">
+              <div class="comment container">
+                <div class="c-score">
+                  <i class="fa-solid fa-plus score-control score-plus"></i>
+                  <p class="score-number">5</p>
+                  <i class="fa-solid fa-minus score-control score-minus"></i>
+                </div>
+                <div class="c-controls">
+                  <a class="delete"
+                    ><i class="fa-solid fa-trash control-icon"></i> Xóa</a
+                  >
+                  <a class="edit"
+                    ><i class="fa-solid fa-pen-to-square control-icon"></i>Chỉnh
+                    sửa</a
+                  >
+                  <a class="reply">
+                    <i class="fa-solid fa-reply control-icon"></i>
+                    Trả lời</a
+                  >
+                </div>
+                <div class="c-user">
+                  <img
+                    src="./assets/img/image-amyrobson.png"
+                    alt=""
+                    class="usr-img"
+                  />
+                  <p class="usr-name">maxblagun</p>
+                  <p class="cmnt-at">2 weeks ago</p>
+                </div>
+                <p class="c-text">
+                  <span class="reply-to"></span>
+                  <span class="c-body"></span>
+                </p>
+              </div>
+              <!--comment-->
+              <div class="replies comments-wrp"></div>
+              <!--replies-->
+            </div>
+          </template>
+          <main>
+            <div class="comment-section">
+              <div class="comments-wrp"></div>
+              <!--commentS wrapper-->
+              <div class="reply-input container">
+                <img
+                  src="./assets/img/image-amyrobson.png"
+                  alt=""
+                  class="usr-img"
+                />
+                <textarea
+                  class="cmnt-input"
+                  placeholder="Chia sẻ ý kiến của bạn"
+                ></textarea>
+                <button class="bu-primary">Gửi</button>
+              </div>
+              <!--reply input-->
+            </div>
+            <!--comment sectio-->
+
+            <div class="modal-wrp invisible">
+              <div class="modal container">
+                <h3>Xóa bình luận</h3>
+                <p>
+                  Bạn có chắc chắn muốn xóa bình luận? Hành động sẽ không thể
+                  hoàn tác.
+                </p>
+                <button class="yes">Xóa</button>
+                <button class="no">Hủy</button>
+              </div>
+            </div>
+          </main>
         </div>
       </div>
     </div>
