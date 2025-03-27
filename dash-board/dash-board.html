@@ -23,8 +23,8 @@
                 <ul class="sidebar-nav">
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">view_list</span>
-                            <span>Công việc</span>
+                            <span class="material-icons">analytics</span>
+                            <span>Thống kê</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
@@ -34,11 +34,16 @@
                         </a>
                         <ul id = "auth" class = "sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Tài khoản</a>
+                                <a href="#" class = "sidebar-link collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#multi-two">Tài khoản</a>
+                                <ul id = "multi-two" class = "sidebar-dropdown2 list-unstyled collapse">
+                                    <li class = "sidebar-item">
+                                        <a href="#" class="sidebar-link">Người đọc</a>
+                                    </li>
+                                    <li class = "sidebar-item">
+                                        <a href="#" class="sidebar-link">Tác giả</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <!-- <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Login</a>
-                            </li> -->
                             <li class="sidebar-item">
                                 <a href="#" class = "sidebar-link">Bình luận</a>
                             </li>
@@ -51,17 +56,17 @@
                         </a>
                         <ul id = "multi" class = "sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Tác giả</a>
+                                <a href="#" class = "sidebar-link">Danh sách bài viết</a>
                             </li>
                             <li class = sidebar-item>
-                                <a href="#" class = "sidebar-link">Danh mục</a>
+                                <a href="#" class = "sidebar-link">Duyệt bài viết</a>
                             </li>
                         </ul>
                     </li>
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">notifications</span>
-                            <span>Thông báo</span>
+                            <span class="material-icons">folder_open</span>
+                            <span>Hoạt động</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
@@ -219,5 +224,7 @@
     </div>
 </body>
 <script src="script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js
+"></script>
 </html>

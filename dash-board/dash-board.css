@@ -92,7 +92,7 @@ a.sidebar-link{
     padding: .625rem 1.625rem;
     color: #FFF;
     display: flex;
-    font-size: 0.9rem;
+    font-size: 1rem;
     white-space: nowrap;
     /* border-left: 3px solid transparent; */
     text-decoration: none;
@@ -146,7 +146,7 @@ a.sidebar-link:hover{
     padding: 2px;
     position: absolute;
     right: 1.5rem;
-    top: 1.5rem;
+    top: 1.4rem;
     transform: rotate(-135deg);
     transition: all .2s ease-out;
 }
@@ -157,6 +157,10 @@ a.sidebar-link:hover{
    position: absolute;
    right: 1.5rem;
    top: 1.2rem;
+}
+
+#sidebar .sidebar-link[data-bs-target="#multi-two"]::after {
+    top: 1rem !important;
 }
 
 .main nav{
