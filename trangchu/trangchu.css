@@ -5,8 +5,10 @@ html {
   font-size: 62.5%;
 }
 body {
+  display: flex;
+  flex-direction: column;
   color: #000;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-family: "Inter", sans-serif;
 }
 .btn:hover {
@@ -18,9 +20,19 @@ a {
   color: var(--primary-color);
 }
 :root {
+  --yellow-color: #f9d232;
   --heading-color: #c22b2b;
   --primary-color: #1d1d1f;
   --font-heading: "Merriweather", "serif";
+  --Moderate-blue: hsl(238, 40%, 52%);
+  --Light-grayish-blue: hsl(239, 57%, 85%);
+  --Pale-red: hsl(357, 100%, 86%);
+
+  --Dark-blue: hsl(212, 24%, 26%);
+  --Grayish-Blue: hsl(211, 10%, 45%);
+  --Light-gray: hsl(223, 19%, 93%);
+  --Very-light-gray: hsl(228, 33%, 97%);
+  --White: hsl(0, 0%, 100%);
 }
 /* ==============banner================ */
 .header .banner {
@@ -28,12 +40,12 @@ a {
   display: flex;
   justify-content: center;
   width: auto;
-  height: 10rem;
+  height: 20rem;
   position: relative;
 }
 .banner-logo {
   object-fit: cover;
-  margin: 1rem;
+  /* margin: 1rem; */
   /* width: 50%;
 
   height: auto; */
@@ -41,23 +53,13 @@ a {
 .header .fixed {
   position: relative;
 }
-/* =============header============ */
-.nav.scrolled {
-  transition: 0.3s;
-  padding: 0 3%;
-}
-.nav.scrolled .home {
-  display: none;
-}
-.nav.scrolled #backtohome {
-  display: block;
-}
+/* =============navbar============ */
 .nav {
+  /* max-width: 100vw; */
   background-color: var(--heading-color);
   position: sticky;
   top: 0;
   width: 100%;
-  right: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -67,13 +69,13 @@ a {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng ở dưới */
 }
 i {
-  color: #fff;
-  font-size: 1.6rem;
+  color: #f9d232;
+  font-size: 2rem;
   margin-right: 3px;
 }
 .dn-text {
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 400;
   /* margin: 0px 3vw; */
   transition: all 0.5s ease;
@@ -81,39 +83,37 @@ i {
 }
 .search i {
   color: var(--heading-color);
-  font-size: 1.6rem;
   margin-right: 3px;
 }
 .navbar {
   display: flex;
-}
-.register {
-  margin-left: auto;
-  display: flex;
-  gap: 2vw;
   align-items: center;
+  justify-content: space-between;
 }
 .navbar .category {
   color: #fff;
-  font-size: 1.6rem;
-  font-weight: 400;
-  padding: 2rem 3vw;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 2rem 2vw;
   /* margin: 0px 3vw; */
   transition: all 0.5s ease;
   display: block;
 }
 .navbar .subnav-link {
   color: #000;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 400;
-  padding: 2rem 3vw;
+  width: 150px;
+  padding: 2rem 1vw;
   /* margin: 0px 3vw; */
   transition: all 0.5s ease;
   display: block;
 }
+.main-category:hover {
+  filter: brightness(0.9);
+}
 .navbar a:hover {
   background: var(--heading-color);
-  color: #fff;
   text-shadow: 0.3px 0 0 currentColor;
 }
 .subnav {
@@ -135,24 +135,18 @@ i {
 .main-category:hover .subnav {
   display: block;
 }
-.register a:hover {
-  /* color: var(--heading-color); */
-  text-shadow: 0.5px 0 0 currentColor;
-}
 .logo {
-  top: 0;
+  /* top: 0; */
   height: 100%;
+  width: auto;
+  display: block;
   max-width: 100%;
+  max-height: 100%;
 }
 #backtohome {
   display: none;
   position: relative;
-  height: 20px;
-}
-.logo {
-  height: 100%; /* Chiều cao 100% của phần tử cha */
-  width: auto; /* Đảm bảo không bị méo */
-  max-height: 100%; /* Không vượt quá cha */
+  height: 5rem;
 }
 .search {
   background-color: #fff;
@@ -179,6 +173,19 @@ i {
   cursor: pointer;
   z-index: 1001;
   display: none;
+}
+.notft {
+  flex: 1;
+}
+.nav.scrolled {
+  transition: 0.3s;
+  /* padding: 0 5%; */
+}
+.nav.scrolled .home {
+  display: none;
+}
+.nav.scrolled #backtohome {
+  display: block;
 }
 /* Kết thúc CSS phần header */
 
@@ -225,10 +232,10 @@ i {
   width: 100%;
   color: var(--primary-color);
   font-family: var(--font-heading);
-  font-size: 2rem; 
+  font-size: 2rem;
   font-weight: 700;
   margin: 2% auto;
-  line-height: 2.5rem; 
+  line-height: 2.5rem;
 }
 
 .todaybignews-layout1--content p {
@@ -309,7 +316,7 @@ i {
 
 .smallnews-text p {
   font-size: 1.6rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--primary-color);
 }
 
@@ -353,7 +360,7 @@ i {
 }
 
 .trending-news--text > p {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 1rem;
   color: #696868;
   font-size: 1.5rem;
@@ -366,13 +373,13 @@ i {
   text-overflow: ellipsis;
 }
 
-.trending-news--content:hover .trending-news--text h3{
+.trending-news--content:hover .trending-news--text h3 {
   color: var(--heading-color);
 }
 
 /* tin theo chủ đề */
 .container {
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 .news-header {
   display: flex;
@@ -443,12 +450,11 @@ i {
   line-height: 2.3rem;
   font-weight: 600;
   overflow: hidden;
-  display:block;
+  display: block;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   font-family: var(--font-heading);
-  
 }
 
 .news-home-item--content {
@@ -462,7 +468,7 @@ i {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .grid__column-2:hover .news-home-item--name {
@@ -476,7 +482,6 @@ i {
 .news-home-item {
   display: none;
 }
-
 
 /* bạn có thể thích */
 .news-slider-container {
@@ -524,8 +529,9 @@ i {
   font-family: var(--font-heading);
 }
 
-.swiper-button-next, .swiper-button-prev {
-  color: #ffcc00;
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffcc00 !important;
   background: #c22b2ba6;
   font-size: 2rem;
   font-weight: 700;
@@ -534,11 +540,11 @@ i {
 }
 
 .swiper-button-prev {
-  left: 0;
+  left: 0 !important;
 }
 
 .swiper-button-next {
-  right: 0;
+  right: 0 !important;
 }
 
 .swiper-pagination {
@@ -547,13 +553,12 @@ i {
   text-align: center; /* Canh giữa */
 }
 
-
 .swiper-pagination-bullet-active {
-  background: var(--heading-color);
+  background: var(--heading-color) !important;
 }
 
 .news-slider .swiper-slide {
-  margin: 0 !important;  /* Xóa margin */
+  margin: 0 !important; /* Xóa margin */
   padding: 0 !important; /* Xóa padding */
   width: auto !important;
 }
@@ -562,7 +567,8 @@ i {
   gap: 3rem !important; /* Đảm bảo không có gap giữa các ô */
 }
 
-.swiper-button-next:hover, .swiper-button-prev:hover {
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
   background: #f9d132a7;
   color: white;
 }
@@ -620,11 +626,11 @@ i {
   margin: 1rem 0 0;
   font-size: 1.7rem;
   color: #555;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .news-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .news-article {
@@ -818,24 +824,27 @@ h2 {
   to {
     transform: translateX(2px);
   }
-} */ 
-
+} */
 
 /* =================== footer ================ */
 
 footer {
+  z-index: 1000;
   width: 100%;
   background: var(--heading-color);
-  padding: 6% 10% 0;
+  padding: 5% 10% 0;
 }
+/* .footer .main-content {
+  padding: 6% 10% 0;
+} */
 .footer img {
   width: auto;
-  height: 20%;
+  height: 30%;
   object-fit: cover;
 }
 .footer .row {
-  padding-bottom: 38px;
-  border-bottom: 1px solid #fff;
+  /* padding-bottom: 38px; */
+  border-bottom: 1px solid var(--yellow-color);
   display: flex;
   justify-content: space-between;
 }
@@ -850,10 +859,11 @@ footer {
 
 .footer .desc {
   margin-top: 15px;
-  max-width: 267px;
+  max-width: 35rem;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 2rem;
   line-height: 1.86;
+  font-weight: 600;
 }
 
 .footer .social {
@@ -866,9 +876,9 @@ footer {
   padding-bottom: 14px;
   padding-right: 48px;
   display: inline-block;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid var(--yellow-color);
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 600;
   line-height: 1.75;
 }
@@ -881,7 +891,7 @@ footer {
   display: inline-block;
   margin-bottom: 12px;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1.86;
 }
 .footer .list a:hover {
@@ -902,7 +912,7 @@ footer {
   padding: 28px 0;
   color: #fff;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1.86;
 }
 
@@ -928,12 +938,11 @@ footer {
   margin: 0 15px;
 }
 
-
 .readmore-container {
   padding: 0;
   list-style-type: none;
   justify-content: right;
-display: flex;
+  display: flex;
 }
 
 .readmore-container li {
@@ -948,9 +957,8 @@ display: flex;
 }
 
 .readmore-container li::before,
-.readmore-container li::after
-{
-  content: '';
+.readmore-container li::after {
+  content: "";
   position: absolute;
   width: inherit;
   border-left: inherit;
@@ -981,7 +989,7 @@ display: flex;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transform: translateX(calc(-0.15em * 3 - 0.08em * 2));
   transition: 0.3s;
   font-weight: 600;

@@ -118,6 +118,464 @@
         </div>
         <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
       </nav>
+      <!-- body -->
+      <!-- Main Content -->
+      <main class="account-container">
+        <div class="account-sidebar">
+          <div class="user-profile">
+            <div class="avatar">
+              <img
+                src="../the-outsider/assets/img/image-amyrobson.png"
+                alt="User Avatar"
+                id="user-avatar"
+              />
+            </div>
+            <h3 class="username" id="display-username">vngclinh</h3>
+            <p class="user-email" id="display-email">Tham gia từ 03/2025</p>
+          </div>
+
+          <nav class="account-menu">
+            <ul>
+              <li class="active">
+                <a href="#account-info"
+                  ><i class="fas fa-user"></i> Thông tin cá nhân</a
+                >
+              </li>
+              <li>
+                <a href="#saved-articles"
+                  ><i class="fas fa-bookmark"></i> Bài viết đã lưu</a
+                >
+              </li>
+              <li>
+                <a href="#reading-history"
+                  ><i class="fas fa-history"></i> Lịch sử đọc</a
+                >
+              </li>
+              <li>
+                <a href="#comment-history"
+                  ><i class="fa-solid fa-comment"></i>Bình luận của bạn</a
+                >
+              </li>
+              <li>
+                <a href="#settings"
+                  ><i class="fa-solid fa-pen-nib"></i> Đăng ký viết bài</a
+                >
+              </li>
+              <li>
+                <a href="/login/login_ver2.html" id="logout-btn"
+                  ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="account-content">
+          <!-- Account Information Tab -->
+          <div id="account-info" class="account-tab active">
+            <h2 class="account-title">Thông tin tài khoản</h2>
+            <form class="account-form" id="account-form">
+              <div class="form-group">
+                <label for="avatar-upload">Ảnh đại diện</label>
+                <div class="change-avatar">
+                  <div class="avatar">
+                    <img
+                      src="../the-outsider/assets/img/image-amyrobson.png"
+                      alt="User Avatar"
+                      id="user-avatar"
+                    />
+                  </div>
+                  <div class="avatar-upload">
+                    <input
+                      type="file"
+                      id="avatar-upload"
+                      accept="image/*"
+                      style="display: none"
+                    />
+                    <button id="change-avatar-btn" class="btn-upload">
+                      Tải ảnh lên
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="fullname">Họ và tên</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  name="fullname"
+                  value="Nguyễn Văn A"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value="user@example.com"
+                  readonly
+                />
+              </div>
+              <!-- Mật khẩu -->
+              <div class="form-group password-group">
+                <div class="password-header">
+                  <label for="password">Mật khẩu</label>
+                  <button
+                    type="button"
+                    id="toggle-password-btn"
+                    class="btn-change-password"
+                  >
+                    Đổi mật khẩu
+                  </button>
+                </div>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value="********"
+                  readonly
+                />
+                <!-- Form thay đổi mật khẩu (ẩn ban đầu) -->
+                <div
+                  id="change-password-form"
+                  class="change-password-form"
+                  style="display: none"
+                >
+                  <div class="form-group">
+                    <label for="current-password">Nhập mật khẩu hiện tại</label>
+                    <input
+                      type="password"
+                      id="current-password"
+                      name="current-password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="new-password">Nhập mật khẩu mới</label>
+                    <input
+                      type="password"
+                      id="new-password"
+                      name="new-password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="confirm-password">Nhập lại mật khẩu mới</label>
+                    <input
+                      type="password"
+                      id="confirm-password"
+                      name="confirm-password"
+                    />
+                  </div>
+                  <button type="button" id="submit-password-change">
+                    Đổi mật khẩu
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" name="phone" value="0987654321" />
+              </div>
+
+              <div class="form-group">
+                <label for="birthday">Ngày sinh</label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value="1990-01-01"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Giới tính</label>
+                <select id="gender" name="gender">
+                  <option value="male">Nam</option>
+                  <option value="female">Nữ</option>
+                  <option value="other">Khác</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <textarea id="address" name="address" rows="3">
+27 Trần Phú, Hà Đông, Hà Nội</textarea
+                >
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-save">Lưu thay đổi</button>
+              </div>
+            </form>
+
+            <div class="account-stats">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-info">
+                  <h4>Bài viết đã đọc</h4>
+                  <p id="read-count">128</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-bookmark"></i>
+                </div>
+                <div class="stat-info">
+                  <h4>Bài viết đã lưu</h4>
+                  <p id="saved-count">24</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-info">
+                  <h4>Thành viên từ</h4>
+                  <p id="join-date">12/2023</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tab Bài viết đã lưu -->
+          <div id="saved-articles" class="account-tab">
+            <h2 class="account-title">Bài viết đã lưu</h2>
+
+            <div class="saved-articles-list">
+              <!-- Bài viết 1 -->
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bài viết 2 -->
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Bài viết 3 -->
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="saved-article-item">
+                <div class="article-image">
+                  <img
+                    src="../the-outsider/assets/img/anh1.jpg"
+                    alt="Bài viết 1"
+                  />
+                </div>
+                <div class="article-info">
+                  <h3 class="article-title">
+                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
+                  </h3>
+                  <div class="article-social">
+                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
+                    <button class="btn-unsave" data-article-id="1">
+                      <i class="fas fa-bookmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phân trang -->
+            <div class="pagination">
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <span class="page-dots">...</span>
+              <button class="page-btn">5</button>
+              <button class="next-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
     <!-- footer -->
     <footer class="footer">
@@ -199,5 +657,7 @@
         </div>
       </div>
     </footer>
+    <script src="script.js"></script>
+    <script src="../the-outsider/script.js"></script>
   </body>
 </html>
