@@ -353,7 +353,7 @@ body {
 
 
 .main .main-container-body .main-topic .l-main .l-main-button {
-  margin-top: 2%;
+  margin: 2% 0 2% 0;
   width: 30%;
   height: 2rem;
   display: flex;
@@ -379,10 +379,10 @@ body {
 
 .main .main-container-body .r-main .r-main-header {
   width: fit-content;
-  height: 1.25%;
+  height: 2rem;
   text-decoration: none;
   border-bottom: 0.15rem solid #c22b22;
-  margin-bottom: 2.5%;
+  margin-bottom: 5%;
 }
 .main .main-container-body .r-main .r-main-header h2 {
   padding: 0;
@@ -399,12 +399,13 @@ body {
   align-items: flex-start;
   padding: 0;
   width: 90%;
-  height: 25%;
+  height: fit-content;
+  margin-bottom: 100%;
 }
 .main .main-container-body .r-main .r-list .first {
-  margin-bottom: 5%;
+  margin-bottom: 2%;
   border-bottom: 0.1rem solid #b8c2ce;
-  height: 44%;
+  height: 16.5rem;
 }
 .main .main-container-body .r-main .r-list .first .first-image {
   width: 100%;
@@ -421,6 +422,7 @@ body {
   color: #262626;
   margin: 0;
   display: inline;
+  line-height: 1.2;
 }
 .main .main-container-body .r-main .r-list .first .first-title .f-cmt {
   display: inline;
@@ -428,7 +430,7 @@ body {
 .main .main-container-body .r-main .r-list .second {
   margin-bottom: 5%;
   border-bottom: 0.1rem solid #b8c2ce;
-  height: 8%;
+  height: 3rem;
 }
 .main .main-container-body .r-main .r-list .second .second-title {
   text-decoration: none;
@@ -437,6 +439,7 @@ body {
   color: #262626;
   margin: 0;
   display: inline;
+  line-height: 1.2;
 }
 .main .main-container-body .r-main .r-list .second .second-title .f-cmt {
   display: inline;
@@ -454,3 +457,4 @@ h3,h2,h4{
 h2{
   font-size: 24px;
 }
+
