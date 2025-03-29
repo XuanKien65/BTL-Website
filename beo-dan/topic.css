@@ -255,7 +255,7 @@ body {
 
 .main .main-container-body .main-topic .l-main .one-article {
   width: 98%;
-  height: fit-content;
+  height: 15rem;
   display: flex;
   justify-content: flex-start;
   border-bottom: 0.1rem solid #b8c2ce;
@@ -264,56 +264,72 @@ body {
   padding-bottom: 2%;
 }
 .main .main-container-body .main-topic .l-main .one-article .article-image {
-  width: 30%;
+  width: 50%;
+  height: 100%;
+}
+.main .main-container-body .main-topic .l-main .one-article .article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .main .main-container-body .main-topic .l-main .one-article .article-title {
   width: 100%;
-  padding-left: 2%;
-  margin: 0;
+  margin-left: 3%;
   text-decoration: none;
-  color: #262626;
   display: flex;
+  /* flex-wrap: wrap; */
   flex-direction: column;
 }
 .main .main-container-body .main-topic .l-main .one-article .article-title h3 {
-  font-size: 1.425rem;
+  font-size: 1.65rem;
+  line-height: 1.35;
   margin: 0;
   display: block;
-  margin-bottom: 1%;
+  font-family: var(--font-title);
+  color: #1d1d1f;
 }
 .main .main-container-body .main-topic .l-main .one-article .article-title p {
   font-size: 1rem;
-  margin-bottom: 0;
-  padding-bottom: 10px;
+  line-height: 1.35;
+  /* margin-bottom: 2%; */
+  margin-top: 1.4rem;
+  color: #1d1d1f;
+  /* padding-bottom: 10px; */
 }
 
 
 
 .ar-cmt {
   /* width: 5px; */
-  display: inline;
   color: #1d1d1f;
   font-size: 13px;
   display: flex;
   align-items: center;
+  margin-top: 1%;
+}
+
+.ar-cmt p{
+  margin: 0 !important;
+  font-size: 13px;
+  color: #bababa !important;
 }
 
 .ar-cmt .material-icons{
-  font-size: 15px;
-  color: #f9d232;
+  font-size: 18px;
+  color: #b8c2ce;
   padding-right: 5px;
 }
 
 .ar-cmt2 {
   /* width: 5px; */
-  padding-top: 6.5%;
+  padding-top: 9%;
   display: inline;
   color: #1d1d1f;
 }
 
 .ar-cmt2 .material-icons{
-  font-size: 15px;
+  font-size: 18px;
   color: #f9d232;
   padding-right: 5px;
 }
@@ -329,6 +345,10 @@ body {
   align-items: center;
   color: #1d1d1f;
   font-size: 15px;
+}
+
+.ar-cmt2 .ar-time .ar-item p{
+  margin: 0 !important;
 }
 
 
@@ -351,7 +371,7 @@ body {
 }
 .main .main-container-body .r-main {
   width: 30%;
-  height: 100%;
+  height: fit-content;
   display: flex;
   margin-left: 1.5%;
   flex-wrap: wrap;
