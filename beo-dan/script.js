@@ -13,3 +13,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.querySelectorAll(".filter").forEach(filter => {
+    filter.addEventListener("click", function() {
+        this.classList.toggle("active");
+    });
+});
+
+function setLayout(layout) {
+            const container = document.getElementById("articlesContainer");
+            if (layout === "grid") {
+                container.classList.remove("list-layout");
+                container.classList.add("grid-layout");
+            } else {
+                container.classList.remove("grid-layout");
+                container.classList.add("list-layout");
+            }
+        }   
