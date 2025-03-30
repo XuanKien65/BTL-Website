@@ -181,6 +181,24 @@ i {
 
 /* ====================== body ================ */
 /* Account Information Styles */
+.success-message,
+.error-message {
+  z-index: 100000;
+  position: fixed;
+  top: 10rem;
+  padding: 10px;
+  border-radius: 5px;
+
+  left: 50%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-50%); /* Điều chỉnh vị trí chính xác */
+  text-align: center; /* Căn giữa nội dung */
+}
+.success-message {
+  background: lightgreen;
+}
+.error-message {
+  background: lightcoral;
+}
 .account-container {
   display: flex;
   max-width: 1200px;
@@ -207,18 +225,27 @@ i {
   margin-bottom: 20px;
 }
 
-.user-profile .avatar {
-  width: 100px;
-  height: auto;
-
-  /* overflow: hidden; */
+.profile-avatar {
+  width: 8rem;
+  height: 8rem;
+  overflow: hidden;
   margin: 0 auto 15px;
 }
-
-.avatar img {
-  border-radius: 50%;
+.profile-avatar img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.avatar {
+  width: 8rem;
+  height: 8rem;
+  overflow: hidden;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   object-fit: cover;
 }
 
@@ -290,16 +317,12 @@ i {
 .account-form {
   padding: 2rem;
 }
-.account-form .form-group {
+.form-group {
   margin-bottom: 20px;
 }
 .account-form .change-avatar {
   display: flex;
   justify-content: space-between;
-}
-.account-form .avatar {
-  width: 7rem;
-  height: auto;
 }
 
 .account-form label {
@@ -310,7 +333,7 @@ i {
 
 .account-form input,
 .account-form select,
-.account-form textarea {
+textarea {
   width: 100%;
   padding: 10px 15px;
   border: 1px solid #ddd;
@@ -322,14 +345,15 @@ i {
 
 .account-form input:focus,
 .account-form select:focus,
-.account-form textarea:focus {
+textarea:focus {
   border-color: #666;
   outline: none;
 }
 
-.account-form textarea {
+textarea {
+  font-family: "Inter", sans-serif;
   resize: vertical;
-  min-height: 80px;
+  min-height: 120px;
 }
 /* Password field styling */
 .password-group {
@@ -364,32 +388,24 @@ i {
   cursor: pointer;
   transition: all 0.3s;
 }
-/* Form thay đổi mật khẩu */
-.change-password-form {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #eee;
-  animation: fadeIn 0.3s ease-in-out;
+
+.loading-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
 }
 
-.change-password-form .form-group {
-  margin-bottom: 15px;
-}
-
-.change-password-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.change-password-form input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeIn {
@@ -548,10 +564,6 @@ i {
   color: #777;
 }
 
-.avatar-upload {
-  margin-top: 10px;
-}
-
 .btn-upload {
   border: none;
   width: fit-content;
@@ -586,29 +598,8 @@ i {
     transform: rotate(360deg);
   }
 }
-
-/* Success message */
-.success-message {
-  display: none;
-  background: transparent;
-  color: var(--primary-color);
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-/* Error message */
-.error-message {
-  display: none;
-  background: transparent;
-  color: var(--primary-color);
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-}
-
+.cmt-article-item,
+.read-article-item,
 .saved-article-item {
   display: flex;
   gap: 2rem;
@@ -660,6 +651,33 @@ i {
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
+.cmt-article-item .article-info .cmt-detail {
+  width: 80%;
+  color: #444; /* Màu chữ tối hơn một chút so với #333 */
+  font-size: 1.6rem;
+  line-height: 1.6; /* Giãn dòng tốt cho đọc dễ */
+  margin: 0 0 1.2em 0; /* Cách đoạn hợp lý */
+  font-weight: 400; /* Độ đậm vừa phải */
+  text-align: justify; /* Căn đều 2 bên */
+  hyphens: auto; /* Tự động gạch nối từ khi cần */
+  /* Giới hạn 2 dòng và thêm ... */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Số dòng tối đa */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* Đảm bảo hiển thị tốt trên mọi trình duyệt */
+  max-height: calc(1.6em * 2); /* line-height x số dòng */
+  word-wrap: break-word;
+}
+/* CSS cho ngoặc kép */
+.cmt-article-item .article-info .comment-detail.quoted::before,
+.cmt-article-item .article-info .comment-detail.quoted::after {
+  content: '"';
+  color: #e74c3c;
+  font-weight: bold;
+}
 
 .btn-unsave {
   padding: 6px 12px;
@@ -675,43 +693,44 @@ i {
   color: var(--heading-color);
 }
 
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 30px;
-  padding: 20px 0;
-}
-
-.page-btn,
-.next-btn {
+.page-btn {
   padding: 8px 12px;
   border: 1px solid #ddd;
-  background: #fff;
+  background: transparent;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
+  min-width: 40px;
+  text-align: center;
 }
 
-.page-btn:hover,
-.next-btn:hover {
-  background: #f5f5f5;
+.next-btn,
+.prev-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none !important;
 }
-
-.page-btn.active {
-  background: #333;
-  color: #fff;
-  border-color: #333;
+.page-btn.active,
+.page-btn-read.active {
+  background: var(--heading-color);
+  color: var(--yellow-color);
 }
-
-.page-dots {
-  padding: 8px;
+/* Phân trang */
+.pagination-cmt,
+.pagination-read,
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+  padding: 20px 0;
+  flex-wrap: wrap;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .cmt-article-item,
+  .read-article-item,
   .saved-article-item {
     flex-direction: column;
     gap: 15px;
@@ -738,53 +757,261 @@ i {
   background-color: #f0f0f0;
 }
 
-/* Phân trang */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 30px;
-  padding: 20px 0;
-  flex-wrap: wrap;
-}
-
-.page-btn,
-.next-btn {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s;
-  min-width: 40px;
-  text-align: center;
-}
-
-.page-btn:hover,
-.next-btn:hover {
-  background: #f5f5f5;
-}
-
-.page-btn.active {
-  background: #333;
-  color: #fff;
-  border-color: #333;
-}
-
-.page-dots {
-  padding: 8px;
-}
-
 /* Ẩn bài viết không thuộc trang hiện tại */
+.cmt-article-item,
+.read-article-item,
 .saved-article-item {
   display: none;
 }
 
 /* Hiển thị bài viết thuộc trang hiện tại */
+.cmt-article-item,
+.read-article-item.visible,
 .saved-article-item.visible {
   display: flex; /* Hoặc 'block' tùy vào CSS hiện có */
 }
 
+/* ========================tab đky tác giả ====================*/
+
+#author-site .form-group label,
+#author-register .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 2rem;
+  transition: border 0.3s;
+  color: #555;
+}
+
+.form-control:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* File upload */
+.image-upload-container,
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.upload-btn,
+.file-upload-btn {
+  font-size: 1.6rem;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.upload-btn:hover,
+.file-upload-btn:hover {
+  background-color: #eee;
+  border-color: #999;
+}
+#articleImages,
+.file-upload-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-upload-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.preview-item {
+  position: relative;
+  width: 150px;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.remove-image-btn,
+.preview-item .remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.checkbox-group {
+  padding: 10px 15px;
+}
+/* Animation khi click */
+.checkbox-group input[type="checkbox"]:active ~ .custom-checkbox {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.checkbox-group label {
+  padding: 1rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.checkbox-group label:hover {
+  background: #e9ecef;
+}
+
+/* Submit button */
+.btn-add,
+.submit-btn {
+  margin-left: auto;
+  font-size: 1.8rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--heading-color);
+  color: #fff;
+  border: none;
+}
+.btn-add,
+.submit-btn:hover {
+  filter: brightness(1.2);
+}
+/* Error message */
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .author-registration {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .preview-item {
+    width: 120px;
+    height: 80px;
+  }
+}
+/* ====================đăng bài viết================ */
+/* Style cho phần upload ảnh */
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.image-preview-item {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.image-preview-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+/* Style cơ bản cho select box */
+select {
+  /* Layout */
+  width: 100%;
+  max-width: 350px;
+  padding: 10px 15px;
+  margin: 8px 0;
+
+  /* Appearance */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: #333;
+  font-size: 2rem;
+  cursor: pointer;
+
+  /* Reset mặc định */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Thêm icon mũi tên */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+/* Hiệu ứng khi hover */
+select:hover {
+  border-color: #e9ecef;
+}
+
+/* Khi select box được focus */
+select:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* Style cho các option */
+select option {
+  padding: 1.2rem;
+  background: white;
+  color: #333;
+}
+select option:hover {
+  background: var(--heading-color);
+}
+
+/* Style cho option đầu tiên (placeholder) */
+#article-site select option:first-child {
+  color: #999;
+  font-style: italic;
+}
+
+/* Style khi disabled */
+select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+#author-site .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 /* =================== footer ================ */
 
 footer {

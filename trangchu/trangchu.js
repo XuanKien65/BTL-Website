@@ -70,34 +70,68 @@ function initSlider() {
 
 //hiện tin tức theo chủ đề
 document.addEventListener("DOMContentLoaded", function () {
-  const categoryLinks = document.querySelectorAll(".news-subject a");
-  const newsItems = document.querySelectorAll(".news-home-item");
+  const newsContainers = document.querySelectorAll(".container");
 
-  categoryLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      const selectedCategory = this.getAttribute("data-category");
+  newsContainers.forEach(container => {
+    const categoryLinks = container.querySelectorAll(".news-subject a");
+    const newsItems = container.querySelectorAll(".news-home-item");
 
-      // Xóa class active khỏi tất cả link
-      categoryLinks.forEach(l => l.classList.remove("active"));
-      this.classList.add("active"); // Thêm màu đỏ cho mục đang chọn
+    categoryLinks.forEach(link => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        const selectedCategory = this.getAttribute("data-category");
 
-      // Ẩn tất cả tin tức
-      newsItems.forEach(item => {
-        const itemCategory = item.closest("a").getAttribute("data-category");
-        if (itemCategory === selectedCategory) {
-          item.style.display = "block"; // Hiện tin tức của chủ đề đang chọn
-        } else {
-          item.style.display = "none"; // Ẩn tin tức không thuộc chủ đề
-        }
+        // Xóa class active khỏi tất cả link trong container hiện tại
+        categoryLinks.forEach(l => l.classList.remove("active"));
+        this.classList.add("active"); // Thêm màu đỏ cho mục đang chọn
+
+        // Ẩn tất cả tin tức trong container hiện tại
+        newsItems.forEach(item => {
+          const itemCategory = item.closest("a").getAttribute("data-category");
+          if (itemCategory === selectedCategory) {
+            item.style.display = "block"; // Hiện tin tức của chủ đề đang chọn
+          } else {
+            item.style.display = "none"; // Ẩn tin tức không thuộc chủ đề
+          }
+        });
       });
     });
-  });
 
-  // Tự động hiển thị mục đầu tiên khi load trang
-  categoryLinks[0].click();
+    // Tự động hiển thị mục đầu tiên khi load trang trong mỗi container
+    if (categoryLinks.length > 0) {
+      categoryLinks[0].click();
+    }
+  });
 });
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   const categoryLinks = document.querySelectorAll(".news-subject a");
+//   const newsItems = document.querySelectorAll(".news-home-item");
+
+//   categoryLinks.forEach(link => {
+//     link.addEventListener("click", function (event) {
+//       event.preventDefault();
+//       const selectedCategory = this.getAttribute("data-category");
+
+//       // Xóa class active khỏi tất cả link
+//       categoryLinks.forEach(l => l.classList.remove("active"));
+//       this.classList.add("active"); // Thêm màu đỏ cho mục đang chọn
+
+//       // Ẩn tất cả tin tức
+//       newsItems.forEach(item => {
+//         const itemCategory = item.closest("a").getAttribute("data-category");
+//         if (itemCategory === selectedCategory) {
+//           item.style.display = "block"; // Hiện tin tức của chủ đề đang chọn
+//         } else {
+//           item.style.display = "none"; // Ẩn tin tức không thuộc chủ đề
+//         }
+//       });
+//     });
+//   });
+
+//   // Tự động hiển thị mục đầu tiên khi load trang
+//   categoryLinks[0].click();
+// });
 
 // Bạn có thể thích
 document.addEventListener("DOMContentLoaded", function () {
@@ -117,4 +151,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //Giới hạn chỉ có 2 dòng tin tức theo chủ đề
+
 
