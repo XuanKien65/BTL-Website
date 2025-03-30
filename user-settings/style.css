@@ -663,6 +663,7 @@ textarea {
   /* Giới hạn 2 dòng và thêm ... */
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Số dòng tối đa */
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
