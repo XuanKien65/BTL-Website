@@ -269,7 +269,7 @@
         .author-name {
             font-size: 24px;
             font-weight: 600;
-            color: var(--primary-color);
+            color: #2c3e50;
             margin-bottom: 10px;
         }
 
@@ -317,7 +317,7 @@
         }
 
         .sample-link {
-            color: var(--primary-color);
+            color: #2c3e50;
             text-decoration: none;
             word-break: break-all;
         }
@@ -335,7 +335,7 @@
 
         .field-tag {
             background-color: rgba(74, 111, 165, 0.1);
-            color: var(--primary-color);
+            color: #2c3e50;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 12px;
