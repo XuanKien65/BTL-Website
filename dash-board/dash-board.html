@@ -34,18 +34,10 @@
                         </a>
                         <ul id = "auth" class = "sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#multi-two">Tài khoản</a>
-                                <ul id = "multi-two" class = "sidebar-dropdown2 list-unstyled collapse">
-                                    <li class = "sidebar-item">
-                                        <a href="#" class="sidebar-link">Người đọc</a>
-                                    </li>
-                                    <li class = "sidebar-item">
-                                        <a href="#" class="sidebar-link">Tác giả</a>
-                                    </li>
-                                </ul>
+                                <a href="#" class = "sidebar-link">Người đọc</a>
                             </li>
-                            <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Bình luận</a>
+                            <li class = sidebar-item>
+                                <a href="#" class = "sidebar-link">Tác giả</a>
                             </li>
                         </ul>
                     </li>
@@ -65,14 +57,14 @@
                     </li>
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">topic</span>
-                            <span>Quản lý danh mục</span>
+                            <span class="material-icons">folder_open</span>
+                            <span>Hoạt động</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">folder_open</span>
-                            <span>Hoạt động</span>
+                            <span class="material-icons">forum</span>
+                            <span>Quản lý bình luận</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
@@ -94,14 +86,11 @@
                 <div class="container-fluid">
                     <!-- <a class="navbar-brand" href="#">Logo</a> -->
                     <div class="d-flex">
-                        <span class = "material-icons">search</span>
-                        <form>
-                            <input type="text" placeholder="Tìm kiếm">
-                        </form>
+                        <div class = "greeting-container"></div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3" id = "user">
-                    <img src="https://flagcdn.com/w40/gb.png" width="20" alt="English">
+                    <img src="https://flagcdn.com/w40/gb.png" width="30" alt="English">
                     <span class="material-icons">light_mode</span>
                     <span class="material-icons">notifications</span>
                     <button class="btn btn-transparent border-0 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -181,7 +170,7 @@
                 <div class="col-lg-5 col-md-12">
                     <div class="card">
                         <div class="card-header card-header-text min-height-485">
-                            <h4 class="card-title">Hoạt động</h4>
+                            <a class="card-title" id = "acts">Hoạt động</a>
                         </div>
                         <div class="card-content">
                             <div class="streamline">
@@ -227,7 +216,6 @@
                 </div>
             </div>
             </div>
-        </div>
     </div>
 </body>
 <script src="script.js"></script>
