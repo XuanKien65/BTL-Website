@@ -12,6 +12,27 @@
             <h1>QUẢN LÝ TÁC GIẢ</h1>
         </header>
 
+        <!-- Thêm phần tìm kiếm và lọc -->
+        <div class="filter-section">
+            <div class="search-box">
+                <input type="text" 
+                    id="search-input" 
+                    placeholder="Tìm kiếm tác giả theo tên tài khoản"
+                    oninput="handleSearch()"> <!-- Thêm sự kiện oninput -->
+            </div>
+            <div class="filter-box">
+                <select id="field-filter" onchange="applyFilter()">
+                    <option value="">Tất cả lĩnh vực</option>
+                    <option value="Phim ảnh">Phim ảnh</option>
+                    <option value="Âm nhạc">Âm nhạc</option>
+                    <option value="Beauty & Fashion">Beauty & Fashion</option>
+                    <option value="Đời sống">Đời sống</option>
+                    <option value="Xã hội">Xã hội</option>
+                    <option value="Sức khỏe">Sức khỏe</option>
+                </select>
+            </div>
+        </div>
+
         <div class="stats-container">
             <div class="stat-card total">
                 <h3>Tổng số tác giả</h3>
@@ -27,26 +48,7 @@
             </div>
         </div>
 
-        <!-- Thêm phần tìm kiếm và lọc -->
-        <div class="filter-section">
-            <div class="search-box">
-                <input type="text" 
-                       id="search-input" 
-                       placeholder="Tìm kiếm tác giả theo tên tài khoản"
-                       oninput="handleSearch()"> <!-- Thêm sự kiện oninput -->
-            </div>
-            <div class="filter-box">
-                <select id="field-filter" onchange="applyFilter()">
-                    <option value="">Tất cả lĩnh vực</option>
-                    <option value="Phim ảnh">Phim ảnh</option>
-                    <option value="Âm nhạc">Âm nhạc</option>
-                    <option value="Beauty & Fashion">Beauty & Fashion</option>
-                    <option value="Đời sống">Đời sống</option>
-                    <option value="Xã hội">Xã hội</option>
-                    <option value="Sức khỏe">Sức khỏe</option>
-                </select>
-            </div>
-        </div>
+        
 
         <div class="authors-table">
             <table>
