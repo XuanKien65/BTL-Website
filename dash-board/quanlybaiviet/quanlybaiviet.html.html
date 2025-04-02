@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Bài viết </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quản lý Bài viết </h1>
+            <button id="add-post-btn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Thêm bài viết
+            </button>
+        </header>
+
+        <div class="filter-bar">
+            <select id="status-filter" class="form-control">
+                <option value="all">Tất cả trạng thái</option>
+                <option value="draft">Nháp</option>
+                <option value="pending">Chờ duyệt</option>
+                <option value="published">Đã xuất bản</option>
+            </select>
+            
+            <select id="category-filter" class="form-control">
+                <option value="all">Tất cả danh mục</option>
+                <option value="phim-anh">Phim ảnh</option>
+                <option value="am-nhac">Âm nhạc</option>
+                <option value="beauty-fashion">Beauty & Fashion</option>
+                <option value="doi-song">Đời sống</option>
+                <option value="xa-hoi">Xã hội</option>
+                <option value="suc-khoe">Sức khỏe</option>
+            </select>
+            
+            <input type="text" id="search-input" class="form-control" placeholder="Tìm kiếm theo tiêu đề, nội dung, hashtag...">
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card published">
+                <h3>Đã xuất bản</h3>
+                <span id="published-count">0</span>
+            </div>
+            <div class="stat-card pending">
+                <h3>Chờ duyệt</h3>
+                <span id="pending-count">0</span>
+            </div>
+            <div class="stat-card draft">
+                <h3>Nháp</h3>
+                <span id="draft-count">0</span>
+            </div>
+            <div class="stat-card total">
+                <h3>Tổng bài viết</h3>
+                <span id="total-count">0</span>
+            </div>
+        </div>
+
+        <div class="hashtag-filter-container">
+            <div class="hashtag-filter">
+                <span>Lọc theo hashtag:</span>
+                <div id="hashtag-filters"></div>
+            </div>
+        </div>
+
+        <table id="posts-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Danh mục</th>
+                    <th>Hashtags</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="posts-list">
+                <!-- Danh sách bài viết sẽ được thêm ở đây bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Thêm/Sửa bài viết -->
+    <div id="post-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title">Thêm bài viết mới</h2>
+            <form id="post-form">
+                <input type="hidden" id="post-id">
+                
+                <div class="form-group">
+                    <label for="post-title">Tiêu đề</label>
+                    <input type="text" id="post-title" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="post-content">Nội dung</label>
+                    <textarea id="post-content" class="form-control" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="post-category">Danh mục</label>
+                    <select id="post-category" class="form-control" required>
+                        <option value="">Chọn danh mục</option>
+                        <option value="phim-anh">Phim ảnh</option>
+                        <option value="am-nhac">Âm nhạc</option>
+                        <option value="beauty-fashion">Beauty & Fashion</option>
+                        <option value="doi-song">Đời sống</option>
+                        <option value="xa-hoi">Xã hội</option>
+                        <option value="suc-khoe">Sức khỏe</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="post-hashtags">Hashtags (phân cách bằng dấu phẩy)</label>
+                    <input type="text" id="post-hashtags" class="form-control" placeholder="ví dụ: javascript, webdev, tutorial">
+                </div>
+                
+                <div class="form-group">
+                    <label for="post-image">Ảnh minh họa</label>
+                    <input type="file" id="post-image" class="form-control" accept="image/*">
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="post-status">Trạng thái</label>
+                    <select id="post-status" class="form-control" required>
+                        <option value="draft">Nháp</option>
+                        <option value="pending">Chờ duyệt</option>
+                        <option value="published">Đã xuất bản</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Xác nhận xóa -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content confirm-modal">
+            <h3>Xác nhận xóa</h3>
+            <p>Bạn có chắc chắn muốn xóa bài viết này?</p>
+            <div class="confirm-actions">
+                <button id="confirm-delete" class="btn btn-danger">Xóa</button>
+                <button id="cancel-delete" class="btn btn-secondary">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="approve-modal" class="modal">
+        <div class="modal-content confirm-modal">
+            <h3>Xác nhận duyệt bài</h3>
+            <p>Bạn có chắc chắn muốn duyệt bài viết này?</p>
+            <div class="confirm-actions">
+                <button id="confirm-approve" class="btn btn-success">Duyệt</button>
+                <button id="cancel-approve" class="btn btn-secondary">Hủy</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="reject-modal" class="modal">
+        <div class="modal-content confirm-modal">
+            <h3>Xác nhận từ chối</h3>
+            <p>Bạn có chắc chắn muốn từ chối bài viết này?</p>
+            <div class="confirm-actions">
+                <button id="confirm-reject" class="btn btn-danger">Từ chối</button>
+                <button id="cancel-reject" class="btn btn-secondary">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
