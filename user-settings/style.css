@@ -181,8 +181,7 @@ i {
 
 /* ====================== body ================ */
 /* Account Information Styles */
-.success-message,
-.error-message {
+.success-message {
   z-index: 100000;
   position: fixed;
   top: 10rem;
@@ -196,9 +195,9 @@ i {
 .success-message {
   background: lightgreen;
 }
-.error-message {
+/* .error-message {
   background: lightcoral;
-}
+} */
 .account-container {
   display: flex;
   max-width: 1200px;
