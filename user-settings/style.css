@@ -598,6 +598,7 @@ textarea {
     transform: rotate(360deg);
   }
 }
+.posted-article-item,
 .cmt-article-item,
 .read-article-item,
 .saved-article-item {
@@ -647,7 +648,7 @@ textarea {
 }
 
 .article-meta {
-  color: #777;
+  color: #333;
   font-size: 1.6rem;
   margin-bottom: 10px;
 }
@@ -717,6 +718,7 @@ textarea {
   color: var(--yellow-color);
 }
 /* Phân trang */
+.pagination-posted,
 .pagination-cmt,
 .pagination-read,
 .pagination {
@@ -730,6 +732,7 @@ textarea {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .posted-article-item,
   .cmt-article-item,
   .read-article-item,
   .saved-article-item {
@@ -759,6 +762,7 @@ textarea {
 }
 
 /* Ẩn bài viết không thuộc trang hiện tại */
+.posted-article-item,
 .cmt-article-item,
 .read-article-item,
 .saved-article-item {
@@ -766,10 +770,11 @@ textarea {
 }
 
 /* Hiển thị bài viết thuộc trang hiện tại */
+.posted-article-item,
 .cmt-article-item,
 .read-article-item.visible,
 .saved-article-item.visible {
-  display: flex; /* Hoặc 'block' tùy vào CSS hiện có */
+  display: flex;
 }
 
 /* ========================tab đky tác giả ====================*/
@@ -1012,6 +1017,18 @@ select:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+/* ============posted article================= */
+
+.article-action i {
+  padding: 0.3rem;
+  color: var(--heading-color);
+  font-size: 1.8rem;
+}
+.posted-article-item .article-social .article-action span {
+  color: #444;
+  font-size: 1.6rem;
+  padding: 0 1rem;
 }
 /* =================== footer ================ */
 

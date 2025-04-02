@@ -466,6 +466,13 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   CommentArticlesPagination.init();
 
+  //Khởi tạo phân trang cho tab bài viết đã đăng
+  const PostedArticlePagination = createPagination(
+    "pagination-posted",
+    ".posted-article-item"
+  );
+  PostedArticlePagination.init();
+
   // ==================== PHẦN COMMENT ====================
   // Thêm dấu ngoặc kép cho comment
   document.querySelectorAll(".cmt-detail").forEach((detail) => {
