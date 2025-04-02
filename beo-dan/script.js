@@ -29,4 +29,4 @@ function setLayout(layout) {
                 container.classList.remove("grid-layout");
                 container.classList.add("list-layout");
             }
-        }   
+}   

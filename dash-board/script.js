@@ -88,3 +88,155 @@ new Chart(ctx, {
         }
     });
 });
+
+// Tạo file script.js hoặc thêm vào file JavaScript hiện có
+
+// Thêm dropdown menu vào sau button
+function setupUserDropdown() {
+    const dropdownButton = document.getElementById('dropdownMenuButton');
+    
+    // Tạo dropdown menu
+    const dropdownMenu = document.createElement('ul');
+    dropdownMenu.className = 'dropdown-menu dropdown-menu-end';
+    dropdownMenu.innerHTML = `
+        <li>
+            <div class="dropdown-item-text">
+                <div class="d-flex align-items-center p-2">
+                    <img src="https://img.freepik.com/premium-vector/avatar-icon0002_750950-43.jpg" class="rounded-circle" width="50" alt="User">
+                    <div class="ms-3">
+                        <h6 class="mb-0">${getUserName()}</h6>
+                        <small class="text-muted">Administrator</small>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <span class="material-icons me-2">person</span>
+                Thông tin cá nhân
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <span class="material-icons me-2">settings</span>
+                Cài đặt tài khoản
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item d-flex align-items-center text-danger" href="#">
+                <span class="material-icons me-2">help</span>
+                Trợ giúp
+            </a>
+        </li>
+    `;
+    
+    // Chèn dropdown menu vào sau button
+    dropdownButton.after(dropdownMenu);
+
+    // Xử lý sự kiện click cho các menu items
+    dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const action = e.currentTarget.textContent.trim();
+            
+            switch(action) {
+                case 'Thông tin cá nhân':
+                    console.log('Mở trang thông tin cá nhân');
+                    // Thêm code chuyển hướng đến trang thông tin cá nhân
+                    break;
+                    
+                case 'Cài đặt tài khoản':
+                    console.log('Mở trang cài đặt');
+                    // Thêm code chuyển hướng đến trang cài đặt
+                    break;
+            }
+        });
+    });
+}
+
+// Hàm lấy tên người dùng - có thể thay đổi theo logic của bạn
+function getUserName() {
+    // Tạm thời return giá trị mặc định
+    // Sau này có thể lấy từ session/localStorage hoặc API
+    return "Admin User";
+}
+
+// Hàm lấy icon theo thời gian
+function getTimeIcon() {
+    const hour = new Date().getHours();
+    
+    if (hour >= 5 && hour < 12) {
+        return "☀️"; // Icon mặt trời cho buổi sáng
+    } else if (hour >= 12 && hour < 18) {
+        return "🌤️"; // Icon mặt trời có mây cho buổi chiều
+    } else {
+        return '<span class="material-icons moon-icon">nightlight</span>'; // Icon mặt trăng xám
+    }
+}
+
+// Hàm lấy lời chào theo thời gian
+function getGreeting() {
+    const hour = new Date().getHours();
+    const userName = getUserName();
+    let greetingText = '';
+    let timeText = '';
+    
+    if (hour >= 5 && hour < 12) {
+        greetingText = "Chào buổi sáng";
+        timeText = "Chúc bạn một ngày tốt lành!";
+    } else if (hour >= 12 && hour < 18) {
+        greetingText = "Chào buổi chiều";
+        timeText = "Chúc bạn làm việc hiệu quả!";
+    } else {
+        greetingText = "Chào buổi tối";
+        timeText = "Chúc bạn nghỉ ngơi thật tốt!";
+    }
+
+    return {
+        icon: getTimeIcon(),
+        greeting: greetingText,
+        name: userName,
+        message: timeText
+    };
+}
+
+// Hàm cập nhật lời chào
+function updateGreeting() {
+    const greetingContainer = document.querySelector('.greeting-container');
+    const greetingData = getGreeting();
+    
+    // Tạo HTML cho lời chào
+    const greetingHTML = `
+        <div class="greeting-content">
+            <div class="greeting-icon">${greetingData.icon}</div>
+            <div class="greeting-text">
+                <div class="greeting-main">
+                    <span class="greeting">${greetingData.greeting}</span>
+                    <span class="user-name">${greetingData.name}</span>
+                </div>
+                <div class="greeting-message">${greetingData.message}</div>
+            </div>
+        </div>
+    `;
+    
+    greetingContainer.innerHTML = greetingHTML;
+}
+
+// Khởi tạo khi trang được load
+document.addEventListener('DOMContentLoaded', function() {
+    updateGreeting();
+    
+    // Cập nhật lời chào mỗi phút
+    setInterval(updateGreeting, 60000);
+    setupUserDropdown();
+});
+
+// Thêm sự kiện để cập nhật lời chào khi tab được focus lại
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        updateGreeting();
+    }
+});
+

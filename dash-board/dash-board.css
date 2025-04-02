@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
+:root{
+    font-family: 'Inter', sans-serif;
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -26,10 +30,10 @@ html, body {
     margin-right: 3rem;
 }
 
-.sidebar-nav{
+/* .sidebar-nav{
     list-style: none;
-    margin-top: 5rem;
-}
+    margin-top: 20%;
+} */
 
 
 #sidebar{
@@ -49,6 +53,7 @@ html, body {
 #sidebar.expand{
     width: 260px;
     min-width: 260px;
+    height: 100%;
 }
 
 #toggle-btn{
@@ -141,6 +146,11 @@ a.sidebar-link:hover{
     /* transition: all 0.3s ease-in-out; */
 }
 
+#sidebar.expand .sidebar-nav{
+    margin-top: 30%;
+    padding: 0;
+}
+
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after{
     border: solid;
     border-width: 0 .075rem .075rem 0;
@@ -172,8 +182,7 @@ a.sidebar-link:hover{
     border-bottom: 0.5px solid #FFF;
 }
 .container-fluid {
-    border: 2px solid black;
-    border-radius: 4rem;
+    border: none;
     width: 20%;
     margin-left: 3rem; 
     padding-left: 10px;
@@ -183,33 +192,85 @@ a.sidebar-link:hover{
     width: 100%;
     justify-content: flex-start;
 }
-.container-fluid .d-flex .material-icons{
-    padding-right: 5px;
+.greeting-container {
+    padding: 0 20px;
+    /* border-radius: 10px; */
+    /* background: linear-gradient(135deg, #c22b2b 0%, #f9d232 100%); */
+    min-width: 300px;
+    display: flex;
+    align-items: center;
 }
 
+.greeting-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-.container-fluid .d-flex form{
-    width: 100%;
+.greeting-icon {
+    font-size: 24px;
+}   
+
+.moon-icon{
+    color: #6a7078;
+}
+
+.greeting-text {
+    color: #1f1f1d  ;
+}
+
+.greeting-main {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.user-name {
+    font-weight: 600;
+    /* margin-left: 5px; */
+}
+
+.greeting-message {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.dropdown-menu {
+    width: 280px;
+    margin-right: 1rem;
+    padding: 0.5rem;
     border: none;
-    background-color: #f9d232;
-}
-.container-fluid .d-flex form input{
-    width: 100%;
-    border: none;
-    background-color: #f9d232;
-}
-input::placeholder {
-    color: black;  /* Thay đổi thành màu bạn muốn */
-    opacity: 1;    /* Đảm bảo hiển thị rõ */
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-top: 0.5rem;
 }
 
-input:focus {
-    border: none; /* Đảm bảo border không bị mất khi focus */
-    outline: none; /* Đảm bảo không có viền xanh mặc định */
+.dropdown-item {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-input:focus::placeholder {
-    display: none;
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item .material-icons {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.dropdown-item.text-danger .material-icons {
+    color: #dc3545;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.dropdown-item-text {
+    padding: 0.25rem;
 }
 
 .main .navbar #user{
@@ -385,3 +446,22 @@ input:focus::placeholder {
     height: 100% !important;
     flex: 1;
 }
+
+.card-title a{
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+#acts{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1f1f1d;
+    cursor: pointer;
+    font-family: "Merriweather", serif;
+}
+
+#acts:hover{
+    color: #f9d232;
+}
+
