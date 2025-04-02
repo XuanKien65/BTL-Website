@@ -276,3 +276,20 @@ cmntInput.querySelector(".bu-primary").addEventListener("click", () => {
   addComment(commentBody, 0);
   cmntInput.querySelector(".cmnt-input").value = "";
 });
+
+// luu bai viet
+document
+  .getElementById("save-article-btn")
+  .addEventListener("click", function () {
+    const isSaved = this.classList.toggle("saved");
+
+    if (isSaved) {
+      this.innerHTML = '<i class="fa-solid fa-bookmark"></i>';
+      // Gọi API lưu bài viết
+      console.log("Bài viết đã được lưu");
+    } else {
+      this.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+      // Gọi API bỏ lưu bài viết
+      console.log("Bài viết đã bỏ lưu");
+    }
+  });
