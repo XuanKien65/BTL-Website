@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             title: 'Giới thiệu về JavaScript',
             content: 'JavaScript là ngôn ngữ lập trình phổ biến...',
-            category: 'technology',
+            category: 'phim-anh',
             hashtags: ['javascript', 'web', 'frontend'],
             image: 'https://via.placeholder.com/150',
             status: 'published',
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 2,
             title: 'Cách học ReactJS hiệu quả',
             content: 'ReactJS là thư viện JavaScript phổ biến...',
-            category: 'technology',
+            category: 'am-nhac',
             hashtags: ['react', 'javascript', 'frontend'],
             image: 'https://via.placeholder.com/150',
             status: 'pending',
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 3,
             title: 'Bài viết nháp về CSS',
             content: 'CSS giúp tạo style cho trang web...',
-            category: 'technology',
+            category: 'beauty-fashion',
             hashtags: ['css', 'design'],
             image: 'https://via.placeholder.com/150',
             status: 'draft',
@@ -54,7 +54,27 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 4,
             title: 'Hướng dẫn học Toán cơ bản',
             content: 'Các khái niệm toán học cơ bản...',
-            category: 'education',
+            category: 'doi-song',
+            hashtags: ['math', 'education'],
+            image: 'https://via.placeholder.com/150',
+            status: 'pending',
+            createdAt: '2023-05-22'
+        },
+        {
+            id: 5,
+            title: 'Hướng dẫn học Toán cơ bản',
+            content: 'Các khái niệm toán học cơ bản...',
+            category: 'xa-hoi',
+            hashtags: ['math', 'education'],
+            image: 'https://via.placeholder.com/150',
+            status: 'pending',
+            createdAt: '2023-05-22'
+        },
+        {
+            id: 6,
+            title: 'Hướng dẫn học Toán cơ bản',
+            content: 'Các khái niệm toán học cơ bản...',
+            category: 'suc-khoe',
             hashtags: ['math', 'education'],
             image: 'https://via.placeholder.com/150',
             status: 'published',
@@ -177,10 +197,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Get category name
             const categoryNames = {
-                'technology': 'Công nghệ',
-                'education': 'Giáo dục',
-                'entertainment': 'Giải trí',
-                'sports': 'Thể thao'
+                'phim-anh': 'Phim ảnh',
+                'am-nhac': 'Âm nhạc',
+                'beauty-fashion': 'Beauty & Fashion',
+                'doi-song': 'Đời sống',
+                'xa-hoi': 'Xã hội',
+                'suc-khoe': 'Sức khỏe'
             };
             
             // Get status badge
@@ -211,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${post.title}</td>
                 <td>${categoryNames[post.category] || post.category}</td>
                 <td>${hashtagsHTML}</td>
-                <td><img src="${post.image}" alt="Ảnh minh họa" width="50"></td>
                 <td>${statusBadge}</td>
                 <td>${formatDate(post.createdAt)}</td>
                 <td>
