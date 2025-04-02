@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Người Dùng</title>
+    <link rel="stylesheet" href="./user.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container-wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button id="toggle-btn" type="button">
+                    <span class="sidebar-logo">
+                        <img src="./Giờ outsider.png" alt="">
+                    </span>
+                </button>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="material-icons">analytics</span>
+                        <span>Thống kê</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <span class="material-icons">manage_accounts</span>
+                        <span>Quản lý người dùng</span>
+                    </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Người đọc</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Tác giả</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                        <span class="material-icons">description</span>
+                        <span>Quản lý bài viết</span>
+                    </a>
+                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Danh sách bài viết</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Duyệt bài viết</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="material-icons">topic</span>
+                        <span>Quản lý danh mục</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="material-icons">forum</span>
+                        <span>Quản lý bình luận</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="material-icons">folder_open</span>
+                        <span>Hoạt động</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <span class="material-icons">settings</span>
+                        <span>Cài đặt</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-link">
+                    <span class="material-icons">logout</span>
+                    <span class="title">Log out</span>
+                </a>
+            </div>
+        </aside>
+        <div class="main height-fit-content">
+            <nav class="navbar navbar-expand-lg navbar-light height-100">
+                <div class="container-fluid">
+                    <div class="d-flex">
+                        <div class="greeting-container"></div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3" id="user">
+                    <img src="https://flagcdn.com/w40/gb.png" width="30" alt="English">
+                    <span class="material-icons">light_mode</span>
+                    <span class="material-icons">notifications</span>
+                    <button class="btn btn-transparent border-0 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://img.freepik.com/premium-vector/avatar-icon0002_750950-43.jpg?semt=ais_hybrid" class="rounded-circle" width="40" alt="User">
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="container">
+                
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm người dùng...">
+                    <button class="btn btn-primary" id="searchBtn">Tìm kiếm</button>
+                </div>
+
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ và tên</th>
+                            <th>Email</th>
+                            <th>Tên tài khoản</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Data will be loaded via JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div class="modal" id="viewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Thông tin người dùng</h3>
+                <span class="modal-close" id="closeViewModal">&times;</span>
+            </div>
+            <div class="form-group">
+                <label for="viewFullName">Họ và tên</label>
+                <input type="text" id="viewFullName" class="view-only" readonly>
+            </div>
+            <div class="form-group">
+                <label for="viewEmail">Email</label>
+                <input type="email" id="viewEmail" class="view-only" readonly>
+            </div>
+            <div class="form-group">
+                <label for="viewUsername">Tên tài khoản</label>
+                <input type="text" id="viewUsername" class="view-only" readonly>
+            </div>
+            <div class="form-group">
+                <label for="viewStatus">Trạng thái</label>
+                <input type="text" id="viewStatus" class="view-only" readonly>
+            </div>
+            <div class="form-group">
+                <label for="viewCreated">Ngày tạo</label>
+                <input type="text" id="viewCreated" class="view-only" readonly>
+            </div>
+            <button class="btn btn-primary" id="closeViewButton">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Xác nhận xóa</h3>
+                <span class="modal-close" id="closeDeleteModal">&times;</span>
+            </div>
+            <p>Bạn có chắc chắn muốn xóa người dùng này?</p>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button class="btn" id="cancelDelete">Hủy</button>
+                <button class="btn btn-danger" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./user.js"></script>
+</body>
+</html>

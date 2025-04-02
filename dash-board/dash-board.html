@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="dash-board.css">
 </head>
 <body>
-    <div class="wrapper">
+    <div class="container-wrapper">
         <aside id="sidebar">
             <div class="d-flex">
                 <button id = "toggle-btn" type = "button">
@@ -23,8 +23,8 @@
                 <ul class="sidebar-nav">
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">view_list</span>
-                            <span>Công việc</span>
+                            <span class="material-icons">analytics</span>
+                            <span>Thống kê</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
@@ -34,13 +34,10 @@
                         </a>
                         <ul id = "auth" class = "sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Tài khoản</a>
+                                <a href="#" class = "sidebar-link">Người đọc</a>
                             </li>
-                            <!-- <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Login</a>
-                            </li> -->
-                            <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Bình luận</a>
+                            <li class = sidebar-item>
+                                <a href="#" class = "sidebar-link">Tác giả</a>
                             </li>
                         </ul>
                     </li>
@@ -51,17 +48,23 @@
                         </a>
                         <ul id = "multi" class = "sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class = "sidebar-link">Tác giả</a>
+                                <a href="#" class = "sidebar-link">Danh sách bài viết</a>
                             </li>
                             <li class = sidebar-item>
-                                <a href="#" class = "sidebar-link">Danh mục</a>
+                                <a href="#" class = "sidebar-link">Duyệt bài viết</a>
                             </li>
                         </ul>
                     </li>
                     <li class = "sidebar-item">
                         <a href="#" class = "sidebar-link">
-                            <span class="material-icons">notifications</span>
-                            <span>Thông báo</span>
+                            <span class="material-icons">folder_open</span>
+                            <span>Hoạt động</span>
+                        </a>
+                    </li>
+                    <li class = "sidebar-item">
+                        <a href="#" class = "sidebar-link">
+                            <span class="material-icons">forum</span>
+                            <span>Quản lý bình luận</span>
                         </a>
                     </li>
                     <li class = "sidebar-item">
@@ -83,21 +86,19 @@
                 <div class="container-fluid">
                     <!-- <a class="navbar-brand" href="#">Logo</a> -->
                     <div class="d-flex">
-                        <span class = "material-icons">search</span>
-                        <form>
-                            <input type="text" placeholder="Tìm kiếm">
-                        </form>
+                        <div class = "greeting-container"></div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3" id = "user">
-                    <img src="https://flagcdn.com/w40/gb.png" width="20" alt="English">
-                    <span class="material-icons">lightbulb</span>
+                    <img src="https://flagcdn.com/w40/gb.png" width="30" alt="English">
+                    <span class="material-icons">light_mode</span>
                     <span class="material-icons">notifications</span>
-                    <img src="https://img.freepik.com/premium-vector/avatar-icon0002_750950-43.jpg?semt=ais_hybrid" class="rounded-circle" width="40" alt="User">
-                    <span class="status-dot"></span>
+                    <button class="btn btn-transparent border-0 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://img.freepik.com/premium-vector/avatar-icon0002_750950-43.jpg?semt=ais_hybrid" class="rounded-circle" width="40" alt="User">
+                    </button>
                 </div>
             </nav>
-            <div class="container mt-5">
+            <div class="container mt-4">
                 <div class="row w-100 justify-content-between">
                     <!-- Column 1 -->
                     <div class="col-md-3 height-fit-content">
@@ -118,9 +119,9 @@
                     <div class="col-md-3 height-fit-content">
                         <div class="card">
                             <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
-                                <span class="material-icons text-success" style="font-size: 5rem;">bar_chart</span>
+                                <span class="material-icons text-success" style="font-size: 5rem;">article</span>
                                 <div class="card-text">    
-                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h5 class="card-title mt-3">Bài báo</h5>
                                     <h3>70,340</h3>
                                 </div>
                             </div>
@@ -133,9 +134,9 @@
                     <div class="col-md-3 height-fit-content">
                         <div class="card">
                             <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
-                                <span class="material-icons text-danger" style="font-size: 5rem;">bar_chart</span>
+                                <span class="material-icons text-danger" style="font-size: 5rem;">group</span>
                                 <div class="card-text">    
-                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h5 class="card-title mt-3">Người dùng</h5>
                                     <h3>70,340</h3>
                                 </div>
                             </div>
@@ -148,9 +149,9 @@
                     <div class="col-md-3 height-fit-content">
                         <div class="card">
                             <div class="card-body d-flex justify-content-between align-items-center" id = "card-1">
-                                <span class="material-icons text-info" style="font-size: 5rem;">bar_chart</span>
+                                <span class="material-icons text-info" style="font-size: 5rem;">add_reaction</span>
                                 <div class="card-text">    
-                                    <h5 class="card-title mt-3">Lượt truy cập</h5>
+                                    <h5 class="card-title mt-3">Tương tác</h5>
                                     <h3>70,340</h3>
                                 </div>
                             </div>
@@ -169,7 +170,7 @@
                 <div class="col-lg-5 col-md-12">
                     <div class="card">
                         <div class="card-header card-header-text min-height-485">
-                            <h4 class="card-title">Activities</h4>
+                            <a class="card-title" id = "acts">Hoạt động</a>
                         </div>
                         <div class="card-content">
                             <div class="streamline">
@@ -215,9 +216,10 @@
                 </div>
             </div>
             </div>
-        </div>
     </div>
 </body>
 <script src="script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js
+"></script>
 </html>
