@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../the-outsider/assets/css/responsive.css"/>   
+    <!-- Swiper.js CSS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="reset.css">
@@ -9,15 +11,105 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="responsive2.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 </head>
 <body>
-    <div class="main">
-        <div class="main-body">
-            <div class="overlay"></div>
-            <div class="content">
-                <h1>Công nghệ</h1>
-            </div>
+    <header class="header fixed">
+        <div class="header banner">
+          <img
+            src="https://scontent.fhan5-6.fna.fbcdn.net/v/t1.15752-9/486024928_3821320521513398_7113828699233009977_n.png?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=w1b0MvvIVtkQ7kNvgEUq9D_&_nc_oc=AdmjCPDHABCMXnmqL9pfVjiTH2dPM4Qd0YPoyicJe0W4hqEgULGVqGoqmLyRasQpXvvcUTOcrPa_f-bv4nvImrMD&_nc_zt=23&_nc_ht=scontent.fhan5-6.fna&oh=03_Q7cD1wGGdVKtbfS48hB4uzNfCjzQ1lhJrbM1iRcNu6celDKw8g&oe=680A38C5"
+            alt="the outsider"
+            class="banner-logo"
+          />
         </div>
+      </header>
+  
+      <div class="split-line"></div>
+  
+      <nav class="nav">
+        <div id="backtohome">
+          <a href="#">
+            <img class="logo" src="../the-outsider/assets/img/Giờ outsider.png" alt="" />
+          </a>
+        </div>
+        <a href="#" class="home"><i class="fa-solid fa-house"></i></a>
+        <ul class="navbar">
+          <li class="main-category">
+            <a href="#!" class="category">Thời sự</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">Chính trị</a></li>
+              <li><a class="subnav-link" href="#">Nhân sự</a></li>
+              <li><a class="subnav-link" href="#">Dân sinh</a></li>
+              <li><a class="subnav-link" href="#">Giao thông</a></li>
+            </ul>
+          </li>
+          <li class="main-category">
+            <a href="#!"  class="category">Giáo dục</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">Tin tức</a></li>
+              <li><a class="subnav-link" href="#">Tuyển sinh</a></li>
+              <li><a class="subnav-link" href="#">Du học</a></li>
+            </ul>
+          </li>
+          <li class="main-category">
+            <a href="/beo-dan/topic.html"  class="category">Công nghệ</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">AI</a></li>
+              <li><a class="subnav-link" href="#">Chuyển đổi số</a></li>
+              <li><a class="subnav-link" href="#">Nhịp sống số</a></li>
+              <li><a class="subnav-link" href="#">Thiết bị</a></li>
+            </ul>
+          </li>
+          <li class="main-category">
+            <a href="#!"  class="category">Kinh doanh</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">Quốc tế</a></li>
+              <li><a class="subnav-link" href="#">Doanh nghiệp</a></li>
+              <li><a class="subnav-link" href="#">Chứng khoán</a></li>
+              <li><a class="subnav-link" href="#">Hàng hóa</a></li>
+            </ul>
+          </li>
+          <li class="main-category">
+            <a href="#!"  class="category">Giải trí</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">Phim</a></li>
+              <li><a class="subnav-link" href="#">Nhạc</a></li>
+              <li><a class="subnav-link" href="#">Thời trang</a></li>
+              <li><a class="subnav-link" href="#">Làm đẹp</a></li>
+            </ul>
+          </li>
+          <li class="main-category">
+            <a href="#!"  class="category">Thể thao</a>
+            <ul class="subnav">
+              <li><a class="subnav-link" href="#">Bóng đá</a></li>
+              <li><a class="subnav-link" href="#">Lịch thi đấu</a></li>
+              <li><a class="subnav-link" href="#">Các môn khác</a></li>
+              <li><a class="subnav-link" href="#">Esports</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="register">
+          <div class="search">
+            <input type="text" placeholder="Tìm kiếm...">
+            <a href="../beo-dan/search2.html">
+              <i class="fa-solid fa-magnifying-glass">
+                </i>
+                </a>
+            </i>
+          </div>
+          <a href="../login/login_ver2.html" class="dn-text"><i class="fa-solid fa-user"></i>Đăng nhập</a>
+          <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        </div>
+      </nav>
+    <div class="main">
         <div class="main-container">
             <div class="main-container-body">
                 <div class="title">
@@ -50,7 +142,7 @@
                 <div class="main-topic">
                     <div class="l-main">
                         <ul class="articles">
-                            <li class="articles-trend">
+                            <li class="articles-trend" id = "articles-trend">
                                 <div class="l-trending">
                                     <div class="l-body">
                                         <a href="" class="l-img">
@@ -145,478 +237,21 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="one-article">
-                                <a href="" class="article-image">
-                                    <img src="https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg" alt="">
-                                </a>
-                                <a href=" " class="article-title">
-                                    <h3>Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'</h3>
-                                    <p>Fly Pieter, game "được tạo đơn giản bằng vài câu lệnh AI", hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.</p>
-                                    <div class="ar-cmt">
-                                        <span class="material-icons">comment</span>
-                                        <p>15 comments</p>
-                                    </div>
-                                    <div class="ar-cmt2">
-                                        <div class="ar-time">
-                                            <span class="ar-item">
-                                                <span class="material-icons"> calendar_month</span>
-                                                <p>15/03/2023</p>
-                                            </span>
-                                            <span class="ar-item">
-                                                <span class="material-icons"> schedule</span>
-                                                <p>2 phút hơn</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            <ul id="articles-list">
+                                <!-- Bài viết sẽ được thêm tự động bằng JavaScript -->
+                            </ul>
                         </ul>
-                        <div class="l-main-button">
-                            <a href="" class="page">1</a>
-                            <a href="" class="page">2</a>
-                            <a href="" class="page">3</a>
-                            <a href="" class="page">4</a>
-                            <a href="" class="page">5</a>
-                            <a href="" class="page">
-                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
+                        <div class="l-main-button" id="pagination"></div>
                     </div>
                     <div class="r-main">
                         <a href="" class="r-main-header">
                             <h2>Chuyển động số</h2>
                         </a>
                         <ul class = "r-list">
-                            <li class = "first">
-                                <a href="" class ="first-image">
-                                    <img src="https://i1-sohoa.vnecdn.net/2025/03/04/2025-02-17t000000z-1557091761-6057-8552-1741054575.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=NakBkwvh5DZuT14NI91G8w" alt="">
-                                </a>
-                                <a href="" class = "first-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="" class="r-main-header">
-                            <h2>Chuyển động số</h2>
-                        </a>
-                        <ul class = "r-list">
-                            <li class = "first">
-                                <a href="" class ="first-image">
-                                    <img src="https://i1-sohoa.vnecdn.net/2025/03/04/2025-02-17t000000z-1557091761-6057-8552-1741054575.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=NakBkwvh5DZuT14NI91G8w" alt="">
-                                </a>
-                                <a href="" class = "first-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="" class="r-main-header">
-                            <h2>Chuyển động số</h2>
-                        </a>
-                        <ul class = "r-list">
-                            <li class = "first">
-                                <a href="" class ="first-image">
-                                    <img src="https://i1-sohoa.vnecdn.net/2025/03/04/2025-02-17t000000z-1557091761-6057-8552-1741054575.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=NakBkwvh5DZuT14NI91G8w" alt="">
-                                </a>
-                                <a href="" class = "first-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="" class="r-main-header">
-                            <h2>Chuyển động số</h2>
-                        </a>
-                        <ul class = "r-list">
-                            <li class = "first">
-                                <a href="" class ="first-image">
-                                    <img src="https://i1-sohoa.vnecdn.net/2025/03/04/2025-02-17t000000z-1557091761-6057-8552-1741054575.jpg?w=300&h=180&q=100&dpr=1&fit=crop&s=NakBkwvh5DZuT14NI91G8w" alt="">
-                                </a>
-                                <a href="" class = "first-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
-                                </a>
-                            </li>
-                            <li class = "second">
-                                <a href="" class = "second-title">
-                                    <h4>Phong cách DeepSeek 'tương đồng đáng kinh ngạc' với ChatGPT</h4>
+                            <li class = "r-articles">
+                                <a href="" class = "r-title">
+                                  <h3>Bộ váy mới của Taylor Swift trong kỉ nguyên Speak Now tại tour diễn The Eras Tour</h3>
+                                  <p>Góp phần làm nên thành công của Khi Cuộc Đời Cho Bạn Quả Quýt chính là những câu thoại đầy cảm xúc!</p>
                                 </a>
                             </li>
                         </ul>
@@ -625,5 +260,79 @@
             </div>    
         </div>
     </div>
+    <footer class="footer">
+        <div class="main-content">
+          <div class="row">
+            <!-- column1 -->
+            <div class="column">
+              <img src="../the-outsider/assets/img/Giờ outsider.png" alt="The Outsider" class="logo">
+              <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
+                <div class="social">
+                  <a href="">
+                    <i class="fa-brands fa-facebook"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </a>
+                  <a href="">
+                    <i class="fa-brands fa-linkedin"></i>
+                  </a>
+                </div>
+            </div>
+            <!-- column 2 -->
+            <div class="column">
+              <h3 class="title">Về chúng tôi</h3>
+              <ul class="list">
+                <li>
+                  <a href="#!">Tầm nhìn</a>
+                </li>
+                <li>
+                  <a href="#!">Sứ mệnh</a>
+                </li>
+                <li>
+                  <a href="#!">Mục tiêu</a>
+                </li>
+              </ul>
+            </div>
+            <!-- column 3 -->
+            <div class="column">
+              <h3 class="title">Hợp pháp</h3>
+              <ul class="list">
+                <li>
+                  <a href="#!">Chính sách bảo mật</a>
+                </li>
+                <li>
+                  <a href="#!">Điều khoản sử dụng</a>
+                </li>
+                <li>
+                  <a href="#!">Tùy chọn quảng cáo</a>
+                </li>
+              </ul>
+            </div>
+            <!-- column 4 -->
+            <div class="column">
+              <h3 class="title">Liên hệ</h3>
+              <ul class="list">
+                <li>
+                  <a href="#!"><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a>
+                </li>
+                <li>
+                  <a href="#!"><strong>Email:</strong> email@gmail.com</a>
+                </li>
+                <li>
+                  <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="copyright">
+            <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
+        </div>
+    </footer>
+    <script src="topic.js"></script>
+    <script src="/the-outsider/script.js"></script>
 </body>
 </html>
