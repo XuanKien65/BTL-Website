@@ -1,31 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
-:root {
-  font-family: "Inter", sans-serif;
-  --font-title: "Merriweather", sans-serif;
-  --border-color: #c22b22;
-  --font-color: #1d1d1f;
-  --heading-color: #c22b2b;
-  --primary-color: #1d1d1f;
-  --yellow-color: #f9d232;
-}
-
+/* Reset và font */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-  height: 100%;
+  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
 }
 
 body {
-  width: 100%;
-  margin: 0;
-  height: 100%;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+.notft {
+  flex: 1;
+}
+.nav.scrolled {
+  transition: 0.3s;
+  /* padding: 0 5%; */
+}
+.nav.scrolled .home {
+  display: none;
+}
+.nav.scrolled #backtohome {
+  display: block;
+}
+/* Kết thúc CSS phần header */
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-/* ==============banner================ */
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 9rem;
+  font-weight: bold;
+  color: #1d1d1f;
+  margin-bottom: 0.5rem;
+}
+
+.header .subtitle {
+  color: #666;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
 .header .banner {
   background-color: #fff;
   display: flex;
@@ -205,32 +233,10 @@ i {
 }
 /* Kết thúc CSS phần header */
 
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
 
-/* Header */
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
 
-.header h1 {
-  font-family: 'Merriweather', serif;
-  font-size: 9rem;
-  font-weight: bold;
-  color: #1d1d1f;
-  margin-bottom: 0.5rem;
-}
 
-.header .subtitle {
-  color: #666;
-  font-size: 2rem;
-  font-weight: 300;
-}
+
 
 /* Search box */
 .search-container2 {
@@ -798,4 +804,9 @@ footer {
 
 .search-container2.active .search-toggle .material-icons {
   transform: rotate(180deg);
+}
+
+.search-container2 {
+  margin-right: 1rem;
+  position: relative;
 }

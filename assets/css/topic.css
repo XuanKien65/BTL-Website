@@ -359,11 +359,12 @@ i {
   margin-left: 3%;
 }
 .main .main-container .main-container-body .main-topic .l-main .articles .articles-trend .scroll-div {
-  width: 100%;
+  width: 102%;
   height: 100%;
   /* display: flex; */
   overflow-y: scroll;
   /* direction: rtl; */
+  padding-right: 20px;
 }
 
 .main .main-container .main-container-body .main-topic .l-main .articles .articles-trend .scroll-div .trend-list {
@@ -378,7 +379,7 @@ i {
 .scroll-div::-webkit-scrollbar {
   width: 4px !important;
   background-color: transparent !important;
-  padding-right: 10px !important;
+  padding-right: 20px !important;
 }
 
 .scroll-div::-webkit-scrollbar-thumb {
@@ -584,7 +585,7 @@ i {
   justify-content: center;
   align-items: center;
   height: 3rem;
-  width: 60%;
+  width: 50%;
   background-color: #c22b2b;
   border-radius: 2rem;
 }
