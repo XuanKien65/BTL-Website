@@ -1013,3 +1013,18 @@ function changePage(event, page) {
 }
 
 document.addEventListener("DOMContentLoaded", displayArticles);
+
+// Đảm bảo đồng bộ hoàn toàn khi cuộn
+scrollDiv.addEventListener('scroll', function() {
+  updateScrollThumb();
+  window.requestAnimationFrame(updateScrollThumb); // Đảm bảo mượt mà
+});
+
+// Thêm xử lý cuộn khi click vào track
+document.querySelector('.fake-scrollbar-track').addEventListener('click', function(e) {
+  if (e.target !== fakeScrollbarThumb) {
+    const trackRect = this.getBoundingClientRect();
+    const clickPositionPercentage = (e.clientY - trackRect.top) / trackRect.height;
+    scrollDiv.scrollTop = clickPositionPercentage * (scrollDiv.scrollHeight - scrollDiv.clientHeight);
+  }
+});

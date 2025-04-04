@@ -1,15 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
+:root {
+  font-family: "Inter", sans-serif;
+  --font-title: "Merriweather", sans-serif;
+  --border-color: #c22b22;
+  --font-color: #1d1d1f;
+  --heading-color: #c22b2b;
+  --primary-color: #1d1d1f;
+  --yellow-color: #f9d232;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+
 /* Reset và font */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
 }
 
 body {
-  background-color: #f8f9fa;
-  color: #333;
+  /* background-color: #f8f9fa; */
+  color: #1d1d1f;
   line-height: 1.6;
 }
 
@@ -38,6 +58,190 @@ header .subtitle {
   font-size: 1.1rem;
   font-weight: 300;
 }
+
+.header .banner {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 10rem;
+  position: relative;
+}
+.banner-logo {
+  object-fit: cover;
+  margin: 1rem;
+  /* width: 50%;
+
+  height: auto; */
+}
+.header .fixed {
+  position: relative;
+}
+/* =============header============ */
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.header .banner {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 20rem;
+  position: relative;
+}
+.banner-logo {
+  object-fit: cover;
+  /* margin: 1rem; */
+  /* width: 50%;
+
+  height: auto; */
+}
+.header .fixed {
+  position: relative;
+}
+/* =============navbar============ */
+.nav {
+  /* max-width: 100vw; */
+  background-color: var(--heading-color);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8%;
+  transition: all 0.5s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng ở dưới */
+}
+i {
+  color: #f9d232;
+  font-size: 2rem;
+  margin-right: 3px;
+}
+.dn-text {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 400;
+  /* margin: 0px 3vw; */
+  transition: all 0.5s ease;
+  display: block;
+}
+.search i {
+  color: var(--heading-color);
+  margin-right: 3px;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar .category {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 2rem 2vw;
+  /* margin: 0px 3vw; */
+  transition: all 0.5s ease;
+  display: block;
+}
+.navbar .subnav-link {
+  color: #000;
+  font-size: 2rem;
+  font-weight: 400;
+  width: 150px;
+  padding: 2rem 1vw;
+  /* margin: 0px 3vw; */
+  transition: all 0.5s ease;
+  display: block;
+}
+.main-category:hover {
+  filter: brightness(0.9);
+}
+.navbar a:hover {
+  background: var(--heading-color);
+  text-shadow: 0.3px 0 0 currentColor;
+}
+.subnav {
+  display: none;
+  position: absolute;
+  /* width: 13vw; */
+  background-color: rgba(231, 232, 231);
+  top: 100%;
+}
+.subnav li {
+  border-bottom: 1px solid #ccc; /* Đường kẻ màu xám */
+}
+
+/* Xóa border của mục cuối cùng để không có đường kẻ dưới cùng */
+.subnav li:last-child {
+  border-bottom: none;
+}
+
+.main-category:hover .subnav {
+  display: block;
+}
+.logo {
+  /* top: 0; */
+  height: 100%;
+  width: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+#backtohome {
+  display: none;
+  position: relative;
+  height: 5rem;
+}
+.search {
+  background-color: #fff;
+  display: flex;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 3rem;
+  align-items: center;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+}
+.search:hover input {
+  width: 15rem;
+}
+.search input {
+  width: 0;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  transition: 0.8s;
+  background: transparent;
+}
+#menu-icon {
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 1001;
+  display: none;
+}
+.notft {
+  flex: 1;
+}
+.nav.scrolled {
+  transition: 0.3s;
+  /* padding: 0 5%; */
+}
+.nav.scrolled .home {
+  display: none;
+}
+.nav.scrolled #backtohome {
+  display: block;
+}
+/* Kết thúc CSS phần header */
+
+
+
+
+
 
 /* Search box */
 .search-container {
@@ -385,4 +589,95 @@ header .subtitle {
 .search-container2 {
   margin-right: 1rem;
   position: relative;
+}
+
+
+
+
+footer {
+  z-index: 1000;
+  width: 100%;
+  background: var(--heading-color);
+  padding: 5% 10% 0;
+}
+/* .footer .main-content {
+  padding: 6% 10% 0;
+} */
+.footer img {
+  width: auto;
+  height: 30%;
+  object-fit: cover;
+}
+.footer .row {
+  /* padding-bottom: 38px; */
+  border-bottom: 1px solid var(--yellow-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer .row .column {
+  width: 21.6%;
+}
+
+.footer .row .column:first-child {
+  width: 35%;
+}
+
+.footer .desc {
+  margin-top: 15px;
+  max-width: 35rem;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1.86;
+  font-weight: 600;
+}
+
+.footer .social {
+  display: flex;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.footer .title {
+  padding-bottom: 14px;
+  padding-right: 48px;
+  display: inline-block;
+  border-bottom: 1px solid var(--yellow-color);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.75;
+}
+
+.footer .list {
+  margin-top: 28px;
+}
+
+.footer .list a {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.86;
+}
+.footer .list a:hover {
+  font-weight: 800;
+}
+.footer .list li:last-child a {
+  margin-bottom: 0;
+}
+
+.footer .list strong {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.86;
+}
+
+.footer .copyright {
+  padding: 28px 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  line-height: 1.86;
 }
