@@ -1016,19 +1016,19 @@ scrollDiv.addEventListener('scroll', function() {
 });
 
 // Thêm xử lý cuộn khi click vào track
-document.querySelector('.fake-scrollbar-track').addEventListener('click', function(e) {
-  if (e.target !== fakeScrollbarThumb) {
-    const trackRect = this.getBoundingClientRect();
-    const clickPositionPercentage = (e.clientY - trackRect.top) / trackRect.height;
-    scrollDiv.scrollTop = clickPositionPercentage * (scrollDiv.scrollHeight - scrollDiv.clientHeight);
-  }
-});
+// document.querySelector('.fake-scrollbar-track').addEventListener('click', function(e) {
+//   if (e.target !== fakeScrollbarThumb) {
+//     const trackRect = this.getBoundingClientRect();
+//     const clickPositionPercentage = (e.clientY - trackRect.top) / trackRect.height;
+//     scrollDiv.scrollTop = clickPositionPercentage * (scrollDiv.scrollHeight - scrollDiv.clientHeight);
+//   }
+// });
 
 // Bạn có thể thích
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
-    slidesPerView: 6, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
-    spaceBetween: 0, // Thêm khoảng cách giữa các ô
+    slidesPerView: 4, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
+    spaceBetween: 20, // Thêm khoảng cách giữa các ô
     loop: true, // Thêm tính năng loop
     navigation: {
       nextEl: ".swiper-button-next",

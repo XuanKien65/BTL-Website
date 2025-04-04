@@ -2,12 +2,12 @@
 const sampleArticles = [
     {
         id: 1,
-        title: "10 xu hướng thiết kế web năm 2023",
-        excerpt: "Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.",
+        title: "10 xu hướng thiết kế web năm 2023 10 xu hướng thiết kế web năm 2023",
+        excerpt: "Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.",
         category: "Beauty & Fashion",
         date: "2023-05-15",
         views: 1245,
-        image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png"
+        image: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg"
     },
     {
         id: 2,
@@ -131,8 +131,9 @@ const sampleArticles = [
 // Biến toàn cục
 let currentView = 'list';
 let currentPage = 1;
-const articlesPerPage = 9;
+const articlesPerPage = 12;
 let filteredArticles = [...sampleArticles];
+const viewOptions = document.querySelectorAll('.view-option');
 
 // DOM Elements
 const searchInput = document.getElementById('search-input');
@@ -143,10 +144,32 @@ const resultsList = document.getElementById('results-list');
 const resultsCount = document.getElementById('results-count');
 const pagination = document.getElementById('pagination');
 
+// Add arrow rotation functionality
+function setupArrowRotation() {
+  const selects = document.querySelectorAll('.filter-options select');
+  
+  selects.forEach(select => {
+    // Create arrow element
+    const arrow = document.createElement('div');
+    arrow.className = 'select-arrow';
+    select.parentNode.appendChild(arrow);
+    
+    // Add event listeners
+    select.addEventListener('focus', () => {
+      arrow.classList.add('rotated');
+    });
+    
+    select.addEventListener('blur', () => {
+      arrow.classList.remove('rotated');
+    });
+  });
+}
+
 // Hàm khởi tạo
 function init() {
     renderArticles();
     setupEventListeners();
+    setupArrowRotation();
 }
 
 // Thiết lập event listeners
@@ -227,14 +250,19 @@ function renderArticles() {
         const articleEl = document.createElement('div');
         articleEl.className = 'article-card';
         articleEl.innerHTML = `
-            <div class="article-image" style="background-image: url('${article.image}')"></div>
+            <a href="#" class="article-image">
+                <img src="${article.image}" alt="${article.title}">
+            </a>
             <div class="article-content">
                 <span class="article-category">${getCategoryName(article.category)}</span>
                 <h3 class="article-title">${article.title}</h3>
                 <p class="article-excerpt">${article.excerpt}</p>
                 <div class="article-meta">
                     <span>${formatDate(article.date)}</span>
-                    <span><i class="fas fa-eye"></i> ${article.views.toLocaleString()} lượt xem</span>
+                    <span>
+                    <i class="material-icons">schedule</i>
+                    <span> ${article.views.toLocaleString()} lượt xem</span>
+                    </span>
                 </div>
             </div>
         `;

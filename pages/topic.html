@@ -262,7 +262,7 @@
         </div>
     </div>
      <!-- Bạn có thể thích -->
-     <div class="news-slider-container">
+       <div class="news-slider-container">
       <div class="topic">Bạn có thể thích</div>
       <div class="swiper news-slider">
         <div class="swiper-wrapper">
@@ -363,6 +363,7 @@
         <div class="swiper-pagination"></div>
       </div>
     </div>
+
     <footer class="footer">
       <div class="main-content">
         <div class="row">
@@ -440,53 +441,5 @@
     <script src="../assets/js/trangbaiviet.js"></script>
     <!-- <script src="../assets/js/trangchu.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            new Swiper(".news-slider", {
-                slidesPerView: "auto",
-                centeredSlides: true,
-                spaceBetween: 30,
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20
-                    },
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 25
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 30
-                    }
-                },
-                effect: 'coverflow',
-                coverflowEffect: {
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: false,
-                }
-            });
-        });
-    </script>
 </body>
 </html>

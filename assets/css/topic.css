@@ -564,7 +564,7 @@ i {
   justify-content: center;
   align-items: center;
   height: 3rem;
-  width: 50%;
+  width: 55%;
   background-color: #c22b2b;
   border-radius: 2rem;
 }
@@ -721,6 +721,7 @@ footer {
   line-height: 1.86;
 }
 
+/* bạn có thể thích */
 .news-slider-container {
   width: 100%;
   margin: 4rem 0;
@@ -730,12 +731,12 @@ footer {
 
 .news-slider {
   position: relative;
-  width: 100%;
+  width: 90%;
 }
 
 .swiper {
   margin-top: 2rem;
-  width: 100%;
+  width: 98%;
   position: static;
 }
 
@@ -765,7 +766,7 @@ footer {
   padding: 1rem 0;
   font-weight: bold;
   color: var(--primary-color);
-  font-family: var(--font-heading);
+  font-family: var(--font-title);
 }
 
 .swiper-button-next,
@@ -815,4 +816,25 @@ footer {
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   background: none;
+}
+
+.topic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333;
+  margin: 3rem 0 2rem 0;
+  font-family: var(--font-title);
+}
+
+.topic::before,
+.topic::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--primary-color);
+  margin: 0 15px;
 }

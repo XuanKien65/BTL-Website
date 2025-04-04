@@ -7,6 +7,7 @@
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       rel="stylesheet"
@@ -121,7 +122,6 @@
     <div class="container">
       <div class="header">
         <h1>Tìm kiếm bài viết</h1>
-        <p class="subtitle">Khám phá các bài viết chất lượng</p>
       </div>
 
       <div class="search-container">
@@ -139,6 +139,13 @@
             <option value="newest">Mới nhất</option>
             <option value="oldest">Cũ nhất</option>
             <option value="popular">Phổ biến</option>
+          </select>
+          <select id="times">
+            <option value="all">Tất cả</option>
+            <option value="day">1 ngày</option>
+            <option value="week">1 tuần</option>
+            <option value="month">1 tháng</option>
+            <option value="year">1 năm</option>
           </select>
         </div>
         
@@ -250,5 +257,6 @@
     </footer>
 
     <script src="../assets/js/search.js"></script>
+    <script src="../assets/js/trangbaiviet.js"></script>
   </body>
 </html>
