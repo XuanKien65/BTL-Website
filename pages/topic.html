@@ -18,6 +18,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
 <body>
     <header class="header fixed">
@@ -257,8 +258,110 @@
                         </ul>
                     </div>
                 </div>
-            </div>    
+            </div>   
         </div>
+    </div>
+     <!-- Bạn có thể thích -->
+     <div class="news-slider-container">
+      <div class="topic">Bạn có thể thích</div>
+      <div class="swiper news-slider">
+        <div class="swiper-wrapper">
+          <!-- Bài viết 1 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 2 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 3 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 4 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 5 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 6 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 7 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 8 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 9 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+          <!-- Bài viết 10 -->
+          <div class="swiper-slide">
+            <a href="#">
+              <div class="swiper-news-item">
+                <div class="swiper-news-item-img" style="background-image: url('https://tinyurl.com/48yx4a28');"></div>
+                <h4 class="swiper-news-item-title">Pháo: "Chú ơi con bị bắt nạt"!</h4>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- Nút điều hướng -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
     <footer class="footer">
       <div class="main-content">
@@ -336,5 +439,54 @@
     <script src="../assets/js/topic.js"></script>
     <script src="../assets/js/trangbaiviet.js"></script>
     <!-- <script src="../assets/js/trangchu.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Swiper(".news-slider", {
+                slidesPerView: "auto",
+                centeredSlides: true,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 25
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    }
+                },
+                effect: 'coverflow',
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: false,
+                }
+            });
+        });
+    </script>
 </body>
 </html>

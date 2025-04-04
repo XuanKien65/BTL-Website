@@ -931,19 +931,14 @@ function displayArticles() {
                  <div class="article-desc">
                     <p>${article.desc}</p>
                 </div>
-                <div class="ar-cmt">
-                    <span class="material-icons">comment</span>
-                    <p>${article.comments} comments</p>
-                </div>
                 <div class="ar-cmt2">
                     <div class="ar-time">
                         <span class="ar-item">
-                            <span class="material-icons"> calendar_month</span>
-                            <p>${article.date}</p>
+                            <span>${article.date}</span>
                         </span>
                         <span class="ar-item">
                             <span class="material-icons"> schedule</span>
-                            <p>${article.time}</p>
+                            <span>${article.time}</span>
                         </span>
                     </div>
                 </div>
@@ -1027,4 +1022,40 @@ document.querySelector('.fake-scrollbar-track').addEventListener('click', functi
     const clickPositionPercentage = (e.clientY - trackRect.top) / trackRect.height;
     scrollDiv.scrollTop = clickPositionPercentage * (scrollDiv.scrollHeight - scrollDiv.clientHeight);
   }
+});
+
+// Bạn có thể thích
+document.addEventListener("DOMContentLoaded", function () {
+  new Swiper(".news-slider", {
+    slidesPerView: 6, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
+    spaceBetween: 0, // Thêm khoảng cách giữa các ô
+    loop: true, // Thêm tính năng loop
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      // Thêm responsive breakpoints
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 15
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 15
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      }
+    }
+  });
 });
