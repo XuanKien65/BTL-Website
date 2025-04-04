@@ -142,7 +142,6 @@ const sortBy = document.getElementById('sort-by');
 const resultsList = document.getElementById('results-list');
 const resultsCount = document.getElementById('results-count');
 const pagination = document.getElementById('pagination');
-const viewOptions = document.querySelectorAll('.view-option');
 
 // Hàm khởi tạo
 function init() {
@@ -317,8 +316,7 @@ init();
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchContainer = document.getElementById('searchContainer');
-    const searchToggle = document.getElementById('searchToggle');
-    const applyFiltersBtn = document.getElementById('applyFilters');
+    // const searchToggle = document.getElementById('searchToggle');
     
     // Toggle advanced search panel
     searchToggle.addEventListener('click', function() {
@@ -348,36 +346,10 @@ document.addEventListener('DOMContentLoaded', function() {
             contentTypes: contentTypes,
             categories: categories
         };
-        
-        // Hiển thị kết quả trong console (thay bằng API call trong thực tế)
-        console.log('Bộ lọc đã áp dụng:', filters);
-        
-        // Thông báo cho người dùng
-        alert('Bộ lọc đã được áp dụng! Kiểm tra console để xem chi tiết.');
-        
-        // Đóng panel sau khi áp dụng
         searchContainer.classList.remove('active');
         
         // Trong ứng dụng thực tế, bạn sẽ gọi API hoặc lọc dữ liệu tại đây
         // applyFiltersToData(filters);
     });
     
-    // Thêm hiệu ứng hover cho các mục lựa chọn
-    const checkboxes = document.querySelectorAll('.inner-checkbox');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('mouseover', function() {
-            this.style.backgroundColor = '#f0f0f0';
-        });
-        
-        checkbox.addEventListener('mouseout', function() {
-            this.style.backgroundColor = 'transparent';
-        });
-    });
-    
-    // Đóng panel khi click bên ngoài
-    document.addEventListener('click', function(event) {
-        if (!searchContainer.contains(event.target)) {
-            searchContainer.classList.remove('active');
-        }
-    });
 });
