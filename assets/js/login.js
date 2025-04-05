@@ -17,6 +17,9 @@ const existingUsernames = ["admin", "user1", "test123", "johndoe"];
 const MIN_USERNAME_LENGTH = 4;
 const MAX_USERNAME_LENGTH = 20;
 
+// Configuration for password constraints
+const MIN_PASSWORD_LENGTH = 8;
+
 // Function to validate username
 function validateUsername(username) {
   // Check if username is too short
@@ -32,6 +35,31 @@ function validateUsername(username) {
   // Check if username already exists
   if (existingUsernames.includes(username)) {
     return "Tên đăng nhập đã tồn tại";
+  }
+  
+  return null; // No error
+}
+
+// Function to validate password
+function validatePassword(password) {
+  // Check if password is too short
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return `Mật khẩu quá ngắn (tối thiểu ${MIN_PASSWORD_LENGTH} ký tự)`;
+  }
+  
+  // Check if password contains at least one uppercase letter
+  if (!/[A-Z]/.test(password)) {
+    return "Mật khẩu phải chứa ít nhất một chữ cái in hoa";
+  }
+  
+  // Check if password contains at least one special character
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    return "Mật khẩu phải chứa ít nhất một ký tự đặc biệt";
+  }
+  
+  // Check if password contains at least one digit
+  if (!/\d/.test(password)) {
+    return "Mật khẩu phải chứa ít nhất một chữ số";
   }
   
   return null; // No error
@@ -66,6 +94,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const loginUsernameInput = document.querySelector(".login .input-box input[type='text']");
   const registerUsernameInput = document.querySelector(".register .input-box input[type='text']");
   
+  // Get password input fields
+  const loginPasswordInput = document.querySelector(".login .input-box input[type='password']");
+  const registerPasswordInput = document.querySelector(".register .input-box input[type='password']");
+  
   // Validate username on blur (when user clicks away from the field)
   if (loginUsernameInput) {
     loginUsernameInput.addEventListener("blur", function() {
@@ -95,6 +127,35 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
+  // Validate password on blur
+  if (loginPasswordInput) {
+    loginPasswordInput.addEventListener("blur", function() {
+      const password = this.value;
+      if (password) {
+        const error = validatePassword(password);
+        if (error) {
+          showError(this, error);
+        } else {
+          removeError(this);
+        }
+      }
+    });
+  }
+  
+  if (registerPasswordInput) {
+    registerPasswordInput.addEventListener("blur", function() {
+      const password = this.value;
+      if (password) {
+        const error = validatePassword(password);
+        if (error) {
+          showError(this, error);
+        } else {
+          removeError(this);
+        }
+      }
+    });
+  }
+  
   // Validate forms on submit
   const loginForm = document.querySelector(".login form");
   const registerForm = document.querySelector(".register form");
@@ -102,11 +163,19 @@ document.addEventListener("DOMContentLoaded", function() {
   if (loginForm) {
     loginForm.addEventListener("submit", function(e) {
       const username = loginUsernameInput.value.trim();
-      const error = validateUsername(username);
+      const usernameError = validateUsername(username);
       
-      if (error) {
+      const password = loginPasswordInput.value;
+      const passwordError = validatePassword(password);
+      
+      if (usernameError) {
         e.preventDefault(); // Prevent form submission
-        showError(loginUsernameInput, error);
+        showError(loginUsernameInput, usernameError);
+      }
+      
+      if (passwordError) {
+        e.preventDefault(); // Prevent form submission
+        showError(loginPasswordInput, passwordError);
       }
     });
   }
@@ -114,11 +183,19 @@ document.addEventListener("DOMContentLoaded", function() {
   if (registerForm) {
     registerForm.addEventListener("submit", function(e) {
       const username = registerUsernameInput.value.trim();
-      const error = validateUsername(username);
+      const usernameError = validateUsername(username);
       
-      if (error) {
+      const password = registerPasswordInput.value;
+      const passwordError = validatePassword(password);
+      
+      if (usernameError) {
         e.preventDefault(); // Prevent form submission
-        showError(registerUsernameInput, error);
+        showError(registerUsernameInput, usernameError);
+      }
+      
+      if (passwordError) {
+        e.preventDefault(); // Prevent form submission
+        showError(registerPasswordInput, passwordError);
       }
     });
   }
