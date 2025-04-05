@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tìm kiếm bài viết</title>
     <!-- embedded font -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       rel="stylesheet"
@@ -18,16 +18,17 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <!-- reset -->
-    <link rel="stylesheet" href="../assets/css/reset.css" />
+    <link rel="stylesheet" href="../assets/css/reset.css"/>
     <!-- style -->
-    <link rel="stylesheet" href="../assets/css/search.css" />
+    <link rel="stylesheet" href="../assets/css/search.css"/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
   </head>
   <body>
-    <!-- <header class="header fixed"> -->
+
+    <header class="header fixed">
       <header class="header fixed">
         <div class="header banner">
           <img
@@ -115,140 +116,46 @@
         </div>
         <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
       </nav>
+
+
+
     <div class="container">
       <div class="header">
         <h1>Tìm kiếm bài viết</h1>
-        <p class="subtitle">Khám phá các bài viết chất lượng</p>
       </div>
 
-        <div class="search-container2" id="searchContainer">
-          <button class="search-toggle" id="searchToggle">
-            <span>Tìm kiếm nâng cao</span>
-            <span class="material-icons" style="font-size: 1.5rem">expand_more</span>
-          </button>
-
-          <div class="advanced-search" id="advancedSearch">
-            <div class="filter">
-              <h3>Tất cả chuyển mục</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Mới nhất"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-newest"
-                    checked
-                  />
-                  <label for="filter-newest">Mới nhất</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Xem nhiều"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-most-viewed"
-                  />
-                  <label for="filter-most-viewed">Xem nhiều</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Đánh giá cao"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-top-rated"
-                  />
-                  <label for="filter-top-rated">Đánh giá cao</label>
-                </li>
-              </ul>
-            </div>
-            <div class="filter">
-              <h3>Loại nội dung</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Bài báo"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-articles"
-                  />
-                  <label for="content-articles">Bài báo</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Video"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-videos"
-                  />
-                  <label for="content-videos">Video</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Ảnh"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-photos"
-                  />
-                  <label for="content-photos">Ảnh</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Podcast"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-podcasts"
-                  />
-                  <label for="content-podcasts">Podcast</label>
-                </li>
-              </ul>
-            </div>
-            <div class="filter">
-              <h3>Danh mục</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Thời sự"
-                    type="checkbox"
-                    name="category"
-                    id="category-news"
-                  />
-                  <label for="category-news">Thời sự</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Kinh doanh"
-                    type="checkbox"
-                    name="category"
-                    id="category-business"
-                  />
-                  <label for="category-business">Kinh doanh</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Giải trí"
-                    type="checkbox"
-                    name="category"
-                    id="category-entertainment"
-                  />
-                  <label for="category-entertainment">Giải trí</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Thể thao"
-                    type="checkbox"
-                    name="category"
-                    id="category-sports"
-                  />
-                  <label for="category-sports">Thể thao</label>
-                </li>
-              </ul>
-            </div>
-            <div class="button-filter">
-              <button id="applyFilters">
-                <span class="filter-label">Áp dụng bộ lọc</span>
-              </button>
-            </div>
-          </div>
+      <div class="search-container">
+        <div class="filter-options">
+          <select id="category-filter">
+            <option value="">Tất cả chuyên mục</option>
+            <option value="Phim ảnh">Phim ảnh</option>
+            <option value="Âm nhạc">Âm nhạc</option>
+            <option value="Beauty & Fashion">Beuty & Fashion</option>
+            <option value="Đời sống">Đời sống</option>
+            <option value="Xã hội">Xã hội</option>
+            <option value="Sức khỏe">Sức khỏe</option>
+          </select>
+          <select id="sort-by">
+            <option value="newest">Mới nhất</option>
+            <option value="oldest">Cũ nhất</option>
+            <option value="popular">Phổ biến</option>
+          </select>
+          <select id="times">
+            <option value="all">Tất cả</option>
+            <option value="day">1 ngày</option>
+            <option value="week">1 tuần</option>
+            <option value="month">1 tháng</option>
+            <option value="year">1 năm</option>
+          </select>
+        </div>
+        
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Nhập từ khóa tìm kiếm..."
+          />
+          <button id="search-button"><i class="fas fa-search"></i></button>
         </div>
       </div>
 
@@ -274,6 +181,7 @@
         </div>
       </div>
     </div>
+
     <footer class="footer">
       <div class="main-content">
         <div class="row">
@@ -347,6 +255,7 @@
         </div>
       </div>
     </footer>
+
     <script src="../assets/js/search.js"></script>
     <script src="../assets/js/trangbaiviet.js"></script>
   </body>
