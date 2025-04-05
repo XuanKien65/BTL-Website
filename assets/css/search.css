@@ -205,8 +205,6 @@ i {
 }
 /* Kết thúc CSS phần header */
 
-
-
 /* Container */
 .container {
   max-width: 1200px;
@@ -314,7 +312,7 @@ i {
 }
 
 .filter-options select::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 10px;
   top: 50%;
@@ -468,11 +466,11 @@ i {
   font-size: 12px;
 }
 
-.article-meta .material-icons{
+.article-meta .material-icons {
   font-size: 20px;
 }
 
-.article-meta span{
+.article-meta span {
   display: flex;
   align-items: center;
 }
@@ -653,7 +651,6 @@ i {
 
 /* =================== footer ================ */
 
-  
 footer {
   z-index: 1000;
   width: 100%;
@@ -741,4 +738,3 @@ footer {
   font-size: 1.6rem;
   line-height: 1.86;
 }
-
