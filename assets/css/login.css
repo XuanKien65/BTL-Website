@@ -344,3 +344,20 @@ form {
     font-size: 30px;
   }
 }
+
+/*error message*/
+.error-message {
+  color: #ff3333;
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: left;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+.input-box {
+  position: relative;
+  margin: 30px 0;
+  margin-bottom: 35px; /* Increased to make room for error messages */
+}
