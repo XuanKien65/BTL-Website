@@ -507,17 +507,19 @@
   .news-slider-container {
     width: 100%;
     margin: 4rem 0;
+    position: relative;
+    padding: 0 50px;
   }
   
-  .news-slider-container h2 {
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--heading-color);
-    font-family: var(--font-heading);
+  .news-slider {
+    position: relative;
+    width: 100%;
   }
   
   .swiper {
     margin-top: 2rem;
     width: 100%;
+    position: static;
   }
   
   .swiper-slide {
@@ -552,11 +554,12 @@
   .swiper-button-next,
   .swiper-button-prev {
     color: #ffcc00 !important;
-    background: #c22b2ba6;
-    font-size: 2rem;
-    font-weight: 700;
-    padding: 3rem 2rem;
-    border-radius: 0.2rem;
+    background: transparent;
+    width: 40px !important;
+    height: 40px !important;
+    /* border-radius: 50%; */
+    top: 50% !important;
+    transform: translateY(-50%);
   }
   
   .swiper-button-prev {
@@ -565,6 +568,11 @@
   
   .swiper-button-next {
     right: 0 !important;
+  }
+  
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 50px !important;
   }
   
   .swiper-pagination {
@@ -589,8 +597,7 @@
   
   .swiper-button-next:hover,
   .swiper-button-prev:hover {
-    background: #f9d132a7;
-    color: white;
+    background: none;
   }
   
   /* tin khác */

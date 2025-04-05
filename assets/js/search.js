@@ -2,13 +2,15 @@
 const sampleArticles = [
   {
     id: 1,
-    title: "10 xu hướng thiết kế web năm 2023",
+    title:
+      "10 xu hướng thiết kế web năm 2023 10 xu hướng thiết kế web năm 2023",
     excerpt:
-      "Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.",
+      "Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.",
     category: "Beauty & Fashion",
     date: "2023-05-15",
     views: 1245,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
+    image:
+      "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
   },
   {
     id: 2,
@@ -145,8 +147,9 @@ const sampleArticles = [
 // Biến toàn cục
 let currentView = "list";
 let currentPage = 1;
-const articlesPerPage = 9;
+const articlesPerPage = 12;
 let filteredArticles = [...sampleArticles];
+const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -156,12 +159,33 @@ const sortBy = document.getElementById("sort-by");
 const resultsList = document.getElementById("results-list");
 const resultsCount = document.getElementById("results-count");
 const pagination = document.getElementById("pagination");
-const viewOptions = document.querySelectorAll(".view-option");
+
+// Add arrow rotation functionality
+function setupArrowRotation() {
+  const selects = document.querySelectorAll(".filter-options select");
+
+  selects.forEach((select) => {
+    // Create arrow element
+    const arrow = document.createElement("div");
+    arrow.className = "select-arrow";
+    select.parentNode.appendChild(arrow);
+
+    // Add event listeners
+    select.addEventListener("focus", () => {
+      arrow.classList.add("rotated");
+    });
+
+    select.addEventListener("blur", () => {
+      arrow.classList.remove("rotated");
+    });
+  });
+}
 
 // Hàm khởi tạo
 function init() {
   renderArticles();
   setupEventListeners();
+  setupArrowRotation();
 }
 
 // Thiết lập event listeners
@@ -247,21 +271,24 @@ function renderArticles() {
     const articleEl = document.createElement("div");
     articleEl.className = "article-card";
     articleEl.innerHTML = `
-            <div class="article-image" style="background-image: url('${
-              article.image
-            }')"></div>
-            <div class="article-content">
-                <span class="article-category">${getCategoryName(
-                  article.category
-                )}</span>
-                <h3 class="article-title">${article.title}</h3>
-                <p class="article-excerpt">${article.excerpt}</p>
-                <div class="article-meta">
-                    <span>${formatDate(article.date)}</span>
-                    <span><i class="fas fa-eye"></i> ${article.views.toLocaleString()} lượt xem</span>
-                </div>
-            </div>
-        `;
+          <a href="#" class="article-image">
+              <img src="${article.image}" alt="${article.title}">
+          </a>
+          <div class="article-content">
+              <span class="article-category">${getCategoryName(
+                article.category
+              )}</span>
+              <h3 class="article-title">${article.title}</h3>
+              <p class="article-excerpt">${article.excerpt}</p>
+              <div class="article-meta">
+                  <span>${formatDate(article.date)}</span>
+                  <span>
+                  <i class="material-icons">schedule</i>
+                  <span> ${article.views.toLocaleString()} lượt xem</span>
+                  </span>
+              </div>
+          </div>
+      `;
     resultsList.appendChild(articleEl);
   });
 
@@ -340,8 +367,7 @@ init();
 
 document.addEventListener("DOMContentLoaded", function () {
   const searchContainer = document.getElementById("searchContainer");
-  const searchToggle = document.getElementById("searchToggle");
-  const applyFiltersBtn = document.getElementById("applyFilters");
+  // const searchToggle = document.getElementById('searchToggle');
 
   // Toggle advanced search panel
   searchToggle.addEventListener("click", function () {
@@ -377,36 +403,9 @@ document.addEventListener("DOMContentLoaded", function () {
       contentTypes: contentTypes,
       categories: categories,
     };
-
-    // Hiển thị kết quả trong console (thay bằng API call trong thực tế)
-    console.log("Bộ lọc đã áp dụng:", filters);
-
-    // Thông báo cho người dùng
-    alert("Bộ lọc đã được áp dụng! Kiểm tra console để xem chi tiết.");
-
-    // Đóng panel sau khi áp dụng
     searchContainer.classList.remove("active");
 
     // Trong ứng dụng thực tế, bạn sẽ gọi API hoặc lọc dữ liệu tại đây
     // applyFiltersToData(filters);
-  });
-
-  // Thêm hiệu ứng hover cho các mục lựa chọn
-  const checkboxes = document.querySelectorAll(".inner-checkbox");
-  checkboxes.forEach(function (checkbox) {
-    checkbox.addEventListener("mouseover", function () {
-      this.style.backgroundColor = "#f0f0f0";
-    });
-
-    checkbox.addEventListener("mouseout", function () {
-      this.style.backgroundColor = "transparent";
-    });
-  });
-
-  // Đóng panel khi click bên ngoài
-  document.addEventListener("click", function (event) {
-    if (!searchContainer.contains(event.target)) {
-      searchContainer.classList.remove("active");
-    }
   });
 });

@@ -7,6 +7,7 @@
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       rel="stylesheet"
@@ -17,20 +18,111 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <!-- reset -->
-    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="../assets/css/reset.css"/>
     <!-- style -->
-    <link rel="stylesheet" href="/assets/css/search.css" />
+    <link rel="stylesheet" href="../assets/css/search.css"/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Tìm kiếm bài viết</h1>
-        <p class="subtitle">Khám phá các bài viết chất lượng</p>
+
+    <header class="header fixed">
+      <header class="header fixed">
+        <div class="header banner">
+          <img
+            src="../assets/img/gio-outsider-red.png"
+            alt="the outsider"
+            class="banner-logo"
+          />
+        </div>
       </header>
+      <nav class="nav">
+        <div id="backtohome">
+          <a href="/index.html">
+            <img class="logo" src="../assets/img/gio-outsider.png" alt="" />
+          </a>
+        </div>
+        <a href="/index.html" class="home">
+          <i class="fa-solid fa-house"></i>
+        </a>
+        <div class="contain-navbar">
+          <ul class="navbar">
+            <li class="main-category">
+              <a href="#!" class="category">Phim ảnh</a>
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">Phim chiếu rạp</a></li>
+                <li><a class="subnav-link" href="#">Phim Việt Nam</a></li>
+                <li><a class="subnav-link" href="#">Phim truyền hình</a></li>
+                <li><a class="subnav-link" href="#">Phim quốc tế</a></li>
+              </ul>
+            </li>
+            <li class="main-category">
+              <a href="#!" class="category">Âm nhạc</a>
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">US-UK</a></li>
+                <li><a class="subnav-link" href="#">Châu Á</a></li>
+                <li><a class="subnav-link" href="#">Việt Nam</a></li>
+              </ul>
+            </li>
+            <li class="main-category">
+              <a href="/pages/topic.html" class="category"
+                >Beauty & Fashion</a
+              >
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">Trending</a></li>
+                <li><a class="subnav-link" href="#">Thời trang</a></li>
+                <li><a class="subnav-link" href="#">Làm đẹp</a></li>
+                <li><a class="subnav-link" href="#">Phong cách</a></li>
+              </ul>
+            </li>
+            <li class="main-category">
+              <a href="#!" class="category">Đời sống</a>
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">Soi sao</a></li>
+                <li><a class="subnav-link" href="#">Sống xanh</a></li>
+              </ul>
+            </li>
+            <li class="main-category">
+              <a href="#!" class="category">Xã hội</a>
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">Điểm nóng</a></li>
+                <li><a class="subnav-link" href="#">Pháp luật</a></li>
+                <li><a class="subnav-link" href="#">Thế giới đó đây</a></li>
+              </ul>
+            </li>
+            <li class="main-category">
+              <a href="#!" class="category">Sức khỏe</a>
+              <ul class="subnav">
+                <li><a class="subnav-link" href="#">Dinh dưỡng</a></li>
+                <li><a class="subnav-link" href="#">Khỏe đẹp</a></li>
+                <li><a class="subnav-link" href="#">Giới tính</a></li>
+                <li><a class="subnav-link" href="#">Các bệnh</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="search">
+          <input type="text" placeholder="Tìm kiếm..." />
+          <a href="/beo-dan/search2.html">
+            <i class="fa-solid fa-magnifying-glass"> </i>
+          </a>
+        </div>
+        <div class="register">
+          <a href="/login/login_ver2.html" class="dn-text"
+            ><i class="fa-solid fa-user"></i>Đăng nhập</a
+          >
+        </div>
+        <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+      </nav>
+
+
+
+    <div class="container">
+      <div class="header">
+        <h1>Tìm kiếm bài viết</h1>
+      </div>
 
       <div class="search-container">
         <div class="filter-options">
@@ -48,8 +140,15 @@
             <option value="oldest">Cũ nhất</option>
             <option value="popular">Phổ biến</option>
           </select>
+          <select id="times">
+            <option value="all">Tất cả</option>
+            <option value="day">1 ngày</option>
+            <option value="week">1 tuần</option>
+            <option value="month">1 tháng</option>
+            <option value="year">1 năm</option>
+          </select>
         </div>
-
+        
         <div class="search-box">
           <input
             type="text"
@@ -57,136 +156,6 @@
             placeholder="Nhập từ khóa tìm kiếm..."
           />
           <button id="search-button"><i class="fas fa-search"></i></button>
-        </div>
-
-        <div class="search-container2" id="searchContainer">
-          <button class="search-toggle" id="searchToggle">
-            <span>Tìm kiếm nâng cao</span>
-            <span class="toggle-icon">▼</span>
-          </button>
-
-          <div class="advanced-search" id="advancedSearch">
-            <div class="filter">
-              <h3>Tất cả chuyển mục</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Mới nhất"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-newest"
-                    checked
-                  />
-                  <label for="filter-newest">Mới nhất</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Xem nhiều"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-most-viewed"
-                  />
-                  <label for="filter-most-viewed">Xem nhiều</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Đánh giá cao"
-                    type="radio"
-                    name="filter-type"
-                    id="filter-top-rated"
-                  />
-                  <label for="filter-top-rated">Đánh giá cao</label>
-                </li>
-              </ul>
-            </div>
-            <div class="filter">
-              <h3>Loại nội dung</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Bài báo"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-articles"
-                  />
-                  <label for="content-articles">Bài báo</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Video"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-videos"
-                  />
-                  <label for="content-videos">Video</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Ảnh"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-photos"
-                  />
-                  <label for="content-photos">Ảnh</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Podcast"
-                    type="checkbox"
-                    name="content-type"
-                    id="content-podcasts"
-                  />
-                  <label for="content-podcasts">Podcast</label>
-                </li>
-              </ul>
-            </div>
-            <div class="filter">
-              <h3>Danh mục</h3>
-              <ul class="inner">
-                <li class="inner-checkbox">
-                  <input
-                    value="Thời sự"
-                    type="checkbox"
-                    name="category"
-                    id="category-news"
-                  />
-                  <label for="category-news">Thời sự</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Kinh doanh"
-                    type="checkbox"
-                    name="category"
-                    id="category-business"
-                  />
-                  <label for="category-business">Kinh doanh</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Giải trí"
-                    type="checkbox"
-                    name="category"
-                    id="category-entertainment"
-                  />
-                  <label for="category-entertainment">Giải trí</label>
-                </li>
-                <li class="inner-checkbox">
-                  <input
-                    value="Thể thao"
-                    type="checkbox"
-                    name="category"
-                    id="category-sports"
-                  />
-                  <label for="category-sports">Thể thao</label>
-                </li>
-              </ul>
-            </div>
-            <div class="button-filter">
-              <button id="applyFilters">
-                <span class="filter-label">Áp dụng bộ lọc</span>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -213,6 +182,81 @@
       </div>
     </div>
 
-    <script src="/assets/js/search.js"></script>
+    <footer class="footer">
+      <div class="main-content">
+        <div class="row">
+          <!-- column1 -->
+          <div class="column">
+            <img src="../assets/img/gio-outsider.png" alt="The Outsider" class="logo">
+            <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
+            <div class="social">
+              <a href="">
+                <i class="fa-brands fa-facebook"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+          <!-- column 2 -->
+          <div class="column">
+            <h3 class="title">Về chúng tôi</h3>
+            <ul class="list">
+              <li>
+                <a href="#!">Tầm nhìn</a>
+              </li>
+              <li>
+                <a href="#!">Sứ mệnh</a>
+              </li>
+              <li>
+                <a href="#!">Mục tiêu</a>
+              </li>
+            </ul>
+          </div>
+          <!-- column 3 -->
+          <div class="column">
+            <h3 class="title">Hợp pháp</h3>
+            <ul class="list">
+              <li>
+                <a href="#!">Chính sách bảo mật</a>
+              </li>
+              <li>
+                <a href="#!">Điều khoản sử dụng</a>
+              </li>
+              <li>
+                <a href="#!">Tùy chọn quảng cáo</a>
+              </li>
+            </ul>
+          </div>
+          <!-- column 4 -->
+          <div class="column">
+            <h3 class="title">Liên hệ</h3>
+            <ul class="list">
+              <li>
+                <a href="#!"><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a>
+              </li>
+              <li>
+                <a href="#!"><strong>Email:</strong> email@gmail.com</a>
+              </li>
+              <li>
+                <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/search.js"></script>
+    <script src="../assets/js/trangbaiviet.js"></script>
   </body>
 </html>

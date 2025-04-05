@@ -135,8 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // Bạn có thể thích
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
-    slidesPerView: 6, // Số lượng ô hiển thị
-    spaceBetween: 0, // Khoảng cách giữa các ô (giảm về 0)
+    slidesPerView: 6, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
+    spaceBetween: 0, // Thêm khoảng cách giữa các ô
+    loop: true, // Thêm tính năng loop
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -145,6 +146,25 @@ document.addEventListener("DOMContentLoaded", function () {
       el: ".swiper-pagination",
       clickable: true,
     },
+    breakpoints: {
+      // Thêm responsive breakpoints
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 15
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 15
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 20
+      }
+    }
   });
 });
 
