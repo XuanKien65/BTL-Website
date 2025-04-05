@@ -6,6 +6,15 @@
     --text-color: #ffffff;
     --hover-color: #ff2323b0;
     --transition: all 0.3s ease;
+    --success-color: #4cc9f0;
+    --danger-color: #f72585;
+    --warning-color: #f8961e;
+    --info-color: #4895ef;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --gray-color: #6c757d;
+    --light-gray: #e9ecef;
+    --primary-dark: #3a56d4;
 }
 
 body {
@@ -623,25 +632,25 @@ body {
     background: rgba(46, 204, 113, 0.2);
 }
 
-.btn-ban {
+.btn-unban {
     background: rgba(231, 76, 60, 0.1);
     color: #e74c3c;
     padding: 0.5rem;
     border-radius: 4px;
 }
 
-.btn-ban:hover {
+.btn-unban:hover {
     background: rgba(231, 76, 60, 0.2);
 }
 
-.btn-unban {
+.btn-ban {
     background: rgba(46, 204, 113, 0.1);
     color: #2ecc71;
     padding: 0.5rem;
     border-radius: 4px;
 }
 
-.btn-unban:hover {
+.btn-ban:hover {
     background: rgba(46, 204, 113, 0.2);
 }
 
@@ -665,15 +674,17 @@ body {
     min-width: 40px;
     height: 40px;
     padding: 0;
-    background: white;
-    border: 1px solid var(--light-gray);
+    /* border: 1px solid var(--light-gray); */
     margin: 0 0.25rem;
+    color: var(--secondary-color);
+    font-size: 20px;
 }
 
 .btn-prev:disabled, 
 .btn-next:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    color: var(--secondary-color);
 }
 
 /* Pagination */

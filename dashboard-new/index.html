@@ -36,14 +36,14 @@
                       <span class="material-icons">manage_accounts</span>
                       <span>Quản lý người dùng</span>
                   </a>
-                  <ul class="sidebar-dropdown">
+                  <!-- <ul class="sidebar-dropdown">
                       <li class="sidebar-item">
                           <a href="#users" class="sidebar-link"><i class="fas fa-users"></i>Người đọc</a>
                       </li>
                       <li class="sidebar-item">
                           <a href="#users" class="sidebar-link"><i class="fas fa-users"></i>Tác giả</a>
                       </li>
-                  </ul>
+                  </ul> -->
               </li>
               <li class="sidebar-item">
                   <a href="#posts" class="sidebar-link">
@@ -302,7 +302,7 @@
                         <i class="fas fa-plus"></i> Thêm danh mục
                     </button>
                 </div>
-
+            
                 <div class="table-responsive">
                     <table class="data-table">
                         <thead>
@@ -311,40 +311,12 @@
                                 <th>Tên danh mục</th>
                                 <th>Slug</th>
                                 <th>Số bài viết</th>
+                                <th>Danh mục cha</th>
                                 <th width="120px">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Tin tức</td>
-                                <td>tin-tuc</td>
-                                <td>45</td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-delete"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Hướng dẫn</td>
-                                <td>huong-dan</td>
-                                <td>32</td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-delete"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sản phẩm</td>
-                                <td>san-pham</td>
-                                <td>28</td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-delete"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -390,67 +362,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <div class="user-info">
-                                        <img src="https://tinyurl.com/ms4ebrkc" alt="User">
-                                        <span>Admin</span>
-                                    </div>
-                                </td>
-                                <td>admin@example.com</td>
-                                <td><span class="role-badge admin">Quản trị viên</span></td>
-                                <td>01/01/2023</td>
-                                <td><span class="status-badge active">Hoạt động</span></td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-ban"><i class="fas fa-lock"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <div class="user-info">
-                                        <img src="https://tinyurl.com/ms4ebrkc" alt="User">
-                                        <span>Editor</span>
-                                    </div>
-                                </td>
-                                <td>editor@example.com</td>
-                                <td><span class="role-badge editor">Biên tập viên</span></td>
-                                <td>15/02/2023</td>
-                                <td><span class="status-badge active">Hoạt động</span></td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-ban"><i class="fas fa-lock"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                    <div class="user-info">
-                                        <img src="https://tinyurl.com/ms4ebrkc" alt="User">
-                                        <span>User123</span>
-                                    </div>
-                                </td>
-                                <td>user123@example.com</td>
-                                <td><span class="role-badge user">Người dùng</span></td>
-                                <td>20/03/2023</td>
-                                <td><span class="status-badge banned">Đã khoá</span></td>
-                                <td>
-                                    <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-unban"><i class="fas fa-unlock"></i></button>
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
 
                 <div class="pagination">
-                    <button class="btn btn-prev" disabled><i class="fas fa-chevron-left"></i></button>
-                    <button class="btn btn-page active">1</button>
-                    <button class="btn btn-page">2</button>
-                    <button class="btn btn-page">3</button>
-                    <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                    
                 </div>
             </section>
 
@@ -724,6 +642,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- Hoạt động -->
             <section id="activities" class="content-section">
                 <div class="section-header">
@@ -887,8 +806,7 @@
                         <label for="categoryParent">Danh mục cha</label>
                         <select id="categoryParent">
                             <option value="">Không có</option>
-                            <option value="1">Tin tức</option>
-                            <option value="2">Hướng dẫn</option>
+                            <!-- Các danh mục cha sẽ được thêm bằng JavaScript -->
                         </select>
                     </div>
                     <div class="form-group">
