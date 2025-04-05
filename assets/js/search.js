@@ -144,32 +144,10 @@ const resultsList = document.getElementById('results-list');
 const resultsCount = document.getElementById('results-count');
 const pagination = document.getElementById('pagination');
 
-// Add arrow rotation functionality
-function setupArrowRotation() {
-  const selects = document.querySelectorAll('.filter-options select');
-  
-  selects.forEach(select => {
-    // Create arrow element
-    const arrow = document.createElement('div');
-    arrow.className = 'select-arrow';
-    select.parentNode.appendChild(arrow);
-    
-    // Add event listeners
-    select.addEventListener('focus', () => {
-      arrow.classList.add('rotated');
-    });
-    
-    select.addEventListener('blur', () => {
-      arrow.classList.remove('rotated');
-    });
-  });
-}
-
 // Hàm khởi tạo
 function init() {
     renderArticles();
     setupEventListeners();
-    setupArrowRotation();
 }
 
 // Thiết lập event listeners
@@ -257,10 +235,11 @@ function renderArticles() {
                 <span class="article-category">${getCategoryName(article.category)}</span>
                 <h3 class="article-title">${article.title}</h3>
                 <p class="article-excerpt">${article.excerpt}</p>
+                <a href="#" class="read-more">
+                <span>Đọc thêm </span> 
+                <span class="material-icons">trending_flat</span> </a>
                 <div class="article-meta">
-                    <span>${formatDate(article.date)}</span>
-                    <span>
-                    <i class="material-icons">schedule</i>
+                    <span>${(article.date)}</span>
                     <span> ${article.views.toLocaleString()} lượt xem</span>
                     </span>
                 </div>
@@ -285,7 +264,7 @@ function renderPagination() {
 
     // Nút Previous
     const prevButton = document.createElement('button');
-    prevButton.innerHTML = '&laquo;';
+    prevButton.innerHTML = `<span class="material-icons">chevron_left</span>`;
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -311,7 +290,7 @@ function renderPagination() {
 
     // Nút Next
     const nextButton = document.createElement('button');
-    nextButton.innerHTML = '&raquo;';
+    nextButton.innerHTML = `<span class="material-icons">chevron_right</span>`;
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
@@ -334,10 +313,10 @@ function getCategoryName(category) {
 }
 
 // Hàm trợ giúp: Định dạng ngày
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('vi-VN', options);
-}
+// function formatDate(dateString) {
+//     const options = { year: 'numeric', month: 'short', day: 'numeric' };
+//     return new Date(dateString).toLocaleDateString('vi-VN', options);
+// }
 
 // Khởi chạy ứng dụng
 init();

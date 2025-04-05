@@ -215,7 +215,7 @@ i {
 }
 
 .header h1 {
-  font-size: 8rem;
+  font-size: 5rem;
   font-weight: bold;
   color: #1d1d1f;
   font-family: var(--font-title);
@@ -253,7 +253,7 @@ i {
   border: none;
   background: transparent;
   padding: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #333;
   outline: none;
 }
@@ -313,23 +313,6 @@ i {
   position: relative;
 }
 
-.filter-options select::after {
-  content: '';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #555;
-  transition: transform 0.3s ease;
-}
-
-.filter-options select:focus::after {
-  transform: translateY(-50%) rotate(180deg);
-}
 
 /* Results */
 .results-container {
@@ -347,9 +330,9 @@ i {
 }
 
 .results-header h2 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 500;
-  color: #444;
+  color: #1d1d1f;
 }
 
 .view-toggle {
@@ -362,7 +345,7 @@ i {
   background: none;
   align-items: center;
   border: 1px solid #ddd;
-  color: #777;
+  color: #f9d232;
   width: 36px;
   height: 36px;
   border-radius: 6px;
@@ -372,7 +355,7 @@ i {
 
 .view-option.active {
   background-color: #c22d22;
-  color: white;
+  color: #f9d232;
   border-color: #c22d22;
 }
 
@@ -477,6 +460,10 @@ i {
   align-items: center;
 }
 
+.read-more{
+  display: none;
+}
+
 /* Grid view */
 .results-list.grid-view {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -511,6 +498,8 @@ i {
 .results-list.grid-view .article-category {
   width: auto;
   padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  display: none;
 }
 
 .results-list.grid-view .article-title {
@@ -549,7 +538,22 @@ i {
 
 .results-list.grid-view .article-meta .material-icons {
   font-size: 20px;
-  color: #c22d22;
+  color: #ccc;
+}
+
+.results-list.grid-view .read-more{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 15px;
+  font-size: 12px;
+  color: #f9d232 !important;
+  font-weight: bold;
+
+}
+
+.results-list.grid-view .read-more .material-icons{
+  font-size: 20px;
 }
 
 /* Pagination */
@@ -626,30 +630,6 @@ i {
   min-width: 180px; /* Cùng chiều rộng tối thiểu */
 }
 
-/* Header */
-.l-s-body-header {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.l-s-body-header h2 {
-  font-size: 18px;
-  color: #333;
-  font-weight: 600;
-}
-
-/* Filter Sections */
-.filter {
-  margin-bottom: 20px;
-}
-
-.filter h3 {
-  font-size: 16px;
-  color: #444;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
 
 /* =================== footer ================ */
 
