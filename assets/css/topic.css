@@ -781,11 +781,11 @@ footer {
 }
 
 .swiper-button-prev {
-  left: 0 !important;
+  left: 20 !important;
 }
 
 .swiper-button-next {
-  right: 0 !important;
+  right: 20 !important;
 }
 
 .swiper-button-next::after,
