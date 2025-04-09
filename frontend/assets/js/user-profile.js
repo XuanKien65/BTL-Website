@@ -319,6 +319,10 @@ document.addEventListener("DOMContentLoaded", function () {
       allItems.slice(startIndex, endIndex).forEach((item) => {
         item.style.display = "flex";
       });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Hiệu ứng cuộn mượt
+      });
 
       updatePaginationButtons();
       updateEmptyState();

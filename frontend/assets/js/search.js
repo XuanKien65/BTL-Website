@@ -152,20 +152,18 @@ let filteredArticles = [...sampleArticles];
 const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
-const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
-const categoryFilter = document.getElementById('category-filter');
-const sortBy = document.getElementById('sort-by');
-const resultsList = document.getElementById('results-list');
-const resultsCount = document.getElementById('results-count');
-const pagination = document.getElementById('pagination');
-
-// Add arrow rotation functionality
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
+const categoryFilter = document.getElementById("category-filter");
+const sortBy = document.getElementById("sort-by");
+const resultsList = document.getElementById("results-list");
+const resultsCount = document.getElementById("results-count");
+const pagination = document.getElementById("pagination");
 
 // Hàm khởi tạo
 function init() {
-    renderArticles();
-    setupEventListeners();
+  renderArticles();
+  setupEventListeners();
 }
 
 // Thiết lập event listeners
@@ -247,81 +245,97 @@ function renderArticles() {
     return;
   }
 
-    paginatedArticles.forEach(article => {
-        const articleEl = document.createElement('div');
-        articleEl.className = 'article-card';
-        articleEl.innerHTML = `
+  paginatedArticles.forEach((article) => {
+    const articleEl = document.createElement("div");
+    articleEl.className = "article-card";
+    articleEl.innerHTML = `
             <a href="#" class="article-image">
                 <img src="${article.image}" alt="${article.title}">
             </a>
             <div class="article-content">
-                <span class="article-category">${getCategoryName(article.category)}</span>
+                <span class="article-category">${getCategoryName(
+                  article.category
+                )}</span>
                 <h3 class="article-title">${article.title}</h3>
                 <p class="article-excerpt">${article.excerpt}</p>
                 <a href="#" class="read-more">
-                <span>Đọc thêm </span> 
-                <span class="material-icons">trending_flat</span> </a>
+                    <span>Đọc thêm</span> 
+                    <i class="fas fa-chevron-right"></i>
+                </a>
                 <div class="article-meta">
-                    <span>${(article.date)}</span>
-                    <span> ${article.views.toLocaleString()} lượt xem</span>
-                    </span>
+                    <span>${article.date}</span>
+                    <span>${article.views.toLocaleString()} lượt xem</span>
                 </div>
             </div>
         `;
-        resultsList.appendChild(articleEl);
-    });
+    resultsList.appendChild(articleEl);
+  });
 
   renderPagination();
 }
 
-// Hiển thị phân trang
+// Hiển thị phân trang (đã cập nhật theo yêu cầu)
 function renderPagination() {
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-
-  if (totalPages <= 1) {
-    pagination.innerHTML = "";
-    return;
-  }
-
   pagination.innerHTML = "";
 
-    // Nút Previous
-    const prevButton = document.createElement('button');
-    prevButton.innerHTML = `<span class="material-icons">chevron_left</span>`;
-    prevButton.disabled = currentPage === 1;
-    prevButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            renderArticles();
-        }
-    });
-    pagination.appendChild(prevButton);
+  if (totalPages <= 1) return;
 
-  // Các nút trang
-  for (let i = 1; i <= totalPages; i++) {
-    const pageButton = document.createElement("button");
-    pageButton.textContent = i;
-    if (i === currentPage) {
-      pageButton.classList.add("active");
-    }
-    pageButton.addEventListener("click", () => {
-      currentPage = i;
+  // Nút Previous
+  const prevBtn = document.createElement("button");
+  prevBtn.className = "prev-btn";
+  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (currentPage > 1) {
+      currentPage--;
       renderArticles();
-    });
-    pagination.appendChild(pageButton);
+      window.scrollTo(0, 0);
+    }
+  });
+  if (currentPage > 1) {
+    pagination.appendChild(prevBtn);
+  }
+  // Các nút trang
+  const maxVisiblePages = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+  // Đảm bảo luôn hiển thị đủ maxVisiblePages nút nếu có thể
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
   }
 
-    // Nút Next
-    const nextButton = document.createElement('button');
-    nextButton.innerHTML = `<span class="material-icons">chevron_right</span>`;
-    nextButton.disabled = currentPage === totalPages;
-    nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderArticles();
-        }
+  for (let i = startPage; i <= endPage; i++) {
+    const pageBtn = document.createElement("button");
+    pageBtn.className = `page-btn ${i === currentPage ? "active" : ""}`;
+    pageBtn.textContent = i;
+    pageBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentPage = i;
+      renderArticles();
+      window.scrollTo(0, 0);
     });
-    pagination.appendChild(nextButton);
+    pagination.appendChild(pageBtn);
+  }
+
+  // Nút Next
+  const nextBtn = document.createElement("button");
+  nextBtn.className = "next-btn";
+  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderArticles();
+      window.scrollTo(0, 0);
+    }
+  });
+  if (currentPage < totalPages) {
+    pagination.appendChild(nextBtn);
+  }
 }
 
 // Hàm trợ giúp: Lấy tên chuyên mục
@@ -335,56 +349,52 @@ function getCategoryName(category) {
   return categories[category] || category;
 }
 
-// Hàm trợ giúp: Định dạng ngày
-// function formatDate(dateString) {
-//     const options = { year: 'numeric', month: 'short', day: 'numeric' };
-//     return new Date(dateString).toLocaleDateString('vi-VN', options);
-// }
-
 // Khởi chạy ứng dụng
 init();
 
+// Xử lý advanced search panel
 document.addEventListener("DOMContentLoaded", function () {
   const searchContainer = document.getElementById("searchContainer");
-  // const searchToggle = document.getElementById('searchToggle');
+  const searchToggle = document.getElementById("searchToggle");
+  const applyFiltersBtn = document.getElementById("applyFiltersBtn");
 
-  // Toggle advanced search panel
-  searchToggle.addEventListener("click", function () {
-    searchContainer.classList.toggle("active");
-  });
+  if (searchToggle) {
+    searchToggle.addEventListener("click", function () {
+      searchContainer.classList.toggle("active");
+    });
+  }
 
-  // Apply filters
-  applyFiltersBtn.addEventListener("click", function () {
-    // Lấy giá trị radio button đã chọn (sắp xếp)
-    const selectedSort = document.querySelector(
-      'input[name="filter-type"]:checked'
-    ).value;
+  if (applyFiltersBtn) {
+    applyFiltersBtn.addEventListener("click", function () {
+      const selectedSort = document.querySelector(
+        'input[name="filter-type"]:checked'
+      )?.value;
+      const contentTypes = [];
+      document
+        .querySelectorAll('input[name="content-type"]:checked')
+        .forEach((checkbox) => {
+          contentTypes.push(checkbox.value);
+        });
 
-    // Lấy tất cả các loại nội dung đã chọn
-    const contentTypes = [];
-    document
-      .querySelectorAll('input[name="content-type"]:checked')
-      .forEach(function (checkbox) {
-        contentTypes.push(checkbox.value);
-      });
+      const categories = [];
+      document
+        .querySelectorAll('input[name="category"]:checked')
+        .forEach((checkbox) => {
+          categories.push(checkbox.value);
+        });
 
-    // Lấy tất cả các danh mục đã chọn
-    const categories = [];
-    document
-      .querySelectorAll('input[name="category"]:checked')
-      .forEach(function (checkbox) {
-        categories.push(checkbox.value);
-      });
+      const filters = {
+        sortBy: selectedSort,
+        contentTypes: contentTypes,
+        categories: categories,
+      };
 
-    // Tạo object chứa tất cả bộ lọc
-    const filters = {
-      sortBy: selectedSort,
-      contentTypes: contentTypes,
-      categories: categories,
-    };
-    searchContainer.classList.remove("active");
+      if (searchContainer) {
+        searchContainer.classList.remove("active");
+      }
 
-    // Trong ứng dụng thực tế, bạn sẽ gọi API hoặc lọc dữ liệu tại đây
-    // applyFiltersToData(filters);
-  });
+      // Áp dụng bộ lọc
+      // applyFiltersToData(filters);
+    });
+  }
 });
