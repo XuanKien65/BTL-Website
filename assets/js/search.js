@@ -152,40 +152,20 @@ let filteredArticles = [...sampleArticles];
 const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
-const searchInput = document.getElementById("search-input");
-const searchButton = document.getElementById("search-button");
-const categoryFilter = document.getElementById("category-filter");
-const sortBy = document.getElementById("sort-by");
-const resultsList = document.getElementById("results-list");
-const resultsCount = document.getElementById("results-count");
-const pagination = document.getElementById("pagination");
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const categoryFilter = document.getElementById('category-filter');
+const sortBy = document.getElementById('sort-by');
+const resultsList = document.getElementById('results-list');
+const resultsCount = document.getElementById('results-count');
+const pagination = document.getElementById('pagination');
 
 // Add arrow rotation functionality
-function setupArrowRotation() {
-  const selects = document.querySelectorAll(".filter-options select");
-
-  selects.forEach((select) => {
-    // Create arrow element
-    const arrow = document.createElement("div");
-    arrow.className = "select-arrow";
-    select.parentNode.appendChild(arrow);
-
-    // Add event listeners
-    select.addEventListener("focus", () => {
-      arrow.classList.add("rotated");
-    });
-
-    select.addEventListener("blur", () => {
-      arrow.classList.remove("rotated");
-    });
-  });
-}
 
 // Hàm khởi tạo
 function init() {
-  renderArticles();
-  setupEventListeners();
-  setupArrowRotation();
+    renderArticles();
+    setupEventListeners();
 }
 
 // Thiết lập event listeners
@@ -267,30 +247,29 @@ function renderArticles() {
     return;
   }
 
-  paginatedArticles.forEach((article) => {
-    const articleEl = document.createElement("div");
-    articleEl.className = "article-card";
-    articleEl.innerHTML = `
-          <a href="#" class="article-image">
-              <img src="${article.image}" alt="${article.title}">
-          </a>
-          <div class="article-content">
-              <span class="article-category">${getCategoryName(
-                article.category
-              )}</span>
-              <h3 class="article-title">${article.title}</h3>
-              <p class="article-excerpt">${article.excerpt}</p>
-              <div class="article-meta">
-                  <span>${formatDate(article.date)}</span>
-                  <span>
-                  <i class="material-icons">schedule</i>
-                  <span> ${article.views.toLocaleString()} lượt xem</span>
-                  </span>
-              </div>
-          </div>
-      `;
-    resultsList.appendChild(articleEl);
-  });
+    paginatedArticles.forEach(article => {
+        const articleEl = document.createElement('div');
+        articleEl.className = 'article-card';
+        articleEl.innerHTML = `
+            <a href="#" class="article-image">
+                <img src="${article.image}" alt="${article.title}">
+            </a>
+            <div class="article-content">
+                <span class="article-category">${getCategoryName(article.category)}</span>
+                <h3 class="article-title">${article.title}</h3>
+                <p class="article-excerpt">${article.excerpt}</p>
+                <a href="#" class="read-more">
+                <span>Đọc thêm </span> 
+                <span class="material-icons">trending_flat</span> </a>
+                <div class="article-meta">
+                    <span>${(article.date)}</span>
+                    <span> ${article.views.toLocaleString()} lượt xem</span>
+                    </span>
+                </div>
+            </div>
+        `;
+        resultsList.appendChild(articleEl);
+    });
 
   renderPagination();
 }
@@ -306,17 +285,17 @@ function renderPagination() {
 
   pagination.innerHTML = "";
 
-  // Nút Previous
-  const prevButton = document.createElement("button");
-  prevButton.innerHTML = "&laquo;";
-  prevButton.disabled = currentPage === 1;
-  prevButton.addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderArticles();
-    }
-  });
-  pagination.appendChild(prevButton);
+    // Nút Previous
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = `<span class="material-icons">chevron_left</span>`;
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderArticles();
+        }
+    });
+    pagination.appendChild(prevButton);
 
   // Các nút trang
   for (let i = 1; i <= totalPages; i++) {
@@ -332,17 +311,17 @@ function renderPagination() {
     pagination.appendChild(pageButton);
   }
 
-  // Nút Next
-  const nextButton = document.createElement("button");
-  nextButton.innerHTML = "&raquo;";
-  nextButton.disabled = currentPage === totalPages;
-  nextButton.addEventListener("click", () => {
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderArticles();
-    }
-  });
-  pagination.appendChild(nextButton);
+    // Nút Next
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = `<span class="material-icons">chevron_right</span>`;
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderArticles();
+        }
+    });
+    pagination.appendChild(nextButton);
 }
 
 // Hàm trợ giúp: Lấy tên chuyên mục
@@ -357,10 +336,10 @@ function getCategoryName(category) {
 }
 
 // Hàm trợ giúp: Định dạng ngày
-function formatDate(dateString) {
-  const options = { year: "numeric", month: "short", day: "numeric" };
-  return new Date(dateString).toLocaleDateString("vi-VN", options);
-}
+// function formatDate(dateString) {
+//     const options = { year: 'numeric', month: 'short', day: 'numeric' };
+//     return new Date(dateString).toLocaleDateString('vi-VN', options);
+// }
 
 // Khởi chạy ứng dụng
 init();
