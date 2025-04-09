@@ -379,7 +379,7 @@ i {
 
 .article-image {
   width: 40%;
-  height: 90%;
+  height: 91%;
   display: flex;
   text-decoration: none;
 }
@@ -427,7 +427,7 @@ i {
   color: #1d1d1f;
   line-height: 1.4;
   height: 4.2em; /* Exactly 3 lines (1.4em × 3) */
-  margin-top: 2rem;
+  margin-top: 3rem;
   overflow: hidden;
 }
 
