@@ -34,7 +34,7 @@ a {
   --Very-light-gray: hsl(228, 33%, 97%);
   --White: hsl(0, 0%, 100%);
 }
-/* ==============banner================ */
+/* =============header============ */
 .header .banner {
   background-color: #fff;
   display: flex;
@@ -49,9 +49,6 @@ a {
   /* width: 50%;
   
     height: auto; */
-}
-.header .fixed {
-  position: relative;
 }
 /* =============navbar============ */
 .nav {
@@ -174,9 +171,9 @@ i {
   z-index: 1001;
   display: none;
 }
-/* .notft {
-    flex: 1;
-  } */
+.notft {
+  flex: 1;
+}
 .nav.scrolled {
   transition: 0.3s;
   /* padding: 0 5%; */
@@ -187,6 +184,7 @@ i {
 .nav.scrolled #backtohome {
   display: block;
 }
+/* Kết thúc CSS phần header */
 /* ===========body================== */
 .article {
   display: flex;

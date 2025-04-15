@@ -13,12 +13,6 @@ menu.onclick = () => {
   menu.classList.toggle("bx-x");
   navbar.classList.toggle("open");
 };
-
-// document.querySelector(".search").addEventListener("mouseenter", function () {
-//   document.querySelectorAll(".navbar a").forEach((a) => {
-//     a.style.padding = "2rem 2vw";
-//   });
-// });
 const navbarLinks = document.querySelectorAll(".navbar a");
 const searchBox = document.querySelector(".search");
 
