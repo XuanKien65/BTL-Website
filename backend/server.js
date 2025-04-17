@@ -2,14 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const { pool } = require("./config/db"); // Thay đổi cách import
 
 const app = express();
-const { poolConnect } = require("./config/db");
 
-// Kiểm tra kết nối database
-poolConnect
-  .then(() => console.log("Connected to SQL Server"))
-  .catch((err) => console.error("Database connection failed:", err));
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -26,6 +22,21 @@ app.get("/api", (req, res) => {
     message: "Backend is working!",
     timestamp: new Date().toISOString(),
   });
+});
+
+// Route test database (đã sửa cho PostgreSQL)
+app.get("/api/test-db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT 1 AS test"); // Thay đổi cách query
+    res.json({ status: "success", data: result.rows }); // PostgreSQL dùng .rows thay vì .recordset
+  } catch (err) {
+    console.error("❌ Lỗi kết nối database:", err);
+    res.status(500).json({
+      status: "error",
+      message: "Database connection failed",
+      details: err.message, // Thêm thông tin lỗi chi tiết
+    });
+  }
 });
 
 // Fallback route
@@ -47,16 +58,4 @@ app.listen(PORT, () => {
   Frontend served from: ${staticDir}
   Time: ${new Date().toLocaleTimeString()}
   `);
-});
-app.get("/api/test-db", async (req, res) => {
-  try {
-    const pool = await sql.connect(config);
-    const result = await pool.request().query("SELECT 1 AS test");
-    res.json({ status: "success", data: result.recordset });
-  } catch (err) {
-    console.error("❌ Lỗi kết nối database:", err);
-    res
-      .status(500)
-      .json({ status: "error", message: "Database connection failed" });
-  }
 });
