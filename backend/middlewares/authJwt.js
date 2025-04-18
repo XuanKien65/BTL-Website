@@ -6,9 +6,6 @@ const verifyToken = (req, res, next) => {
   // Try to get token from different sources
   let token = req.headers["authorization"];
 
-  console.log("Incoming request headers:", req.headers);
-  console.log("Token received:", token);
-
   if (!token) {
     console.warn("No token provided for route:", req.originalUrl);
     return next(new ErrorHandler(403, "Access denied. No token provided."));

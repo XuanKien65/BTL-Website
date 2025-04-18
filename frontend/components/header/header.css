@@ -1,4 +1,3 @@
-/* ==============banner================ */
 .header .banner {
   background-color: #fff;
   display: flex;
@@ -11,17 +10,14 @@
   object-fit: cover;
   /* margin: 1rem; */
   /* width: 50%;
-    
-      height: auto; */
-}
-.header .fixed {
-  position: relative;
+  
+    height: auto; */
 }
 /* =============navbar============ */
 .nav {
   /* max-width: 100vw; */
   background-color: var(--heading-color);
-  position: sticky !important;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -138,10 +134,8 @@ i {
   z-index: 1001;
   display: none;
 }
-/* .notft {
-      flex: 1;
-    } */
 .nav.scrolled {
+  position: fixed;
   transition: 0.3s;
   /* padding: 0 5%; */
 }

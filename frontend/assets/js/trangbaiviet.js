@@ -1,44 +1,65 @@
-window.addEventListener("scroll", function () {
-  let nav = document.querySelector(".nav");
-  if (window.scrollY > 100) {
+function loadHeader() {
+  return fetch("../../components/header/header.html")
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.text();
+    })
+    .then((html) => {
+      const headerPlaceholder = document.getElementById("headernav");
+      if (!headerPlaceholder) throw new Error("Không tìm thấy #headernav");
+      headerPlaceholder.innerHTML = html;
+      return true;
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải header:", error);
+      return false;
+    });
+}
+
+function loadFooter() {
+  return fetch("../../components/footer/footer.html")
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.text();
+    })
+    .then((html) => {
+      const footerPlaceholder = document.getElementById("isfooter");
+      if (!footerPlaceholder) throw new Error("Không tìm thấy #isfooter");
+      footerPlaceholder.innerHTML = html;
+      return true;
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải footer:", error);
+      return false;
+    });
+}
+
+// Hàm xử lý scroll sau khi DOM đã sẵn sàng
+function handleScroll() {
+  const nav = document.querySelector(".nav");
+  if (!nav) return; // Thoát nếu không tìm thấy .nav
+
+  if (window.scrollY > 200) {
     nav.classList.add("scrolled");
   } else {
     nav.classList.remove("scrolled");
   }
+}
+
+// Khởi tạo sau khi tất cả đã load xong
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([loadHeader(), loadFooter()])
+    .then(() => {
+      // Gọi hàm xử lý scroll sau khi header/footer đã tải xong
+      handleScroll();
+
+      // Thêm event listener cho scroll
+      window.addEventListener("scroll", handleScroll);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi khởi tạo:", error);
+    });
 });
-
-let menu = document.querySelector("#menu-icon");
-let navbar = document.querySelector(".navbar");
-menu.onclick = () => {
-  menu.classList.toggle("bx-x");
-  navbar.classList.toggle("open");
-};
-const navbarLinks = document.querySelectorAll(".navbar a");
-const searchBox = document.querySelector(".search");
-
-searchBox.addEventListener("mouseenter", function () {
-  navbarLinks.forEach((a) => {
-    if (window.matchMedia("(max-width: 991.98px)").matches) {
-      a.style.padding = "2rem 1vw";
-    }
-  });
-});
-
-// searchBox.addEventListener("mouseleave", function () {
-//   navbarLinks.forEach((a) => {
-//     a.style.padding = "2rem 3vw";
-//   });
-// });
-// searchBox.addEventListener("mouseleave", function () {
-//   navbarLinks.forEach((a) => {
-//     if (window.matchMedia("(max-width: 991.98px)").matches) {
-//       a.style.padding = "2rem 1vw"; // Padding cho tablet
-//     } else {
-//       a.style.padding = "2rem 2vw"; // Padding cho PC
-//     }
-//   });
-// });
-
 const data = {
   currentUser: {
     image: {

@@ -1,7 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  initSlider();
-});
-
 function initSlider() {
   const slides = document.querySelectorAll(".slide");
   const pagination = document.querySelector(".pagination");
@@ -66,9 +62,71 @@ function initSlider() {
     slideInterval = setInterval(nextSlide, 3000);
   });
 }
+function loadHeader() {
+  return fetch("../../components/header/header.html")
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.text();
+    })
+    .then((html) => {
+      const headerPlaceholder = document.getElementById("headernav");
+      if (!headerPlaceholder) throw new Error("Không tìm thấy #headernav");
+      headerPlaceholder.innerHTML = html;
+      return true;
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải header:", error);
+      return false;
+    });
+}
+
+function loadFooter() {
+  return fetch("../../components/footer/footer.html")
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.text();
+    })
+    .then((html) => {
+      const footerPlaceholder = document.getElementById("isfooter");
+      if (!footerPlaceholder) throw new Error("Không tìm thấy #isfooter");
+      footerPlaceholder.innerHTML = html;
+      return true;
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải footer:", error);
+      return false;
+    });
+}
+
+// Hàm xử lý scroll sau khi DOM đã sẵn sàng
+function handleScroll() {
+  const nav = document.querySelector(".nav");
+  if (!nav) return; // Thoát nếu không tìm thấy .nav
+
+  if (window.scrollY > 200) {
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+}
+// Khởi tạo sau khi tất cả đã load xong
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([loadHeader(), loadFooter()])
+    .then(() => {
+      // Gọi hàm xử lý scroll sau khi header/footer đã tải xong
+      handleScroll();
+
+      // Thêm event listener cho scroll
+      window.addEventListener("scroll", handleScroll);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi khởi tạo:", error);
+    });
+});
 
 //hiện tin tức theo chủ đề
 document.addEventListener("DOMContentLoaded", function () {
+  initSlider();
   const newsContainers = document.querySelectorAll(".container");
 
   newsContainers.forEach((container) => {
@@ -101,39 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
       categoryLinks[0].click();
     }
   });
-});
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const categoryLinks = document.querySelectorAll(".news-subject a");
-//   const newsItems = document.querySelectorAll(".news-home-item");
-
-//   categoryLinks.forEach(link => {
-//     link.addEventListener("click", function (event) {
-//       event.preventDefault();
-//       const selectedCategory = this.getAttribute("data-category");
-
-//       // Xóa class active khỏi tất cả link
-//       categoryLinks.forEach(l => l.classList.remove("active"));
-//       this.classList.add("active"); // Thêm màu đỏ cho mục đang chọn
-
-//       // Ẩn tất cả tin tức
-//       newsItems.forEach(item => {
-//         const itemCategory = item.closest("a").getAttribute("data-category");
-//         if (itemCategory === selectedCategory) {
-//           item.style.display = "block"; // Hiện tin tức của chủ đề đang chọn
-//         } else {
-//           item.style.display = "none"; // Ẩn tin tức không thuộc chủ đề
-//         }
-//       });
-//     });
-//   });
-
-//   // Tự động hiển thị mục đầu tiên khi load trang
-//   categoryLinks[0].click();
-// });
-
-// Bạn có thể thích
-document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
     slidesPerView: 6, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
     spaceBetween: 0, // Thêm khoảng cách giữa các ô
@@ -150,21 +175,21 @@ document.addEventListener("DOMContentLoaded", function () {
       // Thêm responsive breakpoints
       320: {
         slidesPerView: 1,
-        spaceBetween: 10
+        spaceBetween: 10,
       },
       640: {
         slidesPerView: 2,
-        spaceBetween: 15
+        spaceBetween: 15,
       },
       768: {
         slidesPerView: 3,
-        spaceBetween: 15
+        spaceBetween: 15,
       },
       1024: {
         slidesPerView: 4,
-        spaceBetween: 20
-      }
-    }
+        spaceBetween: 20,
+      },
+    },
   });
 });
 

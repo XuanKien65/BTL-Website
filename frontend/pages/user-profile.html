@@ -6,6 +6,8 @@
     <!-- reset css -->
     <link rel="stylesheet" href="../assets/css/reset.css" />
     <!-- style -->
+    <link rel="stylesheet" href="../components/footer/footer.css" />
+    <link rel="stylesheet" href="../components/header/header.css" />
     <link rel="stylesheet" href="../assets/css/user-profile.css" />
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,91 +28,8 @@
   </head>
   <body>
     <!-- header -->
-    <header class="header fixed">
-      <div class="header banner">
-        <img
-          src="../assets/img/gio-outsider-red.png"
-          alt="the outsider"
-          class="banner-logo"
-        />
-      </div>
-    </header>
-    <div class="nav">
-      <div id="backtohome">
-        <a href="../index.html">
-          <img class="logo" src="../assets/img/gio-outsider.png" alt="" />
-        </a>
-      </div>
-      <a href="../index.html" class="home">
-        <i class="fa-solid fa-house"></i>
-      </a>
-      <div class="contain-navbar">
-        <ul class="navbar">
-          <li class="main-category">
-            <a href="#!" class="category">Phim ảnh</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Phim chiếu rạp</a></li>
-              <li><a class="subnav-link" href="#">Phim Việt Nam</a></li>
-              <li><a class="subnav-link" href="#">Phim truyền hình</a></li>
-              <li><a class="subnav-link" href="#">Phim quốc tế</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Âm nhạc</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">US-UK</a></li>
-              <li><a class="subnav-link" href="#">Châu Á</a></li>
-              <li><a class="subnav-link" href="#">Việt Nam</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="../pages/topic.html" class="category">Beauty & Fashion</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Trending</a></li>
-              <li><a class="subnav-link" href="#">Thời trang</a></li>
-              <li><a class="subnav-link" href="#">Làm đẹp</a></li>
-              <li><a class="subnav-link" href="#">Phong cách</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Đời sống</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Soi sao</a></li>
-              <li><a class="subnav-link" href="#">Sống xanh</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Xã hội</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Điểm nóng</a></li>
-              <li><a class="subnav-link" href="#">Pháp luật</a></li>
-              <li><a class="subnav-link" href="#">Thế giới đó đây</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Sức khỏe</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Dinh dưỡng</a></li>
-              <li><a class="subnav-link" href="#">Khỏe đẹp</a></li>
-              <li><a class="subnav-link" href="#">Giới tính</a></li>
-              <li><a class="subnav-link" href="#">Các bệnh</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="search">
-        <input type="text" placeholder="Tìm kiếm..." />
-        <a href="../pages/search.html">
-          <i class="fa-solid fa-magnifying-glass"> </i>
-        </a>
-      </div>
-      <div class="register">
-        <a href="../pages/login.html" class="dn-text"
-          ><i class="fa-solid fa-user"></i>Đăng nhập</a
-        >
-      </div>
-      <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
-    </div>
+    <div id="headernav"></div>
+
     <!-- body -->
     <!-- Main Content -->
     <main class="account-container">
@@ -1763,86 +1682,8 @@
       </div>
     </main>
     <!-- footer -->
-    <footer class="footer">
-      <div class="main-content">
-        <div class="row">
-          <!-- column1 -->
-          <div class="column">
-            <img
-              src="../assets/img/gio-outsider.png"
-              alt="The Outsider"
-              class="logo"
-            />
-            <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
-            <div class="social">
-              <a href="">
-                <i class="fa-brands fa-facebook"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-x-twitter"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-linkedin"></i>
-              </a>
-            </div>
-          </div>
-          <!-- column 2 -->
-          <div class="column">
-            <h3 class="title">Về chúng tôi</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Tầm nhìn</a>
-              </li>
-              <li>
-                <a href="#!">Sứ mệnh</a>
-              </li>
-              <li>
-                <a href="#!">Mục tiêu</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 3 -->
-          <div class="column">
-            <h3 class="title">Hợp pháp</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Chính sách bảo mật</a>
-              </li>
-              <li>
-                <a href="#!">Điều khoản sử dụng</a>
-              </li>
-              <li>
-                <a href="#!">Tùy chọn quảng cáo</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 4 -->
-          <div class="column">
-            <h3 class="title">Liên hệ</h3>
-            <ul class="list">
-              <li>
-                <a href="#!"
-                  ><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a
-                >
-              </li>
-              <li>
-                <a href="#!"><strong>Email:</strong> email@gmail.com</a>
-              </li>
-              <li>
-                <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="copyright">
-          <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
-        </div>
-      </div>
-    </footer>
+    <div id="isfooter"></div>
+    <script src="../components/header/header.js"></script>
     <script src="../assets/js/user-profile.js"></script>
-    <script src="../assets/js/trangbaiviet.js"></script>
   </body>
 </html>

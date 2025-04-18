@@ -6,8 +6,13 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const pool = require("./config/db.config");
 const cookieParser = require("cookie-parser");
+const open = require("open").default;
+const path = require("path");
 
 const app = express();
+const PORT = 5500;
+
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Middleware
 app.use(cors());
@@ -58,8 +63,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 5501;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
+  open(`http://localhost:${PORT}/pages/index.html`); // <-- mở trình duyệt
 });
