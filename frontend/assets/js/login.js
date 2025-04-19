@@ -1,211 +1,327 @@
+// ========== DOM ELEMENTS ==========
 const container = document.querySelector(".container");
 const registerBtn = document.querySelector(".register-btn");
 const loginBtn = document.querySelector(".login-btn");
+const loginForm = document.querySelector(".login form");
+const registerForm = document.querySelector(".register form");
 
-registerBtn.addEventListener("click", () => {
-  container.classList.add("active");
-});
+// Input fields
+const loginEmailInput = document.querySelector(
+  ".login .input-box input[type='email']"
+);
+const registerUsernameInput = document.querySelector(
+  ".register .input-box input[type='text']"
+);
+const loginPasswordInput = document.querySelector(
+  ".login .input-box input[type='password']"
+);
+const registerPasswordInput = document.querySelector(
+  ".register .input-box input[type='password']"
+);
+const registerEmailInput = document.querySelector(
+  ".register .input-box input[type='email']"
+);
 
-loginBtn.addEventListener("click", () => {
-  container.classList.remove("active");
-});
+// ========== CONFIGURATION ==========
+const CONFIG = {
+  username: {
+    minLength: 4,
+    maxLength: 20,
+    // Removed the existing reference as it's not defined
+  },
+  password: {
+    minLength: 8,
+    requires: {
+      uppercase: true,
+      specialChar: true,
+      digit: true,
+    },
+  },
+};
 
-// Sample list of existing usernames (in a real application, this would come from a database)
-const existingUsernames = ["admin", "user1", "test123", "johndoe"];
+// ========== STATE ==========
+let state = {
+  email: "",
+  username: "",
+  password: "",
+};
 
-// Configuration for username constraints
-const MIN_USERNAME_LENGTH = 4;
-const MAX_USERNAME_LENGTH = 20;
-
-// Configuration for password constraints
-const MIN_PASSWORD_LENGTH = 8;
-
-// Function to validate username
-function validateUsername(username) {
-  // Check if username is too short
-  if (username.length < MIN_USERNAME_LENGTH) {
-    return `Tên đăng nhập quá ngắn (tối thiểu ${MIN_USERNAME_LENGTH} ký tự)`;
-  }
-  
-  // Check if username is too long
-  if (username.length > MAX_USERNAME_LENGTH) {
-    return `Tên đăng nhập quá dài (tối đa ${MAX_USERNAME_LENGTH} ký tự)`;
-  }
-  
-  // Check if username already exists
-  if (existingUsernames.includes(username)) {
-    return "Tên đăng nhập đã tồn tại";
-  }
-  
-  return null; // No error
-}
-
-// Function to validate password
-function validatePassword(password) {
-  // Check if password is too short
-  if (password.length < MIN_PASSWORD_LENGTH) {
-    return `Mật khẩu quá ngắn (tối thiểu ${MIN_PASSWORD_LENGTH} ký tự)`;
-  }
-  
-  // Check if password contains at least one uppercase letter
-  if (!/[A-Z]/.test(password)) {
-    return "Mật khẩu phải chứa ít nhất một chữ cái in hoa";
-  }
-  
-  // Check if password contains at least one special character
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    return "Mật khẩu phải chứa ít nhất một ký tự đặc biệt";
-  }
-  
-  // Check if password contains at least one digit
-  if (!/\d/.test(password)) {
-    return "Mật khẩu phải chứa ít nhất một chữ số";
-  }
-  
-  return null; // No error
-}
-
-// Function to add error message
+// ========== UTILITY FUNCTIONS ==========
 function showError(inputElement, message) {
-  // Remove any existing error message
-  const existingError = inputElement.parentElement.querySelector(".error-message");
-  if (existingError) {
-    existingError.remove();
-  }
-  
-  // Create and add new error message
+  removeError(inputElement);
   const errorElement = document.createElement("div");
   errorElement.className = "error-message";
   errorElement.textContent = message;
   inputElement.parentElement.appendChild(errorElement);
 }
 
-// Function to remove error message
 function removeError(inputElement) {
-  const existingError = inputElement.parentElement.querySelector(".error-message");
-  if (existingError) {
-    existingError.remove();
+  const existingError =
+    inputElement.parentElement.querySelector(".error-message");
+  if (existingError) existingError.remove();
+}
+
+// ========== VALIDATION FUNCTIONS ==========
+function validateUsername(username) {
+  if (username.length < CONFIG.username.minLength) {
+    return `Tên đăng nhập quá ngắn (tối thiểu ${CONFIG.username.minLength} ký tự)`;
+  }
+
+  if (username.length > CONFIG.username.maxLength) {
+    return `Tên đăng nhập quá dài (tối đa ${CONFIG.username.maxLength} ký tự)`;
+  }
+
+  return null;
+}
+
+function validatePassword(password) {
+  if (password.length < CONFIG.password.minLength) {
+    return `Mật khẩu quá ngắn (tối thiểu ${CONFIG.password.minLength} ký tự)`;
+  }
+
+  if (CONFIG.password.requires.uppercase && !/[A-Z]/.test(password)) {
+    return "Mật khẩu phải chứa ít nhất một chữ cái in hoa";
+  }
+
+  if (
+    CONFIG.password.requires.specialChar &&
+    !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  ) {
+    return "Mật khẩu phải chứa ít nhất một ký tự đặc biệt";
+  }
+
+  if (CONFIG.password.requires.digit && !/\d/.test(password)) {
+    return "Mật khẩu phải chứa ít nhất một chữ số";
+  }
+
+  return null;
+}
+
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email) return "Email không được để trống";
+  if (!regex.test(email)) return "Email không hợp lệ";
+  return null;
+}
+
+// ========== EVENT HANDLERS ==========
+function handleEmailChange(value) {
+  state.email = value.trim();
+  console.log("Email updated:", state.email);
+}
+
+function handleUsernameChange(value) {
+  state.username = value.trim();
+  console.log("Username updated:", state.username);
+}
+
+function handlePasswordChange(value) {
+  state.password = value;
+  console.log("Password updated:", state.password);
+}
+
+function handleInputBlur(e, isLogin = true) {
+  const value = e.target.value;
+  const inputType = e.target.type;
+  const inputName = e.target.name;
+
+  if (isLogin) {
+    // Login form validation
+    if (inputType === "email") {
+      handleEmailChange(value);
+      if (value) {
+        const error = validateEmail(value);
+        if (error) showError(e.target, error);
+        else removeError(e.target);
+      } else {
+        removeError(e.target);
+      }
+    } else if (inputType === "password") {
+      handlePasswordChange(value);
+      if (value) {
+        const error = validatePassword(value);
+        if (error) showError(e.target, error);
+        else removeError(e.target);
+      } else {
+        removeError(e.target);
+      }
+    }
+  } else {
+    // Register form validation
+    if (inputType === "text") {
+      handleUsernameChange(value);
+      if (value) {
+        const error = validateUsername(value);
+        if (error) showError(e.target, error);
+        else removeError(e.target);
+      } else {
+        removeError(e.target);
+      }
+    } else if (inputType === "email") {
+      handleEmailChange(value);
+      if (value) {
+        const error = validateEmail(value);
+        if (error) showError(e.target, error);
+        else removeError(e.target);
+      } else {
+        removeError(e.target);
+      }
+    } else if (inputType === "password") {
+      handlePasswordChange(value);
+      if (value) {
+        const error = validatePassword(value);
+        if (error) showError(e.target, error);
+        else removeError(e.target);
+      } else {
+        removeError(e.target);
+      }
+    }
   }
 }
 
-// Add event listeners to handle form validation
-document.addEventListener("DOMContentLoaded", function() {
-  // Get username input fields
-  const loginUsernameInput = document.querySelector(".login .input-box input[type='text']");
-  const registerUsernameInput = document.querySelector(".register .input-box input[type='text']");
-  
-  // Get password input fields
-  const loginPasswordInput = document.querySelector(".login .input-box input[type='password']");
-  const registerPasswordInput = document.querySelector(".register .input-box input[type='password']");
-  
-  // Validate username on blur (when user clicks away from the field)
-  if (loginUsernameInput) {
-    loginUsernameInput.addEventListener("blur", function() {
-      const username = this.value.trim();
-      if (username) {
-        const error = validateUsername(username);
-        if (error) {
-          showError(this, error);
-        } else {
-          removeError(this);
-        }
-      }
-    });
+// Hàm xử lý submit form đăng nhập
+async function handleLoginSubmit(e) {
+  e.preventDefault();
+  const email = loginEmailInput.value.trim();
+  const password = loginPasswordInput.value;
+
+  // Validate
+  const emailError = validateEmail(email);
+  const passwordError = validatePassword(password);
+
+  removeError(loginEmailInput);
+  removeError(loginPasswordInput);
+
+  if (emailError || passwordError) {
+    if (emailError) showError(loginEmailInput, emailError);
+    if (passwordError) showError(loginPasswordInput, passwordError);
+    return;
   }
-  
-  if (registerUsernameInput) {
-    registerUsernameInput.addEventListener("blur", function() {
-      const username = this.value.trim();
-      if (username) {
-        const error = validateUsername(username);
-        if (error) {
-          showError(this, error);
-        } else {
-          removeError(this);
-        }
-      }
+
+  try {
+    const response = await fetch("http://localhost:5501/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: "include", // Important for cookies
     });
+
+    const data = await response.json();
+    console.log("Login response:", data);
+
+    if (response.ok) {
+      const user = data.data;
+      localStorage.setItem("accessToken", data.accessToken);
+      const userData = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      };
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setTimeout(() => {
+        window.location.href = "/pages/index.html";
+      }, 100);
+    } else {
+      // Xử lý lỗi từ server
+      const errorField = data.error?.field || "password";
+      const targetInput =
+        errorField === "email" ? loginEmailInput : loginPasswordInput;
+      showError(targetInput, data.message || "Đăng nhập thất bại");
+    }
+  } catch (error) {
+    showError(loginPasswordInput, "Lỗi kết nối đến server");
   }
-  
-  // Validate password on blur
-  if (loginPasswordInput) {
-    loginPasswordInput.addEventListener("blur", function() {
-      const password = this.value;
-      if (password) {
-        const error = validatePassword(password);
-        if (error) {
-          showError(this, error);
-        } else {
-          removeError(this);
-        }
-      }
+}
+
+// Hàm xử lý submit form đăng ký
+async function handleRegisterSubmit(e) {
+  e.preventDefault();
+
+  const username = registerUsernameInput.value.trim();
+  const email = registerEmailInput.value.trim();
+  const password = registerPasswordInput.value;
+
+  // Validate các trường
+  const usernameError = validateUsername(username);
+  const emailError = validateEmail(email);
+  const passwordError = validatePassword(password);
+
+  // Xóa tất cả lỗi trước khi kiểm tra lại
+  removeError(registerUsernameInput);
+  removeError(registerEmailInput);
+  removeError(registerPasswordInput);
+
+  if (usernameError || emailError || passwordError || confirmError) {
+    if (usernameError) showError(registerUsernameInput, usernameError);
+    if (emailError) showError(registerEmailInput, emailError);
+    if (passwordError) showError(registerPasswordInput, passwordError);
+    return; // Dừng nếu có lỗi
+  }
+
+  try {
+    // Fixed endpoint URL to match your API
+    const response = await fetch("http://localhost:5501/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, email, password }),
+      credentials: "include",
     });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message || "Đăng ký thất bại");
+
+    // Registration successful - redirect to login page
+    window.location.href = "/pages/login.html";
+  } catch (error) {
+    showError(registerPasswordInput, error.message);
   }
-  
-  if (registerPasswordInput) {
-    registerPasswordInput.addEventListener("blur", function() {
-      const password = this.value;
-      if (password) {
-        const error = validatePassword(password);
-        if (error) {
-          showError(this, error);
-        } else {
-          removeError(this);
-        }
-      }
-    });
-  }
-  
-  // Validate forms on submit
-  const loginForm = document.querySelector(".login form");
-  const registerForm = document.querySelector(".register form");
-  
-  if (loginForm) {
-    loginForm.addEventListener("submit", function(e) {
-      const username = loginUsernameInput.value.trim();
-      const usernameError = validateUsername(username);
-      
-      const password = loginPasswordInput.value;
-      const passwordError = validatePassword(password);
-      
-      if (usernameError) {
-        e.preventDefault(); // Prevent form submission
-        showError(loginUsernameInput, usernameError);
-      }
-      
-      if (passwordError) {
-        e.preventDefault(); // Prevent form submission
-        showError(loginPasswordInput, passwordError);
-      }
-    });
-  }
-  
-  if (registerForm) {
-    registerForm.addEventListener("submit", function(e) {
-      const username = registerUsernameInput.value.trim();
-      const usernameError = validateUsername(username);
-      
-      const password = registerPasswordInput.value;
-      const passwordError = validatePassword(password);
-      
-      if (usernameError) {
-        e.preventDefault(); // Prevent form submission
-        showError(registerUsernameInput, usernameError);
-      }
-      
-      if (passwordError) {
-        e.preventDefault(); // Prevent form submission
-        showError(registerPasswordInput, passwordError);
-      }
-    });
-  }
+}
+
+// ========== EVENT LISTENERS ==========
+// Toggle between login/register forms
+if (registerBtn)
+  registerBtn.addEventListener("click", () =>
+    container.classList.add("active")
+  );
+if (loginBtn)
+  loginBtn.addEventListener("click", () =>
+    container.classList.remove("active")
+  );
+
+// Input validation - Using optional chaining to prevent errors if elements don't exist
+loginEmailInput?.addEventListener("blur", (e) => handleInputBlur(e, true));
+loginEmailInput?.addEventListener("input", (e) => {
+  handleEmailChange(e.target.value);
 });
 
-// Original toggle functionality
-registerBtn.addEventListener("click", () => {
-  container.classList.add("active");
+loginPasswordInput?.addEventListener("blur", (e) => handleInputBlur(e, true));
+loginPasswordInput?.addEventListener("input", (e) => {
+  handlePasswordChange(e.target.value);
 });
 
-loginBtn.addEventListener("click", () => {
-  container.classList.remove("active");
-});
+registerUsernameInput?.addEventListener("blur", (e) =>
+  handleInputBlur(e, false)
+);
+registerUsernameInput?.addEventListener("input", (e) =>
+  handleUsernameChange(e.target.value)
+);
+
+registerEmailInput?.addEventListener("blur", (e) => handleInputBlur(e, false));
+registerEmailInput?.addEventListener("input", (e) =>
+  handleEmailChange(e.target.value)
+);
+
+registerPasswordInput?.addEventListener("blur", (e) =>
+  handleInputBlur(e, false)
+);
+registerPasswordInput?.addEventListener("input", (e) =>
+  handlePasswordChange(e.target.value)
+);
+
+// Form submission
+loginForm?.addEventListener("submit", handleLoginSubmit);
+registerForm?.addEventListener("submit", handleRegisterSubmit);

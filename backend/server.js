@@ -8,32 +8,34 @@ const pool = require("./config/db.config");
 const cookieParser = require("cookie-parser");
 const open = require("open").default;
 const path = require("path");
+const fs = require("fs");
 
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
-app.use(express.static(path.join(__dirname, "../frontend")));
+// Static files: phục vụ frontend từ thư mục frontend
+const frontendPath = path.join(__dirname, "../frontend");
+app.use(express.static(frontendPath));
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5501", // hoặc frontend port bạn đang dùng
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-// Routes
-const authRoutes = require("./routes/auth.routes");
-const userRoutes = require("./routes/user.routes");
-const postRoutes = require("./routes/post.routes");
-const categoryRoutes = require("./routes/category.routes");
-const commentRoutes = require("./routes/comment.routes");
-
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/comments", commentRoutes);
+// API routes
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/users", require("./routes/user.routes"));
+app.use("/api/posts", require("./routes/post.routes"));
+app.use("/api/categories", require("./routes/category.routes"));
+app.use("/api/comments", require("./routes/comment.routes"));
 
 // Health check
 app.get("/health", async (req, res) => {
@@ -53,7 +55,7 @@ app.use((req, res, next) => {
   });
 });
 
-// Error handler
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -63,7 +65,14 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-  open(`http://localhost:${PORT}/pages/index.html`); // <-- mở trình duyệt
+  console.log(`✅ Server is running at http://localhost:${PORT}`);
+
+  const indexPath = path.join(frontendPath, "pages", "index.html");
+  if (fs.existsSync(indexPath)) {
+    open(`http://localhost:${PORT}/pages/index.html`);
+  } else {
+    console.warn("⚠️ File index.html không tồn tại tại: ", indexPath);
+  }
 });
