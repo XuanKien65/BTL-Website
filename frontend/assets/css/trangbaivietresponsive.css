@@ -22,84 +22,6 @@
   .article {
     flex-direction: column;
   }
-  .nav {
-    width: 100%;
-    max-width: 100vw;
-    position: fixed;
-    padding: 0rem 5%;
-  }
-  .nav div:nth-child(3) {
-    margin-left: 20rem; /* Khoảng cách 20px giữa các div */
-  }
-  #menu-icon {
-    display: block !important;
-  }
-  header {
-    display: none;
-  }
-  .nav .home {
-    display: none;
-  }
-  #backtohome {
-    display: block;
-  }
-  .category {
-    align-items: center;
-  }
-  .navbar {
-    position: absolute;
-    top: 100%;
-    right: -100%;
-    background: var(--heading-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-radius: 2px;
-    transition: all 0.5s ease;
-  }
-  .main-category {
-    width: 180px;
-  }
-  .category {
-    font-size: 1.6rem !important;
-  }
-  .navbar a {
-    font-size: 1.6rem;
-    color: #fff;
-    font-weight: 400;
-    display: block;
-    transition: all 0.5s ease;
-  }
-  .navbar a:hover {
-    color: #fff;
-    font-weight: 600;
-  }
-  .navbar.open {
-    right: 0%;
-  }
-  .main-category:hover .subnav {
-    right: 100%;
-    width: 150px;
-    top: 0;
-  }
-  .subnav {
-    position: absolute;
-    right: 100%;
-  }
-  .subnav a {
-    color: #000;
-    font-size: 1.6rem !important;
-  }
-  .subnav a:hover {
-    font-weight: 600;
-  }
-  .dn-text {
-    font-size: 1.6rem;
-    font-weight: 600;
-  }
-  .search:hover input {
-    width: 20rem;
-  }
   figcaption {
     font-size: 1.4rem;
     color: #5f5b53;
@@ -141,25 +63,6 @@
     font-family: var(--font-heading);
     font-weight: 400;
   }
-  .footer {
-    padding: 6% 5% 0;
-  }
-  .footer img {
-    height: 30%;
-  }
-  .footer .desc {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  .footer .title {
-    font-size: 1.4rem;
-  }
-  .footer .list a {
-    font-size: 1.2rem;
-  }
-  .footer .copyright {
-    font-size: 1.4rem;
-  }
 }
 /* Mobile */
 @media (max-width: 767.98px) {
@@ -168,76 +71,6 @@
   }
   .article {
     flex-direction: column;
-  }
-  .nav {
-    width: 100%;
-    max-width: 100vw;
-    position: fixed;
-    padding: 0rem 5%;
-  }
-  .nav.scrolled {
-    position: fixed;
-    padding: 0rem 5%;
-  }
-  .register {
-    gap: 50px;
-  }
-  #menu-icon {
-    display: block !important;
-  }
-  header {
-    display: none;
-  }
-  .nav .home {
-    display: none;
-  }
-  #backtohome {
-    display: block;
-  }
-  .nav.scrolled .navbar a {
-    padding: 11px 25px;
-  }
-  .navbar {
-    padding: 0 20px;
-    position: absolute;
-    top: 100%;
-    right: -100%;
-    background: var(--heading-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-radius: 2px;
-    transition: all 0.5s ease;
-  }
-  .navbar a {
-    color: #fff;
-    font-weight: 400;
-    display: block;
-    transition: all 0.5s ease;
-  }
-  .navbar a:hover {
-    color: #fff;
-    font-weight: 600;
-  }
-  .navbar.open {
-    right: 2%;
-  }
-  .main-category:hover .subnav {
-    right: 100%;
-    width: 150px;
-    top: 0;
-  }
-  .subnav a {
-    color: #000;
-  }
-  .subnav a:hover {
-    font-weight: 600;
-  }
-  .dn-text {
-    font-size: 1.6rem;
-  }
-  .search:hover input {
-    width: 7rem;
   }
   .cmt-input {
     gap: 1rem;
