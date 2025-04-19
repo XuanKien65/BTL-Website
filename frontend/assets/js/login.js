@@ -222,7 +222,11 @@ async function handleLoginSubmit(e) {
       };
       localStorage.setItem("userData", JSON.stringify(userData));
       setTimeout(() => {
-        window.location.href = "/pages/index.html";
+        if (user.role === "admin") {
+          window.location.href = "/dashboard/index.html";
+        } else {
+          window.location.href = "/pages/index.html";
+        }
       }, 100);
     } else {
       // Xử lý lỗi từ server
@@ -254,15 +258,14 @@ async function handleRegisterSubmit(e) {
   removeError(registerEmailInput);
   removeError(registerPasswordInput);
 
-  if (usernameError || emailError || passwordError || confirmError) {
+  if (usernameError || emailError || passwordError) {
     if (usernameError) showError(registerUsernameInput, usernameError);
     if (emailError) showError(registerEmailInput, emailError);
     if (passwordError) showError(registerPasswordInput, passwordError);
-    return; // Dừng nếu có lỗi
+    return;
   }
 
   try {
-    // Fixed endpoint URL to match your API
     const response = await fetch("http://localhost:5501/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -271,11 +274,18 @@ async function handleRegisterSubmit(e) {
     });
 
     const data = await response.json();
+    console.log("sign up response:", data);
 
-    if (!response.ok) throw new Error(data.message || "Đăng ký thất bại");
+    if (response.ok) {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `success-message`;
+      messageDiv.textContent = "Đăng ký thành công, vui lòng đăng nhập lại";
+      document.body.appendChild(messageDiv);
 
-    // Registration successful - redirect to login page
-    window.location.href = "/pages/login.html";
+      setTimeout(() => {
+        messageDiv.remove();
+      }, 5000);
+    }
   } catch (error) {
     showError(registerPasswordInput, error.message);
   }

@@ -28,18 +28,15 @@ a {
 /* ====================== body ================ */
 /* Account Information Styles */
 .success-message {
+  background: lightgreen;
   z-index: 100000;
   position: fixed;
   top: 10rem;
   padding: 10px;
   border-radius: 5px;
-
   left: 50%; /* Căn giữa theo chiều ngang */
   transform: translateX(-50%); /* Điều chỉnh vị trí chính xác */
   text-align: center; /* Căn giữa nội dung */
-}
-.success-message {
-  background: lightgreen;
 }
 /* .error-message {
     background: lightcoral;

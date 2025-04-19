@@ -67,7 +67,6 @@ exports.signin = async (req, res, next) => {
       secure: process.env.NODE_ENV === "production", // Only use secure in production
       path: "/",
       sameSite: "strict",
-      maxAge: 365 * 24 * 60 * 60 * 1000, // 365 days in milliseconds
     });
 
     // Return response with access token
@@ -91,7 +90,7 @@ const generateAccessToken = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "2h", // Increased from 1m to 15m for better usability
+      expiresIn: "30s", // Increased from 1m to 15m for better usability
     }
   );
 };
@@ -138,7 +137,6 @@ exports.requestRefreshToken = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       path: "/",
       sameSite: "strict",
-      maxAge: 365 * 24 * 60 * 60 * 1000, // 365 days in milliseconds
     });
 
     // Return new access token
