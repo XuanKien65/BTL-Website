@@ -1,74 +1,185 @@
 const Category = require("../models/category.model");
-const ApiResponse = require("../utils/apiResponse");
-const ErrorHandler = require("../utils/errorHandler");
 
-exports.getAllCategories = async (req, res, next) => {
+// Tạo danh mục mới
+exports.createCategory = async (req, res) => {
   try {
-    const categories = await Category.findAll();
-    ApiResponse.success(res, "Categories retrieved successfully", categories);
+    const { name, slug, description, parent_id } = req.body;
+
+    // Validate input
+    if (!name || !slug) {
+      return res.status(400).json({ error: "Tên và slug là bắt buộc" });
+    }
+
+    // Kiểm tra slug đã tồn tại chưa
+    const slugExists = await Category.isSlugExists(slug);
+    if (slugExists) {
+      return res.status(400).json({ error: "Slug đã tồn tại" });
+    }
+
+    // Kiểm tra parent_id có hợp lệ không
+    if (parent_id) {
+      const parent = await Category.findById(parent_id);
+      if (!parent) {
+        return res.status(400).json({ error: "Danh mục cha không tồn tại" });
+      }
+    }
+
+    // Tạo danh mục
+    const newCategory = await Category.create(
+      name,
+      slug,
+      description,
+      parent_id || null
+    );
+
+    res.status(201).json({
+      success: true,
+      data: newCategory,
+    });
   } catch (error) {
-    next(new ErrorHandler(500, "Error retrieving categories", error));
+    console.error(error);
+    res.status(500).json({ error: "Lỗi server" });
   }
 };
 
-exports.getCategoryById = async (req, res, next) => {
+// Lấy tất cả danh mục (có thể lọc theo parent_id)
+exports.getAllCategories = async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id);
+    const { parent_id } = req.query;
+
+    let categories;
+    if (parent_id === undefined) {
+      // Lấy toàn bộ cây danh mục
+      categories = await Category.getCategoryTree();
+    } else if (parent_id === "null") {
+      // Chỉ lấy danh mục cha (parent_id = null)
+      categories = await Category.findAll();
+    } else {
+      // Lấy danh mục con của parent_id cụ thể
+      categories = await Category.findAll(parseInt(parent_id));
+    }
+
+    res.json({
+      success: true,
+      data: categories,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Lỗi server" });
+  }
+};
+
+// Lấy thông tin một danh mục
+exports.getCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findById(id);
+
     if (!category) {
-      return next(new ErrorHandler(404, "Category not found"));
+      return res.status(404).json({ error: "Không tìm thấy danh mục" });
     }
-    ApiResponse.success(res, "Category retrieved successfully", category);
+
+    // Lấy danh mục con (nếu có)
+    const children = await Category.findChildren(id);
+
+    res.json({
+      success: true,
+      data: {
+        ...category,
+        children,
+      },
+    });
   } catch (error) {
-    next(new ErrorHandler(500, "Error retrieving category", error));
+    console.error(error);
+    res.status(500).json({ error: "Lỗi server" });
   }
 };
 
-exports.createCategory = async (req, res, next) => {
+// Cập nhật danh mục
+exports.updateCategory = async (req, res) => {
   try {
-    const { name, slug, description, parentId } = req.body;
-    const newCategory = await Category.create({
+    const { id } = req.params;
+    const { name, slug, description, parent_id } = req.body;
+
+    // Validate input
+    if (!name || !slug) {
+      return res.status(400).json({ error: "Tên và slug là bắt buộc" });
+    }
+
+    // Kiểm tra danh mục có tồn tại không
+    const existingCategory = await Category.findById(id);
+    if (!existingCategory) {
+      return res.status(404).json({ error: "Không tìm thấy danh mục" });
+    }
+
+    // Kiểm tra slug đã tồn tại chưa (trừ chính nó)
+    const slugExists = await Category.isSlugExists(slug, id);
+    if (slugExists) {
+      return res.status(400).json({ error: "Slug đã tồn tại" });
+    }
+
+    // Kiểm tra parent_id có hợp lệ không
+    if (parent_id) {
+      if (parent_id == id) {
+        return res
+          .status(400)
+          .json({ error: "Danh mục không thể là cha của chính nó" });
+      }
+
+      const parent = await Category.findById(parent_id);
+      if (!parent) {
+        return res.status(400).json({ error: "Danh mục cha không tồn tại" });
+      }
+    }
+
+    // Cập nhật danh mục
+    const updatedCategory = await Category.update(
+      id,
       name,
       slug,
       description,
-      parentId,
+      parent_id || null
+    );
+
+    res.json({
+      success: true,
+      data: updatedCategory,
     });
-    ApiResponse.created(res, "Category created successfully", newCategory);
   } catch (error) {
-    next(new ErrorHandler(500, "Error creating category", error));
+    console.error(error);
+    res.status(500).json({ error: "Lỗi server" });
   }
 };
 
-exports.updateCategory = async (req, res, next) => {
+// Xóa danh mục
+exports.deleteCategory = async (req, res) => {
   try {
-    const { name, slug, description, parentId } = req.body;
-    const updatedCategory = await Category.update(req.params.id, {
-      name,
-      slug,
-      description,
-      parentId,
+    const { id } = req.params;
+
+    // Kiểm tra danh mục có tồn tại không
+    const existingCategory = await Category.findById(id);
+    if (!existingCategory) {
+      return res.status(404).json({ error: "Không tìm thấy danh mục" });
+    }
+
+    // Kiểm tra danh mục có danh mục con không
+    const children = await Category.findChildren(id);
+    if (children.length > 0) {
+      return res.status(400).json({
+        error:
+          "Không thể xóa danh mục vì có danh mục con. Hãy xóa hoặc di chuyển các danh mục con trước.",
+      });
+    }
+
+    // Xóa danh mục
+    const deletedCategory = await Category.delete(id);
+
+    res.json({
+      success: true,
+      data: deletedCategory,
     });
-
-    if (!updatedCategory) {
-      return next(new ErrorHandler(404, "Category not found"));
-    }
-
-    ApiResponse.success(res, "Category updated successfully", updatedCategory);
   } catch (error) {
-    next(new ErrorHandler(500, "Error updating category", error));
-  }
-};
-
-exports.deleteCategory = async (req, res, next) => {
-  try {
-    const deleted = await Category.delete(req.params.id);
-    if (!deleted) {
-      return next(new ErrorHandler(404, "Category not found"));
-    }
-    ApiResponse.success(res, "Category deleted successfully");
-  } catch (error) {
-    if (error.message.includes("Cannot delete category")) {
-      return next(new ErrorHandler(400, error.message));
-    }
-    next(new ErrorHandler(500, "Error deleting category", error));
+    console.error(error);
+    res.status(500).json({ error: "Lỗi server" });
   }
 };

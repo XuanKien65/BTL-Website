@@ -90,7 +90,7 @@ const generateAccessToken = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "15m", // Increased from 1m to 15m for better usability
+      expiresIn: "30s", // Increased from 1m to 15m for better usability
     }
   );
 };
@@ -116,32 +116,39 @@ exports.requestRefreshToken = async (req, res) => {
     return res.status(403).json({ message: "Refresh token is not valid" });
   }
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err, user) => {
-    if (err) {
-      return res.status(403).json({ message: "Token verification failed" });
+  jwt.verify(
+    refreshToken,
+    process.env.JWT_REFRESH_KEY,
+    async (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: "Token verification failed" });
+      }
+
+      // Lấy user từ DB
+      const user = await User.findById(decoded.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Remove old token
+      refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+
+      // Generate new tokens
+      const newAccessToken = generateAccessToken(user);
+      const newRefreshToken = generateRefreshToken(user);
+
+      refreshTokens.push(newRefreshToken);
+
+      res.cookie("refreshToken", newRefreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        sameSite: "strict",
+      });
+
+      res.status(200).json({ accessToken: newAccessToken });
     }
-
-    // Remove the old refresh token
-    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-
-    // Generate new tokens
-    const newAccessToken = generateAccessToken(user);
-    const newRefreshToken = generateRefreshToken(user);
-
-    // Store new refresh token
-    refreshTokens.push(newRefreshToken);
-
-    // Set new refresh token cookie
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      sameSite: "strict",
-    });
-
-    // Return new access token
-    res.status(200).json({ accessToken: newAccessToken });
-  });
+  );
 };
 
 exports.userLogout = async (req, res) => {

@@ -7,6 +7,7 @@ const {
   isOwner,
   isOwnerOrAdmin,
 } = require("../middlewares/authJwt");
+
 router.get("/", [verifyToken, isAdmin], commentController.getAllComments);
 router.get("/post/:postId", commentController.getCommentsByPostId);
 router.get("/:id", commentController.getCommentById);
