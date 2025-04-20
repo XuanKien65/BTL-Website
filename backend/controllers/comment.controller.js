@@ -27,17 +27,29 @@ exports.getCommentById = async (req, res, next) => {
   }
 };
 
+exports.getCommentsByPostId = async (req, res, next) => {
+  try {
+    const comments = await Comment.findByPostId(req.params.postId);
+    if (!comments) {
+      return next(new ErrorHandler(404, "Comments not found for this post"));
+    }
+    ApiResponse.success(res, "Comments retrieved successfully", comments);
+  } catch (error) {
+    next(new ErrorHandler(500, "Error retrieving comments", error));
+  }
+};
+
 exports.createComment = async (req, res, next) => {
   try {
-    const { content, postId, authorName, authorEmail, parentId } = req.body;
+    const { content, postId, parentId } = req.body;
+    console.log("🧠 userId from token:", req.userId);
     const newComment = await Comment.create({
       content,
       postId,
       userId: req.userId || null,
-      authorName,
-      authorEmail,
       authorIp: req.ip,
       parentId,
+      status: "pending",
     });
     ApiResponse.created(res, "Comment created successfully", newComment);
   } catch (error) {

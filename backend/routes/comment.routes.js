@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const commentController = require("../controllers/comment.controller");
-const { verifyToken, isAdmin } = require("../middlewares/authJwt");
-
-router.get("/", commentController.getAllComments);
+const {
+  verifyToken,
+  isAdmin,
+  isOwner,
+  isOwnerOrAdmin,
+} = require("../middlewares/authJwt");
+router.get("/", [verifyToken, isAdmin], commentController.getAllComments);
+router.get("/post/:postId", commentController.getCommentsByPostId);
 router.get("/:id", commentController.getCommentById);
-router.post("/", commentController.createComment);
+router.post("/", verifyToken, commentController.createComment);
 router.put(
   "/:id/approve",
   [verifyToken, isAdmin],
@@ -16,6 +21,10 @@ router.put(
   [verifyToken, isAdmin],
   commentController.rejectComment
 );
-router.delete("/:id", [verifyToken, isAdmin], commentController.deleteComment);
+router.delete(
+  "/:id",
+  [verifyToken, isOwnerOrAdmin],
+  commentController.deleteComment
+);
 
 module.exports = router;

@@ -90,7 +90,7 @@ const generateAccessToken = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "30s", // Increased from 1m to 15m for better usability
+      expiresIn: "15m", // Increased from 1m to 15m for better usability
     }
   );
 };

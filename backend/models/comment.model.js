@@ -4,72 +4,98 @@ const Comment = {
   findAll: async (postId = null, status = null) => {
     let query = `
       SELECT 
-        c.CommentID, c.Content, c.Status, c.CreatedAt,
-        c.AuthorName, c.AuthorEmail,
-        p.PostID, p.Title AS PostTitle,
-        u.UserID, u.Username, u.AvatarURL
-      FROM Comments c
-      LEFT JOIN Posts p ON c.PostID = p.PostID
-      LEFT JOIN Users u ON c.UserID = u.UserID
+        c.cmtID, c.content, c.status, c.createdat,
+        p.postid, p.title AS posttitle,
+        u.userid, u.username, u.avatarurl
+      FROM comments_clone c
+      LEFT JOIN posts p ON c.postid = p.postid
+      LEFT JOIN users u ON c.userid = u.userid
       WHERE 1=1
     `;
 
     const params = [];
 
     if (postId) {
-      query += " AND c.PostID = ?";
+      query += ` AND c.postid = $${params.length + 1}`;
       params.push(postId);
     }
 
     if (status) {
-      query += " AND c.Status = ?";
+      query += ` AND c.status = $${params.length + 1}`;
       params.push(status);
     }
 
-    query += " ORDER BY c.CreatedAt DESC";
+    query += " ORDER BY c.createdat DESC";
 
-    const [rows] = await pool.query(query, params);
-    return rows;
+    const result = await pool.query(query, params);
+    return result.rows;
   },
 
   findById: async (id) => {
-    const [rows] = await pool.query(
+    const result = await pool.query(
       `
       SELECT 
         c.*, 
-        p.Title AS PostTitle,
-        u.Username, u.AvatarURL
-      FROM Comments c
-      LEFT JOIN Posts p ON c.PostID = p.PostID
-      LEFT JOIN Users u ON c.UserID = u.UserID
-      WHERE c.CommentID = ?
-    `,
+        p.title AS posttitle,
+        u.username, u.avatarurl, u.email
+      FROM comments_clone c
+      LEFT JOIN posts p ON c.postid = p.postid
+      LEFT JOIN users u ON c.userid = u.userid
+      WHERE c.cmtID = $1
+      `,
       [id]
     );
-    return rows[0];
+    return result.rows[0];
+  },
+
+  findByPostId: async (postId) => {
+    const result = await pool.query(
+      `
+      SELECT 
+        c.*, 
+        p.title AS posttitle,
+        u.username, u.avatarurl, u.email
+      FROM comments_clone c
+      LEFT JOIN posts p ON c.postid = p.postid
+      LEFT JOIN users u ON c.userid = u.userid
+      WHERE c.postid = $1
+      `,
+      [postId]
+    );
+
+    return result.rows;
   },
 
   create: async (comment) => {
-    const [result] = await pool.query(
-      `INSERT INTO Comments (
-        Content, PostID, UserID, AuthorName, AuthorEmail, 
-        AuthorIP, ParentID, Status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')`,
-      [
-        comment.content,
-        comment.postId,
-        comment.userId || null,
-        comment.authorName,
-        comment.authorEmail || null,
-        comment.authorIp || null,
-        comment.parentId || null,
-      ]
-    );
-    return Comment.findById(result.insertId);
+    try {
+      const result = await pool.query(
+        `
+        INSERT INTO comments_clone (
+          content, postid, userid, authorip, parentid, status
+        ) VALUES ($1, $2, $3, $4, $5, 'pending')
+        RETURNING cmtID
+        `,
+        [
+          comment.content,
+          comment.postId,
+          comment.userId,
+          comment.authorIp,
+          comment.parentId || null,
+        ]
+      );
+      console.log("Insert result:", result.rows[0]); // ← luôn nên có
+      const commentId = result.rows[0]?.cmtid;
+      if (!commentId) throw new Error("Insert failed: No cmtID returned");
+
+      return await Comment.findById(commentId);
+    } catch (error) {
+      console.error("Error creating comment:", error);
+      throw error;
+    }
   },
 
   updateStatus: async (id, status) => {
-    await pool.query("UPDATE Comments SET Status = ? WHERE CommentID = ?", [
+    await pool.query("UPDATE comments_clone SET status = $1 WHERE cmtID = $2", [
       status,
       id,
     ]);
@@ -77,11 +103,11 @@ const Comment = {
   },
 
   delete: async (id) => {
-    const [result] = await pool.query(
-      "DELETE FROM Comments WHERE CommentID = ?",
+    const result = await pool.query(
+      "DELETE FROM comments_clone WHERE cmtID = $1",
       [id]
     );
-    return result.affectedRows > 0;
+    return result.rowCount > 0;
   },
 };
 

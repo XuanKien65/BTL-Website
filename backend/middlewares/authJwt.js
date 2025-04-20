@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const ErrorHandler = require("../utils/errorHandler");
+const Comment = require("../models/comment.model");
 
 const verifyToken = (req, res, next) => {
   // Try to get token from different sources
@@ -56,5 +57,65 @@ const isEditorOrAdmin = (req, res, next) => {
   }
   next();
 };
+const isOwner = async (req, res, next) => {
+  try {
+    const loggedInUserId = parseInt(req.userId);
+    const commentId = parseInt(req.params.id);
 
-module.exports = { verifyToken, isAdmin, isEditorOrAdmin };
+    if (isNaN(commentId)) {
+      return next(new ErrorHandler(400, "Thiếu hoặc sai comment ID trong URL"));
+    }
+
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return next(new ErrorHandler(404, "Không tìm thấy comment"));
+    }
+
+    if (comment.userid !== loggedInUserId) {
+      return next(
+        new ErrorHandler(403, "Không có quyền thực hiện hành động này")
+      );
+    }
+
+    next();
+  } catch (error) {
+    console.error("Lỗi trong isOwner:", error);
+    next(new ErrorHandler(500, "Lỗi xác thực quyền sở hữu"));
+  }
+};
+const isOwnerOrAdmin = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const userRole = req.userRole;
+
+    // Nếu là admin thì cho qua luôn
+    if (userRole === "admin") return next();
+
+    const commentId = parseInt(req.params.id);
+    if (isNaN(commentId)) {
+      return next(new ErrorHandler(400, "ID comment không hợp lệ"));
+    }
+
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return next(new ErrorHandler(404, "Comment không tồn tại"));
+    }
+
+    if (comment.userid !== userId) {
+      return next(new ErrorHandler(403, "Bạn không có quyền xóa comment này"));
+    }
+
+    next();
+  } catch (error) {
+    console.error("🔥 Lỗi trong isOwnerOrAdmin:", error);
+    next(new ErrorHandler(500, "Lỗi xác thực quyền truy cập"));
+  }
+};
+module.exports = {
+  verifyToken,
+  isAdmin,
+  isEditorOrAdmin,
+  isOwner,
+  isOwnerOrAdmin,
+};
