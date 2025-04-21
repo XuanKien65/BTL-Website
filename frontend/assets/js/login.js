@@ -229,18 +229,15 @@ async function handleLoginSubmit(e) {
         }
       }, 100);
     } else {
-      // Xử lý lỗi từ server
       const errorField = data.error?.field || "password";
       const targetInput =
         errorField === "email" ? loginEmailInput : loginPasswordInput;
-      showError(targetInput, data.message || "Đăng nhập thất bại");
+      showError(targetInput, "Sai mật khẩu hoặc email");
     }
   } catch (error) {
     showError(loginPasswordInput, "Lỗi kết nối đến server");
   }
 }
-
-// Hàm xử lý submit form đăng ký
 async function handleRegisterSubmit(e) {
   e.preventDefault();
 
@@ -248,12 +245,10 @@ async function handleRegisterSubmit(e) {
   const email = registerEmailInput.value.trim();
   const password = registerPasswordInput.value;
 
-  // Validate các trường
   const usernameError = validateUsername(username);
   const emailError = validateEmail(email);
   const passwordError = validatePassword(password);
 
-  // Xóa tất cả lỗi trước khi kiểm tra lại
   removeError(registerUsernameInput);
   removeError(registerEmailInput);
   removeError(registerPasswordInput);
@@ -285,9 +280,15 @@ async function handleRegisterSubmit(e) {
       setTimeout(() => {
         messageDiv.remove();
       }, 5000);
+    } else {
+      const message = "Email đã tồn tại, vui lòng sử dụng email khác";
+
+      if (message.toLowerCase().includes("email")) {
+        showError(registerEmailInput, message);
+      }
     }
   } catch (error) {
-    showError(registerPasswordInput, error.message);
+    showError(registerPasswordInput, "Lỗi kết nối đến máy chủ");
   }
 }
 
