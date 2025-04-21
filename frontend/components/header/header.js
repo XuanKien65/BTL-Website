@@ -128,44 +128,82 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Lỗi khi khởi tạo:", error);
     });
 });
+function base64UrlDecode(input) {
+  if (!input || typeof input !== "string") {
+    throw new Error("Invalid base64 input");
+  }
 
-// ✅ Khai báo toàn cục, dùng được sau khi header load
-window.updateNavbarAuthState = function () {
+  let base64 = input.replace(/-/g, "+").replace(/_/g, "/");
+  while (base64.length % 4 !== 0) {
+    base64 += "=";
+  }
+
+  return atob(base64);
+}
+
+window.updateNavbarAuthState = async function () {
   const loginLink = document.getElementById("login-link");
   const userInfoElement = document.querySelector(".user-info");
   const usernameElement = document.querySelector(".username");
 
-  if (!loginLink && !userInfoElement && !usernameElement) {
+  if (!loginLink || !userInfoElement || !usernameElement) {
     console.warn("Navbar chưa sẵn sàng, bỏ qua update UI");
     return;
   }
 
-  const accessToken = localStorage.getItem("accessToken");
-  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-  console.log("userData:", userData);
+  try {
+    const response = await fetch("http://localhost:5501/api/auth/refresh", {
+      method: "POST",
+      credentials: "include",
+    });
 
-  if (userData.username) {
+    if (!response.ok) throw new Error("Không lấy được access token");
+
+    const data = await response.json();
+    const accessToken = data.accessToken;
+
+    if (!accessToken || accessToken.split(".").length !== 3) {
+      throw new Error("Access token không hợp lệ");
+    }
+
+    const payloadBase64 = accessToken.split(".")[1];
+    const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
+    const username =
+      decodedPayload.username ||
+      decodedPayload.name ||
+      decodedPayload.id ||
+      "User";
+
     loginLink.style.display = "none";
     userInfoElement.style.display = "block";
-    usernameElement.textContent = userData.username;
-  } else if (accessToken) {
-    try {
-      const tokenPayload = accessToken.split(".")[1];
-      const decodedPayload = JSON.parse(atob(tokenPayload));
-      const username =
-        decodedPayload.username ||
-        decodedPayload.name ||
-        decodedPayload.id ||
-        "User";
-      loginLink.style.display = "none";
-      userInfoElement.style.display = "block";
-      usernameElement.textContent = username;
-    } catch (e) {
-      loginLink.style.display = "block";
-      userInfoElement.style.display = "none";
-    }
-  } else {
+    usernameElement.textContent = username;
+  } catch (err) {
+    console.warn("Không thể xác thực:", err.message);
     loginLink.style.display = "block";
     userInfoElement.style.display = "none";
   }
+};
+//tự động refresh token
+window.setupAutoRefreshToken = async function () {
+  const refreshInterval = 29 * 60 * 1000;
+
+  async function refreshToken() {
+    try {
+      const response = await fetch("http://localhost:5501/api/auth/refresh", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) throw new Error("Không thể tự động refresh token");
+
+      const data = await response.json();
+      const accessToken = data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      console.log("✅ Access token refreshed!");
+    } catch (err) {
+      console.warn("⚠️ Auto refresh failed:", err.message);
+    }
+  }
+  // Thiết lập auto-refresh định kỳ
+  setInterval(refreshToken, refreshInterval);
 };

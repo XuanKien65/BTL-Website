@@ -1,6 +1,7 @@
 const Post = require("../models/post.model");
 const ApiResponse = require("../utils/apiResponse");
 const ErrorHandler = require("../utils/errorHandler");
+const slugify = require("../utils/slugify");
 
 exports.getAllPosts = async (req, res, next) => {
   try {
@@ -48,15 +49,21 @@ exports.getPostById = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
   try {
-    const { title, content, categoryId, status, excerpt } = req.body;
+    const { title, content, categoryIds, status, excerpt, featuredImage } =
+      req.body;
+    const slug = slugify(title);
+
     const newPost = await Post.create({
       title,
+      slug,
       content,
       authorId: req.userId,
-      categoryId,
-      status: status || "draft",
+      categoryIds,
+      status: "pending",
       excerpt,
+      featuredImage,
     });
+
     ApiResponse.created(res, "Post created successfully", newPost);
   } catch (error) {
     next(new ErrorHandler(500, "Error creating post", error));
@@ -65,13 +72,18 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   try {
-    const { title, content, categoryId, status, excerpt } = req.body;
+    const { title, content, categoryIds, status, excerpt, featuredImage } =
+      req.body;
+    const slug = slugify(title);
+
     const updatedPost = await Post.update(req.params.id, {
       title,
+      slug,
       content,
-      categoryId,
+      categoryIds,
       status,
       excerpt,
+      featuredImage,
     });
 
     if (!updatedPost) {
@@ -93,5 +105,36 @@ exports.deletePost = async (req, res, next) => {
     ApiResponse.success(res, "Post deleted successfully");
   } catch (error) {
     next(new ErrorHandler(500, "Error deleting post", error));
+  }
+};
+exports.approvePost = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return next(new ErrorHandler(404, "Post not found"));
+
+    const updatedPost = await Post.update(req.params.id, {
+      ...post,
+      status: "published",
+    });
+
+    ApiResponse.success(res, "Post approved and published", updatedPost);
+  } catch (error) {
+    next(new ErrorHandler(500, "Error approving post", error));
+  }
+};
+
+exports.rejectPost = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return next(new ErrorHandler(404, "Post not found"));
+
+    const updatedPost = await Post.update(req.params.id, {
+      ...post,
+      status: "rejected",
+    });
+
+    ApiResponse.success(res, "Post rejected", updatedPost);
+  } catch (error) {
+    next(new ErrorHandler(500, "Error rejecting post", error));
   }
 };

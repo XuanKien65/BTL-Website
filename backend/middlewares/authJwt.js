@@ -50,9 +50,14 @@ const isAdmin = (req, res, next) => {
   }
   next();
 };
-
-const isEditorOrAdmin = (req, res, next) => {
-  if (!["editor", "admin"].includes(req.userRole)) {
+const isAuthor = (req, res, next) => {
+  if (req.userRole !== "author") {
+    return next(new ErrorHandler(403, "Require Author Role"));
+  }
+  next();
+};
+const isAuthorOrAdmin = (req, res, next) => {
+  if (!["author", "admin"].includes(req.userRole)) {
     return next(new ErrorHandler(403, "Require Editor or Admin Role"));
   }
   next();
@@ -89,7 +94,6 @@ const isOwnerOrAdmin = async (req, res, next) => {
     const userId = req.userId;
     const userRole = req.userRole;
 
-    // Nếu là admin thì cho qua luôn
     if (userRole === "admin") return next();
 
     const commentId = parseInt(req.params.id);
@@ -115,7 +119,8 @@ const isOwnerOrAdmin = async (req, res, next) => {
 module.exports = {
   verifyToken,
   isAdmin,
-  isEditorOrAdmin,
+  isAuthor,
+  isAuthorOrAdmin,
   isOwner,
   isOwnerOrAdmin,
 };
