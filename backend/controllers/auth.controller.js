@@ -4,8 +4,6 @@ const User = require("../models/user.model");
 const ApiResponse = require("../utils/apiResponse");
 const ErrorHandler = require("../utils/errorHandler");
 
-// Store refresh tokens in memory (this will be lost on server restart)
-// Better approach would be to store in database
 let refreshTokens = [];
 
 exports.signup = async (req, res, next) => {
@@ -91,7 +89,7 @@ const generateAccessToken = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "30s", // Increased from 1m to 15m for better usability
+      expiresIn: "30s",
     }
   );
 };
