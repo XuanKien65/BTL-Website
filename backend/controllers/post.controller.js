@@ -59,7 +59,6 @@ exports.createPost = async (req, res, next) => {
       content,
       authorId: req.userId,
       categoryIds,
-      status: "pending",
       excerpt,
       featuredImage,
     });

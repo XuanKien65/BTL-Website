@@ -112,7 +112,7 @@ const isOwnerOrAdmin = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error("🔥 Lỗi trong isOwnerOrAdmin:", error);
+    console.error(" Lỗi trong isOwnerOrAdmin:", error);
     next(new ErrorHandler(500, "Lỗi xác thực quyền truy cập"));
   }
 };

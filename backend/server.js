@@ -36,7 +36,7 @@ app.use("/api/users", require("./routes/user.routes"));
 app.use("/api/posts", require("./routes/post.routes"));
 app.use("/api/categories", require("./routes/category.routes"));
 app.use("/api/comments", require("./routes/comment.routes"));
-
+app.use("/api/noti", require("./routes/notifications.routes"));
 // Health check
 app.get("/health", async (req, res) => {
   try {
