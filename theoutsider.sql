@@ -43,7 +43,7 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     excerpt VARCHAR(500),
     featuredimage VARCHAR(255),
-    status VARCHAR(20) NOT NULL DEFAULT 'draft'
+    status VARCHAR(20) NOT NULL DEFAULT 'pending'
         CHECK (status IN ('pending', 'published', 'trash')),
     views INTEGER NOT NULL DEFAULT 0,
     authorid INTEGER REFERENCES users(userid) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -51,7 +51,15 @@ CREATE TABLE posts (
     updatedat TIMESTAMP,
     publishedat TIMESTAMP
 );
+-- Bước 1: Xoá ràng buộc CHECK cũ
+ALTER TABLE posts DROP CONSTRAINT posts_status_check;
 
+-- Bước 2: Tạo lại ràng buộc CHECK mới
+ALTER TABLE posts
+ADD CONSTRAINT posts_status_check
+CHECK (status IN ('pending', 'published', 'reject'));
+
+select * from posts
 -- Index hỗ trợ lọc bài viết
 CREATE INDEX idx_posts_authorid ON posts(authorid);
 CREATE INDEX idx_posts_status ON posts(status);
@@ -81,4 +89,13 @@ CREATE TABLE post_hashtags (
     postid INTEGER REFERENCES posts(postid) ON DELETE CASCADE,
     tagid INTEGER REFERENCES hashtags(tagid) ON DELETE CASCADE,
     PRIMARY KEY (postid, tagid)
+);
+CREATE TABLE notifications (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,                    -- Người nhận thông báo
+  title TEXT NOT NULL,                         -- Tiêu đề thông báo
+  message TEXT NOT NULL,                       -- Nội dung chi tiết
+  type VARCHAR(50) DEFAULT 'general',          -- Loại thông báo (ví dụ: comment_reply, system, breaking_news)
+  is_read BOOLEAN DEFAULT FALSE,               -- Trạng thái đã đọc hay chưa
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
