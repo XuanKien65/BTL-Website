@@ -137,3 +137,43 @@ exports.rejectPost = async (req, res, next) => {
     next(new ErrorHandler(500, "Error rejecting post", error));
   }
 };
+
+exports.searchPosts = async (req, res) => {
+  try {
+    const {
+      keyword,
+      tag,
+      categoryId,
+      status = 'published',
+      fromDate,
+      toDate,
+      sortBy = 'newest',
+      page = 1,
+      pageSize = 10
+    } = req.query;
+
+    const results = await Post.searchWithFilters({
+      keyword,
+      tag,
+      categoryId,
+      status,
+      fromDate,
+      toDate,
+      sortBy,
+      page: parseInt(page),
+      pageSize: parseInt(pageSize)
+    });
+
+    res.json({
+      success: true,
+      data: results
+    });
+
+  } catch (error) {
+    console.error('Lỗi khi tìm kiếm bài viết:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi server khi tìm kiếm bài viết'
+    });
+  }
+};
