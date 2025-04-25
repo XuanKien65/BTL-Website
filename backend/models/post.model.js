@@ -1,4 +1,5 @@
 const pool = require("../config/db.config");
+const slugify = require("../utils/slugify");
 
 const Post = {
   findAll: async (
@@ -56,6 +57,10 @@ const Post = {
   },
 
   findById: async (id) => {
+    if (!id || isNaN(id)) {
+      throw new Error("Invalid post ID");
+    }
+
     const result = await pool.query(
       `
       SELECT 
@@ -68,8 +73,8 @@ const Post = {
       LEFT JOIN categories c ON pc.categoryid = c.id
       WHERE p.postid = $1
       GROUP BY p.postid, u.userid
-    `,
-      [id]
+      `,
+      [parseInt(id)]
     );
     return result.rows[0];
   },
@@ -198,6 +203,71 @@ const Post = {
     const result = await pool.query(query, params);
     return result.rows[0].total;
   },
+  countSearchResults: async ({
+    keyword = null,
+    tag = null,
+    categoryId = null,
+    status = "published",
+    fromDate = null,
+    toDate = null,
+  }) => {
+    const params = [];
+    let query = `
+      SELECT COUNT(DISTINCT p.postid) AS total
+      FROM posts p
+      LEFT JOIN post_categories pc ON p.postid = pc.postid
+      LEFT JOIN post_hashtags ph ON p.postid = ph.postid
+      LEFT JOIN hashtags h ON ph.tagid = h.tagid
+      WHERE 1=1
+    `;
+
+    // Keyword
+    if (keyword) {
+      const slugKeyword = slugify(keyword || "", {
+        lower: true,
+        strict: true,
+        locale: "vi",
+      });
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`);
+      query += ` AND (
+        p.title ILIKE $${params.length - 2} OR 
+        p.content ILIKE $${params.length - 1} OR 
+        p.slug ILIKE $${params.length}
+      )`;
+    }
+
+    // Status
+    if (status) {
+      params.push(status);
+      query += ` AND p.status = $${params.length}`;
+    }
+
+    // Category
+    if (categoryId) {
+      params.push(categoryId);
+      query += ` AND pc.categoryid = $${params.length}`;
+    }
+
+    // Tag
+    if (tag) {
+      params.push(tag);
+      query += ` AND h.name ILIKE $${params.length}`;
+    }
+
+    // Date range
+    if (fromDate) {
+      params.push(fromDate);
+      query += ` AND p.publishedat >= $${params.length}`;
+    }
+
+    if (toDate) {
+      params.push(toDate);
+      query += ` AND p.publishedat <= $${params.length}`;
+    }
+
+    const result = await pool.query(query, params);
+    return parseInt(result.rows[0].total);
+  },
   searchWithFilters: async ({
     page = 1,
     pageSize = 10,
@@ -293,6 +363,4 @@ const Post = {
     return result.rows;
   },
 };
-
-Post.testConnection();
 module.exports = Post;

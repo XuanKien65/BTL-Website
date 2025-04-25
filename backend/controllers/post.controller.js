@@ -137,7 +137,7 @@ exports.rejectPost = async (req, res, next) => {
     next(new ErrorHandler(500, "Error rejecting post", error));
   }
 };
-exports.searchPosts = async (req, res) => {
+exports.searchPosts = async (req, res, next) => {
   try {
     const {
       keyword,
@@ -163,15 +163,25 @@ exports.searchPosts = async (req, res) => {
       pageSize: parseInt(pageSize),
     });
 
-    res.json({
-      success: true,
-      data: results,
+    const totalResults = await Post.countSearchResults({
+      keyword,
+      tag,
+      categoryId,
+      status,
+      fromDate,
+      toDate,
+    });
+
+    ApiResponse.success(res, "Posts retrieved successfully", {
+      posts: results,
+      pagination: {
+        page: parseInt(page),
+        pageSize: parseInt(pageSize),
+        total: totalResults,
+        totalPages: Math.ceil(totalResults / pageSize),
+      },
     });
   } catch (error) {
-    console.error("Lỗi khi tìm kiếm bài viết:", error);
-    res.status(500).json({
-      success: false,
-      message: "Lỗi server khi tìm kiếm bài viết",
-    });
+    next(new ErrorHandler(500, "Error searching posts", error));
   }
 };

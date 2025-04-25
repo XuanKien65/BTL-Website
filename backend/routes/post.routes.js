@@ -5,8 +5,8 @@ const { verifyToken, isAuthor, isAdmin } = require("../middlewares/authJwt");
 
 // Public routes
 router.get("/", postController.getAllPosts);
-router.get("/:id", postController.getPostById);
 router.get("/search", postController.searchPosts);
+router.get("/:id", postController.getPostById);
 
 // Protected routes
 router.post("/", [verifyToken, isAuthor], postController.createPost);
