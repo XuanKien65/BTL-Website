@@ -25,6 +25,10 @@ ClassicEditor.create(document.querySelector("#articleContent"), {
       return new MyUploadAdapter(loader);
     };
     window.articleEditor = editor;
+    const voiceLabel = document.querySelector(".ck.ck-voice-label");
+    if (voiceLabel) {
+      voiceLabel.remove();
+    }
   })
   .catch((error) => {
     console.error("CKEditor load failed:", error);
