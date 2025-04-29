@@ -464,3 +464,35 @@ button:hover {
 /* =================== footer ================ */
 
 /* ============comment======================== */
+.social-share {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  margin: 2rem;
+  float: right;
+  font-weight: 600;
+  gap: 1rem;
+}
+.social-share img {
+  width: 3rem;
+}
+.hashtag-container {
+  display: flex;
+  flex-wrap: wrap; /* Cho xuống dòng tự động */
+  gap: 8px; /* Khoảng cách giữa các hashtag */
+  padding: 10px 0;
+}
+
+.hashtag {
+  background-color: #eee; /* Nền xám nhạt */
+  color: #333; /* Màu chữ đậm */
+  padding: 6px 12px;
+  border-radius: 6px; /* Bo góc */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hashtag:hover {
+  background-color: #ddd; /* Hover màu đậm hơn 1 chút */
+}

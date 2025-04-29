@@ -461,32 +461,46 @@
         <!-- Tab đky viết bài -->
         <div id="author-register" class="account-tab">
           <h2 class="account-title">Đăng ký thành tác giả</h2>
-          <form id="authorRegistrationForm">
+          <form id="authorRegistrationForm" enctype="multipart/form-data">
             <!-- Họ và tên -->
             <div class="form-group">
               <label for="fullname1">Họ và tên đầy đủ</label>
-              <input type="text" id="fullname1" class="form-control" />
+              <input
+                type="text"
+                id="fullname1"
+                name="fullname"
+                class="form-control"
+              />
               <div class="error-message" id="fullname1-error"></div>
             </div>
 
             <!-- Email -->
             <div class="form-group">
               <label for="email1">Email</label>
-              <input type="email" id="email1" class="form-control" />
+              <input
+                type="email"
+                id="email1"
+                name="email"
+                class="form-control"
+              />
               <div class="error-message" id="email1-error"></div>
             </div>
 
             <!-- Số điện thoại -->
             <div class="form-group">
               <label for="phone1">Số điện thoại</label>
-              <input type="tel" id="phone1" class="form-control" />
+              <input type="tel" id="phone1" name="phone" class="form-control" />
               <div class="error-message" id="phone1-error"></div>
             </div>
 
             <!-- Kinh nghiệm viết lách -->
             <div class="form-group">
               <label for="experience">Kinh nghiệm viết lách</label>
-              <textarea id="experience" class="form-control"></textarea>
+              <textarea
+                id="experience"
+                name="experience"
+                class="form-control"
+              ></textarea>
               <div class="error-message" id="experience-error"></div>
             </div>
 
@@ -500,6 +514,7 @@
                   <input
                     type="file"
                     id="frontIdCard"
+                    name="frontIdCard"
                     class="file-upload-input"
                     accept="image/*"
                   />
@@ -519,6 +534,7 @@
                   <input
                     type="file"
                     id="backIdCard"
+                    name="backIdCard"
                     class="file-upload-input"
                     accept="image/*"
                   />
@@ -535,26 +551,6 @@
                   ><input type="checkbox" name="topics" value="film" />Phim
                   ảnh</label
                 >
-                <label
-                  ><input type="checkbox" name="topics" value="music" /> Âm
-                  nhạc</label
-                >
-                <label
-                  ><input type="checkbox" name="topics" value="social" /> Xã
-                  hội</label
-                >
-                <label
-                  ><input type="checkbox" name="topics" value="health" /> Sức
-                  khỏe</label
-                >
-                <label
-                  ><input type="checkbox" name="topics" value="life" /> Đời
-                  sống</label
-                >
-                <label
-                  ><input type="checkbox" name="topics" value="beauty" /> Beauty
-                  & Fashion</label
-                >
               </div>
               <div class="error-message" id="topics-error"></div>
             </div>
@@ -563,7 +559,12 @@
               <label for="portfolio"
                 >Link portfolio/bài viết mẫu (nếu có)</label
               >
-              <input type="url" id="portfolio" class="form-control" />
+              <input
+                type="url"
+                id="portfolio"
+                name="portfolio"
+                class="form-control"
+              />
             </div>
             <!-- Submit -->
             <div class="form-actions">
@@ -580,6 +581,7 @@
               <input
                 type="text"
                 id="articleTitle"
+                name="title"
                 placeholder="Nhập tiêu đề bài báo"
                 class="form-control"
               />
@@ -587,44 +589,9 @@
             </div>
             <div class="form-group">
               <label>Chọn chủ đề</label>
-              <select id="film-cate">
-                <option>-- Chọn danh mục Phim --</option>
-                <option>Phim Việt</option>
-                <option>Phim quốc tế</option>
-                <option>Phim truyền hình</option>
-                <option>Phim chiếu rạp</option>
-              </select>
-              <select id="music-cate">
-                <option>-- Chọn danh mục Nhạc --</option>
-                <option>Nhạc Việt</option>
-                <option>Nhạc châu Á</option>
-                <option>Nhạc US-UK</option>
-              </select>
-              <select id="beauty-cate">
-                <option>-- Chọn danh mục Beauty --</option>
-                <option>Trending</option>
-                <option>Thời trang</option>
-                <option>Làm đẹp</option>
-                <option>Phong cách</option>
-              </select>
-              <select id="life-cate">
-                <option>-- Chọn danh mục Đời sống --</option>
-                <option>Soi sao</option>
-                <option>Sống xanh</option>
-              </select>
-              <select id="social-cate">
-                <option>-- Chọn danh mục Xã hội --</option>
-                <option>Pháp luật</option>
-                <option>Điểm nóng</option>
-                <option>Thế giới đó đây</option>
-              </select>
-              <select id="health-cate">
-                <option>-- Chọn danh mục Sức khỏe --</option>
-                <option>Dinh dưỡng</option>
-                <option>Khỏe đẹp</option>
-                <option>Giới tính</option>
-                <option>Các bệnh</option>
-              </select>
+              <div class="category-selects">
+                <!-- JS sẽ tự sinh các <select> vào đây -->
+              </div>
               <div class="error-message" id="article-topics-error"></div>
             </div>
             <div class="form-group">
@@ -632,6 +599,7 @@
               <input
                 type="text"
                 id="tagInput"
+                name="tags"
                 placeholder="Nhập #hastag"
                 class="form-control"
               />
@@ -648,7 +616,7 @@
             </div>
             <!-- Thêm phần upload ảnh mới -->
             <div class="form-group">
-              <label>Hình ảnh bài báo (Chọn tối đa 10 ảnh):</label>
+              <label>Hình ảnh bài báo:</label>
               <div class="image-upload-container">
                 <div class="upload-btn">
                   <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
@@ -656,6 +624,7 @@
                   <input
                     type="file"
                     id="articleImages"
+                    name="featuredImage"
                     accept="image/*"
                     multiple
                   />

@@ -37,6 +37,12 @@ app.use("/api/posts", require("./routes/post.routes"));
 app.use("/api/categories", require("./routes/category.routes"));
 app.use("/api/comments", require("./routes/comment.routes"));
 app.use("/api/noti", require("./routes/notifications.routes"));
+app.use("/api", require("./routes/authorRegister.routes"));
+app.use("/api", require("./routes/savedPost.routes"));
+app.use("/api", require("./routes/upload.routes"));
+
+app.use("/uploads", express.static("uploads"));
+
 // Health check
 app.get("/health", async (req, res) => {
   try {

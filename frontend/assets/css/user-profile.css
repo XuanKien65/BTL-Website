@@ -797,9 +797,9 @@ textarea {
 select {
   /* Layout */
   width: 100%;
-  max-width: 350px;
+  max-width: 450px;
   padding: 10px 15px;
-  margin: 8px 0;
+  margin: 8px;
 
   /* Appearance */
   border: 1px solid #ddd;

@@ -49,18 +49,25 @@ exports.getPostById = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
   try {
-    const { title, content, categoryIds, status, excerpt, featuredImage } =
+    const { title, content, categoryIds, tags, status, excerpt, isFeatured } =
       req.body;
-    const slug = slugify(title);
 
+    const slug = slugify(title);
+    const featuredImage = req.file ? `/uploads/${req.file.filename}` : null; // lấy ảnh từ multer upload
+    const safeStatus = (status || "pending").toLowerCase(); // luôn là string chuẩn
+
+    // Trong controller
     const newPost = await Post.create({
       title,
       slug,
       content,
       authorId: req.userId,
-      categoryIds,
+      categoryIds: Array.isArray(categoryIds) ? categoryIds : [categoryIds],
+      tagNames: Array.isArray(tags) ? tags : [tags], // chú ý: TAG NAMES
       excerpt,
       featuredImage,
+      isFeatured: isFeatured || false,
+      status: safeStatus,
     });
 
     ApiResponse.created(res, "Post created successfully", newPost);
@@ -71,8 +78,16 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   try {
-    const { title, content, categoryIds, status, excerpt, featuredImage } =
-      req.body;
+    const {
+      title,
+      content,
+      categoryIds,
+      tagIds,
+      status,
+      excerpt,
+      featuredImage,
+      isFeatured,
+    } = req.body;
     const slug = slugify(title);
 
     const updatedPost = await Post.update(req.params.id, {
@@ -80,9 +95,11 @@ exports.updatePost = async (req, res, next) => {
       slug,
       content,
       categoryIds,
-      status,
+      tagIds,
       excerpt,
       featuredImage,
+      isFeatured: isFeatured || false,
+      status,
     });
 
     if (!updatedPost) {
@@ -106,14 +123,22 @@ exports.deletePost = async (req, res, next) => {
     next(new ErrorHandler(500, "Error deleting post", error));
   }
 };
+
 exports.approvePost = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
     const updatedPost = await Post.update(req.params.id, {
-      ...post,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredimage,
+      isFeatured: post.is_featured,
       status: "published",
+      categoryIds: post.categories || [],
+      tagIds: post.tags || [],
     });
 
     ApiResponse.success(res, "Post approved and published", updatedPost);
@@ -128,8 +153,15 @@ exports.rejectPost = async (req, res, next) => {
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
     const updatedPost = await Post.update(req.params.id, {
-      ...post,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredimage,
+      isFeatured: post.is_featured,
       status: "rejected",
+      categoryIds: post.categories || [],
+      tagIds: post.tags || [],
     });
 
     ApiResponse.success(res, "Post rejected", updatedPost);
@@ -137,6 +169,7 @@ exports.rejectPost = async (req, res, next) => {
     next(new ErrorHandler(500, "Error rejecting post", error));
   }
 };
+
 exports.searchPosts = async (req, res, next) => {
   try {
     const {

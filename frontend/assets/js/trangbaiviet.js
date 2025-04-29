@@ -246,3 +246,25 @@ document
       console.log("Bài viết đã bỏ lưu");
     }
   });
+// Chia sẻ bài viết
+const currentURL = window.location.href;
+
+// Share Facebook
+document
+  .getElementById("share-facebook")
+  ?.addEventListener("click", function (e) {
+    e.preventDefault();
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      currentURL
+    )}`;
+    window.open(facebookShareUrl, "_blank", "width=600,height=400");
+  });
+
+// Share Zalo
+document.getElementById("share-zalo")?.addEventListener("click", function (e) {
+  e.preventDefault();
+  const zaloShareUrl = `https://zalo.me/share?url=${encodeURIComponent(
+    currentURL
+  )}`;
+  window.open(zaloShareUrl, "_blank", "width=600,height=400");
+});

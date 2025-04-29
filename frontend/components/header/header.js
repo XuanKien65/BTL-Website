@@ -141,6 +141,8 @@ function base64UrlDecode(input) {
   return atob(base64);
 }
 
+window.currentId = null;
+window.currentAccessToken = null;
 window.updateNavbarAuthState = async function () {
   const loginLink = document.getElementById("login-link");
   const userInfoElement = document.querySelector(".user-info");
@@ -161,6 +163,7 @@ window.updateNavbarAuthState = async function () {
 
     const data = await response.json();
     const accessToken = data.accessToken;
+    window.currentAccessToken = accessToken;
 
     if (!accessToken || accessToken.split(".").length !== 3) {
       throw new Error("Access token không hợp lệ");
@@ -168,6 +171,8 @@ window.updateNavbarAuthState = async function () {
 
     const payloadBase64 = accessToken.split(".")[1];
     const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
+    const userId = decodedPayload.id;
+    window.currentId = userId;
     const username =
       decodedPayload.username ||
       decodedPayload.name ||
@@ -198,12 +203,10 @@ window.setupAutoRefreshToken = async function () {
 
       const data = await response.json();
       const accessToken = data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      console.log("✅ Access token refreshed!");
     } catch (err) {
       console.warn("⚠️ Auto refresh failed:", err.message);
     }
   }
-  // Thiết lập auto-refresh định kỳ
+  await refreshToken();
   setInterval(refreshToken, refreshInterval);
 };
