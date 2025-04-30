@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Lấy keyword từ URL và gán vào ô input, sau đó lọc kết quả luôn
   const params = new URLSearchParams(window.location.search);
   const keyword = params.get("keyword");

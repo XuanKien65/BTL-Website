@@ -108,9 +108,60 @@ function handleResponsive() {
   }
 }
 
+//Khởi tạo category
+async function loadCategoriesToNavbar() {
+  try {
+    const response = await fetch("http://localhost:5501/api/categories");
+    const result = await response.json();
+
+    if (!result.success) {
+      console.error("Không lấy được categories:", result.message);
+      return;
+    }
+
+    const categories = result.data;
+    const navbar = document.querySelector(".navbar");
+    navbar.innerHTML = ""; // Clear cũ nếu có
+
+    categories.forEach((parent) => {
+      const li = document.createElement("li");
+      li.className = "main-category";
+
+      const a = document.createElement("a");
+      a.className = "category";
+      a.href = "http://localhost:5501/pages/topic.html"; //sửa lại sau khi có topic
+      a.textContent = parent.name;
+      li.appendChild(a);
+
+      // Nếu có danh mục con
+      if (parent.children && parent.children.length > 0) {
+        const subnav = document.createElement("ul");
+        subnav.className = "subnav";
+
+        parent.children.forEach((child) => {
+          const subLi = document.createElement("li");
+          const subA = document.createElement("a");
+          subA.className = "subnav-link";
+          subA.href = `http://localhost:5501/pages/topic.html`; //sửa lại sau khi có topic
+          subA.textContent = child.name;
+
+          subLi.appendChild(subA);
+          subnav.appendChild(subLi);
+        });
+
+        li.appendChild(subnav);
+      }
+
+      navbar.appendChild(li);
+    });
+  } catch (error) {
+    console.error("Lỗi khi load categories:", error);
+  }
+}
+
 // Khởi tạo sau khi tất cả đã load xong
 document.addEventListener("DOMContentLoaded", () => {
-  Promise.all([loadHeader(), loadFooter()])
+  Promise.all([loadHeader(), loadFooter(), loadCategoriesToNavbar()])
     .then(() => {
       // Gọi hàm xử lý scroll sau khi header/footer đã tải xong
       handleScroll();
@@ -141,6 +192,8 @@ function base64UrlDecode(input) {
   return atob(base64);
 }
 
+window.currentId = null;
+window.currentAccessToken = null;
 window.updateNavbarAuthState = async function () {
   const loginLink = document.getElementById("login-link");
   const userInfoElement = document.querySelector(".user-info");
@@ -161,6 +214,7 @@ window.updateNavbarAuthState = async function () {
 
     const data = await response.json();
     const accessToken = data.accessToken;
+    window.currentAccessToken = accessToken;
 
     if (!accessToken || accessToken.split(".").length !== 3) {
       throw new Error("Access token không hợp lệ");
@@ -168,6 +222,8 @@ window.updateNavbarAuthState = async function () {
 
     const payloadBase64 = accessToken.split(".")[1];
     const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
+    const userId = decodedPayload.id;
+    window.currentId = userId;
     const username =
       decodedPayload.username ||
       decodedPayload.name ||
@@ -198,12 +254,10 @@ window.setupAutoRefreshToken = async function () {
 
       const data = await response.json();
       const accessToken = data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      console.log("✅ Access token refreshed!");
     } catch (err) {
       console.warn("⚠️ Auto refresh failed:", err.message);
     }
   }
-  // Thiết lập auto-refresh định kỳ
+  await refreshToken();
   setInterval(refreshToken, refreshInterval);
 };

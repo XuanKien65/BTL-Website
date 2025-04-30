@@ -47,20 +47,38 @@ exports.getPostById = async (req, res, next) => {
   }
 };
 
+exports.getPostBySlug = async (req, res, next) => {
+  try {
+    const post = await Post.findBySlug(req.params.slug);
+    if (!post) {
+      return next(new ErrowHandler(404, "post not found"));
+    }
+    ApiResponse.success(res, "post retrieved successfully", post);
+  } catch (error) {
+    next(new ErrorHandler(500, "error retrieving post", error));
+  }
+};
 exports.createPost = async (req, res, next) => {
   try {
-    const { title, content, categoryIds, status, excerpt, featuredImage } =
+    const { title, content, categoryIds, tags, status, excerpt, isFeatured } =
       req.body;
-    const slug = slugify(title);
 
+    const slug = slugify(title);
+    const featuredImage = req.file ? `/uploads/${req.file.filename}` : null; // lấy ảnh từ multer upload
+    const safeStatus = (status || "pending").toLowerCase(); // luôn là string chuẩn
+
+    // Trong controller
     const newPost = await Post.create({
       title,
       slug,
       content,
       authorId: req.userId,
-      categoryIds,
+      categoryIds: Array.isArray(categoryIds) ? categoryIds : [categoryIds],
+      tagNames: Array.isArray(tags) ? tags : [tags], // chú ý: TAG NAMES
       excerpt,
       featuredImage,
+      isFeatured: isFeatured || false,
+      status: safeStatus,
     });
 
     ApiResponse.created(res, "Post created successfully", newPost);
@@ -71,8 +89,16 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   try {
-    const { title, content, categoryIds, status, excerpt, featuredImage } =
-      req.body;
+    const {
+      title,
+      content,
+      categoryIds,
+      tagIds,
+      status,
+      excerpt,
+      featuredImage,
+      isFeatured,
+    } = req.body;
     const slug = slugify(title);
 
     const updatedPost = await Post.update(req.params.id, {
@@ -80,9 +106,11 @@ exports.updatePost = async (req, res, next) => {
       slug,
       content,
       categoryIds,
-      status,
+      tagIds,
       excerpt,
       featuredImage,
+      isFeatured: isFeatured || false,
+      status,
     });
 
     if (!updatedPost) {
@@ -106,14 +134,22 @@ exports.deletePost = async (req, res, next) => {
     next(new ErrorHandler(500, "Error deleting post", error));
   }
 };
+
 exports.approvePost = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
     const updatedPost = await Post.update(req.params.id, {
-      ...post,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredimage,
+      isFeatured: post.is_featured,
       status: "published",
+      categoryIds: post.categories || [],
+      tagIds: post.tags || [],
     });
 
     ApiResponse.success(res, "Post approved and published", updatedPost);
@@ -128,8 +164,15 @@ exports.rejectPost = async (req, res, next) => {
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
     const updatedPost = await Post.update(req.params.id, {
-      ...post,
+      title: post.title,
+      slug: post.slug,
+      content: post.content,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredimage,
+      isFeatured: post.is_featured,
       status: "rejected",
+      categoryIds: post.categories || [],
+      tagIds: post.tags || [],
     });
 
     ApiResponse.success(res, "Post rejected", updatedPost);
@@ -138,18 +181,18 @@ exports.rejectPost = async (req, res, next) => {
   }
 };
 
-exports.searchPosts = async (req, res) => {
+exports.searchPosts = async (req, res, next) => {
   try {
     const {
       keyword,
       tag,
       categoryId,
-      status = 'published',
+      status = "published",
       fromDate,
       toDate,
-      sortBy = 'newest',
+      sortBy = "newest",
       page = 1,
-      pageSize = 10
+      pageSize = 10,
     } = req.query;
 
     const results = await Post.searchWithFilters({
@@ -161,19 +204,28 @@ exports.searchPosts = async (req, res) => {
       toDate,
       sortBy,
       page: parseInt(page),
-      pageSize: parseInt(pageSize)
+      pageSize: parseInt(pageSize),
     });
 
-    res.json({
-      success: true,
-      data: results
+    const totalResults = await Post.countSearchResults({
+      keyword,
+      tag,
+      categoryId,
+      status,
+      fromDate,
+      toDate,
     });
 
+    ApiResponse.success(res, "Posts retrieved successfully", {
+      posts: results,
+      pagination: {
+        page: parseInt(page),
+        pageSize: parseInt(pageSize),
+        total: totalResults,
+        totalPages: Math.ceil(totalResults / pageSize),
+      },
+    });
   } catch (error) {
-    console.error('Lỗi khi tìm kiếm bài viết:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Lỗi server khi tìm kiếm bài viết'
-    });
+    next(new ErrorHandler(500, "Error searching posts", error));
   }
 };

@@ -42,7 +42,7 @@ exports.getCommentsByPostId = async (req, res, next) => {
 exports.createComment = async (req, res, next) => {
   try {
     const { content, postId, parentId } = req.body;
-    console.log("userId from token:", req.userId);
+    console.log("🧠 userId from token:", req.userId);
     const newComment = await Comment.create({
       content,
       postId,

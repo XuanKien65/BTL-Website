@@ -2,17 +2,23 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post.controller");
 const { verifyToken, isAuthor, isAdmin } = require("../middlewares/authJwt");
+const upload = require("../middlewares/upload");
 
-// Public routes
-router.get("/", postController.getAllPosts);
-router.get('/search', postController.searchPosts);
-router.get("/:id", postController.getPostById);
+// ===== Public Routes =====
+router.get("/", postController.getAllPosts); // Get all posts (with pagination/filter)
+router.get("/search", postController.searchPosts); // Search posts
+router.get("/id/:id", postController.getPostById); // Get post by id
+router.get("/:slug", postController.getPostBySlug);
 
-// Protected routes
-router.post("/", [verifyToken, isAuthor], postController.createPost);
-router.put("/:id", [verifyToken, isAdmin], postController.updatePost);
-router.delete("/:id", [verifyToken, isAdmin], postController.deletePost);
-router.put("/:id/approve", [verifyToken, isAdmin], postController.approvePost);
-router.put("/:id/reject", [verifyToken, isAdmin], postController.rejectPost);
+// ===== Protected Routes =====
+router.post(
+  "/",
+  [verifyToken, isAuthor, upload.single("featuredImage")],
+  postController.createPost
+);
+router.put("/:id", verifyToken, isAdmin, postController.updatePost); // Update post
+router.delete("/:id", verifyToken, isAdmin, postController.deletePost); // Delete post
+router.put("/:id/approve", verifyToken, isAdmin, postController.approvePost); // Approve (publish) post
+router.put("/:id/reject", verifyToken, isAdmin, postController.rejectPost); // Reject post
 
 module.exports = router;
