@@ -29,6 +29,7 @@ const User = {
   },
 
   create: async (user) => {
+    const defaultAvatarURL = "http://localhost:5501/uploads/user-default.png";
     const { rows } = await pool.query(
       `INSERT INTO users 
        (username, email, passwordhash, role, avatarurl) 
@@ -39,7 +40,7 @@ const User = {
         user.email,
         user.password,
         user.role || "user",
-        user.avatarURL || null,
+        user.avatarURL || defaultAvatarURL,
       ]
     );
     return rows[0];
