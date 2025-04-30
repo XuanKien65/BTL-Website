@@ -12,4 +12,5 @@ router.put(
   [verifyToken],
   userController.updatePassword
 );
+router.put("/change-ava/:id", [verifyToken], userController.updateAva);
 module.exports = router;

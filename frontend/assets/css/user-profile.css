@@ -162,6 +162,7 @@ a {
   margin-bottom: 20px;
 }
 .account-form .change-avatar {
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
 }

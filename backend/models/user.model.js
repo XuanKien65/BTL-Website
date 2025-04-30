@@ -61,6 +61,13 @@ const User = {
     return rows[0];
   },
 
+  updateAva: async (id, avaUrl) => {
+    const { rowCount } = await pool.query(
+      "UPDATE users SET avatarurl = $1 WHERE userid = $2",
+      [avaUrl, id]
+    );
+    return rowCount > 0;
+  },
   updatePassword: async (id, newPassword) => {
     const { rowCount } = await pool.query(
       "UPDATE users SET passwordhash = $1 WHERE userid = $2",

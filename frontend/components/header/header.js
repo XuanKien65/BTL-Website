@@ -195,14 +195,7 @@ function base64UrlDecode(input) {
 window.currentId = null;
 window.currentAccessToken = null;
 window.updateNavbarAuthState = async function () {
-  const loginLink = document.getElementById("login-link");
-  const userInfoElement = document.querySelector(".user-info");
-  const usernameElement = document.querySelector(".username");
-
-  if (!loginLink || !userInfoElement || !usernameElement) {
-    console.warn("Navbar chưa sẵn sàng, bỏ qua update UI");
-    return;
-  }
+  let loginLink, userInfoElement, usernameElement, profileLink;
 
   try {
     const response = await fetch("http://localhost:5501/api/auth/refresh", {
@@ -224,21 +217,54 @@ window.updateNavbarAuthState = async function () {
     const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
     const userId = decodedPayload.id;
     window.currentId = userId;
+
     const username =
       decodedPayload.username ||
       decodedPayload.name ||
       decodedPayload.id ||
       "User";
 
-    loginLink.style.display = "none";
-    userInfoElement.style.display = "block";
-    usernameElement.textContent = username;
+    // DOM elements
+    loginLink = document.getElementById("login-link");
+    userInfoElement = document.querySelector(".user-info");
+    usernameElement = document.querySelector(".username");
+    profileLink = document.getElementById("user-profile-link");
+
+    // Cập nhật UI nếu DOM sẵn sàng
+    if (loginLink && userInfoElement && usernameElement) {
+      loginLink.style.display = "none";
+      userInfoElement.style.display = "block";
+      usernameElement.textContent = username;
+    } else {
+      console.warn("Không thể cập nhật UI navbar – DOM chưa sẵn sàng");
+    }
+
+    // Gán link đến trang profile nếu có ID
+    if (profileLink && userId) {
+      profileLink.href = `/pages/user-profile.html?id=${userId}`;
+
+      // Phòng khi userId vẫn chưa có
+      profileLink.addEventListener("click", function (e) {
+        if (!window.currentId) {
+          e.preventDefault();
+          alert("Thông tin người dùng chưa sẵn sàng!");
+        }
+      });
+    }
   } catch (err) {
     console.warn("Không thể xác thực:", err.message);
-    loginLink.style.display = "block";
-    userInfoElement.style.display = "none";
+
+    // Thử lấy lại các phần tử DOM để ẩn phần user nếu cần
+    loginLink = document.getElementById("login-link");
+    userInfoElement = document.querySelector(".user-info");
+
+    if (loginLink && userInfoElement) {
+      loginLink.style.display = "block";
+      userInfoElement.style.display = "none";
+    }
   }
 };
+
 //tự động refresh token
 window.setupAutoRefreshToken = async function () {
   const refreshInterval = 29 * 60 * 1000;
@@ -254,6 +280,7 @@ window.setupAutoRefreshToken = async function () {
 
       const data = await response.json();
       const accessToken = data.accessToken;
+      window.currentAccessToken = accessToken;
     } catch (err) {
       console.warn("⚠️ Auto refresh failed:", err.message);
     }
@@ -261,3 +288,4 @@ window.setupAutoRefreshToken = async function () {
   await refreshToken();
   setInterval(refreshToken, refreshInterval);
 };
+console.log(window.currentAccessToken);

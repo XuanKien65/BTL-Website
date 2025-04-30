@@ -47,7 +47,7 @@ class MyUploadAdapter {
       const data = new FormData();
       data.append("upload", file);
 
-      return fetch("http://localhost:5501/api/uploads", {
+      return fetch("http://localhost:5501/api/uploads?folder=ckeditor", {
         method: "POST",
         body: data,
       })
@@ -67,22 +67,13 @@ class MyUploadAdapter {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   // ==================== PHẦN KHỞI TẠO DỮ LIỆU ====================
   let userData = null;
 
   async function getUserData() {
     try {
-      // Gọi refresh token API để lấy accessToken mới
-      const refreshRes = await fetch("http://localhost:5501/api/auth/refresh", {
-        method: "POST",
-        credentials: "include", // để gửi cookie chứa refreshToken
-      });
-
-      if (!refreshRes.ok) throw new Error("Không thể refresh token");
-
-      const { accessToken } = await refreshRes.json();
-
+      const accessToken = window.currentAccessToken;
       //  Decode để lấy userId từ token
       const tokenPayload = accessToken.split(".")[1];
       const decodedPayload = JSON.parse(atob(tokenPayload));
@@ -147,13 +138,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==================== PHẦN TÀI KHOẢN ====================
-  function initAccountSection() {
-    getUserData().then((data) => {
-      if (!data) {
-        return;
-      }
-      initUserData();
-    });
+  async function initAccountSection() {
+    // Đợi navbar xác thực và token được gán
+    await window.updateNavbarAuthState();
+
+    // Gọi API lấy thông tin người dùng
+    const data = await getUserData();
+    if (!data) {
+      return;
+    }
+    initUserData(data);
     // Khởi tạo dữ liệu người dùng
     function initUserData() {
       document.getElementById("fullname").value = userData.username;
@@ -181,33 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (userData.role == "author") {
         author_register.style.display = "none";
       }
-    }
-
-    // Xử lý form thông tin tài khoản
-    function handleAccountForm() {
-      const accountForm = document.getElementById("account-form");
-      if (!accountForm) return;
-
-      accountForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const submitBtn = accountForm.querySelector(".btn-save");
-        const originalBtnText = submitBtn.textContent;
-
-        // Hiệu ứng loading
-        submitBtn.innerHTML = '<div class="loading-spinner"></div>';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-          userData.fullname = document.getElementById("fullname").value;
-
-          // Khôi phục button
-          submitBtn.textContent = originalBtnText;
-          submitBtn.disabled = false;
-          console.log("ok");
-          showMessage("Cập nhật thông tin thành công!", "success");
-        }, 1500);
-      });
     }
 
     // Xử lý đổi mật khẩu
@@ -293,6 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitPasswordChange.disabled = true;
 
         try {
+          const accessToken = window.currentAccessToken;
           const res = await fetch("/api/auth/verify-password", {
             method: "POST",
             headers: {
@@ -326,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               // Hiển thị thông báo thành công
               document.getElementById("password-change-success").textContent =
-                data.message;
+                "Thay đổi mật khẩu thành công";
               document.getElementById("password-change-success").style.display =
                 "block";
 
@@ -369,23 +337,64 @@ document.addEventListener("DOMContentLoaded", function () {
         avatarUpload.click();
       });
 
-      avatarUpload.addEventListener("change", function (e) {
-        if (e.target.files && e.target.files[0]) {
-          const reader = new FileReader();
+      avatarUpload.addEventListener("change", async function (e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-          reader.onload = function (event) {
-            userData.avatar = event.target.result;
-            document.getElementById("user-avatar").src = userData.avatar;
-            document.getElementById("usr-avatar").src = userData.avatar;
+        const formData = new FormData();
+        formData.append("upload", file);
+
+        try {
+          const uploadRes = await fetch(
+            "http://localhost:5501/api/uploads?folder=avatars",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          const uploadData = await uploadRes.json();
+
+          if (!uploadData.url) {
+            showMessage("Upload ảnh thất bại", "error");
+            return;
+          }
+
+          const avaUrl = uploadData.url;
+
+          // Cập nhật URL avatar trên server
+          const updateRes = await fetch(
+            `http://localhost:5501/api/users/change-ava/${userData.id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.currentAccessToken}`,
+              },
+              body: JSON.stringify({ newAva: avaUrl }),
+            }
+          );
+
+          const updateData = await updateRes.json();
+
+          if (updateData.success) {
+            // Cập nhật giao diện
+            userData.avatar = avaUrl;
+            document.getElementById("user-avatar").src = avaUrl;
+            document.getElementById("usr-avatar").src = avaUrl;
             showMessage("Ảnh đại diện đã được cập nhật!", "success");
-          };
-
-          reader.readAsDataURL(e.target.files[0]);
+          } else {
+            showMessage("Lỗi khi cập nhật avatar", "error");
+          }
+        } catch (err) {
+          console.error("Lỗi upload avatar:", err);
+          showMessage("Có lỗi xảy ra khi đổi avatar", "error");
         }
       });
     }
+
     // Khởi tạo tất cả
-    handleAccountForm();
+    // handleAccountForm();
     handlePasswordChange();
     handleAvatarUpload();
   }
@@ -644,10 +653,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData();
     formData.append("upload", file);
 
-    const response = await fetch("http://localhost:5501/api/uploads", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "http://localhost:5501/api/uploads?folder=register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     const result = await response.json();
 
@@ -1094,26 +1106,17 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
 
       try {
-        // Gọi refresh để lấy access token mới
-        const refreshRes = await fetch(
-          "http://localhost:5501/api/auth/refresh",
-          {
-            method: "POST",
-            credentials: "include",
-          }
-        );
+        const accessToken = window.currentAccessToken;
+        if (!accessToken) {
+          throw new Error("Access token không tồn tại. Không thể đăng xuất.");
+        }
 
-        if (!refreshRes.ok) throw new Error("Không thể refresh token");
-
-        const { accessToken } = await refreshRes.json();
-
-        // Gửi logout kèm accessToken
         const res = await fetch("http://localhost:5501/api/auth/logout", {
           method: "POST",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`, // 👈 gửi token ở đây
+            Authorization: `Bearer ${accessToken}`,
           },
         });
 
@@ -1128,7 +1131,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==================== KHỞI TẠO CHÍNH ====================
-  initAccountSection();
+  await window.updateNavbarAuthState();
+  await initAccountSection();
   initTabs();
   initAuthorRegistration();
   initAuthorSite();

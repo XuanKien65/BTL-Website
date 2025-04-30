@@ -49,6 +49,18 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
+exports.updateAva = async (req, res, next) => {
+  try {
+    const { newAva } = req.body;
+    const updateAva = await User.updateAva(req.params.id, newAva);
+    if (!updateAva) {
+      return next(new ErrorHandler(404, "user not found"));
+    }
+    ApiResponse.success(res, "change ava successfully", updateAva);
+  } catch (error) {
+    next(new ErrorHandler(500, "error change ava", error));
+  }
+};
 exports.updatePassword = async (req, res, next) => {
   const { newPassword } = req.body;
   try {
