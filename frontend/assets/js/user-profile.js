@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
       userData = {
         id: userInfo.userid,
         username: userInfo.username,
+        password: userInfo.passwordhash,
         email: userInfo.email,
         avatar: userInfo.avatarurl,
         joinDate: new Date(userInfo.createdat).toLocaleDateString("vi-VN"),
@@ -219,7 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!passwordForm || !togglePasswordBtn || !submitPasswordChange) return;
 
-      // Toggle hiển thị form đổi mật khẩu
       togglePasswordBtn.addEventListener("click", function () {
         passwordForm.style.display =
           passwordForm.style.display === "none" ? "block" : "none";
@@ -227,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function () {
           passwordForm.style.display === "none" ? "Đổi mật khẩu" : "Đóng";
       });
 
-      // Validate mật khẩu khi nhập
       document
         .getElementById("new-password")
         ?.addEventListener("input", function () {
@@ -239,19 +238,18 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-      // Xử lý submit đổi mật khẩu
-      submitPasswordChange.addEventListener("click", function () {
+      submitPasswordChange.addEventListener("click", async function () {
         const currPassword = document.getElementById("current-password").value;
         const newPassword = document.getElementById("new-password").value;
         const confirmPassword =
           document.getElementById("confirm-password").value;
+        const email = userData.email;
 
         // Reset lỗi
         clearError("current-password");
         clearError("new-password");
         clearError("confirm-password");
 
-        // Validate
         if (!currPassword) {
           showError("current-password", "Vui lòng nhập mật khẩu hiện tại");
           return;
@@ -270,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
           newPassword
         );
 
-        let strengthCriteria = [
+        const strengthCriteria = [
           hasUpperCase,
           hasLowerCase,
           hasNumbers,
@@ -290,32 +288,73 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        // Hiệu ứng loading
         const originalBtnText = submitPasswordChange.textContent;
         submitPasswordChange.innerHTML = '<div class="loading-spinner"></div>';
         submitPasswordChange.disabled = true;
 
-        // Giả lập gọi API
-        setTimeout(() => {
-          // Hiển thị thông báo thành công
-          document.getElementById("password-change-success").textContent =
-            "Đổi mật khẩu thành công!";
-          document.getElementById("password-change-success").style.display =
-            "block";
+        try {
+          const res = await fetch("/api/auth/verify-password", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({ email, password: currPassword }),
+          });
 
-          // Khôi phục button
+          const data = await res.json();
+
+          if (!data.success) {
+            showError("current-password", "Mật khẩu hiện tại không đúng");
+            submitPasswordChange.textContent = originalBtnText;
+            submitPasswordChange.disabled = false;
+            return;
+          }
+
+          await fetch(`/api/users/change-password/${userData.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({ newPassword }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data.success)
+                throw new Error(data.message || "Lỗi khi đổi mật khẩu");
+
+              // Hiển thị thông báo thành công
+              document.getElementById("password-change-success").textContent =
+                data.message;
+              document.getElementById("password-change-success").style.display =
+                "block";
+
+              submitPasswordChange.textContent = originalBtnText;
+              submitPasswordChange.disabled = false;
+
+              // Ẩn form sau 2s
+              // setTimeout(() => {
+              //   passwordForm.reset();
+              //   passwordForm.style.display = "none";
+              //   togglePasswordBtn.textContent = "Đổi mật khẩu";
+              //   document.getElementById(
+              //     "password-change-success"
+              //   ).style.display = "none";
+              // }, 2000);
+            })
+            .catch((err) => {
+              console.error("Lỗi đổi mật khẩu:", err.message);
+              showMessage("Đổi mật khẩu thất bại", "error");
+              submitPasswordChange.textContent = originalBtnText;
+              submitPasswordChange.disabled = false;
+            });
+        } catch (err) {
+          console.error("Lỗi xác minh mật khẩu:", err);
+          showMessage("Đã xảy ra lỗi. Vui lòng thử lại.", "error");
           submitPasswordChange.textContent = originalBtnText;
           submitPasswordChange.disabled = false;
-
-          // Ẩn form sau 2 giây
-          setTimeout(() => {
-            passwordForm.reset();
-            passwordForm.style.display = "none";
-            togglePasswordBtn.textContent = "Đổi mật khẩu";
-            document.getElementById("password-change-success").style.display =
-              "none";
-          }, 2000);
-        }, 1500);
+        }
       });
     }
 
@@ -571,7 +610,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!content.endsWith('"')) detail.textContent = `${detail.textContent}"`;
   });
   // ==================== PHẦN ĐĂNG KÝ TÁC GIẢ ====================
-  async function loadCategories() {
+  async function loadAuthorCategories() {
     try {
       const response = await fetch(
         "http://localhost:5501/api/categories?parent_id=null"
@@ -581,7 +620,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (result.success) {
         const categories = result.data;
         const checkboxGroup = document.querySelector(".checkbox-group");
-        checkboxGroup.innerHTML = ""; // Clear dữ liệu mẫu
+        if (!checkboxGroup) return;
+
+        checkboxGroup.innerHTML = "";
 
         categories.forEach((category) => {
           const label = document.createElement("label");
@@ -592,38 +633,54 @@ document.addEventListener("DOMContentLoaded", function () {
           checkboxGroup.appendChild(label);
         });
       } else {
-        console.error("Load categories thất bại");
+        console.error("❌ Load categories thất bại:", result.message);
       }
     } catch (error) {
-      console.error("Lỗi khi load categories:", error);
+      console.error("💥 Lỗi khi load categories:", error);
     }
   }
+
+  async function uploadImageAndGetUrl(file) {
+    const formData = new FormData();
+    formData.append("upload", file);
+
+    const response = await fetch("http://localhost:5501/api/uploads", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (result.url) {
+      return result.url;
+    } else {
+      throw new Error(result.message || "Upload failed");
+    }
+  }
+
   function initAuthorRegistration() {
-    loadCategories();
+    loadAuthorCategories();
+
     const authorForm = document.getElementById("authorRegistrationForm");
     if (!authorForm) return;
 
-    // 1. Xử lý preview ảnh thẻ nhà báo
-    function handleImagePreview(inputId, previewId) {
+    function handleImagePreview(inputId, previewId, hiddenInputId) {
       const input = document.getElementById(inputId);
       const previewContainer = document.getElementById(previewId);
+      const hiddenInput = document.getElementById(hiddenInputId);
 
-      input?.addEventListener("change", function (e) {
+      input?.addEventListener("change", async function (e) {
         const file = e.target.files[0];
         if (!file) return;
 
-        // Clear previous error
         clearError(inputId);
 
-        // Validate file type
         if (!file.type.match("image.*")) {
           showError(inputId, "Chỉ chấp nhận file ảnh (JPEG, PNG)");
           return;
         }
 
-        // Validate file size
         if (file.size > 5 * 1024 * 1024) {
-          // 5MB
           showError(inputId, "Ảnh không được vượt quá 5MB");
           return;
         }
@@ -631,110 +688,180 @@ document.addEventListener("DOMContentLoaded", function () {
         const reader = new FileReader();
         reader.onload = function (event) {
           previewContainer.innerHTML = `
-              <div class="preview-item">
-                <img src="${event.target.result}" alt="Preview">
-                <button type="button" class="remove-btn">&times;</button>
-              </div>
-            `;
-
-          // Xử lý nút xóa ảnh
+            <div class="preview-item">
+              <img src="${event.target.result}" alt="Preview">
+              <button type="button" class="remove-btn">&times;</button>
+            </div>
+          `;
           previewContainer
             .querySelector(".remove-btn")
             .addEventListener("click", (e) => {
               e.preventDefault();
               previewContainer.innerHTML = "";
               input.value = "";
+              hiddenInput.value = "";
             });
         };
         reader.readAsDataURL(file);
-      });
-    }
-    // Khởi tạo preview cho 2 ảnh
-    handleImagePreview("frontIdCard", "frontPreview");
-    handleImagePreview("backIdCard", "backPreview");
-
-    // 2. Xử lý submit form
-    articleForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      let isValid = true;
-      const requiredFields = ["articleTitle", "tagInput"];
-      requiredFields.forEach((field) => {
-        const value = document.getElementById(field).value.trim();
-        if (!value) {
-          showError(field, "Thông tin bắt buộc");
-          isValid = false;
-        } else {
-          clearError(field);
-        }
-      });
-
-      const editorContent = window.articleEditor.getData();
-      if (!editorContent.trim()) {
-        showError("articleContent", "Nội dung bài viết không được để trống");
-        isValid = false;
-      } else {
-        clearError("articleContent");
-      }
-
-      isValid = validateTopics() && isValid;
-      isValid = validateImages(selectedFiles) && isValid;
-
-      if (isValid) {
-        const submitBtn = articleForm.querySelector(".btn-add");
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
-        submitBtn.disabled = true;
 
         try {
-          const formData = new FormData(articleForm);
-          formData.set("articleContent", editorContent);
+          const uploadedUrl = await uploadImageAndGetUrl(file);
+          hiddenInput.value = uploadedUrl;
+        } catch (error) {
+          showError(inputId, "Lỗi khi upload ảnh: " + error.message);
+        }
+      });
+    }
 
-          const topicSelects = document.querySelectorAll(
-            ".category-selects select"
-          );
-          const selectedCategoryIds = Array.from(topicSelects)
-            .map((select) => select.value)
-            .filter((value) => value !== "");
+    handleImagePreview("frontIdCard", "frontPreview", "frontIdCardUrl");
+    handleImagePreview("backIdCard", "backPreview", "backIdCardUrl");
 
-          selectedCategoryIds.forEach((categoryId) => {
-            formData.append("categoryIds[]", categoryId);
+    function validateForm() {
+      let valid = true;
+
+      const fullname = document.getElementById("fullname1").value.trim();
+      const email = document.getElementById("email1").value.trim();
+      const phone = document.getElementById("phone1").value.trim();
+      const experience = document.getElementById("experience").value.trim();
+
+      const frontUrl = document.getElementById("frontIdCardUrl").value;
+      const backUrl = document.getElementById("backIdCardUrl").value;
+
+      const selectedTopics = document.querySelectorAll(
+        'input[name="topics"]:checked'
+      );
+
+      if (!fullname) {
+        showError("fullname1", "Vui lòng nhập họ tên");
+        valid = false;
+      } else clearError("fullname1");
+
+      if (!email) {
+        showError("email1", "Vui lòng nhập email");
+        valid = false;
+      } else clearError("email1");
+
+      if (!phone) {
+        showError("phone1", "Vui lòng nhập số điện thoại");
+        valid = false;
+      } else clearError("phone1");
+
+      if (!experience) {
+        showError("experience", "Vui lòng chia sẻ kinh nghiệm viết");
+        valid = false;
+      } else clearError("experience");
+
+      if (!frontUrl) {
+        showError("frontIdCard", "Vui lòng upload ảnh mặt trước");
+        valid = false;
+      } else clearError("frontIdCard");
+
+      if (!backUrl) {
+        showError("backIdCard", "Vui lòng upload ảnh mặt sau");
+        valid = false;
+      } else clearError("backIdCard");
+
+      if (selectedTopics.length < 3) {
+        showError("topics", "Vui lòng chọn ít nhất 3 lĩnh vực");
+        valid = false;
+      } else clearError("topics");
+
+      return valid;
+    }
+
+    authorForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const submitBtn = authorForm.querySelector(".submit-btn");
+      const originalText = submitBtn.innerHTML;
+
+      if (!validateForm()) return;
+
+      submitBtn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData();
+
+        console.log(userData.id);
+        formData.append("userId", userData.id);
+        formData.append(
+          "fullname",
+          document.getElementById("fullname1").value.trim()
+        );
+        formData.append(
+          "email",
+          document.getElementById("email1").value.trim()
+        );
+        formData.append(
+          "phone",
+          document.getElementById("phone1").value.trim()
+        );
+        formData.append(
+          "experience",
+          document.getElementById("experience").value.trim()
+        );
+
+        const portfolio = document.getElementById("portfolio").value.trim();
+        if (portfolio) formData.append("portfolio", portfolio);
+
+        // Gửi URL thay vì file
+        formData.append(
+          "frontIdCardUrl",
+          document.getElementById("frontIdCardUrl").value
+        );
+        formData.append(
+          "backIdCardUrl",
+          document.getElementById("backIdCardUrl").value
+        );
+
+        document
+          .querySelectorAll('input[name="topics"]:checked')
+          .forEach((checkbox) => {
+            formData.append("topics", checkbox.value);
           });
 
-          const accessToken = window.currentAccessToken;
-          if (!accessToken) {
-            throw new Error(
-              "Không tìm thấy accessToken. Vui lòng đăng nhập lại."
-            );
-          }
+        const accessToken = window.currentAccessToken;
+        if (!accessToken) {
+          showMessage("Vui lòng đăng nhập lại", "error");
+          return;
+        }
 
-          const response = await fetch("http://localhost:5501/api/posts", {
+        const response = await fetch(
+          "http://localhost:5501/api/register-author",
+          {
             method: "POST",
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
             body: formData,
-          });
-
-          const result = await response.json();
-          if (result.success) {
-            showMessage("Gửi bài thành công!", "success");
-            articleForm.reset();
-            imagePreview.innerHTML = "";
-            window.articleEditor.setData("");
-          } else {
-            showMessage("Đăng bài thất bại: " + result.message, "error");
           }
-        } catch (error) {
-          console.error("Error submitting article:", error);
-          showMessage("Có lỗi xảy ra, vui lòng thử lại sau!", "error");
-        } finally {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+          showMessage(
+            "Đăng ký thành công! Chúng tôi sẽ liên hệ bạn sớm.",
+            "success"
+          );
+          authorForm.reset();
+          document.getElementById("frontPreview").innerHTML = "";
+          document.getElementById("backPreview").innerHTML = "";
+        } else {
+          showMessage("Đăng ký thất bại: " + result.message, "error");
         }
+      } catch (error) {
+        console.error("Lỗi gửi form:", error);
+        showMessage("Có lỗi xảy ra, vui lòng thử lại!", "error");
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
       }
     });
   }
+
   //==================== PHẦN ĐĂNG BÀI VIẾT ==================
   async function loadCategories() {
     try {
