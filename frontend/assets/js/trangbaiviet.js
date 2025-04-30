@@ -272,7 +272,7 @@ document.getElementById("share-zalo")?.addEventListener("click", function (e) {
 // =================danh sách bài viết=========
 async function loadSinglePostById(postId) {
   try {
-    const res = await fetch(`http://localhost:5501/api/posts/${postId}`);
+    const res = await fetch(`http://localhost:5501/api/posts/id/${postId}`);
     const result = await res.json();
 
     if (result.success) {
@@ -292,7 +292,7 @@ async function loadSinglePostById(postId) {
       for (let i = 0; i < 10; i++) {
         const item = document.createElement("a"); // chỉ dùng trong vòng lặp
         item.className = "grid__column-2";
-        item.href = `/bai-viet.html?slug=${post.slug}`;
+        item.href = `/pages/trangbaiviet.html?slug=${post.slug}`;
         item.setAttribute("data-category", post.categories?.[0] || "");
         console.log("POST TITLE:", post.title);
         console.log("POST EXCERPT:", post.excerpt);
@@ -323,4 +323,35 @@ async function loadSinglePostById(postId) {
 
 document.addEventListener("DOMContentLoaded", () => {
   loadSinglePostById(7);
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (slug) {
+    fetch(`http://localhost:5501/api/posts/${slug}`)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const post = result.data;
+          document.querySelector(".news-title h1").textContent = post.title;
+          document.querySelector(".news-detail p").innerHTML = `
+          <strong>Tác giả</strong> ${post.authorname}
+          <strong>Ngày đăng</strong> ${new Date(
+            post.createdat
+          ).toLocaleDateString("vi-VN")}
+        `;
+          document.querySelector(".news-body").innerHTML = post.content;
+
+          // Hashtag
+          const tagContainer = document.querySelector(".hashtag-container");
+          tagContainer.innerHTML = "";
+          post.tags.forEach((tag) => {
+            const span = document.createElement("span");
+            span.className = "hashtag";
+            span.textContent = `#${tag}`;
+            tagContainer.appendChild(span);
+          });
+        }
+      })
+      .catch((err) => console.error("Lỗi khi lấy bài viết:", err));
+  }
 });

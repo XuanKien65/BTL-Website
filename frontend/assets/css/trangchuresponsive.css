@@ -1226,26 +1226,6 @@ iframe {
   }
 }
 
-/* Desktop (min-width: 1024px) */
-@media (min-width: 1024px) {
-  .grid__row-1 {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .grid__row-1 .grid__column-2 {
-    width: 23%;
-    display: block;
-  }
-
-  .tinkhac .news-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
 /* ========== Responsive chỉnh sửa theo yêu cầu ========== */
 @media (max-width: 1023.98px) {
   /* Sắp xếp lại: layout1 lên trước layout2 */

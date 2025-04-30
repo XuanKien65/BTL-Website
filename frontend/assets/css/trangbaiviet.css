@@ -103,9 +103,12 @@ a {
   line-height: 1.8; /* 28.8px */
 }
 .news-body p {
+  margin-bottom: 2rem;
+}
+.image {
   margin-bottom: 1rem;
 }
-.news.pic1 {
+.news-body .image img {
   width: 100%;
   border-radius: 0.2rem;
   object-fit: cover;
