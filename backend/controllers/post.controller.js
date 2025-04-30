@@ -186,19 +186,19 @@ exports.searchPosts = async (req, res, next) => {
     const {
       keyword,
       tag,
-      categoryId,
+      categoryName,
       status = "published",
       fromDate,
       toDate,
       sortBy = "newest",
       page = 1,
-      pageSize = 10,
+      pageSize = 12,
     } = req.query;
 
     const results = await Post.searchWithFilters({
       keyword,
       tag,
-      categoryId,
+      categoryName,
       status,
       fromDate,
       toDate,
@@ -210,7 +210,7 @@ exports.searchPosts = async (req, res, next) => {
     const totalResults = await Post.countSearchResults({
       keyword,
       tag,
-      categoryId,
+      categoryName,
       status,
       fromDate,
       toDate,
