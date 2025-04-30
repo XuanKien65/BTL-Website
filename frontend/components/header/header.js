@@ -108,9 +108,60 @@ function handleResponsive() {
   }
 }
 
+//Khởi tạo category
+async function loadCategoriesToNavbar() {
+  try {
+    const response = await fetch("http://localhost:5501/api/categories");
+    const result = await response.json();
+
+    if (!result.success) {
+      console.error("Không lấy được categories:", result.message);
+      return;
+    }
+
+    const categories = result.data;
+    const navbar = document.querySelector(".navbar");
+    navbar.innerHTML = ""; // Clear cũ nếu có
+
+    categories.forEach((parent) => {
+      const li = document.createElement("li");
+      li.className = "main-category";
+
+      const a = document.createElement("a");
+      a.className = "category";
+      a.href = "#!";
+      a.textContent = parent.name;
+      li.appendChild(a);
+
+      // Nếu có danh mục con
+      if (parent.children && parent.children.length > 0) {
+        const subnav = document.createElement("ul");
+        subnav.className = "subnav";
+
+        parent.children.forEach((child) => {
+          const subLi = document.createElement("li");
+          const subA = document.createElement("a");
+          subA.className = "subnav-link";
+          subA.href = `#?category=${child.id}`;
+          subA.textContent = child.name;
+
+          subLi.appendChild(subA);
+          subnav.appendChild(subLi);
+        });
+
+        li.appendChild(subnav);
+      }
+
+      navbar.appendChild(li);
+    });
+  } catch (error) {
+    console.error("Lỗi khi load categories:", error);
+  }
+}
+
 // Khởi tạo sau khi tất cả đã load xong
 document.addEventListener("DOMContentLoaded", () => {
-  Promise.all([loadHeader(), loadFooter()])
+  Promise.all([loadHeader(), loadFooter(), loadCategoriesToNavbar()])
     .then(() => {
       // Gọi hàm xử lý scroll sau khi header/footer đã tải xong
       handleScroll();

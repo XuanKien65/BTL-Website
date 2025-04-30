@@ -268,3 +268,59 @@ document.getElementById("share-zalo")?.addEventListener("click", function (e) {
   )}`;
   window.open(zaloShareUrl, "_blank", "width=600,height=400");
 });
+
+// =================danh sách bài viết=========
+async function loadSinglePostById(postId) {
+  try {
+    const res = await fetch(`http://localhost:5501/api/posts/${postId}`);
+    const result = await res.json();
+
+    if (result.success) {
+      const post = result.data;
+      const container = document.getElementById("postGrid");
+      if (!container) return;
+
+      container.innerHTML = ""; // Xóa cũ
+
+      const imageUrl = post.featuredimage?.startsWith("http")
+        ? post.featuredimage
+        : `http://localhost:5501${post.featuredimage}`;
+
+      const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+
+      // Lặp 10 lần và tạo 10 bài viết giống nhau
+      for (let i = 0; i < 10; i++) {
+        const item = document.createElement("a"); // chỉ dùng trong vòng lặp
+        item.className = "grid__column-2";
+        item.href = `/bai-viet.html?slug=${post.slug}`;
+        item.setAttribute("data-category", post.categories?.[0] || "");
+        console.log("POST TITLE:", post.title);
+        console.log("POST EXCERPT:", post.excerpt);
+
+        item.innerHTML = `
+          <div class="news-home-item">
+            <div class="news-home-item--img" style="background-image: url('${imageUrl}')"></div>
+            <div class="news-home-item--content">
+              <h4 class="news-home-item--name">${post.title}</h4>
+              <p class="news-home-item--excerpt">${post.excerpt}</p>
+              <div class="news-home-item--meta">
+                <span class="news-home-item--date">${date}</span>
+                <span class="news-home-item--read-time">5 phút đọc</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(item);
+      }
+    } else {
+      console.error("Không tìm thấy bài viết:", result.message);
+    }
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadSinglePostById(7);
+});

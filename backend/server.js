@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 5500;
 // Static files: phục vụ frontend từ thư mục frontend
 const frontendPath = path.join(__dirname, "../frontend");
 app.use(express.static(frontendPath));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Middleware
 app.use(

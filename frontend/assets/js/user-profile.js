@@ -17,7 +17,10 @@ ClassicEditor.create(document.querySelector("#articleContent"), {
     "redo",
   ],
   image: {
-    toolbar: ["imageTextAlternative"],
+    toolbar: ["imageTextAlternative", "|", "toggleImageCaption"],
+    caption: {
+      enabled: true,
+    },
   },
 })
   .then((editor) => {
@@ -34,7 +37,6 @@ ClassicEditor.create(document.querySelector("#articleContent"), {
     console.error("CKEditor load failed:", error);
   });
 
-// Viết thêm adapter:
 class MyUploadAdapter {
   constructor(loader) {
     this.loader = loader;

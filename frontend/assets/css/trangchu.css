@@ -335,7 +335,7 @@ a {
   margin-top: 1.2rem;
 }
 
-.news-home-item--meta i {
+.-item--meta i {
   color: var(--secondary-color);
 }
 
@@ -347,9 +347,9 @@ a {
   font-weight: bold;
   color: var(--heading-color);
 }
-.news-home-item {
+/* .news-home-item {
   display: none;
-}
+} */
 
 /* bạn có thể thích */
 .news-slider-container {
