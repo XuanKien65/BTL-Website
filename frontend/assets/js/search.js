@@ -1,4 +1,3 @@
-
 // Biến toàn cục
 let currentView = "list";
 let currentPage = 1;
@@ -17,7 +16,7 @@ const pagination = document.getElementById("pagination");
 // Hàm khởi tạo
 async function init() {
   try {
-    const res = await fetch('/api/posts');
+    const res = await fetch("/api/posts");
     const data = await res.json();
 
     if (data.success && Array.isArray(data.data.posts)) {
@@ -60,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadParentCategories();
 });
-
 
 // Thiết lập event listeners
 function setupEventListeners() {
@@ -138,7 +136,6 @@ function renderCategory(article) {
   return cat.name;
 }
 
-
 function renderSingleArticle(article) {
   const articleEl = document.createElement("div");
   articleEl.className = "article-card";
@@ -151,12 +148,13 @@ function renderSingleArticle(article) {
       <span class="article-category">${renderCategory(article)}</span>
       <h3 class="article-title">${article.title}</h3>
       <p class="article-excerpt">${article.excerpt}</p>
-      <a href="/bai-viet/${article.slug}" class="read-more">
-        <span>Đọc thêm</span> 
-        <i class="fas fa-chevron-right"></i>
+      <a href="/bai-viet/${article.slug}">
+        <div class="read-more">Đọc tiếp <span>→</span></div>
       </a>
       <div class="article-meta">
-        <span>${new Date(article.publishedat || article.createdat).toLocaleDateString("vi-VN")}</span>
+        <span>${new Date(
+          article.publishedat || article.createdat
+        ).toLocaleDateString("vi-VN")}</span>
         <span>${article.views.toLocaleString()} lượt xem</span>
       </div>
     </div>
@@ -176,7 +174,8 @@ function renderArticles() {
   resultsCount.textContent = `${filteredArticles.length} kết quả tìm thấy`;
 
   if (paginatedArticles.length === 0) {
-    resultsList.innerHTML = '<p class="no-results">Không tìm thấy bài viết phù hợp.</p>';
+    resultsList.innerHTML =
+      '<p class="no-results">Không tìm thấy bài viết phù hợp.</p>';
     pagination.innerHTML = "";
     return;
   }
@@ -188,7 +187,6 @@ function renderArticles() {
 
   renderPagination();
 }
-
 
 // Hiển thị phân trang (đã cập nhật theo yêu cầu)
 function renderPagination() {
@@ -303,8 +301,7 @@ init();
 //   }
 // });
 
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Lấy keyword từ URL và gán vào ô input, sau đó lọc kết quả luôn
   const params = new URLSearchParams(window.location.search);
   const keyword = params.get("keyword");
