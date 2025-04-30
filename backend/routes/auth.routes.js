@@ -9,4 +9,6 @@ router.post("/signin", authController.signin);
 router.post("/refresh", authController.requestRefreshToken);
 //logout
 router.post("/logout", [verifyToken], authController.userLogout);
+//change password
+router.post("/verify-passwork", [verifyToken], authController.verifyPassword);
 module.exports = router;

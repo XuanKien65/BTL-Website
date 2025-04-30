@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       userData = {
         id: userInfo.userid,
-        username: userInfo.username,
+        password: userInfo.passwordhash,
         email: userInfo.email,
         avatar: userInfo.avatarurl,
         joinDate: new Date(userInfo.createdat).toLocaleDateString("vi-VN"),
@@ -261,6 +261,30 @@ document.addEventListener("DOMContentLoaded", function () {
           showError("new-password", "Mật khẩu phải có ít nhất 8 ký tự");
           return;
         }
+        fetch("/api/auth/verify-password", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: document.getElementById(userData.email).value,
+            password: currPassword,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) {
+              showError("current-password", "Mật khẩu hiện tại không đúng");
+              submitPasswordChange.innerHTML = originalBtnText;
+              submitPasswordChange.disabled = false;
+              throw new Error("Sai mật khẩu");
+            }
+
+            // Nếu đúng, tiếp tục logic đổi mật khẩu như bạn đã có (setTimeout v.v.)
+          })
+          .catch((err) => {
+            console.error(err.message);
+          });
 
         // Kiểm tra độ mạnh mật khẩu
         const hasUpperCase = /[A-Z]/.test(newPassword);
