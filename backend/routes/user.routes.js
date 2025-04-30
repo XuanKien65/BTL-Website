@@ -7,5 +7,9 @@ router.get("/", [verifyToken, isAdmin], userController.getAllUsers);
 router.get("/:id", [verifyToken], userController.getUserById);
 router.put("/:id", [verifyToken], userController.updateUser);
 router.delete("/:id", [verifyToken, isAdmin], userController.deleteUser);
-
+router.put(
+  "/change-password/:id",
+  [verifyToken],
+  userController.updatePassword
+);
 module.exports = router;

@@ -19,34 +19,29 @@ const uploadToCloudinary = (fileBuffer, folderName) => {
 // Đăng ký tác giả mới
 const registerAuthor = async (req, res) => {
   try {
-    const { userId, fullname, email, phone, experience, portfolio } = req.body;
+    const {
+      userId,
+      fullname,
+      email,
+      phone,
+      experience,
+      portfolio,
+      frontIdCardUrl,
+      backIdCardUrl,
+    } = req.body;
+
     const topics = Array.isArray(req.body.topics)
       ? req.body.topics
       : [req.body.topics];
 
-    if (
-      !userId ||
-      !fullname ||
-      !email ||
-      !req.files?.frontIdCard ||
-      !req.files?.backIdCard
-    ) {
+    // ✅ Kiểm tra các trường bắt buộc (dựa vào URL thay vì file)
+    if (!userId || !fullname || !email || !frontIdCardUrl || !backIdCardUrl) {
       return res
         .status(400)
         .json({ success: false, message: "Thiếu thông tin bắt buộc" });
     }
 
-    // Upload ảnh lên Cloudinary
-    const frontResult = await uploadToCloudinary(
-      req.files.frontIdCard[0].buffer,
-      "author_cards"
-    );
-    const backResult = await uploadToCloudinary(
-      req.files.backIdCard[0].buffer,
-      "author_cards"
-    );
-
-    // Tạo bản ghi đăng ký tác giả
+    // ✅ Lưu dữ liệu vào database (ảnh đã được upload sẵn)
     const authorId = await AuthorRegistration.create({
       userId,
       fullname,
@@ -54,11 +49,10 @@ const registerAuthor = async (req, res) => {
       phone,
       experience,
       portfolio,
-      frontIdCardUrl: frontResult.secure_url,
-      backIdCardUrl: backResult.secure_url,
+      frontIdCardUrl,
+      backIdCardUrl,
     });
 
-    // Gán lĩnh vực quan tâm
     await AuthorRegistration.insertTopics(authorId, topics);
 
     res.status(201).json({ success: true, message: "Đăng ký thành công" });
