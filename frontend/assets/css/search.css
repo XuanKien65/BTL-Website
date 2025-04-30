@@ -14,41 +14,23 @@
 
 html {
   font-size: 62.5%;
-  height: 100%;
 }
 
 body {
-  width: 100%;
-  margin: 0;
-  height: 100%;
-}
-
-/* ==============banner================ */
-.header .banner {
-  background-color: #fff;
   display: flex;
-  justify-content: center;
-  width: auto;
-  height: 10rem;
-  position: relative;
+  flex-direction: column;
+  color: #000;
+  font-size: 2rem;
+  font-family: "Inter", sans-serif;
 }
-.banner-logo {
-  object-fit: cover;
-  margin: 1rem;
-  /* width: 50%;
-
-  height: auto; */
+.btn:hover {
+  opacity: 0.9;
 }
-.header .fixed {
-  position: relative;
-}
-/* =============header============ */
-
 a {
   text-decoration: none;
   color: var(--primary-color);
 }
-
+/* ==============banner================ */
 .header .banner {
   background-color: #fff;
   display: flex;
@@ -61,11 +43,8 @@ a {
   object-fit: cover;
   /* margin: 1rem; */
   /* width: 50%;
-
-  height: auto; */
-}
-.header .fixed {
-  position: relative;
+  
+    height: auto; */
 }
 /* =============navbar============ */
 .nav {

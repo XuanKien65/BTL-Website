@@ -17,6 +17,17 @@ body {
   --heading-color: #c22b2b;
   --primary-color: #1d1d1f;
 }
+.success-message {
+  background: lightgreen;
+  z-index: 100000;
+  position: fixed;
+  bottom: 10rem;
+  padding: 10px;
+  border-radius: 5px;
+  left: 50%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-50%); /* Điều chỉnh vị trí chính xác */
+  text-align: center; /* Căn giữa nội dung */
+}
 .container {
   position: relative;
   width: 850px;

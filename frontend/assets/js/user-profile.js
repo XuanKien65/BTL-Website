@@ -1,18 +1,86 @@
+ClassicEditor.create(document.querySelector("#articleContent"), {
+  toolbar: [
+    "heading",
+    "|",
+    "bold",
+    "italic",
+    "underline",
+    "link",
+    "|",
+    "bulletedList",
+    "numberedList",
+    "|",
+    "blockQuote",
+    "insertTable",
+    "|",
+    "imageUpload",
+    "undo",
+    "redo",
+  ],
+  image: {
+    toolbar: ["imageTextAlternative", "imageStyle:full", "imageStyle:side"],
+  },
+  simpleUpload: {
+    uploadUrl: "/api/uploads", // cần tạo route này trong backend
+    headers: {
+      // Nếu cần auth:
+      // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+    },
+  },
+})
+  .then((editor) => {
+    window.articleEditor = editor;
+  })
+  .catch((error) => {
+    console.error("CKEditor load failed:", error);
+  });
+
 document.addEventListener("DOMContentLoaded", function () {
   // ==================== PHẦN KHỞI TẠO DỮ LIỆU ====================
-  // Dữ liệu người dùng (trong thực tế sẽ lấy từ API)
-  const userData = {
-    id: 12345,
-    username: "nguyenvana",
-    fullname: "Nguyễn Văn A",
-    email: "user@example.com",
-    phone: "0987654321",
-    birthday: "1990-01-01",
-    gender: "male",
-    address: "27 Trần Phú, Hà Đông, Hà Nội",
-    avatar: "../the-outsider/assets/img/image-amyrobson.png",
-    joinDate: "12/2023",
-  };
+  let userData = null;
+
+  async function getUserData() {
+    try {
+      // Gọi refresh token API để lấy accessToken mới
+      const refreshRes = await fetch("http://localhost:5501/api/auth/refresh", {
+        method: "POST",
+        credentials: "include", // để gửi cookie chứa refreshToken
+      });
+
+      if (!refreshRes.ok) throw new Error("Không thể refresh token");
+
+      const { accessToken } = await refreshRes.json();
+
+      //  Decode để lấy userId từ token
+      const tokenPayload = accessToken.split(".")[1];
+      const decodedPayload = JSON.parse(atob(tokenPayload));
+      const userId = decodedPayload.id;
+
+      const res = await fetch(`http://localhost:5501/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Không thể lấy thông tin người dùng");
+
+      const raw = await res.json();
+      const userInfo = raw.data;
+
+      userData = {
+        id: userInfo.userid,
+        username: userInfo.username,
+        email: userInfo.email,
+        avatar: userInfo.avatarurl,
+        joinDate: new Date(userInfo.createdat).toLocaleDateString("vi-VN"),
+        role: userInfo.role,
+      };
+      return userData;
+    } catch (error) {
+      console.error("❌ Lỗi getUserData:", error);
+      return null;
+    }
+  }
 
   // ==================== PHẦN UTILITY ====================
   // Hiển thị thông báo
@@ -47,16 +115,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ==================== PHẦN TÀI KHOẢN ====================
   function initAccountSection() {
+    getUserData().then((data) => {
+      if (!data) {
+        return;
+      }
+      initUserData();
+    });
     // Khởi tạo dữ liệu người dùng
     function initUserData() {
-      document.getElementById("fullname").value = userData.fullname;
+      document.getElementById("fullname").value = userData.username;
       document.getElementById("email").value = userData.email;
-      document.getElementById("phone").value = userData.phone;
-      document.getElementById("birthday").value = userData.birthday;
-      document.getElementById("gender").value = userData.gender;
-      document.getElementById("address").value = userData.address;
       document.getElementById("display-username").textContent =
-        userData.fullname;
+        userData.username;
       document.getElementById(
         "display-email"
       ).textContent = `Tham gia từ ${userData.joinDate}`;
@@ -67,6 +137,17 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("join-date").textContent = userData.joinDate;
       document.getElementById("user-avatar").src = userData.avatar;
       document.getElementById("usr-avatar").src = userData.avatar;
+      const post_tab = document.getElementById("post-tab");
+      const posted_tab = document.getElementById("posted-tab");
+      const post_statistic = document.getElementById("post-statistic-tab");
+      const author_register = document.getElementById("author-register-tab");
+      if (userData.role == "user") {
+        (post_tab.style.display = "none"),
+          (posted_tab.style.display = "none"),
+          (post_statistic.style.display = "none");
+      } else if (userData.role == "author") {
+        author_register.style.display = "none";
+      }
     }
 
     // Xử lý form thông tin tài khoản
@@ -84,18 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.innerHTML = '<div class="loading-spinner"></div>';
         submitBtn.disabled = true;
 
-        // Giả lập gọi API
         setTimeout(() => {
-          // Cập nhật dữ liệu
           userData.fullname = document.getElementById("fullname").value;
-          userData.phone = document.getElementById("phone").value;
-          userData.birthday = document.getElementById("birthday").value;
-          userData.gender = document.getElementById("gender").value;
-          userData.address = document.getElementById("address").value;
-
-          // Cập nhật hiển thị
-          document.getElementById("display-username").textContent =
-            userData.fullname;
 
           // Khôi phục button
           submitBtn.textContent = originalBtnText;
@@ -242,32 +313,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
-
-    // Xử lý logout
-    function handleLogout() {
-      const logoutBtn = document.getElementById("logout-btn");
-      if (!logoutBtn) return;
-
-      logoutBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        // Thêm logic logout ở đây (clear session, token...)
-        window.location.href = "/trangchu/trangchu.html";
-      });
-    }
-
     // Khởi tạo tất cả
-    initUserData();
     handleAccountForm();
     handlePasswordChange();
     handleAvatarUpload();
-    handleLogout();
   }
 
   // ==================== PHẦN TAB ====================
   function initTabs() {
-    // Hiển thị tab được chọn
     function showTab(tabName) {
-      // Ẩn tất cả tab
       document.querySelectorAll(".account-tab").forEach((tab) => {
         tab.style.display = "none";
       });
@@ -766,9 +820,52 @@ document.addEventListener("DOMContentLoaded", function () {
       select.addEventListener("change", validateTopics);
     });
   }
+  //==================== XỬ LÝ LOGOUT ========================
+  async function handleLogout() {
+    const logoutBtn = document.getElementById("logout-btn");
+    if (!logoutBtn) return;
+
+    logoutBtn.addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      try {
+        // Gọi refresh để lấy access token mới
+        const refreshRes = await fetch(
+          "http://localhost:5501/api/auth/refresh",
+          {
+            method: "POST",
+            credentials: "include",
+          }
+        );
+
+        if (!refreshRes.ok) throw new Error("Không thể refresh token");
+
+        const { accessToken } = await refreshRes.json();
+
+        // Gửi logout kèm accessToken
+        const res = await fetch("http://localhost:5501/api/auth/logout", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`, // 👈 gửi token ở đây
+          },
+        });
+
+        if (!res.ok) throw new Error("Đăng xuất thất bại");
+
+        window.location.href = "/pages/index.html";
+      } catch (err) {
+        console.error("Lỗi khi đăng xuất:", err);
+        alert("Có lỗi khi đăng xuất. Vui lòng thử lại!");
+      }
+    });
+  }
+
   // ==================== KHỞI TẠO CHÍNH ====================
   initAccountSection();
   initTabs();
   initAuthorRegistration();
   initAuthorSite();
+  handleLogout();
 });

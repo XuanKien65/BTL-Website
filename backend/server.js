@@ -1,62 +1,78 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const pool = require("./config/db.config");
+const cookieParser = require("cookie-parser");
+const open = require("open").default;
 const path = require("path");
+const fs = require("fs");
 
 const app = express();
-const { poolConnect } = require("./config/db");
+const PORT = process.env.PORT || 5500;
 
-// Kiểm tra kết nối database
-poolConnect
-  .then(() => console.log("Connected to SQL Server"))
-  .catch((err) => console.error("Database connection failed:", err));
+// Static files: phục vụ frontend từ thư mục frontend
+const frontendPath = path.join(__dirname, "../frontend");
+app.use(express.static(frontendPath));
+
 // Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:5501", // hoặc frontend port bạn đang dùng
+    credentials: true,
+  })
+);
+app.use(helmet());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+app.use(cookieParser());
 
-// Phục vụ file tĩnh
-const staticDir = path.join(__dirname, "../frontend");
-app.use(express.static(staticDir));
+// API routes
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/users", require("./routes/user.routes"));
+app.use("/api/posts", require("./routes/post.routes"));
+app.use("/api/categories", require("./routes/category.routes"));
+app.use("/api/comments", require("./routes/comment.routes"));
+app.use("/api/noti", require("./routes/notifications.routes"));
+// Health check
+app.get("/health", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    res.status(200).json({ status: "OK", database: "connected" });
+  } catch (err) {
+    res.status(500).json({ status: "ERROR", database: "disconnected" });
+  }
+});
 
-// Route API đơn giản
-app.get("/api", (req, res) => {
-  res.json({
-    status: "success",
-    message: "Backend is working!",
-    timestamp: new Date().toISOString(),
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: "Not Found",
   });
 });
 
-// Fallback route
-app.get("*", (req, res) => {
-  res.sendFile(path.join(staticDir, "index.html"));
-});
-
-// Xử lý lỗi
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
+  res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+    error: process.env.NODE_ENV === "development" ? err.message : undefined,
+  });
 });
 
-// Khởi động server
-const PORT = process.env.PORT || 5501;
+// Start server
 app.listen(PORT, () => {
-  console.log(`
-  Server running on port ${PORT}
-  Frontend served from: ${staticDir}
-  Time: ${new Date().toLocaleTimeString()}
-  `);
-});
-app.get("/api/test-db", async (req, res) => {
-  try {
-    const pool = await sql.connect(config);
-    const result = await pool.request().query("SELECT 1 AS test");
-    res.json({ status: "success", data: result.recordset });
-  } catch (err) {
-    console.error("❌ Lỗi kết nối database:", err);
-    res
-      .status(500)
-      .json({ status: "error", message: "Database connection failed" });
+  console.log(`✅ Server is running at http://localhost:${PORT}`);
+
+  const indexPath = path.join(frontendPath, "pages", "index.html");
+  if (fs.existsSync(indexPath)) {
+    open(`http://localhost:${PORT}/pages/index.html`);
+  } else {
+    console.warn("⚠️ File index.html không tồn tại tại: ", indexPath);
   }
 });
