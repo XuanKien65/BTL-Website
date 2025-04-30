@@ -79,6 +79,31 @@ const Post = {
     return result.rows[0];
   },
 
+  findBySlug: async (slug) => {
+    if (!slug || typeof slug !== "string") {
+      throw new Error("Invalid post slug");
+    }
+    const result = await pool.query(
+      `
+      SELECT 
+        p.*, 
+        u.username AS authorname, 
+        ARRAY_AGG(DISTINCT c.name) FILTER (WHERE c.name IS NOT NULL) AS category,
+        ARRAY_AGG(DISTINCT h.name) FILTER (WHERE h.name IS NOT NULL) AS tags
+      FROM posts p
+      INNER JOIN users u ON p.authorid = u.userid
+      LEFT JOIN post_categories pc ON p.postid = pc.postid
+      LEFT JOIN categories c ON pc.categoryid = c.id
+      LEFT JOIN post_hashtags ph ON p.postid = ph.postid
+      LEFT JOIN hashtags h ON ph.tagid = h.tagid
+      WHERE p.slug = $1
+      GROUP BY p.postid, u.userid;
+      `,
+      [slug]
+    );
+    return result.rows[0];
+  },
+
   create: async (post) => {
     const publishedAt = post.status === "published" ? new Date() : null;
 

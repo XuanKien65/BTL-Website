@@ -7,7 +7,8 @@ const upload = require("../middlewares/upload");
 // ===== Public Routes =====
 router.get("/", postController.getAllPosts); // Get all posts (with pagination/filter)
 router.get("/search", postController.searchPosts); // Search posts
-router.get("/:id", postController.getPostById); // Get post by id
+router.get("/id/:id", postController.getPostById); // Get post by id
+router.get("/:slug", postController.getPostBySlug);
 
 // ===== Protected Routes =====
 router.post(

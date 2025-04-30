@@ -47,6 +47,17 @@ exports.getPostById = async (req, res, next) => {
   }
 };
 
+exports.getPostBySlug = async (req, res, next) => {
+  try {
+    const post = await Post.findBySlug(req.params.slug);
+    if (!post) {
+      return next(new ErrowHandler(404, "post not found"));
+    }
+    ApiResponse.success(res, "post retrieved successfully", post);
+  } catch (error) {
+    next(new ErrorHandler(500, "error retrieving post", error));
+  }
+};
 exports.createPost = async (req, res, next) => {
   try {
     const { title, content, categoryIds, tags, status, excerpt, isFeatured } =
