@@ -1,4 +1,5 @@
 const pool = require("../config/db.config");
+const slugify = require("../utils/slugify");
 
 const Post = {
   findAll: async (
@@ -197,6 +198,101 @@ const Post = {
 
     const result = await pool.query(query, params);
     return result.rows[0].total;
+  },
+
+  searchWithFilters: async ({
+    page = 1,
+    pageSize = 10,
+    keyword = null,
+    tag = null,
+    categoryId = null,
+    status = 'published',
+    fromDate = null,
+    toDate = null,
+    sortBy = 'newest'
+  }) => {
+    const offset = (page - 1) * pageSize;
+    const params = [];
+    let query = `
+      SELECT 
+        p.postid, p.title, p.slug, p.excerpt, p.featuredimage,
+        p.status, p.views, p.createdat, p.publishedat,
+        u.userid AS authorid, u.username AS authorname,
+        ARRAY_AGG(DISTINCT c.name) AS categories,
+        ARRAY_AGG(DISTINCT h.name) AS tags
+      FROM posts p
+      JOIN users u ON p.authorid = u.userid
+      LEFT JOIN post_categories pc ON p.postid = pc.postid
+      LEFT JOIN categories c ON pc.categoryid = c.id
+      LEFT JOIN post_hashtags ph ON p.postid = ph.postid
+      LEFT JOIN hashtags h ON ph.tagid = h.tagid
+      WHERE 1=1
+    `;
+    // Keyword
+    if (keyword) {
+      const slugKeyword = slugify(keyword || '', {
+        lower: true,
+        strict: true,
+        locale: 'vi'
+      }); 
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`);
+      query += ` AND (
+        p.title ILIKE $${params.length - 2} OR 
+        p.content ILIKE $${params.length - 1} OR 
+        p.slug ILIKE $${params.length}
+      )`;
+    }
+  
+    // Status
+    if (status) {
+      params.push(status);
+      query += ` AND p.status = $${params.length}`;
+    }
+  
+    // Category
+    if (categoryId) {
+      params.push(categoryId);
+      query += ` AND pc.categoryid = $${params.length}`;
+    }
+  
+    // Tag
+    if (tag) {
+      params.push(tag);
+      query += ` AND h.name ILIKE $${params.length}`;
+    }
+  
+    // Tìm theo ngày
+    if (fromDate) {
+      params.push(fromDate);
+      query += ` AND p.publishedat >= $${params.length}`;
+    }
+  
+    if (toDate) {
+      params.push(toDate);
+      query += ` AND p.publishedat <= $${params.length}`;
+    }
+  
+    // Sắp xếp
+    const sortMap = {
+      newest: 'p.publishedat DESC NULLS LAST',
+      oldest: 'p.publishedat ASC',
+      popular: 'p.views DESC',
+      az: 'p.title ASC',
+      za: 'p.title DESC'
+    };
+  
+    const sortClause = sortMap[sortBy] || 'p.publishedat DESC NULLS LAST';
+  
+    query += `
+      GROUP BY p.postid, u.userid
+      ORDER BY ${sortClause}
+      LIMIT $${params.length + 1} OFFSET $${params.length + 2}
+    `;
+  
+    params.push(pageSize, offset);
+  
+    const result = await pool.query(query, params);
+    return result.rows;
   },
 
   testConnection: async () => {
