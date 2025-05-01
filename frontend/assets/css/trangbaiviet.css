@@ -108,7 +108,7 @@ a {
 .image {
   margin-bottom: 1rem;
 }
-.news-body .image img {
+.news-body img {
   width: 100%;
   border-radius: 0.2rem;
   object-fit: cover;

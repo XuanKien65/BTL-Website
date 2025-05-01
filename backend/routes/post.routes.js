@@ -20,5 +20,6 @@ router.put("/:id", verifyToken, isAdmin, postController.updatePost); // Update p
 router.delete("/:id", verifyToken, isAdmin, postController.deletePost); // Delete post
 router.put("/:id/approve", verifyToken, isAdmin, postController.approvePost); // Approve (publish) post
 router.put("/:id/reject", verifyToken, isAdmin, postController.rejectPost); // Reject post
+router.post("/:postId/view", verifyToken, postController.increaseView);
 
 module.exports = router;

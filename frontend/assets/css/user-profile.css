@@ -616,12 +616,12 @@ textarea {
 }
 
 /* Ẩn bài viết không thuộc trang hiện tại */
-.posted-article-item,
+/* .posted-article-item,
 .cmt-article-item,
 .read-article-item,
 .saved-article-item {
   display: none;
-}
+} */
 
 /* Hiển thị bài viết thuộc trang hiện tại */
 .posted-article-item,

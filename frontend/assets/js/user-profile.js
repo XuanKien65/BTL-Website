@@ -542,29 +542,52 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Xử lý unsave/remove item
     function handleRemoveItem(btnClass, callback) {
       document.querySelectorAll(btnClass).forEach((btn) => {
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", async function () {
           const item = this.closest(itemClass);
+          const postId = this.dataset.articleId;
           const originalText = this.innerHTML;
+          const accessToken = window.currentAccessToken;
 
-          // Hiệu ứng loading
+          if (!postId || !accessToken) {
+            console.warn("Thiếu postId hoặc accessToken");
+            return;
+          }
+
+          // Loading UI
           this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
           this.disabled = true;
 
-          // Giả lập gọi API
-          setTimeout(() => {
-            item.style.opacity = "0";
+          try {
+            const res = await fetch(
+              `http://localhost:5501/api/unsave/${postId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
 
+            if (!res.ok) throw new Error("Xoá thất bại từ server");
+
+            // Xoá khỏi giao diện
+            item.style.opacity = "0";
             setTimeout(() => {
               item.remove();
               allItems = Array.from(document.querySelectorAll(itemClass));
 
-              // Cập nhật UI
               showPage(
                 Math.min(currentPage, Math.ceil(allItems.length / itemsPerPage))
               );
+
               if (callback) callback();
             }, 300);
-          }, 1000);
+          } catch (err) {
+            console.error("❌ Gỡ lưu thất bại:", err);
+            this.innerHTML = originalText;
+            this.disabled = false;
+            alert("Không thể gỡ lưu bài viết.");
+          }
         });
       });
     }
@@ -874,6 +897,85 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
+  // =====================PHẦN BÀI VIẾT ĐÃ LƯU=======================
+  async function loadSavedArticles() {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) {
+      console.warn("Người dùng chưa đăng nhập.");
+      return;
+    }
+
+    console.log(accessToken);
+    try {
+      const res = await fetch("http://localhost:5501/api/saved", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Lỗi khi lấy danh sách bài viết đã lưu");
+
+      const result = await res.json();
+      console.log("result", result);
+      const articles = result.data;
+      const container = document.querySelector(".saved-articles-list");
+      const pagi = document.querySelector(".save .pagination");
+
+      container.innerHTML = ""; // Xóa nội dung cũ
+
+      if (articles.length === 0) {
+        container.innerHTML = "<p>Chưa có bài viết nào được lưu.</p>";
+        pagi.style.display = "none";
+        return;
+      }
+
+      articles.forEach((post) => {
+        const imageUrl = post.featuredimage?.startsWith("http")
+          ? post.featuredimage
+          : `http://localhost:5501${post.featuredimage}`;
+
+        const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+
+        const item = document.createElement("div");
+        item.className = "saved-article-item";
+
+        item.innerHTML = `
+          <div class="article-image">
+            <img src="${imageUrl}" alt="${post.title}" />
+          </div>
+          <div class="article-info">
+            <h3 class="article-title">
+              <a href="/pages/trangbaiviet.html?slug=${post.slug}">${
+          post.title
+        }</a>
+            </h3>
+            <div class="article-social">
+              <p class="article-meta">${
+                post.categories?.[0] || "Tin tức"
+              } - ${date}</p>
+              <button class="btn-unsave" data-article-id="${post.postid}">
+                <i class="fas fa-bookmark"></i>
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+
+      savedArticlesPagination.init();
+      savedArticlesPagination.handleRemoveItem(".btn-unsave", () => {
+        userData.savedCount = document.querySelectorAll(
+          ".saved-article-item"
+        ).length;
+        document.getElementById("saved-count").textContent =
+          userData.savedCount;
+      });
+    } catch (err) {
+      console.error("❌ Không thể tải bài viết đã lưu:", err);
+    }
+  }
+
   //==================== PHẦN ĐĂNG BÀI VIẾT ==================
   async function loadCategories() {
     try {
@@ -1134,6 +1236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await window.updateNavbarAuthState();
   await initAccountSection();
   initTabs();
+  loadSavedArticles();
   initAuthorRegistration();
   initAuthorSite();
   handleLogout();

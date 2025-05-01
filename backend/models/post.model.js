@@ -330,10 +330,10 @@ const Post = {
     keyword = null,
     tag = null,
     categoryName = null,
-    status = 'published',
+    status = "published",
     fromDate = null,
     toDate = null,
-    sortBy = 'newest',
+    sortBy = "newest",
   }) => {
     const offset = (page - 1) * pageSize;
     const params = [];
@@ -358,7 +358,11 @@ const Post = {
     params.push(status);
 
     if (keyword) {
-      const slugKeyword = slugify(keyword, { lower: true, strict: true, locale: 'vi' });
+      const slugKeyword = slugify(keyword, {
+        lower: true,
+        strict: true,
+        locale: "vi",
+      });
       params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`);
       query += ` AND (
          p.title ILIKE $${params.length - 3} OR
@@ -370,15 +374,17 @@ const Post = {
 
     if (categoryName) {
       const categoryRes = await pool.query(
-        `SELECT id FROM categories WHERE name ILIKE $1`, [categoryName]
+        `SELECT id FROM categories WHERE name ILIKE $1`,
+        [categoryName]
       );
       const parentId = categoryRes.rows[0]?.id;
 
       if (parentId) {
         const childCats = await pool.query(
-          `SELECT id FROM categories WHERE id = $1 OR parent_id = $1`, [parentId]
+          `SELECT id FROM categories WHERE id = $1 OR parent_id = $1`,
+          [parentId]
         );
-        const catIds = childCats.rows.map(row => row.id);
+        const catIds = childCats.rows.map((row) => row.id);
         params.push(catIds);
         query += ` AND c.id = ANY($${params.length})`;
       }
@@ -399,9 +405,9 @@ const Post = {
     }
 
     const sortMap = {
-      newest: 'p.publishedat DESC NULLS LAST',
-      oldest: 'p.publishedat ASC',
-      popular: 'p.views DESC'
+      newest: "p.publishedat DESC NULLS LAST",
+      oldest: "p.publishedat ASC",
+      popular: "p.views DESC",
     };
     const sortClause = sortMap[sortBy] || sortMap.newest;
 
@@ -416,14 +422,26 @@ const Post = {
     const rows = result.rows;
 
     const postsMap = new Map();
-    rows.forEach(row => {
+    rows.forEach((row) => {
       const {
-        postid, title, slug, excerpt, featuredimage,
-        status, views, createdat, publishedat,
-        authorid, authorname,
-        categoryid, categoryname, categoryslug,
-        parentid, parentname, parentslug,
-        tagname
+        postid,
+        title,
+        slug,
+        excerpt,
+        featuredimage,
+        status,
+        views,
+        createdat,
+        publishedat,
+        authorid,
+        authorname,
+        categoryid,
+        categoryname,
+        categoryslug,
+        parentid,
+        parentname,
+        parentslug,
+        tagname,
       } = row;
 
       if (!postsMap.has(postid)) {
@@ -440,22 +458,24 @@ const Post = {
           authorid,
           authorname,
           categories: [],
-          tags: []
+          tags: [],
         });
       }
 
       const post = postsMap.get(postid);
 
-      if (categoryid && !post.categories.find(c => c.id === categoryid)) {
+      if (categoryid && !post.categories.find((c) => c.id === categoryid)) {
         post.categories.push({
           id: categoryid,
           name: categoryname,
           slug: categoryslug,
-          parent: parentid ? {
-            id: parentid,
-            name: parentname,
-            slug: parentslug
-          } : null
+          parent: parentid
+            ? {
+                id: parentid,
+                name: parentname,
+                slug: parentslug,
+              }
+            : null,
         });
       }
 
@@ -466,7 +486,32 @@ const Post = {
 
     return Array.from(postsMap.values());
   },
-};
 
+  recordView: async (userId, postId) => {
+    // Kiểm tra xem user đã xem post chưa
+    const result = await pool.query(
+      `SELECT 1 FROM viewed_posts WHERE userid = $1 AND postid = $2`,
+      [userId, postId]
+    );
+
+    const hasViewed = result.rowCount > 0;
+
+    if (!hasViewed) {
+      // Chỉ tăng views nếu user chưa xem
+      await pool.query(`UPDATE posts SET views = views + 1 WHERE postid = $1`, [
+        postId,
+      ]);
+    }
+
+    // Lưu hoặc cập nhật thời gian xem
+    await pool.query(
+      `INSERT INTO viewed_posts (userid, postid)
+       VALUES ($1, $2)
+       ON CONFLICT (userid, postid)
+       DO UPDATE SET viewed_at = CURRENT_TIMESTAMP`,
+      [userId, postId]
+    );
+  },
+};
 
 module.exports = Post;

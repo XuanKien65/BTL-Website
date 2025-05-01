@@ -87,6 +87,23 @@ exports.createPost = async (req, res, next) => {
   }
 };
 
+exports.increaseView = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const postId = parseInt(req.params.postId);
+
+    if (isNaN(postId)) {
+      return next(new ErrorHandler(400, "Invalid post ID"));
+    }
+
+    await Post.recordView(userId, postId);
+
+    ApiResponse.success(res, "View recorded successfully");
+  } catch (error) {
+    next(new ErrorHandler(500, "Error recording view", error));
+  }
+};
+
 exports.updatePost = async (req, res, next) => {
   try {
     const {
