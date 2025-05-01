@@ -41,6 +41,7 @@ app.use("/api/noti", require("./routes/notifications.routes"));
 app.use("/api", require("./routes/authorRegister.routes"));
 app.use("/api", require("./routes/savedPost.routes"));
 app.use("/api", require("./routes/upload.routes"));
+app.use("/api/viewed-posts", require("./routes/viewedPost.routes"));
 
 app.use("/uploads", express.static("uploads"));
 

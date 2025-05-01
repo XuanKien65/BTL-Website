@@ -2,9 +2,17 @@
 let postId = null;
 
 // ========================== HÀM HỖ TRỢ ==========================
+function getCurrentUser(token) {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return { id: payload.id, role: payload.role };
+  } catch {
+    return null;
+  }
+}
 
 // Đợi access token có sẵn
-function waitForAccessToken(timeout = 5000) {
+function waitForAccessToken(timeout = 1500) {
   return new Promise((resolve, reject) => {
     const interval = 100;
     let waited = 0;
@@ -47,6 +55,269 @@ function checkIfSaved(postId) {
     })
     .catch((err) => console.error("Lỗi khi kiểm tra đã lưu:", err));
 }
+// =======================HÀM CHO ĐĂNG COMMENT=========================
+let data = {
+  comments: [],
+  currentUser: null,
+};
+// ==== Gọi từ API và lưu vào data.comments ====
+function buildNestedComments(flatComments) {
+  const map = {};
+  const roots = [];
+
+  flatComments.forEach((c) => {
+    map[c.cmtid] = { ...c, replies: [] };
+  });
+
+  flatComments.forEach((c) => {
+    if (c.parentid) {
+      if (map[c.parentid]) {
+        map[c.parentid].replies.push(map[c.cmtid]);
+      }
+    } else {
+      roots.push(map[c.cmtid]);
+    }
+  });
+
+  return roots;
+}
+
+function appendFrag(frag, parent) {
+  const div = document.createElement("div");
+  div.appendChild(frag);
+  const element = div.firstElementChild;
+  parent.appendChild(element);
+  return element;
+}
+
+async function loadComments(postId) {
+  console.log("⏳ Gọi loadComments với postId:", postId);
+  try {
+    const res = await fetch(
+      `http://localhost:5501/api/comments/post/${postId}`
+    );
+    const result = await res.json();
+    console.log(result);
+    if (result.success) {
+      data.comments = buildNestedComments(result.data);
+      initComments();
+    }
+  } catch (err) {
+    console.error("Lỗi khi tải bình luận:", err);
+  }
+}
+
+async function addComment(body, parentId = null, replyTo = undefined) {
+  const token = window.currentAccessToken;
+  console.log(window.currentAccessToken);
+  if (!token) return alert("Bạn cần đăng nhập!");
+
+  try {
+    const res = await fetch(`http://localhost:5501/api/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        content: body,
+        postId,
+        parentId,
+        replyingTo: replyTo,
+      }),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      await loadComments(postId);
+    } else {
+      alert("❌ Gửi bình luận thất bại");
+    }
+  } catch (err) {
+    console.error("Lỗi gửi bình luận:", err);
+  }
+}
+
+async function deleteComment(commentObject) {
+  const token = window.currentAccessToken;
+  if (!token) return alert("Bạn cần đăng nhập!");
+
+  try {
+    const res = await fetch(
+      `http://localhost:5501/api/comments/${commentObject.cmtid}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.ok) {
+      await loadComments(postId);
+    } else {
+      alert("Không thể xoá bình luận.");
+    }
+  } catch (err) {
+    console.error("Lỗi xoá bình luận:", err);
+  }
+}
+
+function promptDel(commentObject) {
+  const modalWrp = document.querySelector(".modal-wrp");
+  modalWrp.classList.remove("invisible");
+
+  const yesBtn = modalWrp.querySelector(".yes");
+  const noBtn = modalWrp.querySelector(".no");
+
+  // Remove old listeners before adding new ones
+  const newYes = yesBtn.cloneNode(true);
+  yesBtn.parentNode.replaceChild(newYes, yesBtn);
+  const newNo = noBtn.cloneNode(true);
+  noBtn.parentNode.replaceChild(newNo, noBtn);
+
+  newYes.addEventListener("click", () => {
+    deleteComment(commentObject);
+    modalWrp.classList.add("invisible");
+  });
+
+  newNo.addEventListener("click", () => {
+    modalWrp.classList.add("invisible");
+  });
+}
+
+function spawnReplyInput(parent, parentId, replyTo = undefined) {
+  parent.querySelectorAll(".reply-input").forEach((e) => e.remove());
+  const inputTemplate = document.querySelector(".reply-input-template");
+  const inputNode = inputTemplate.content.cloneNode(true);
+  const addedInput = appendFrag(inputNode, parent);
+
+  addedInput.querySelector(".bu-primary").addEventListener("click", () => {
+    const commentBody = addedInput.querySelector(".cmnt-input").value;
+    if (commentBody.length === 0) return;
+    addComment(commentBody, parentId, replyTo);
+  });
+}
+
+function createCommentNode(commentObject) {
+  const commentTemplate = document.querySelector(".comment-template");
+  const frag = commentTemplate.content.cloneNode(true);
+  const container = document.createElement("div");
+  container.appendChild(frag);
+  const node = container.firstElementChild; // Đây mới là phần tử DOM thực sự
+
+  node.querySelector(".usr-name").textContent = commentObject.username;
+  node.querySelector(".usr-img").src =
+    commentObject.avatarurl || "/default.png";
+  node.querySelector(".score-number").textContent = commentObject.score || 0;
+  node.querySelector(".cmnt-at").textContent = new Date(
+    commentObject.createdat
+  ).toLocaleString();
+  node.querySelector(".c-body").textContent = commentObject.content;
+
+  if (commentObject.replyingto) {
+    node.querySelector(
+      ".reply-to"
+    ).textContent = `@${commentObject.replyingto}`;
+  }
+
+  node.querySelector(".score-plus").addEventListener("click", async () => {
+    const token = window.currentAccessToken;
+    if (!token) return alert("Bạn cần đăng nhập để vote");
+
+    try {
+      const res = await fetch(
+        `http://localhost:5501/api/comments/score/${commentObject.cmtid}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ delta: 1 }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Vote thất bại");
+      commentObject.score += 1;
+      initComments();
+    } catch (err) {
+      console.error("Lỗi khi vote:", err);
+    }
+  });
+
+  node.querySelector(".score-minus").addEventListener("click", async () => {
+    const token = window.currentAccessToken;
+    if (!token) return alert("Bạn cần đăng nhập để vote");
+
+    try {
+      const res = await fetch(
+        `http://localhost:5501/api/comments/score/${commentObject.cmtid}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ delta: -1 }),
+        }
+      );
+
+      if (!res.ok) throw new Error("Vote thất bại");
+      commentObject.score = Math.max(0, commentObject.score - 1);
+      initComments();
+    } catch (err) {
+      console.error("Lỗi khi vote:", err);
+    }
+  });
+
+  const currentUser = getCurrentUser(window.currentAccessToken);
+  if (
+    currentUser?.id === commentObject.userid ||
+    currentUser?.role === "admin"
+  ) {
+    const wrapper = node.querySelector(".comment");
+    wrapper.classList.add("this-user");
+
+    const delBtn = node.querySelector(".delete");
+    if (delBtn) {
+      delBtn.addEventListener("click", () => promptDel(commentObject));
+    }
+  } else {
+    node.querySelector(".delete")?.remove();
+  }
+
+  return node; // ✅ Trả về phần tử DOM đúng
+}
+
+function appendComment(parentNode, commentNode, parentId) {
+  const appended = appendFrag(commentNode, parentNode); // append xong mới dùng được
+  const replyBtn = appended.querySelector(".reply");
+  const replyTo = appended.querySelector(".usr-name")?.textContent;
+
+  if (replyBtn) {
+    replyBtn.addEventListener("click", () => {
+      const replyBox = appended.querySelector(".replies");
+      spawnReplyInput(replyBox, parentId, replyTo);
+    });
+  } else {
+    console.log("Không tìm thấy nút Trả lời trong template.");
+  }
+}
+
+function initComments(
+  commentList = data.comments,
+  parent = document.querySelector(".comments-wrp")
+) {
+  parent.innerHTML = "";
+  commentList.forEach((comment) => {
+    const parentId = comment.parentid || comment.cmtid;
+    const node = createCommentNode(comment);
+    appendComment(parent, node, parentId);
+    if (comment.replies?.length > 0) {
+      initComments(comment.replies, node.querySelector(".replies"));
+    }
+  });
+}
 
 // ========================== DOMContentLoaded ==========================
 
@@ -58,55 +329,67 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const res = await fetch(`http://localhost:5501/api/posts/${slug}`);
       const result = await res.json();
+      console.log(window.currentAccessToken);
 
       if (result.success) {
         const post = result.data;
         postId = post.postid;
 
-        await waitForAccessToken();
-        // Gọi API tăng lượt view
-        fetch(`http://localhost:5501/api/posts/${postId}/view`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${window.currentAccessToken}`,
-          },
-        }).catch((err) => console.warn("Không thể tăng lượt xem:", err));
-
-        // Hiển thị thông tin bài viết
-        document.querySelector(".news-title h1").textContent = post.title;
-        document.querySelector(".news-detail p").innerHTML = `
-          <strong>Tác giả</strong> ${post.authorname}
-          <strong>Ngày đăng</strong> ${new Date(
-            post.createdat
-          ).toLocaleDateString("vi-VN")}
-        `;
-        document.querySelector(".news-body").innerHTML = post.content;
-
-        // Hiển thị hashtag
-        const tagContainer = document.querySelector(".hashtag-container");
-        tagContainer.innerHTML = "";
-        post.tags.forEach((tag) => {
-          const span = document.createElement("span");
-          span.className = "hashtag";
-          span.textContent = `#${tag}`;
-          tagContainer.appendChild(span);
-        });
-
-        // Đợi access token có rồi mới gọi kiểm tra đã lưu
-        try {
-          await waitForAccessToken();
-          checkIfSaved(postId);
-        } catch (err) {
-          console.warn("Không lấy được access token:", err);
-        }
+        // ⚡️ Hiển thị UI ngay
+        renderPost(post);
+        await loadComments(postId);
+        waitForAccessToken(1500)
+          .then((token) => {
+            initCommentInputUI();
+            fetch(`http://localhost:5501/api/posts/${postId}/view`, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            checkIfSaved(postId);
+          })
+          .catch(() => {
+            console.warn("Không lấy được access token (timeout)");
+            document.getElementById("save-article-btn").style.display = "none";
+          });
       }
     } catch (err) {
       console.error("Lỗi khi lấy bài viết:", err);
     }
   }
 
-  loadSinglePostById(7);
+  loadSinglePostById(200);
+  document
+    .querySelector(".reply-input .bu-primary")
+    ?.addEventListener("click", () => {
+      const commentBody = document.querySelector(
+        ".reply-input .cmnt-input"
+      ).value;
+      if (commentBody.trim().length === 0) return;
+      addComment(commentBody);
+      document.querySelector(".reply-input .cmnt-input").value = "";
+    });
 });
+function renderPost(post) {
+  document.querySelector(".news-title h1").textContent = post.title;
+  document.querySelector(".news-detail p").innerHTML = `
+    <strong>Tác giả</strong> ${post.authorname}
+    <strong>Ngày đăng</strong> ${new Date(post.createdat).toLocaleDateString(
+      "vi-VN"
+    )}
+  `;
+  document.querySelector(".news-body").innerHTML = post.content;
+
+  const tagContainer = document.querySelector(".hashtag-container");
+  tagContainer.innerHTML = "";
+  post.tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.className = "hashtag";
+    span.textContent = `#${tag}`;
+    tagContainer.appendChild(span);
+  });
+}
 
 // ========================== LƯU / BỎ LƯU BÀI VIẾT ==========================
 
@@ -224,5 +507,30 @@ async function loadSinglePostById(postId) {
     }
   } catch (error) {
     console.error("Lỗi khi gọi API:", error);
+  }
+}
+
+function initCommentInputUI() {
+  const inputBox = document.querySelector(".reply-input");
+  const textarea = inputBox.querySelector(".cmnt-input");
+  const button = inputBox.querySelector(".bu-primary");
+  const avatar = inputBox.querySelector(".usr-img");
+
+  if (!window.currentAccessToken) {
+    textarea.disabled = true;
+    textarea.placeholder = "Vui lòng đăng nhập để bình luận...";
+    button.disabled = true;
+    avatar.src = "../assets/img/user-default.jpg";
+    return;
+  }
+
+  // Nếu đã đăng nhập, giải mã avatar
+  try {
+    const payload = JSON.parse(atob(window.currentAccessToken.split(".")[1]));
+    console.log(payload);
+    if (payload.avatarurl) avatar.src = payload.avatarurl;
+  } catch {
+    // fallback
+    avatar.src = "../assets/img/user-default.jpg";
   }
 }
