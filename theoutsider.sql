@@ -108,7 +108,6 @@ CREATE TABLE author_registrations (
     status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-select * from author_registrations
 -- Bảng author_registration_topics (giữ nguyên như cũ)
 CREATE TABLE author_registration_topics (
     author_registration_id INTEGER REFERENCES author_registrations(id) ON DELETE CASCADE,
@@ -123,6 +122,15 @@ CREATE TABLE saved_posts (
     saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (userid, postid)
 );
+CREATE TABLE viewed_posts (
+    id SERIAL PRIMARY KEY,
+    userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
+    postid INTEGER REFERENCES posts(postid) ON DELETE CASCADE,
+    viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (userid, postid)
+);
+
+
 -- Tạo indexes
 CREATE INDEX idx_categories_parent_id ON categories(parent_id);
 CREATE INDEX idx_posts_authorid ON posts(authorid);
@@ -145,6 +153,14 @@ VALUES (
     'admin@gmail.com',
     '$2b$08$rpP.pWsocWo8rNMFgCSE5OxyErX5OyNE8gWclXMnVHYPZxMWwR2DC',
     'admin'
+);
+--Tài khoản author mẫu
+INSERT INTO users (username, email, passwordhash, role)
+VALUES (
+    'author',
+    'author@gmail.com',
+    '$2b$08$rpP.pWsocWo8rNMFgCSE5OxyErX5OyNE8gWclXMnVHYPZxMWwR2DC',
+    'author'
 );
 -- Insert các danh mục cha
 INSERT INTO categories (name, slug, description, parent_id)
@@ -192,7 +208,13 @@ VALUES
   ('Các bệnh', 'cac-benh', 'Thông tin về các bệnh', 6);
 
 select * from categories
---update users set role='author' where username='author'
-select * from posts
+update users set role='author' where username='author'
+update posts set status = 'published' where postid=7
+select * from posts 
 select * from hashtags
-select * from post_hashtags 
+select * from post_hashtags
+select * from author_registrations
+select * from post_categories
+select * from users
+select * from saved_posts
+select * from viewed_posts
