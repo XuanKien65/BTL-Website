@@ -80,6 +80,31 @@ exports.signin = async (req, res, next) => {
   }
 };
 
+exports.verifyPassword = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findByEmail(email);
+
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "Người dùng không tồn tại" });
+
+    const isMatch = bcrypt.compareSync(password, user.passwordhash);
+
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Mật khẩu không đúng" });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    next(new ErrorHandler(500, "Xác minh mật khẩu thất bại", error));
+  }
+};
+
 const generateAccessToken = (user) => {
   return jwt.sign(
     {

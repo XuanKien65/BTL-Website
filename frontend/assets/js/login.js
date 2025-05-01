@@ -107,17 +107,14 @@ function validateEmail(email) {
 // ========== EVENT HANDLERS ==========
 function handleEmailChange(value) {
   state.email = value.trim();
-  console.log("Email updated:", state.email);
 }
 
 function handleUsernameChange(value) {
   state.username = value.trim();
-  console.log("Username updated:", state.username);
 }
 
 function handlePasswordChange(value) {
   state.password = value;
-  console.log("Password updated:", state.password);
 }
 
 function handleInputBlur(e, isLogin = true) {
@@ -209,7 +206,6 @@ async function handleLoginSubmit(e) {
     });
 
     const data = await response.json();
-    console.log("Login response:", data);
 
     if (response.ok) {
       const user = data.data;
@@ -269,7 +265,6 @@ async function handleRegisterSubmit(e) {
     });
 
     const data = await response.json();
-    console.log("sign up response:", data);
 
     if (response.ok) {
       const messageDiv = document.createElement("div");

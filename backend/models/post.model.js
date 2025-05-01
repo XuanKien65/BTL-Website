@@ -329,7 +329,7 @@ const Post = {
     pageSize = 10,
     keyword = null,
     tag = null,
-    categoryId = null,
+    categoryName = null,
     status = "published",
     fromDate = null,
     toDate = null,
@@ -337,21 +337,25 @@ const Post = {
   }) => {
     const offset = (page - 1) * pageSize;
     const params = [];
+
     let query = `
       SELECT 
         p.postid, p.title, p.slug, p.excerpt, p.featuredimage,
-        p.status, p.views, p.createdat, p.publishedat, p.is_featured,
-        u.userid AS authorid, u.username AS authorname, u.avatarurl AS authoravatar,
-        ARRAY_AGG(DISTINCT c.name) FILTER (WHERE c.name IS NOT NULL) AS categories,
-        ARRAY_AGG(DISTINCT h.name) FILTER (WHERE h.name IS NOT NULL) AS tags
+        p.status, p.views, p.createdat, p.publishedat,
+        u.userid AS authorid, u.username AS authorname,
+        c.id AS categoryid, c.name AS categoryname, c.slug AS categoryslug,
+        cp.id AS parentid, cp.name AS parentname, cp.slug AS parentslug,
+        h.name AS tagname
       FROM posts p
       JOIN users u ON p.authorid = u.userid
       LEFT JOIN post_categories pc ON p.postid = pc.postid
       LEFT JOIN categories c ON pc.categoryid = c.id
+      LEFT JOIN categories cp ON c.parent_id = cp.id
       LEFT JOIN post_hashtags ph ON p.postid = ph.postid
       LEFT JOIN hashtags h ON ph.tagid = h.tagid
-      WHERE 1=1
+      WHERE p.status = $1
     `;
+    params.push(status);
 
     if (keyword) {
       const slugKeyword = slugify(keyword, {
@@ -360,19 +364,30 @@ const Post = {
         locale: "vi",
       });
       params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`);
-      query += ` AND (p.title ILIKE $${params.length - 2} OR p.content ILIKE $${
-        params.length - 1
-      } OR p.slug ILIKE $${params.length})`;
+      query += ` AND (
+         p.title ILIKE $${params.length - 3} OR
+         p.content ILIKE $${params.length - 2} OR
+         p.slug ILIKE $${params.length - 1} OR
+         h.name ILIKE $${params.length}
+      )`;
     }
 
-    if (status) {
-      params.push(status);
-      query += ` AND p.status = $${params.length}`;
-    }
+    if (categoryName) {
+      const categoryRes = await pool.query(
+        `SELECT id FROM categories WHERE name ILIKE $1`,
+        [categoryName]
+      );
+      const parentId = categoryRes.rows[0]?.id;
 
-    if (categoryId) {
-      params.push(categoryId);
-      query += ` AND pc.categoryid = $${params.length}`;
+      if (parentId) {
+        const childCats = await pool.query(
+          `SELECT id FROM categories WHERE id = $1 OR parent_id = $1`,
+          [parentId]
+        );
+        const catIds = childCats.rows.map((row) => row.id);
+        params.push(catIds);
+        query += ` AND c.id = ANY($${params.length})`;
+      }
     }
 
     if (tag) {
@@ -384,7 +399,6 @@ const Post = {
       params.push(fromDate);
       query += ` AND p.publishedat >= $${params.length}`;
     }
-
     if (toDate) {
       params.push(toDate);
       query += ` AND p.publishedat <= $${params.length}`;
@@ -394,13 +408,10 @@ const Post = {
       newest: "p.publishedat DESC NULLS LAST",
       oldest: "p.publishedat ASC",
       popular: "p.views DESC",
-      az: "p.title ASC",
-      za: "p.title DESC",
     };
-    const sortClause = sortMap[sortBy] || "p.publishedat DESC NULLS LAST";
+    const sortClause = sortMap[sortBy] || sortMap.newest;
 
     query += `
-      GROUP BY p.postid, u.userid
       ORDER BY ${sortClause}
       LIMIT $${params.length + 1} OFFSET $${params.length + 2}
     `;
@@ -408,7 +419,98 @@ const Post = {
     params.push(pageSize, offset);
 
     const result = await pool.query(query, params);
-    return result.rows;
+    const rows = result.rows;
+
+    const postsMap = new Map();
+    rows.forEach((row) => {
+      const {
+        postid,
+        title,
+        slug,
+        excerpt,
+        featuredimage,
+        status,
+        views,
+        createdat,
+        publishedat,
+        authorid,
+        authorname,
+        categoryid,
+        categoryname,
+        categoryslug,
+        parentid,
+        parentname,
+        parentslug,
+        tagname,
+      } = row;
+
+      if (!postsMap.has(postid)) {
+        postsMap.set(postid, {
+          postid,
+          title,
+          slug,
+          excerpt,
+          featuredimage,
+          status,
+          views,
+          createdat,
+          publishedat,
+          authorid,
+          authorname,
+          categories: [],
+          tags: [],
+        });
+      }
+
+      const post = postsMap.get(postid);
+
+      if (categoryid && !post.categories.find((c) => c.id === categoryid)) {
+        post.categories.push({
+          id: categoryid,
+          name: categoryname,
+          slug: categoryslug,
+          parent: parentid
+            ? {
+                id: parentid,
+                name: parentname,
+                slug: parentslug,
+              }
+            : null,
+        });
+      }
+
+      if (tagname && !post.tags.includes(tagname)) {
+        post.tags.push(tagname);
+      }
+    });
+
+    return Array.from(postsMap.values());
+  },
+
+  recordView: async (userId, postId) => {
+    // Kiểm tra xem user đã xem post chưa
+    const result = await pool.query(
+      `SELECT 1 FROM viewed_posts WHERE userid = $1 AND postid = $2`,
+      [userId, postId]
+    );
+
+    const hasViewed = result.rowCount > 0;
+
+    if (!hasViewed) {
+      // Chỉ tăng views nếu user chưa xem
+      await pool.query(`UPDATE posts SET views = views + 1 WHERE postid = $1`, [
+        postId,
+      ]);
+    }
+
+    // Lưu hoặc cập nhật thời gian xem
+    await pool.query(
+      `INSERT INTO viewed_posts (userid, postid)
+       VALUES ($1, $2)
+       ON CONFLICT (userid, postid)
+       DO UPDATE SET viewed_at = CURRENT_TIMESTAMP`,
+      [userId, postId]
+    );
   },
 };
 

@@ -29,6 +29,7 @@ const User = {
   },
 
   create: async (user) => {
+    const defaultAvatarURL = "http://localhost:5501/uploads/user-default.png";
     const { rows } = await pool.query(
       `INSERT INTO users 
        (username, email, passwordhash, role, avatarurl) 
@@ -39,7 +40,7 @@ const User = {
         user.email,
         user.password,
         user.role || "user",
-        user.avatarURL || null,
+        user.avatarURL || defaultAvatarURL,
       ]
     );
     return rows[0];
@@ -60,6 +61,13 @@ const User = {
     return rows[0];
   },
 
+  updateAva: async (id, avaUrl) => {
+    const { rowCount } = await pool.query(
+      "UPDATE users SET avatarurl = $1 WHERE userid = $2",
+      [avaUrl, id]
+    );
+    return rowCount > 0;
+  },
   updatePassword: async (id, newPassword) => {
     const { rowCount } = await pool.query(
       "UPDATE users SET passwordhash = $1 WHERE userid = $2",
