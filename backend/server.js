@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const pool = require("./config/db.config");
 const cookieParser = require("cookie-parser");
-const open = require("open").default;
+const open = require("open");
 const path = require("path");
 const fs = require("fs");
 
