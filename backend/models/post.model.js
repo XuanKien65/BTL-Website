@@ -363,7 +363,7 @@ const Post = {
         strict: true,
         locale: "vi",
       });
-      params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`);
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`, `%${keyword}%`);
       query += ` AND (
          p.title ILIKE $${params.length - 3} OR
          p.content ILIKE $${params.length - 2} OR

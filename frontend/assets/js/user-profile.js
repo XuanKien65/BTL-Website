@@ -157,10 +157,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       document.getElementById(
         "display-email"
       ).textContent = `Tham gia từ ${userData.joinDate}`;
-      document.getElementById("saved-count").textContent =
-        document.querySelectorAll(".saved-article-item").length;
-      document.getElementById("read-count").textContent =
-        document.querySelectorAll(".read-article-item").length;
       document.getElementById("join-date").textContent = userData.joinDate;
       document.getElementById("user-avatar").src = userData.avatar;
       document.getElementById("usr-avatar").src = userData.avatar;
@@ -634,13 +630,77 @@ document.addEventListener("DOMContentLoaded", async function () {
   );
   PostedArticlePagination.init();
 
-  // ==================== PHẦN COMMENT ====================
-  // Thêm dấu ngoặc kép cho comment
-  document.querySelectorAll(".cmt-detail").forEach((detail) => {
-    const content = detail.textContent.trim();
-    if (!content.startsWith('"')) detail.textContent = `"${content}`;
-    if (!content.endsWith('"')) detail.textContent = `${detail.textContent}"`;
-  });
+  // ==================== PHẦN ĐÃ ĐỌC ====================
+  async function loadViewedPosts() {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) {
+      console.warn("Người dùng chưa đăng nhập.");
+      return;
+    }
+
+    try {
+      const tokenPayload = accessToken.split(".")[1];
+      const decodedPayload = JSON.parse(atob(tokenPayload));
+      const userId = decodedPayload.id;
+
+      const res = await fetch(
+        `http://localhost:5501/api/viewed-posts/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error("Lỗi khi lấy bài viết đã đọc");
+
+      const result = await res.json();
+      const posts = result.data;
+
+      const container = document.querySelector(".reading-history-list");
+      container.innerHTML = ""; // Xóa cũ
+
+      if (posts.length === 0) {
+        container.innerHTML = "<p>Bạn chưa đọc bài viết nào.</p>";
+        return;
+      }
+
+      posts.forEach((post) => {
+        const imageUrl = post.featuredimage?.startsWith("http")
+          ? post.featuredimage
+          : `http://localhost:5501${post.featuredimage}`;
+
+        const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+
+        const item = document.createElement("div");
+        item.className = "read-article-item";
+
+        item.innerHTML = `
+          <div class="article-image">
+            <img src="${imageUrl}" alt="${post.title}" />
+          </div>
+          <div class="article-info">
+            <h3 class="article-title">
+              <a href="/pages/trangbaiviet.html?slug=${post.slug}">
+                ${post.title}
+              </a>
+            </h3>
+            <div class="article-social">
+              <p class="article-meta">${date}</p>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+      readArticlesPagination.init();
+      document.getElementById("read-count").textContent =
+        document.querySelectorAll(".read-article-item").length;
+    } catch (err) {
+      console.error("Không thể tải bài viết đã đọc:", err);
+    }
+  }
+
   // ==================== PHẦN ĐĂNG KÝ TÁC GIẢ ====================
   async function loadAuthorCategories() {
     try {
@@ -904,8 +964,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.warn("Người dùng chưa đăng nhập.");
       return;
     }
-
-    console.log(accessToken);
     try {
       const res = await fetch("http://localhost:5501/api/saved", {
         headers: {
@@ -973,6 +1031,83 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
     } catch (err) {
       console.error("❌ Không thể tải bài viết đã lưu:", err);
+    }
+  }
+
+  // =======================PHẦN BÌNH LUẬN============================
+  async function loadUserComments() {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) {
+      console.warn("Người dùng chưa đăng nhập.");
+      return;
+    }
+
+    try {
+      const tokenPayload = accessToken.split(".")[1];
+      const decodedPayload = JSON.parse(atob(tokenPayload));
+      const userId = decodedPayload.id;
+
+      const res = await fetch(
+        `http://localhost:5501/api/comments/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error("Lỗi khi lấy bình luận người dùng");
+
+      const result = await res.json();
+      const comments = result.data;
+      const container = document.querySelector(".cmt-history-list");
+
+      container.innerHTML = ""; // Xoá cũ
+
+      if (comments.length === 0) {
+        container.innerHTML = "<p>Chưa có bình luận nào.</p>";
+        return;
+      }
+
+      comments.forEach((cmt) => {
+        const imageUrl = cmt.featuredimage?.startsWith("http")
+          ? cmt.featuredimage
+          : `http://localhost:5501${cmt.featuredimage}`;
+
+        const date = new Date(cmt.createdat).toLocaleDateString("vi-VN");
+        const postUrl = `/pages/trangbaiviet.html?slug=${cmt.slug || ""}`;
+        const category = cmt.categories?.[0] || "Tin tức";
+
+        const item = document.createElement("div");
+        item.className = "cmt-article-item";
+
+        item.innerHTML = `
+          <div class="article-image">
+            <img src="${imageUrl}" alt="${cmt.posttitle}" />
+          </div>
+          <div class="article-info">
+            <h3 class="article-title">
+              <a href="${postUrl}">${cmt.posttitle}</a>
+            </h3>
+            <div class="cmt-detail">${cmt.content}</div>
+            <div class="article-social">
+              <p class="article-meta">${date}</p>
+            </div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      // Thêm dấu ngoặc kép cho comment
+      document.querySelectorAll(".cmt-detail").forEach((detail) => {
+        const content = detail.textContent.trim();
+        if (!content.startsWith('"')) detail.textContent = `"${content}`;
+        if (!content.endsWith('"'))
+          detail.textContent = `${detail.textContent}"`;
+      });
+
+      CommentArticlesPagination.init();
+    } catch (err) {
+      console.error("❌ Không thể tải bình luận người dùng:", err);
     }
   }
 
@@ -1237,6 +1372,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   await initAccountSection();
   initTabs();
   loadSavedArticles();
+  loadViewedPosts();
+  loadUserComments();
   initAuthorRegistration();
   initAuthorSite();
   handleLogout();

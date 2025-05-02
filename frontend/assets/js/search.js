@@ -254,53 +254,6 @@ function renderPagination() {
 
 init();
 
-// Xử lý advanced search panel
-// document.addEventListener("DOMContentLoaded", function () {
-//   const searchContainer = document.getElementById("searchContainer");
-//   const searchToggle = document.getElementById("searchToggle");
-//   const applyFiltersBtn = document.getElementById("applyFiltersBtn");
-
-//   if (searchToggle) {
-//     searchToggle.addEventListener("click", function () {
-//       searchContainer.classList.toggle("active");
-//     });
-//   }
-
-//   if (applyFiltersBtn) {
-//     applyFiltersBtn.addEventListener("click", function () {
-//       const selectedSort = document.querySelector(
-//         'input[name="filter-type"]:checked'
-//       )?.value;
-//       const contentTypes = [];
-//       document
-//         .querySelectorAll('input[name="content-type"]:checked')
-//         .forEach((checkbox) => {
-//           contentTypes.push(checkbox.value);
-//         });
-
-//       const categories = [];
-//       document
-//         .querySelectorAll('input[name="category"]:checked')
-//         .forEach((checkbox) => {
-//           categories.push(checkbox.value);
-//         });
-
-//       const filters = {
-//         sortBy: selectedSort,
-//         contentTypes: contentTypes,
-//         categories: categories,
-//       };
-
-//       if (searchContainer) {
-//         searchContainer.classList.remove("active");
-//       }
-
-//       // Áp dụng bộ lọc
-//       // applyFiltersToData(filters);
-//     });
-//   }
-// });
-
 document.addEventListener("DOMContentLoaded", function () {
   // Lấy keyword từ URL và gán vào ô input, sau đó lọc kết quả luôn
   const params = new URLSearchParams(window.location.search);

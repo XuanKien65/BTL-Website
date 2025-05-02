@@ -8,6 +8,7 @@ function loadHeader() {
       const headerPlaceholder = document.getElementById("headernav");
       if (!headerPlaceholder) throw new Error("Không tìm thấy #headernav");
       headerPlaceholder.innerHTML = html;
+      document.dispatchEvent(new Event("headerLoaded"));
       if (typeof window.updateNavbarAuthState === "function") {
         window.updateNavbarAuthState();
       }
@@ -289,3 +290,28 @@ window.setupAutoRefreshToken = async function () {
   setInterval(refreshToken, refreshInterval);
 };
 console.log(window.currentAccessToken);
+
+document.addEventListener("headerLoaded", () => {
+  const searchInput = document.querySelector(".search input[type='text']");
+  const searchButton = document.querySelector(".search button");
+
+  function performSearch() {
+    const keyword = searchInput.value.trim();
+    const encoded = encodeURIComponent(keyword);
+    window.location.href = `/pages/search.html?keyword=${encoded}`;
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        performSearch();
+      }
+    });
+  }
+
+  if (searchButton) {
+    searchButton.addEventListener("click", performSearch);
+  }
+});
+

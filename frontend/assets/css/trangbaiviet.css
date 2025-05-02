@@ -269,6 +269,7 @@ button:hover {
   font-weight: 700;
 }
 .usr-img {
+  border-radius: 50%;
   height: 5rem;
   width: 5rem;
 }
@@ -364,9 +365,6 @@ button:hover {
   border-radius: 2px;
 }
 
-.this-user .reply {
-  display: none;
-}
 .this-user .edit,
 .this-user .delete {
   display: flex;

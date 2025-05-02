@@ -4,10 +4,11 @@ const Comment = {
   findAll: async (postId = null, status = null) => {
     let query = `
       SELECT 
-        c.cmtID, c.content, c.status, c.createdat,
+        c.cmtid, c.content, c.status, c.createdat,
+        c.parentid, c.replyingto, c.score,
         p.postid, p.title AS posttitle,
         u.userid, u.username, u.avatarurl
-      FROM comments_clone c
+      FROM comments c
       LEFT JOIN posts p ON c.postid = p.postid
       LEFT JOIN users u ON c.userid = u.userid
       WHERE 1=1
@@ -38,10 +39,10 @@ const Comment = {
         c.*, 
         p.title AS posttitle,
         u.username, u.avatarurl, u.email
-      FROM comments_clone c
+      FROM comments c
       LEFT JOIN posts p ON c.postid = p.postid
       LEFT JOIN users u ON c.userid = u.userid
-      WHERE c.cmtID = $1
+      WHERE c.cmtid = $1
       `,
       [id]
     );
@@ -53,16 +54,34 @@ const Comment = {
       `
       SELECT 
         c.*, 
-        p.title AS posttitle,
-        u.username, u.avatarurl, u.email
-      FROM comments_clone c
-      LEFT JOIN posts p ON c.postid = p.postid
+        u.username, u.avatarurl
+      FROM comments c
       LEFT JOIN users u ON c.userid = u.userid
       WHERE c.postid = $1
+      ORDER BY c.createdat ASC
       `,
       [postId]
     );
-
+    return result.rows;
+  },
+  findByUserId: async (userId) => {
+    const result = await pool.query(
+      `
+      SELECT 
+        c.*, 
+        p.title AS posttitle,
+        p.slug,
+        p.featuredimage,
+        u.username,
+        u.avatarurl
+      FROM comments c
+      LEFT JOIN posts p ON c.postid = p.postid
+      LEFT JOIN users u ON c.userid = u.userid
+      WHERE c.userid = $1
+      ORDER BY c.createdat DESC
+      `,
+      [userId]
+    );
     return result.rows;
   },
 
@@ -70,10 +89,10 @@ const Comment = {
     try {
       const result = await pool.query(
         `
-        INSERT INTO comments_clone (
-          content, postid, userid, authorip, parentid, status
-        ) VALUES ($1, $2, $3, $4, $5, 'pending')
-        RETURNING cmtID
+        INSERT INTO comments (
+          content, postid, userid, authorip, parentid, replyingto, score, status
+        ) VALUES ($1, $2, $3, $4, $5, $6, 0, 'pending')
+        RETURNING cmtid
         `,
         [
           comment.content,
@@ -81,21 +100,22 @@ const Comment = {
           comment.userId,
           comment.authorIp,
           comment.parentId || null,
+          comment.replyingTo || null,
         ]
       );
-      console.log("Insert result:", result.rows[0]); // ← luôn nên có
+
       const commentId = result.rows[0]?.cmtid;
-      if (!commentId) throw new Error("Insert failed: No cmtID returned");
+      if (!commentId) throw new Error("Insert failed: No cmtid returned");
 
       return await Comment.findById(commentId);
     } catch (error) {
-      console.error("Error creating comment:", error);
+      console.error("❌ Error creating comment:", error);
       throw error;
     }
   },
 
   updateStatus: async (id, status) => {
-    await pool.query("UPDATE comments_clone SET status = $1 WHERE cmtID = $2", [
+    await pool.query("UPDATE comments SET status = $1 WHERE cmtid = $2", [
       status,
       id,
     ]);
@@ -103,11 +123,23 @@ const Comment = {
   },
 
   delete: async (id) => {
-    const result = await pool.query(
-      "DELETE FROM comments_clone WHERE cmtID = $1",
-      [id]
-    );
+    const result = await pool.query("DELETE FROM comments WHERE cmtid = $1", [
+      id,
+    ]);
     return result.rowCount > 0;
+  },
+  updateScore: async (id, delta) => {
+    // delta: số nguyên +1 hoặc -1
+    const result = await pool.query(
+      `
+      UPDATE comments 
+      SET score = GREATEST(score + $1, 0) 
+      WHERE cmtid = $2 
+      RETURNING *
+      `,
+      [delta, id]
+    );
+    return result.rows[0];
   },
 };
 

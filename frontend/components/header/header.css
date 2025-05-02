@@ -120,6 +120,13 @@ i {
   align-items: center;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
 }
+
+.search button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .search:hover input {
   width: 15rem;
 }

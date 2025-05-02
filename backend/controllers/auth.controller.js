@@ -110,6 +110,7 @@ const generateAccessToken = (user) => {
     {
       id: user.userid,
       username: user.username,
+      avatarurl: user.avatarurl,
       role: user.role,
     },
     process.env.JWT_SECRET,
