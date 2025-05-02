@@ -194,3 +194,56 @@ exports.userLogout = async (req, res) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 };
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
+exports.forgotPassword = async (req, res, next) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findByEmail(email);
+    if (!user) {
+      return next(new ErrorHandler(404, "Email không tồn tại"));
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1h
+
+    // Lưu token vào DB
+    await User.saveResetToken(user.userid, token, expiry);
+
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
+
+    await sendResetEmail(user.email, user.username, resetUrl);
+
+    ApiResponse.success(res, "Email đặt lại mật khẩu đã được gửi");
+  } catch (error) {
+    next(new ErrorHandler(500, "Gửi yêu cầu quên mật khẩu thất bại", error));
+  }
+};
+exports.resetPassword = async (req, res, next) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const user = await User.findByResetToken(token);
+
+    if (!user) {
+      return next(new ErrorHandler(400, "Token không hợp lệ"));
+    }
+
+    if (new Date(user.resetpasswordexpiry) < new Date()) {
+      return next(new ErrorHandler(400, "Token đã hết hạn"));
+    }
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+    await User.updatePassword(user.userid, hashedPassword);
+
+    // Xoá token sau khi reset
+    await User.saveResetToken(user.userid, null, null);
+
+    ApiResponse.success(res, "Mật khẩu đã được đặt lại thành công");
+  } catch (error) {
+    next(new ErrorHandler(500, "Đặt lại mật khẩu thất bại", error));
+  }
+};

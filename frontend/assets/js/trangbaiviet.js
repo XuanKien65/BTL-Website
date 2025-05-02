@@ -190,6 +190,17 @@ function spawnReplyInput(parent, parentId, replyTo = undefined) {
   const inputTemplate = document.querySelector(".reply-input-template");
   const inputNode = inputTemplate.content.cloneNode(true);
   const addedInput = appendFrag(inputNode, parent);
+  try {
+    const payload = JSON.parse(atob(window.currentAccessToken.split(".")[1]));
+    const avatar = addedInput.querySelector(".usr-img");
+    if (avatar && payload.avatarurl) {
+      avatar.src = payload.avatarurl;
+    }
+  } catch {
+    // fallback
+    const avatar = addedInput.querySelector(".usr-img");
+    if (avatar) avatar.src = "../assets/img/user-default.jpg";
+  }
 
   addedInput.querySelector(".bu-primary").addEventListener("click", () => {
     const commentBody = addedInput.querySelector(".cmnt-input").value;
@@ -318,77 +329,29 @@ function initComments(
     }
   });
 }
+function initCommentInputUI() {
+  const inputBox = document.querySelector(".reply-input");
+  const textarea = inputBox.querySelector(".cmnt-input");
+  const button = inputBox.querySelector(".bu-primary");
+  const avatar = inputBox.querySelector(".usr-img");
 
-// ========================== DOMContentLoaded ==========================
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get("slug");
-
-  if (slug) {
-    try {
-      const res = await fetch(`http://localhost:5501/api/posts/${slug}`);
-      const result = await res.json();
-      console.log(window.currentAccessToken);
-
-      if (result.success) {
-        const post = result.data;
-        postId = post.postid;
-
-        // ⚡️ Hiển thị UI ngay
-        renderPost(post);
-        await loadComments(postId);
-        waitForAccessToken(1500)
-          .then((token) => {
-            initCommentInputUI();
-            fetch(`http://localhost:5501/api/posts/${postId}/view`, {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            checkIfSaved(postId);
-          })
-          .catch(() => {
-            console.warn("Không lấy được access token (timeout)");
-            document.getElementById("save-article-btn").style.display = "none";
-          });
-      }
-    } catch (err) {
-      console.error("Lỗi khi lấy bài viết:", err);
-    }
+  if (!window.currentAccessToken) {
+    textarea.disabled = true;
+    textarea.placeholder = "Vui lòng đăng nhập để bình luận...";
+    button.disabled = true;
+    avatar.src = "../assets/img/user-default.jpg";
+    return;
   }
 
-  loadSinglePostById(200);
-  document
-    .querySelector(".reply-input .bu-primary")
-    ?.addEventListener("click", () => {
-      const commentBody = document.querySelector(
-        ".reply-input .cmnt-input"
-      ).value;
-      if (commentBody.trim().length === 0) return;
-      addComment(commentBody);
-      document.querySelector(".reply-input .cmnt-input").value = "";
-    });
-});
-function renderPost(post) {
-  document.querySelector(".news-title h1").textContent = post.title;
-  document.querySelector(".news-detail p").innerHTML = `
-    <strong>Tác giả</strong> ${post.authorname}
-    <strong>Ngày đăng</strong> ${new Date(post.createdat).toLocaleDateString(
-      "vi-VN"
-    )}
-  `;
-  document.querySelector(".news-body").innerHTML = post.content;
-
-  const tagContainer = document.querySelector(".hashtag-container");
-  tagContainer.innerHTML = "";
-  post.tags.forEach((tag) => {
-    const span = document.createElement("span");
-    span.className = "hashtag";
-    span.textContent = `#${tag}`;
-    tagContainer.appendChild(span);
-  });
+  // Nếu đã đăng nhập, giải mã avatar
+  try {
+    const payload = JSON.parse(atob(window.currentAccessToken.split(".")[1]));
+    console.log(payload);
+    if (payload.avatarurl) avatar.src = payload.avatarurl;
+  } catch {
+    // fallback
+    avatar.src = "../assets/img/user-default.jpg";
+  }
 }
 
 // ========================== LƯU / BỎ LƯU BÀI VIẾT ==========================
@@ -459,78 +422,249 @@ document.getElementById("share-zalo")?.addEventListener("click", function (e) {
   window.open(zaloShareUrl, "_blank", "width=600,height=400");
 });
 
-// ========================== DANH SÁCH BÀI VIẾT GỢI Ý ==========================
+// ========================== DOMContentLoaded ==========================
 
-async function loadSinglePostById(postId) {
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+  await loadLatestPosts();
+
+  if (slug) {
+    try {
+      const res = await fetch(`http://localhost:5501/api/posts/${slug}`);
+      const result = await res.json();
+      if (result.success) {
+        const post = result.data;
+        postId = post.postid;
+        console.log(post);
+        renderCategoryChildren(post.categories);
+        // ⚡️ Hiển thị UI ngay
+        renderPost(post);
+        await loadComments(postId);
+        waitForAccessToken(1500)
+          .then((token) => {
+            initCommentInputUI();
+            fetch(`http://localhost:5501/api/posts/${postId}/view`, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            checkIfSaved(postId);
+          })
+          .catch(() => {
+            console.warn("Không lấy được access token (timeout)");
+            document.getElementById("save-article-btn").style.display = "none";
+          });
+      }
+    } catch (err) {
+      console.error("Lỗi khi lấy bài viết:", err);
+    }
+  }
+
+  document
+    .querySelector(".reply-input .bu-primary")
+    ?.addEventListener("click", () => {
+      const commentBody = document.querySelector(
+        ".reply-input .cmnt-input"
+      ).value;
+      if (commentBody.trim().length === 0) return;
+      addComment(commentBody);
+      document.querySelector(".reply-input .cmnt-input").value = "";
+    });
+});
+function renderPost(post) {
+  document.querySelector(".news-title h1").textContent = post.title;
+  document.querySelector(".news-detail p").innerHTML = `
+    <strong>Tác giả</strong> ${post.authorname}
+    <strong>Ngày đăng</strong> ${new Date(post.createdat).toLocaleDateString(
+      "vi-VN"
+    )}
+  `;
+  document.querySelector(".news-body").innerHTML = post.content;
+
+  const tagContainer = document.querySelector(".hashtag-container");
+  tagContainer.innerHTML = "";
+  post.tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.className = "hashtag";
+    span.textContent = `#${tag}`;
+    tagContainer.appendChild(span);
+  });
+}
+// ========================== DANH SÁCH BÀI VIẾT GỢI Ý ==========================
+async function renderCategoryChildren(categories) {
+  if (!categories || categories.length === 0) return;
+
+  const currentCategory = categories[0];
+  const parentId = currentCategory.parent_id || currentCategory.id;
+
+  const isFromChild = !!currentCategory.parent_id;
+  const currentCategoryId = currentCategory.id;
+
   try {
-    const res = await fetch(`http://localhost:5501/api/posts/id/${postId}`);
+    // Lấy danh sách category con
+    const res = await fetch(
+      `http://localhost:5501/api/categories?parent_id=${parentId}`
+    );
     const result = await res.json();
 
-    if (result.success) {
-      const post = result.data;
-      const container = document.getElementById("postGrid");
-      if (!container) return;
+    if (result.success && Array.isArray(result.data)) {
+      // Cập nhật tiêu đề h2
+      const heading = document.querySelector(".news-heading");
+      if (heading) {
+        let parentName = "Chủ đề";
 
-      container.innerHTML = ""; // Xóa cũ
+        if (isFromChild) {
+          // Gọi API lấy category cha
+          const resParent = await fetch(
+            `http://localhost:5501/api/categories?parent_id=null`
+          );
+          const resultParent = await resParent.json();
+          if (resultParent.success) {
+            const found = resultParent.data.find((c) => c.id === parentId);
+            if (found) parentName = found.name;
+          }
+        } else {
+          parentName = currentCategory.name;
+        }
 
-      const imageUrl = post.featuredimage?.startsWith("http")
-        ? post.featuredimage
-        : `http://localhost:5501${post.featuredimage}`;
-
-      const date = new Date(post.createdat).toLocaleDateString("vi-VN");
-
-      // Lặp 10 lần và tạo 10 bài viết giống nhau
-      for (let i = 0; i < 10; i++) {
-        const item = document.createElement("a");
-        item.className = "grid__column-2";
-        item.href = `/pages/trangbaiviet.html?slug=${post.slug}`;
-        item.setAttribute("data-category", post.categories?.[0] || "");
-
-        item.innerHTML = `
-          <div class="news-home-item">
-            <div class="news-home-item--img" style="background-image: url('${imageUrl}')"></div>
-            <div class="news-home-item--content">
-              <h4 class="news-home-item--name">${post.title}</h4>
-              <p class="news-home-item--excerpt">${post.excerpt}</p>
-              <div class="news-home-item--meta">
-                <span class="news-home-item--date">${date}</span>
-                <span class="news-home-item--read-time">${post.views} views</span>
-              </div>
-            </div>
-          </div>
-        `;
-
-        container.appendChild(item);
+        heading.textContent = parentName;
       }
-    } else {
-      console.error("Không tìm thấy bài viết:", result.message);
+
+      // Cập nhật danh sách chuyên mục con
+      const container = document.querySelector(".news-subject");
+      if (!container) return;
+      container.innerHTML = "";
+
+      result.data.forEach((cat) => {
+        const a = document.createElement("a");
+        a.href = "#"; // Ngăn reload
+        a.classList.add("tab-link");
+        a.dataset.categoryId = cat.id;
+        a.dataset.isParent = "false";
+        a.dataset.category = cat.slug;
+        a.textContent = cat.name;
+
+        container.appendChild(a);
+      });
+      // Auto-trigger tab cha ngay sau khi render
+      const parentTab = document.querySelector(".news-heading.tab-link");
+      if (parentTab) {
+        parentTab.click();
+      }
     }
-  } catch (error) {
-    console.error("Lỗi khi gọi API:", error);
+  } catch (err) {
+    console.error("❌ Lỗi khi load chuyên mục con:", err);
   }
 }
 
-function initCommentInputUI() {
-  const inputBox = document.querySelector(".reply-input");
-  const textarea = inputBox.querySelector(".cmnt-input");
-  const button = inputBox.querySelector(".bu-primary");
-  const avatar = inputBox.querySelector(".usr-img");
+document.addEventListener("click", async function (e) {
+  const target = e.target;
+  if (!target.classList.contains("tab-link")) return;
+  e.preventDefault();
 
-  if (!window.currentAccessToken) {
-    textarea.disabled = true;
-    textarea.placeholder = "Vui lòng đăng nhập để bình luận...";
-    button.disabled = true;
-    avatar.src = "../assets/img/user-default.jpg";
-    return;
+  const categoryId = target.dataset.categoryId;
+  const isParent = target.dataset.isParent === "true";
+  console.log(isParent);
+  if (!categoryId) return;
+
+  // 1. Highlight UI
+  document
+    .querySelectorAll(".tab-link")
+    .forEach((el) => el.classList.remove("active-tab"));
+  target.classList.add("active-tab");
+
+  // 2. Gọi API
+  let url = "";
+  if (isParent) {
+    url = `http://localhost:5501/api/posts/by-parent/${categoryId}`;
+    try {
+      const res = await fetch(url);
+      const result = await res.json();
+      console.log(result);
+      if (Array.isArray(result)) {
+        renderPostList(result);
+      } else {
+        console.warn("Không có bài viết nào.");
+      }
+    } catch (err) {
+      console.error("❌ Lỗi khi tải bài viết theo tab:", err);
+    }
+  } else {
+    console.log(categoryId);
+    url = `http://localhost:5501/api/posts?categoryId=${categoryId}`;
+    try {
+      const res = await fetch(url);
+      const result = await res.json();
+      console.log(result);
+      if (Array.isArray(result.data.posts)) {
+        renderPostList(result.data.posts);
+      } else {
+        console.warn("Không có bài viết nào.");
+      }
+    } catch (err) {
+      console.error("❌ Lỗi khi tải bài viết theo tab:", err);
+    }
   }
+});
 
-  // Nếu đã đăng nhập, giải mã avatar
+function renderPostList(posts) {
+  const container = document.getElementById("postGrid");
+  container.innerHTML = "";
+
+  posts.forEach((post) => {
+    const imageUrl = post.featuredimage?.startsWith("http")
+      ? post.featuredimage
+      : `http://localhost:5501${post.featuredimage}`;
+    const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+
+    const item = document.createElement("a");
+    item.className = "grid__column-2";
+    item.href = `/pages/trangbaiviet.html?slug=${post.slug}`;
+    item.innerHTML = `
+      <div class="news-home-item">
+        <div class="news-home-item--img" style="background-image: url('${imageUrl}')"></div>
+        <div class="news-home-item--content">
+          <h4 class="news-home-item--name">${post.title}</h4>
+          <p class="news-home-item--excerpt">${post.excerpt}</p>
+          <div class="news-home-item--meta">
+            <span class="news-home-item--date">${date}</span>
+            <span class="news-home-item--read-time">${post.views} views</span>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+}
+async function loadLatestPosts() {
   try {
-    const payload = JSON.parse(atob(window.currentAccessToken.split(".")[1]));
-    console.log(payload);
-    if (payload.avatarurl) avatar.src = payload.avatarurl;
-  } catch {
-    // fallback
-    avatar.src = "../assets/img/user-default.jpg";
+    const res = await fetch("http://localhost:5501/api/posts/latest?limit=10");
+    const posts = await res.json();
+
+    const container = document.querySelector(".most-view .news");
+    container.innerHTML = "";
+
+    posts.forEach((post) => {
+      const imageUrl = post.featuredimage?.startsWith("http")
+        ? post.featuredimage
+        : `http://localhost:5501${post.featuredimage}`;
+      const link = `/pages/trangbaiviet.html?slug=${post.slug}`;
+
+      const item = document.createElement("div");
+      item.className = "news n1";
+      item.innerHTML = `
+        <a href="${link}">
+          <div class="article-image">
+            <img src="${imageUrl}" alt="" />
+          </div>
+          <div class="title">${post.title}</div>
+        </a>
+      `;
+      container.appendChild(item);
+    });
+  } catch (err) {
+    console.error("❌ Lỗi khi tải tin mới nhất:", err);
   }
 }

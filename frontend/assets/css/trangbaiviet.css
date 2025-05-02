@@ -95,27 +95,34 @@ a {
 .news-detail strong:nth-child(2) {
   margin-left: 3rem;
 }
-.news-body {
+.news-body,
+.news-body h2,
+.news-body i {
+  color: #000;
   margin-top: 2rem;
   font-size: 2rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1.8; /* 28.8px */
 }
+.news-body h2 {
+  font-weight: 600;
+}
 .news-body p {
   margin-bottom: 2rem;
-}
-.image {
-  margin-bottom: 1rem;
 }
 .news-body img {
   width: 100%;
   border-radius: 0.2rem;
   object-fit: cover;
 }
-figcaption {
+figcaption i {
   font-size: 2rem;
   color: #5f5b53;
+}
+figure {
+  background-color: var(--Very-light-gray);
+  border-radius: 2px;
 }
 /* ==============tin xem nhiều ==================*/
 .most-view {
@@ -496,4 +503,11 @@ button:hover {
 
 .hashtag:hover {
   background-color: #ddd; /* Hover màu đậm hơn 1 chút */
+}
+/*  */
+.active-tab {
+  color: #c22b2b;
+}
+.tab-link {
+  text-decoration: none;
 }

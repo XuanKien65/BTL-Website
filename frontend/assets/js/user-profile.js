@@ -1003,14 +1003,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           </div>
           <div class="article-info">
             <h3 class="article-title">
-              <a href="/pages/trangbaiviet.html?slug=${post.slug}">${
-          post.title
-        }</a>
+              <a href="/pages/trangbaiviet.html?slug=${post.slug}">${post.title}</a>
             </h3>
             <div class="article-social">
-              <p class="article-meta">${
-                post.categories?.[0] || "Tin tức"
-              } - ${date}</p>
+              <p class="article-meta">${date}</p>
               <button class="btn-unsave" data-article-id="${post.postid}">
                 <i class="fas fa-bookmark"></i>
               </button>
@@ -1076,8 +1072,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const date = new Date(cmt.createdat).toLocaleDateString("vi-VN");
         const postUrl = `/pages/trangbaiviet.html?slug=${cmt.slug || ""}`;
-        const category = cmt.categories?.[0] || "Tin tức";
-
         const item = document.createElement("div");
         item.className = "cmt-article-item";
 
@@ -1334,6 +1328,79 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
+  //======================PHẦN BÀI VIẾT ĐÃ ĐĂNG ======================
+  document
+    .getElementById("postStatusFilter")
+    .addEventListener("change", function () {
+      const selectedStatus = this.value;
+      loadPostedArticles(selectedStatus);
+    });
+  async function loadPostedArticles(status = "") {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) return;
+
+    const tokenPayload = accessToken.split(".")[1];
+    const decodedPayload = JSON.parse(atob(tokenPayload));
+    const userId = decodedPayload.id;
+
+    let url = `http://localhost:5501/api/posts/author/${userId}`;
+    if (status) {
+      url += `?status=${status}`;
+    }
+
+    try {
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Lỗi khi lấy bài viết");
+
+      const result = await res.json();
+      const posts = result.data;
+      const container = document.querySelector(".posted-history-list");
+      container.innerHTML = "";
+
+      if (posts.length === 0) {
+        container.innerHTML = "<p>Không có bài viết.</p>";
+        return;
+      }
+
+      posts.forEach((post) => {
+        const imageUrl = post.featuredimage?.startsWith("http")
+          ? post.featuredimage
+          : `http://localhost:5501${post.featuredimage}`;
+
+        const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+
+        const item = document.createElement("div");
+        item.className = "posted-article-item";
+        item.innerHTML = `
+            <div class="article-image">
+              <img src="${imageUrl}" alt="${post.title}" />
+            </div>
+            <div class="article-info">
+              <h3 class="article-title">
+                <a href="/pages/trangbaiviet.html?slug=${post.slug}">${
+          post.title
+        }</a>
+              </h3>
+              <div class="article-social">
+                <p class="article-meta">${date}</p>
+                <div class="article-action">${post.views || 0} views</div>
+              </div>
+            </div>
+          `;
+        container.appendChild(item);
+      });
+
+      PostedArticlePagination.init();
+    } catch (err) {
+      console.error("Không thể tải bài viết đã đăng:", err);
+    }
+  }
+
   //==================== XỬ LÝ LOGOUT ========================
   async function handleLogout() {
     const logoutBtn = document.getElementById("logout-btn");
@@ -1374,6 +1441,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadSavedArticles();
   loadViewedPosts();
   loadUserComments();
+  loadPostedArticles();
   initAuthorRegistration();
   initAuthorSite();
   handleLogout();
