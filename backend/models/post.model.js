@@ -3,13 +3,12 @@ const slugify = require("../utils/slugify");
 
 const Post = {
   findAll: async (
-    page = 1,
-    pageSize = 10,
+    page = null,
+    pageSize = null,
     status = null,
     categoryId = null,
     searchTerm = null
   ) => {
-    const offset = (page - 1) * pageSize;
     let query = `
       SELECT 
         p.postid, p.title, p.slug, p.excerpt, p.featuredimage, 
@@ -22,37 +21,39 @@ const Post = {
       LEFT JOIN categories c ON pc.categoryid = c.id
       WHERE 1=1
     `;
-
+  
     const params = [];
-
+  
     if (status) {
       query += ` AND p.status = $${params.length + 1}`;
       params.push(status);
     }
-
+  
     if (categoryId) {
       query += ` AND pc.categoryid = $${params.length + 1}`;
       params.push(categoryId);
     }
-
+  
     if (searchTerm) {
-      query += ` AND (p.title ILIKE $${params.length + 1} OR p.content ILIKE $${
-        params.length + 2
-      })`;
+      query += ` AND (p.title ILIKE $${params.length + 1} OR p.content ILIKE $${params.length + 2})`;
       params.push(`%${searchTerm}%`, `%${searchTerm}%`);
     }
-
+  
     query += `
       GROUP BY p.postid, u.userid
       ORDER BY p.createdat DESC
-      LIMIT $${params.length + 1} OFFSET $${params.length + 2}
     `;
-    params.push(pageSize, offset);
-
+  
+    if (page !== null && pageSize !== null) {
+      const offset = (page - 1) * pageSize;
+      query += ` LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
+      params.push(pageSize, offset);
+    }
+  
     const result = await pool.query(query, params);
     return result.rows;
   },
-
+  
   findById: async (id) => {
     if (!id || isNaN(id)) {
       throw new Error("Invalid post ID");
@@ -268,7 +269,7 @@ const Post = {
   countSearchResults: async ({
     keyword = null,
     tag = null,
-    categoryId = null,
+    categoryName,
     status = "published",
     fromDate = null,
     toDate = null,
@@ -300,10 +301,24 @@ const Post = {
       query += ` AND p.status = $${params.length}`;
     }
 
-    if (categoryId) {
-      params.push(categoryId);
-      query += ` AND pc.categoryid = $${params.length}`;
+    if (categoryName) {
+      const categoryRes = await pool.query(
+        `SELECT id FROM categories WHERE name ILIKE $1`,
+        [categoryName]
+      );
+      const parentId = categoryRes.rows[0]?.id;
+    
+      if (parentId) {
+        const childCats = await pool.query(
+          `SELECT id FROM categories WHERE id = $1 OR parent_id = $1`,
+          [parentId]
+        );
+        const catIds = childCats.rows.map((row) => row.id);
+        params.push(catIds);
+        query += ` AND pc.categoryid = ANY($${params.length})`;
+      }
     }
+    
 
     if (tag) {
       params.push(tag);
