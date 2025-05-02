@@ -36,25 +36,23 @@
                       <span class="material-icons">manage_accounts</span>
                       <span>Quản lý người dùng</span>
                   </a>
-                  <!-- <ul class="sidebar-dropdown">
-                      <li class="sidebar-item">
-                          <a href="#users" class="sidebar-link"><i class="fas fa-users"></i>Người đọc</a>
-                      </li>
-                      <li class="sidebar-item">
-                          <a href="#users" class="sidebar-link"><i class="fas fa-users"></i>Tác giả</a>
-                      </li>
-                  </ul> -->
+              </li>
+              <li class="sidebar-item">
+                <a href="#authorRequests" class="sidebar-link">
+                    <span class="material-icons">assignment_ind</span>
+                    <span>Đơn đăng ký tác giả</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="#categories" class="sidebar-link">
+                    <span class="material-icons">category</span>
+                    <span>Quản lý danh mục</span>
+                </a>
               </li>
               <li class="sidebar-item">
                   <a href="#posts" class="sidebar-link">
                       <span class="material-icons">description</span>
                       <span>Quản lý bài viết</span>
-                  </a>
-              </li>
-              <li class="sidebar-item">
-                  <a href="#categories" class="sidebar-link">
-                      <span class="material-icons">category</span>
-                      <span>Quản lý danh mục</span>
                   </a>
               </li>
               <li class="sidebar-item">
@@ -320,6 +318,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination">
+
+                </div>
             </section>
 
             <!-- Users Management Content -->
@@ -337,7 +338,7 @@
                         <select id="userFilter">
                             <option value="all">Tất cả</option>
                             <option value="admin">Quản trị viên</option>
-                            <option value="editor">Biên tập viên</option>
+                            <option value="author">Tác giả</option>
                             <option value="user">Người dùng</option>
                             <option value="banned">Đã khoá</option>
                         </select>
@@ -467,6 +468,33 @@
                     <button class="btn btn-page">2</button>
                     <button class="btn btn-page">3</button>
                     <button class="btn btn-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Pending Authors Content -->
+            <section id="authorRequests" class="content-section">
+                <div class="section-header">
+                    <h2>Quản lý đơn đăng ký tác giả</h2>
+                </div>
+            
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="50px">ID</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>Điện thoại</th>
+                                <th>Kinh nghiệm</th>
+                                <th>Chuyên mục</th>
+                                <th>Ngày đăng ký</th>
+                                <th width="150px">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="authorRequestsBody">
+                            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
@@ -826,36 +854,30 @@
     <div class="modal" id="addUserModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Thêm người dùng mới</h3>
+                <h3>Thêm quản trị viên mới</h3>
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="userForm">
                     <div class="form-group">
                         <label for="userName">Tên người dùng</label>
-                        <input type="text" id="userName" required>
+                        <input type="text" id="userName" name="userName" required>
                     </div>
                     <div class="form-group">
                         <label for="userEmail">Email</label>
-                        <input type="email" id="userEmail" required>
+                        <input type="email" id="userEmail" name="userEmail" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="passwordField">
                         <label for="userPassword">Mật khẩu</label>
-                        <input type="password" id="userPassword" required>
+                        <input type="password" id="userPassword" name="userPassword" required>
                     </div>
                     <div class="form-group">
                         <label for="userRole">Vai trò</label>
-                        <select id="userRole" required>
-                            <option value="user">Người dùng</option>
-                            <option value="editor">Biên tập viên</option>
+                        <select id="userRole" name="userRole" required>
                             <option value="admin">Quản trị viên</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="userAvatar">Ảnh đại diện</label>
-                        <input type="file" id="userAvatar">
-                    </div>
-                </form>
+                </form>                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary modal-close">Huỷ</button>
@@ -864,24 +886,60 @@
         </div>
     </div>
 
+    <!-- Modal author regis -->
+    <div class="modal" id="authorRequestModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Đơn đăng ký tác giả</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Họ tên:</strong> <span id="authorFullname"></span></p>
+            <p><strong>Email:</strong> <span id="authorEmail"></span></p>
+            <p><strong>Điện thoại:</strong> <span id="authorPhone"></span></p>
+            <p><strong>Kinh nghiệm:</strong> <span id="authorExperience"></span></p>
+            <p><strong>Portfolio:</strong> <span id="authorPortfolio"></span></p>
+            <p><strong>Chuyên mục đăng ký:</strong> <span id="authorTopics"></span></p>
+            <p><strong>Mặt trước CMND:</strong><br><img id="authorFrontId" style="max-width: 100%; height: auto;" /></p>
+            <p><strong>Mặt sau CMND:</strong><br><img id="authorBackId" style="max-width: 100%; height: auto;" /></p>
+          </div>
+          <div class="modal-footer">
+            <button id="approveAuthorBtn" class="btn btn-success">Duyệt đơn</button>
+            <button id="rejectAuthorBtn" class="btn btn-danger">Từ chối</button>
+          </div>
+        </div>
+      </div>      
+
     <!-- Confirmation Modal -->
     <div class="modal" id="confirmModal">
         <div class="modal-content small">
             <div class="modal-header">
-                <h3>Xác nhận</h3>
+                <h3><i class="fas fa-exclamation-triangle"></i> Xác nhận hành động</h3>
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn thực hiện hành động này?</p>
+                <div class="confirm-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="confirm-message">
+                    <p id="confirmMainMessage">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+                    <p id="confirmWarningMessage" class="warning-message"></p>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary modal-close">Huỷ</button>
-                <button class="btn btn-danger" id="confirmAction">Xác nhận</button>
+                <button class="btn btn-outline modal-close">Huỷ</button>
+                <button class="btn btn-danger" id="confirmAction" onclick="confirmAction()">Xác nhận</button>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/categories.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
