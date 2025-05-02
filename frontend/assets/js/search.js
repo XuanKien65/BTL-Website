@@ -2,8 +2,9 @@
 let currentView = "list";
 let totalPages = 1;
 let currentPage = 1;
-const articlesPerPage = 12;
+const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -79,7 +80,7 @@ function setupEventListeners() {
       option.classList.add("active");
       currentView = option.dataset.view;
       resultsList.classList.toggle("grid-view", currentView === "grid");
-      renderArticles();
+      renderArticles(currentArticles, totalPages, currentTotalItems)
     });
   });
 }
@@ -170,6 +171,8 @@ function renderSingleArticle(article) {
 
 function renderArticles(articles, pages, totalItems = 0) {
   resultsList.innerHTML = "";
+  resultsList.classList.remove("grid-view", "list-view");
+  resultsList.classList.add(`${currentView}-view`);
 
   const totalDisplay = typeof totalItems === "number" && !isNaN(totalItems) ? totalItems : 0;
   resultsCount.textContent = `${totalDisplay} bài viết được tìm thấy`;
