@@ -129,6 +129,9 @@ figure {
   margin-top: 10rem;
   flex: 1.7;
 }
+.most-view .title:hover {
+  color: var(--heading-color);
+}
 .most-view h3 {
   font-size: 2.5rem;
   width: fit-content;

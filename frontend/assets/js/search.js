@@ -2,7 +2,7 @@
 let currentView = "list";
 let totalPages = 1;
 let currentPage = 1;
-const articlesPerPage = 12;
+const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
@@ -79,7 +79,7 @@ function setupEventListeners() {
       option.classList.add("active");
       currentView = option.dataset.view;
       resultsList.classList.toggle("grid-view", currentView === "grid");
-      renderArticles();
+      renderArticles(currentArticles, totalPages, currentTotalItems);
     });
   });
 }
@@ -143,16 +143,27 @@ function renderSingleArticle(article) {
   articleEl.className = "article-card";
   console.log("article.categories:", article.categories);
   articleEl.innerHTML = `
-    <a href="/bai-viet/${article.slug}" class="article-image">
+    <a href="/pages/trangbaiviet.html?slug=${
+      article.slug
+    }" class="article-image">
       <img src="${article.featuredimage}" alt="${article.title}">
     </a>
     <div class="article-content">
       <span class="article-category">${renderCategory(article)}</span>
-      <h3 class="article-title">${article.title}</h3>
+
+      <!-- Tiêu đề là thẻ a -->
+      <h3 class="article-title">
+        <a href="/pages/trangbaiviet.html?slug=${article.slug}">
+          ${article.title}
+        </a>
+      </h3>
+
       <p class="article-excerpt">${article.excerpt}</p>
-      <a href="/bai-viet/${article.slug}">
+
+      <a href="/pages/trangbaiviet.html?slug=${article.slug}">
         <div class="read-more">Đọc tiếp <span>→</span></div>
       </a>
+
       <div class="article-meta">
         <span>${new Date(
           article.publishedat || article.createdat
@@ -160,13 +171,15 @@ function renderSingleArticle(article) {
         <span>${article.views.toLocaleString()} lượt xem</span>
       </div>
     </div>
-  `;
+    `;
 
   return articleEl;
 }
 
 function renderArticles(articles, pages, totalItems = 0) {
   resultsList.innerHTML = "";
+  resultsList.classList.remove("grid-view", "list-view");
+  resultsList.classList.add(`${currentView}-view`);
 
   const totalDisplay =
     typeof totalItems === "number" && !isNaN(totalItems) ? totalItems : 0;

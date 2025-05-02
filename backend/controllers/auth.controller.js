@@ -207,12 +207,12 @@ exports.forgotPassword = async (req, res, next) => {
     }
 
     const token = crypto.randomBytes(32).toString("hex");
-    const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1h
+    const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 phút
 
     // Lưu token vào DB
     await User.saveResetToken(user.userid, token, expiry);
 
-    const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password.html?token=${token}`;
 
     await sendResetEmail(user.email, user.username, resetUrl);
 
@@ -220,6 +220,29 @@ exports.forgotPassword = async (req, res, next) => {
   } catch (error) {
     next(new ErrorHandler(500, "Gửi yêu cầu quên mật khẩu thất bại", error));
   }
+};
+const sendResetEmail = async (toEmail, username, resetUrl) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: `"The Outsider" <${process.env.EMAIL_USER}>`,
+    to: toEmail,
+    subject: "Yêu cầu đặt lại mật khẩu",
+    html: `
+      <p>Chào ${username},</p>
+      <p>Bạn đã yêu cầu đặt lại mật khẩu. Nhấn vào nút bên dưới để tiếp tục:</p>
+      <a href="${resetUrl}" style="display:inline-block;padding:12px 24px;background-color:#c22b2b;color:white;text-decoration:none;border-radius:4px;">Đặt lại mật khẩu</a>
+      <p>Nếu bạn không yêu cầu hành động này, vui lòng bỏ qua email này.</p>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
 };
 exports.resetPassword = async (req, res, next) => {
   const { token, newPassword } = req.body;
@@ -232,7 +255,12 @@ exports.resetPassword = async (req, res, next) => {
     }
 
     if (new Date(user.resetpasswordexpiry) < new Date()) {
-      return next(new ErrorHandler(400, "Token đã hết hạn"));
+      return next(
+        new ErrorHandler(
+          400,
+          "Liên kết đặt lại mật khẩu đã hết hạn. Vui lòng gửi lại yêu cầu."
+        )
+      );
     }
 
     const hashedPassword = bcrypt.hashSync(newPassword, 8);
