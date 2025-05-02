@@ -8,6 +8,7 @@ function loadHeader() {
       const headerPlaceholder = document.getElementById("headernav");
       if (!headerPlaceholder) throw new Error("Không tìm thấy #headernav");
       headerPlaceholder.innerHTML = html;
+      document.dispatchEvent(new Event("headerLoaded"));
       if (typeof window.updateNavbarAuthState === "function") {
         window.updateNavbarAuthState();
       }
@@ -108,9 +109,60 @@ function handleResponsive() {
   }
 }
 
+//Khởi tạo category
+async function loadCategoriesToNavbar() {
+  try {
+    const response = await fetch("http://localhost:5501/api/categories");
+    const result = await response.json();
+
+    if (!result.success) {
+      console.error("Không lấy được categories:", result.message);
+      return;
+    }
+
+    const categories = result.data;
+    const navbar = document.querySelector(".navbar");
+    navbar.innerHTML = ""; // Clear cũ nếu có
+
+    categories.forEach((parent) => {
+      const li = document.createElement("li");
+      li.className = "main-category";
+
+      const a = document.createElement("a");
+      a.className = "category";
+      a.href = "http://localhost:5501/pages/topic.html"; //sửa lại sau khi có topic
+      a.textContent = parent.name;
+      li.appendChild(a);
+
+      // Nếu có danh mục con
+      if (parent.children && parent.children.length > 0) {
+        const subnav = document.createElement("ul");
+        subnav.className = "subnav";
+
+        parent.children.forEach((child) => {
+          const subLi = document.createElement("li");
+          const subA = document.createElement("a");
+          subA.className = "subnav-link";
+          subA.href = `http://localhost:5501/pages/topic.html`; //sửa lại sau khi có topic
+          subA.textContent = child.name;
+
+          subLi.appendChild(subA);
+          subnav.appendChild(subLi);
+        });
+
+        li.appendChild(subnav);
+      }
+
+      navbar.appendChild(li);
+    });
+  } catch (error) {
+    console.error("Lỗi khi load categories:", error);
+  }
+}
+
 // Khởi tạo sau khi tất cả đã load xong
 document.addEventListener("DOMContentLoaded", () => {
-  Promise.all([loadHeader(), loadFooter()])
+  Promise.all([loadHeader(), loadFooter(), loadCategoriesToNavbar()])
     .then(() => {
       // Gọi hàm xử lý scroll sau khi header/footer đã tải xong
       handleScroll();
@@ -141,15 +193,10 @@ function base64UrlDecode(input) {
   return atob(base64);
 }
 
+window.currentId = null;
+window.currentAccessToken = null;
 window.updateNavbarAuthState = async function () {
-  const loginLink = document.getElementById("login-link");
-  const userInfoElement = document.querySelector(".user-info");
-  const usernameElement = document.querySelector(".username");
-
-  if (!loginLink || !userInfoElement || !usernameElement) {
-    console.warn("Navbar chưa sẵn sàng, bỏ qua update UI");
-    return;
-  }
+  let loginLink, userInfoElement, usernameElement, profileLink;
 
   try {
     const response = await fetch("http://localhost:5501/api/auth/refresh", {
@@ -161,6 +208,7 @@ window.updateNavbarAuthState = async function () {
 
     const data = await response.json();
     const accessToken = data.accessToken;
+    window.currentAccessToken = accessToken;
 
     if (!accessToken || accessToken.split(".").length !== 3) {
       throw new Error("Access token không hợp lệ");
@@ -168,21 +216,56 @@ window.updateNavbarAuthState = async function () {
 
     const payloadBase64 = accessToken.split(".")[1];
     const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
+    const userId = decodedPayload.id;
+    window.currentId = userId;
+
     const username =
       decodedPayload.username ||
       decodedPayload.name ||
       decodedPayload.id ||
       "User";
 
-    loginLink.style.display = "none";
-    userInfoElement.style.display = "block";
-    usernameElement.textContent = username;
+    // DOM elements
+    loginLink = document.getElementById("login-link");
+    userInfoElement = document.querySelector(".user-info");
+    usernameElement = document.querySelector(".username");
+    profileLink = document.getElementById("user-profile-link");
+
+    // Cập nhật UI nếu DOM sẵn sàng
+    if (loginLink && userInfoElement && usernameElement) {
+      loginLink.style.display = "none";
+      userInfoElement.style.display = "block";
+      usernameElement.textContent = username;
+    } else {
+      console.warn("Không thể cập nhật UI navbar – DOM chưa sẵn sàng");
+    }
+
+    // Gán link đến trang profile nếu có ID
+    if (profileLink && userId) {
+      profileLink.href = `/pages/user-profile.html?id=${userId}`;
+
+      // Phòng khi userId vẫn chưa có
+      profileLink.addEventListener("click", function (e) {
+        if (!window.currentId) {
+          e.preventDefault();
+          alert("Thông tin người dùng chưa sẵn sàng!");
+        }
+      });
+    }
   } catch (err) {
     console.warn("Không thể xác thực:", err.message);
-    loginLink.style.display = "block";
-    userInfoElement.style.display = "none";
+
+    // Thử lấy lại các phần tử DOM để ẩn phần user nếu cần
+    loginLink = document.getElementById("login-link");
+    userInfoElement = document.querySelector(".user-info");
+
+    if (loginLink && userInfoElement) {
+      loginLink.style.display = "block";
+      userInfoElement.style.display = "none";
+    }
   }
 };
+
 //tự động refresh token
 window.setupAutoRefreshToken = async function () {
   const refreshInterval = 29 * 60 * 1000;
@@ -198,12 +281,37 @@ window.setupAutoRefreshToken = async function () {
 
       const data = await response.json();
       const accessToken = data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      console.log("✅ Access token refreshed!");
+      window.currentAccessToken = accessToken;
     } catch (err) {
       console.warn("⚠️ Auto refresh failed:", err.message);
     }
   }
-  // Thiết lập auto-refresh định kỳ
+  await refreshToken();
   setInterval(refreshToken, refreshInterval);
 };
+console.log(window.currentAccessToken);
+
+document.addEventListener("headerLoaded", () => {
+  const searchInput = document.querySelector(".search input[type='text']");
+  const searchButton = document.querySelector(".search button");
+
+  function performSearch() {
+    const keyword = searchInput.value.trim();
+    const encoded = encodeURIComponent(keyword);
+    window.location.href = `/pages/search.html?keyword=${encoded}`;
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        performSearch();
+      }
+    });
+  }
+
+  if (searchButton) {
+    searchButton.addEventListener("click", performSearch);
+  }
+});
+

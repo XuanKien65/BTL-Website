@@ -1,30 +1,26 @@
 const Category = require("../models/category.model");
+const slugify = require("../utils/slugify");
 
 // Tạo danh mục mới
 exports.createCategory = async (req, res) => {
   try {
-    const { name, slug, description, parent_id } = req.body;
+    const { name, description, parent_id } = req.body;
 
-    // Validate input
-    if (!name || !slug) {
-      return res.status(400).json({ error: "Tên và slug là bắt buộc" });
+    // validate name
+    if (!name) {
+      return res.status(400).json({ error: "Tên danh mục là bắt buộc" });
     }
 
-    // Kiểm tra slug đã tồn tại chưa
+    // Tạo slug tự động
+    const slug = slugify(name);
+
+    // validate slug có bị trùng không
     const slugExists = await Category.isSlugExists(slug);
     if (slugExists) {
       return res.status(400).json({ error: "Slug đã tồn tại" });
     }
 
-    // Kiểm tra parent_id có hợp lệ không
-    if (parent_id) {
-      const parent = await Category.findById(parent_id);
-      if (!parent) {
-        return res.status(400).json({ error: "Danh mục cha không tồn tại" });
-      }
-    }
-
-    // Tạo danh mục
+    // Create
     const newCategory = await Category.create(
       name,
       slug,
@@ -99,18 +95,20 @@ exports.getCategory = async (req, res) => {
 exports.updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, slug, description, parent_id } = req.body;
+    const { name, description, parent_id } = req.body;
 
-    // Validate input
-    if (!name || !slug) {
-      return res.status(400).json({ error: "Tên và slug là bắt buộc" });
+    if (!name) {
+      return res.status(400).json({ error: "Tên danh mục là bắt buộc" });
     }
 
-    // Kiểm tra danh mục có tồn tại không
+    // Kiểm tra danh mục tồn tại
     const existingCategory = await Category.findById(id);
     if (!existingCategory) {
       return res.status(404).json({ error: "Không tìm thấy danh mục" });
     }
+
+    // Tạo slug mới từ name
+    const slug = slugify(name);
 
     // Kiểm tra slug đã tồn tại chưa (trừ chính nó)
     const slugExists = await Category.isSlugExists(slug, id);
@@ -118,21 +116,20 @@ exports.updateCategory = async (req, res) => {
       return res.status(400).json({ error: "Slug đã tồn tại" });
     }
 
-    // Kiểm tra parent_id có hợp lệ không
+    // Kiểm tra parent_id hợp lệ (nếu có)
     if (parent_id) {
       if (parent_id == id) {
         return res
           .status(400)
           .json({ error: "Danh mục không thể là cha của chính nó" });
       }
-
       const parent = await Category.findById(parent_id);
       if (!parent) {
         return res.status(400).json({ error: "Danh mục cha không tồn tại" });
       }
     }
 
-    // Cập nhật danh mục
+    // Update danh mục
     const updatedCategory = await Category.update(
       id,
       name,

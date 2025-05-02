@@ -103,9 +103,12 @@ a {
   line-height: 1.8; /* 28.8px */
 }
 .news-body p {
+  margin-bottom: 2rem;
+}
+.image {
   margin-bottom: 1rem;
 }
-.news.pic1 {
+.news-body img {
   width: 100%;
   border-radius: 0.2rem;
   object-fit: cover;
@@ -266,6 +269,7 @@ button:hover {
   font-weight: 700;
 }
 .usr-img {
+  border-radius: 50%;
   height: 5rem;
   width: 5rem;
 }
@@ -361,9 +365,6 @@ button:hover {
   border-radius: 2px;
 }
 
-.this-user .reply {
-  display: none;
-}
 .this-user .edit,
 .this-user .delete {
   display: flex;
@@ -464,3 +465,35 @@ button:hover {
 /* =================== footer ================ */
 
 /* ============comment======================== */
+.social-share {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  margin: 2rem;
+  float: right;
+  font-weight: 600;
+  gap: 1rem;
+}
+.social-share img {
+  width: 3rem;
+}
+.hashtag-container {
+  display: flex;
+  flex-wrap: wrap; /* Cho xuống dòng tự động */
+  gap: 8px; /* Khoảng cách giữa các hashtag */
+  padding: 10px 0;
+}
+
+.hashtag {
+  background-color: #eee; /* Nền xám nhạt */
+  color: #333; /* Màu chữ đậm */
+  padding: 6px 12px;
+  border-radius: 6px; /* Bo góc */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hashtag:hover {
+  background-color: #ddd; /* Hover màu đậm hơn 1 chút */
+}

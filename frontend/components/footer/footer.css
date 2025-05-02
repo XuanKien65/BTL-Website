@@ -107,6 +107,27 @@ footer {
     font-size: 1.4rem;
   }
 }
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .footer {
+    padding: 6% 5% 0;
+  }
+  .footer img {
+    height: 30%;
+  }
+  .footer .desc {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .footer .title {
+    font-size: 1.4rem;
+  }
+  .footer .list a {
+    font-size: 1.2rem;
+  }
+  .footer .copyright {
+    font-size: 1.4rem;
+  }
+}
 
 /* TANKIN RESPONSIVE */
 .footer {
@@ -263,8 +284,6 @@ footer {
     padding: 20px 0;
   }
 }
-
-
 
 /* Responsive Mobile */
 @media (max-width: 767.98px) {

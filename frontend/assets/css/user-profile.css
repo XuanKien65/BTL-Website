@@ -162,6 +162,7 @@ a {
   margin-bottom: 20px;
 }
 .account-form .change-avatar {
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
 }
@@ -615,12 +616,12 @@ textarea {
 }
 
 /* Ẩn bài viết không thuộc trang hiện tại */
-.posted-article-item,
+/* .posted-article-item,
 .cmt-article-item,
 .read-article-item,
 .saved-article-item {
   display: none;
-}
+} */
 
 /* Hiển thị bài viết thuộc trang hiện tại */
 .posted-article-item,
@@ -797,9 +798,9 @@ textarea {
 select {
   /* Layout */
   width: 100%;
-  max-width: 350px;
+  max-width: 450px;
   padding: 10px 15px;
-  margin: 8px 0;
+  margin: 8px;
 
   /* Appearance */
   border: 1px solid #ddd;
