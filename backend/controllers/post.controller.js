@@ -5,11 +5,11 @@ const slugify = require("../utils/slugify");
 
 exports.getAllPosts = async (req, res, next) => {
   try {
-    const { page = 1, pageSize = 12, status, categoryId, search } = req.query;
+    const { page = 1, pageSize = 10, status, categoryId, search } = req.query;
 
     const posts = await Post.findAll(
       parseInt(page),
-      parseInt(pageSize),
+      parseInt(pageSize), 
       status,
       categoryId ? parseInt(categoryId) : null,
       search

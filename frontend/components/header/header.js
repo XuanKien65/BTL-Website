@@ -130,7 +130,7 @@ async function loadCategoriesToNavbar() {
 
       const a = document.createElement("a");
       a.className = "category";
-      a.href = "http://localhost:5501/pages/topic.html"; //sửa lại sau khi có topic
+      a.href = `/pages/topic.html?categoryName=${encodeURIComponent(parent.name)}`;
       a.textContent = parent.name;
       li.appendChild(a);
 
@@ -143,7 +143,7 @@ async function loadCategoriesToNavbar() {
           const subLi = document.createElement("li");
           const subA = document.createElement("a");
           subA.className = "subnav-link";
-          subA.href = `http://localhost:5501/pages/topic.html`; //sửa lại sau khi có topic
+          subA.href = `/pages/topic.html?categoryName=${encodeURIComponent(child.name)}`;
           subA.textContent = child.name;
 
           subLi.appendChild(subA);

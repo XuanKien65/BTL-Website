@@ -100,10 +100,18 @@ a {
   font-size: 1.7rem;
   color: #262626;
 }
+
 .main .main-container-body .title .list-topic .page h1:hover {
   color: #c22b22;
   cursor: pointer;
 }
+
+.page.active,
+.page.active h1 {
+  color:  #c22b22 !important;
+  font-weight: bold;
+}
+
 .main .main-container-body .main-topic {
   margin-top: 2.5%;
   width: 100%;
