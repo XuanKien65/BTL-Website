@@ -184,7 +184,8 @@ i {
 
 /* Container */
 .container {
-  max-width: 1200px;
+  width: 1500px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
