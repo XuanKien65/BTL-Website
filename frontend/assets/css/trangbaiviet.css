@@ -257,6 +257,22 @@ button:hover {
   font-size: 1.5rem;
   margin: 0;
 }
+.error-message {
+  color: #c22b2b;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  min-height: 2rem;
+  margin: 0.5rem 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.error-message.show {
+  visibility: visible;
+  opacity: 1;
+}
+
 .score-control {
   width: 100%;
   cursor: pointer;
@@ -432,6 +448,8 @@ button:hover {
 }
 
 .modal {
+  border-radius: 5px;
+  background-color: #fff;
   padding: 1.5rem;
   max-width: 32ch;
   display: grid;

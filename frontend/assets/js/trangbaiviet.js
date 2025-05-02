@@ -110,7 +110,21 @@ async function loadComments(postId) {
 async function addComment(body, parentId = null, replyTo = undefined) {
   const token = window.currentAccessToken;
   console.log(window.currentAccessToken);
-  if (!token) return alert("Bạn cần đăng nhập!");
+
+  const errorDiv = document.querySelector(".error-message");
+  if (errorDiv) {
+    errorDiv.textContent = "";
+    errorDiv.classList.remove("show");
+  }
+  if (!token) {
+    if (errorDiv) {
+      errorDiv.textContent = "Bạn cần đăng nhập";
+      errorDiv.classList.add("show");
+    } else {
+      alert("Bạn cần đăng nhập");
+    }
+    return;
+  }
 
   try {
     const res = await fetch(`http://localhost:5501/api/comments`, {
@@ -128,13 +142,36 @@ async function addComment(body, parentId = null, replyTo = undefined) {
     });
 
     const result = await res.json();
+
     if (result.success) {
-      await loadComments(postId);
+      const isModerated = result.data?.moderated;
+
+      if (isModerated) {
+        if (errorDiv) {
+          errorDiv.textContent = result.message || "Bình luận đang chờ duyệt.";
+          errorDiv.classList.add("show");
+        } else {
+          alert(result.message || "Bình luận đang chờ duyệt.");
+        }
+      } else {
+        await loadComments(postId); // ✅ chỉ load nếu bình luận được duyệt ngay
+      }
     } else {
-      alert("❌ Gửi bình luận thất bại");
+      if (errorDiv) {
+        errorDiv.textContent = result.message || "❌ Gửi bình luận thất bại.";
+        errorDiv.classList.add("show");
+      } else {
+        alert(result.message || "❌ Gửi bình luận thất bại.");
+      }
     }
   } catch (err) {
     console.error("Lỗi gửi bình luận:", err);
+    if (errorDiv) {
+      errorDiv.textContent = "Lỗi máy chủ. Vui lòng thử lại.";
+      errorDiv.classList.add("show");
+    } else {
+      alert("Lỗi máy chủ. Vui lòng thử lại.");
+    }
   }
 }
 
@@ -438,12 +475,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         postId = post.postid;
         console.log(post);
         renderCategoryChildren(post.categories);
-        // ⚡️ Hiển thị UI ngay
         renderPost(post);
         await loadComments(postId);
         waitForAccessToken(1500)
           .then((token) => {
-            initCommentInputUI();
             fetch(`http://localhost:5501/api/posts/${postId}/view`, {
               method: "POST",
               headers: {
@@ -451,6 +486,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               },
             });
             checkIfSaved(postId);
+            initCommentInputUI();
           })
           .catch(() => {
             console.warn("Không lấy được access token (timeout)");
