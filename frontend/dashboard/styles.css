@@ -1207,3 +1207,10 @@ body {
     transform: translateY(0);
   }
 }
+
+
+/* Diệu Linh Thêm */
+.status-badge.unread { background: #f59e0b; }
+.status-badge.read { background: #10b981; }
+.btn-mark-read { background: #3b82f6; color: white; }
+.btn-view { background: #10b981; color: white; }

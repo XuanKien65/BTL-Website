@@ -164,42 +164,6 @@ function initSidebar() {
     });
   }
   
-  // Hàm quản lý sidebar
-  function updateSidebarMenu() {
-    const sidebarNav = document.querySelector('.sidebar-nav');
-    const marker = document.getElementById('dynamic-menu-marker');
-  
-    // Xóa menu item cũ nếu tồn tại
-    if (pendingAuthorMenuItem) {
-      pendingAuthorMenuItem.classList.add('removing');
-      setTimeout(() => {
-        pendingAuthorMenuItem.remove();
-        pendingAuthorMenuItem = null;
-      }, 300);
-    }
-  
-    // Chỉ thêm menu nếu có request chờ
-    if (hasPendingRequests) {
-      pendingAuthorMenuItem = document.createElement('li');
-      pendingAuthorMenuItem.className = 'sidebar-item';
-      pendingAuthorMenuItem.innerHTML = `
-        <a href="#pending-authors" class="sidebar-link">
-          <span class="material-icons">pending_actions</span>
-          <span>Đơn chờ duyệt</span>
-          <span class="badge">${hasPendingRequests.count || ''}</span>
-        </a>
-      `;
-      
-      // Chèn vào trước marker
-      marker.parentNode.insertBefore(pendingAuthorMenuItem, marker);
-      
-      // Khởi tạo lại sự kiện click
-      pendingAuthorMenuItem.querySelector('a').addEventListener('click', (e) => {
-        e.preventDefault();
-        activateTab('#pending-authors');
-        history.pushState(null, null, '#pending-authors');
-      });
-    }
-  }
+
 
   
