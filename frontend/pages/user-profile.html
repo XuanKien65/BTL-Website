@@ -6,6 +6,8 @@
     <!-- reset css -->
     <link rel="stylesheet" href="../assets/css/reset.css" />
     <!-- style -->
+    <link rel="stylesheet" href="../components/footer/footer.css" />
+    <link rel="stylesheet" href="../components/header/header.css" />
     <link rel="stylesheet" href="../assets/css/user-profile.css" />
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,1841 +26,519 @@
     <link rel="stylesheet" href="/assets/css/trangbaivietresponsive.css" />
     <title>The Outsider</title>
   </head>
-  <body style="height: 1000px">
-    <div class="notft">
-      <!-- header -->
-      <header class="header fixed">
-        <div class="header banner">
-          <img
-            src="/assets/img/gio-outsider-red.png"
-            alt="the outsider"
-            class="banner-logo"
-          />
+  <body>
+    <!-- header -->
+    <div id="headernav"></div>
+
+    <!-- body -->
+    <!-- Main Content -->
+    <main class="account-container">
+      <div class="account-sidebar">
+        <div class="user-profile">
+          <div class="profile-avatar">
+            <img
+              src="../the-outsider/assets/img/image-amyrobson.png"
+              alt="User Avatar"
+              id="usr-avatar"
+            />
+          </div>
+          <h3 class="username" id="display-username"></h3>
+          <p class="user-email" id="display-email"></p>
         </div>
-      </header>
-      <nav class="nav">
-        <div id="backtohome">
-          <a href="/index.html">
-            <img class="logo" src="/assets/img/gio-outsider.png" alt="" />
-          </a>
-        </div>
-        <a href="/index.html" class="home">
-          <i class="fa-solid fa-house"></i>
-        </a>
-        <div class="contain-navbar">
-          <ul class="navbar">
-            <li class="main-category">
-              <a href="#!" class="category">Phim ảnh</a>
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">Phim chiếu rạp</a></li>
-                <li><a class="subnav-link" href="#">Phim Việt Nam</a></li>
-                <li><a class="subnav-link" href="#">Phim truyền hình</a></li>
-                <li><a class="subnav-link" href="#">Phim quốc tế</a></li>
-              </ul>
-            </li>
-            <li class="main-category">
-              <a href="#!" class="category">Âm nhạc</a>
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">US-UK</a></li>
-                <li><a class="subnav-link" href="#">Châu Á</a></li>
-                <li><a class="subnav-link" href="#">Việt Nam</a></li>
-              </ul>
-            </li>
-            <li class="main-category">
-              <a href="/beo-dan/topic.html" class="category"
-                >Beauty & Fashion</a
+
+        <nav class="account-menu">
+          <ul>
+            <li class="active">
+              <a href="#account-info"
+                ><i class="fas fa-user"></i> Thông tin cá nhân</a
               >
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">Trending</a></li>
-                <li><a class="subnav-link" href="#">Thời trang</a></li>
-                <li><a class="subnav-link" href="#">Làm đẹp</a></li>
-                <li><a class="subnav-link" href="#">Phong cách</a></li>
-              </ul>
             </li>
-            <li class="main-category">
-              <a href="#!" class="category">Đời sống</a>
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">Soi sao</a></li>
-                <li><a class="subnav-link" href="#">Sống xanh</a></li>
-              </ul>
+            <li>
+              <a href="#announcement"
+                ><i class="fa-solid fa-bell"></i> Thông báo</a
+              >
             </li>
-            <li class="main-category">
-              <a href="#!" class="category">Xã hội</a>
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">Điểm nóng</a></li>
-                <li><a class="subnav-link" href="#">Pháp luật</a></li>
-                <li><a class="subnav-link" href="#">Thế giới đó đây</a></li>
-              </ul>
+            <li>
+              <a href="#saved-articles"
+                ><i class="fas fa-bookmark"></i> Bài viết đã lưu</a
+              >
             </li>
-            <li class="main-category">
-              <a href="#!" class="category">Sức khỏe</a>
-              <ul class="subnav">
-                <li><a class="subnav-link" href="#">Dinh dưỡng</a></li>
-                <li><a class="subnav-link" href="#">Khỏe đẹp</a></li>
-                <li><a class="subnav-link" href="#">Giới tính</a></li>
-                <li><a class="subnav-link" href="#">Các bệnh</a></li>
-              </ul>
+            <li>
+              <a href="#reading-history"
+                ><i class="fas fa-history"></i> Lịch sử đọc</a
+              >
+            </li>
+            <li>
+              <a href="#comment-history"
+                ><i class="fa-solid fa-comment"></i>Bình luận của bạn</a
+              >
+            </li>
+            <li id="author-register-tab">
+              <a href="#author-register"
+                ><i class="fa-solid fa-pen-nib"></i> Đăng ký viết bài</a
+              >
+            </li>
+            <li id="post-tab">
+              <a href="#author-site"
+                ><i class="fa-solid fa-pen-nib"></i> Đăng bài</a
+              >
+            </li>
+            <li id="posted-tab">
+              <a href="#posted-article"
+                ><i class="fa-solid fa-book"></i> Bài đã đăng</a
+              >
+            </li>
+            <li id="post-statistic-tab">
+              <a href="#post-statistic"
+                ><i class="fa-solid fa-chart-simple"></i> Thống kê bài viết</a
+              >
+            </li>
+            <li>
+              <a href="/login/login_ver2.html" id="logout-btn"
+                ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+              >
             </li>
           </ul>
-        </div>
-        <div class="search">
-          <input type="text" placeholder="Tìm kiếm..." />
-          <a href="/beo-dan/search2.html">
-            <i class="fa-solid fa-magnifying-glass"> </i>
-          </a>
-        </div>
-        <div class="register">
-          <a href="/login/login_ver2.html" class="dn-text"
-            ><i class="fa-solid fa-user"></i>Đăng nhập</a
-          >
-        </div>
-        <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
-      </nav>
-      <!-- body -->
-      <!-- Main Content -->
-      <main class="account-container">
-        <div class="account-sidebar">
-          <div class="user-profile">
-            <div class="profile-avatar">
-              <img
-                src="../the-outsider/assets/img/image-amyrobson.png"
-                alt="User Avatar"
-                id="usr-avatar"
-              />
-            </div>
-            <h3 class="username" id="display-username">vngclinh</h3>
-            <p class="user-email" id="display-email">Tham gia từ 03/2025</p>
-          </div>
-
-          <nav class="account-menu">
-            <ul>
-              <li class="active">
-                <a href="#account-info"
-                  ><i class="fas fa-user"></i> Thông tin cá nhân</a
-                >
-              </li>
-              <li>
-                <a href="#announcement"
-                  ><i class="fa-solid fa-bell"></i> Thông báo</a
-                >
-              </li>
-              <li>
-                <a href="#saved-articles"
-                  ><i class="fas fa-bookmark"></i> Bài viết đã lưu</a
-                >
-              </li>
-              <li>
-                <a href="#reading-history"
-                  ><i class="fas fa-history"></i> Lịch sử đọc</a
-                >
-              </li>
-              <li>
-                <a href="#comment-history"
-                  ><i class="fa-solid fa-comment"></i>Bình luận của bạn</a
-                >
-              </li>
-              <li>
-                <a href="#author-register"
-                  ><i class="fa-solid fa-pen-nib"></i> Đăng ký viết bài</a
-                >
-              </li>
-              <li>
-                <a href="#author-site"
-                  ><i class="fa-solid fa-pen-nib"></i> Đăng bài</a
-                >
-              </li>
-              <li>
-                <a href="#posted-article"
-                  ><i class="fa-solid fa-book"></i> Bài đã đăng</a
-                >
-              </li>
-              <li>
-                <a href="#post-statistic"
-                  ><i class="fa-solid fa-chart-simple"></i> Thống kê bài viết</a
-                >
-              </li>
-              <li>
-                <a href="/login/login_ver2.html" id="logout-btn"
-                  ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
-                >
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="account-content">
-          <!-- Account Information Tab -->
-          <div id="account-info" class="account-tab active">
-            <h2 class="account-title">Thông tin tài khoản</h2>
-            <form class="account-form" id="account-form">
-              <div class="form-group">
-                <label for="avatar-upload">Ảnh đại diện</label>
-                <div class="change-avatar">
-                  <div class="avatar">
-                    <img
-                      src="../the-outsider/assets/img/image-amyrobson.png"
-                      alt="User Avatar"
-                      id="user-avatar"
-                    />
-                  </div>
-                  <div class="avatar-upload">
-                    <input
-                      type="file"
-                      id="avatar-upload"
-                      accept="image/*"
-                      style="display: none"
-                    />
-                    <button id="change-avatar-btn" class="btn-upload">
-                      Thay ảnh mới
-                    </button>
-                  </div>
+        </nav>
+      </div>
+      <div class="account-content">
+        <!-- Account Information Tab -->
+        <div id="account-info" class="account-tab active">
+          <h2 class="account-title">Thông tin tài khoản</h2>
+          <form class="account-form" id="account-form">
+            <div class="form-group">
+              <label></label>Ảnh đại diện</label>
+              <div class="change-avatar">
+                <div class="avatar">
+                  <img alt="User Avatar" id="user-avatar" />
                 </div>
-              </div>
-
-              <div class="form-group">
-                <label for="fullname">Họ và tên</label>
-                <input
-                  type="text"
-                  id="fullname"
-                  name="fullname"
-                  value="Nguyễn Văn A"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value="user@example.com"
-                  readonly
-                />
-              </div>
-              <!-- Mật khẩu -->
-              <div class="form-group password-group">
-                <div class="password-header">
-                  <label for="password">Mật khẩu</label>
-                  <button
-                    type="button"
-                    id="toggle-password-btn"
-                    class="btn-change-password"
-                  >
-                    Đổi mật khẩu
+                <div class="avatar-upload">
+                  <input
+                    type="file"
+                    id="avatar-upload"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                  <button id="change-avatar-btn" type="button" class="btn-upload">
+                    Thay ảnh mới
                   </button>
                 </div>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value="********"
-                  readonly
-                />
-                <!-- Form thay đổi mật khẩu (ẩn ban đầu) -->
-                <div
-                  id="change-password-form"
-                  class="change-password-form"
-                  style="display: none"
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fullname">Tên tài khoản</label>
+              <input type="text" id="fullname" name="fullname" readonly/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" readonly />
+            </div>
+            <!-- Mật khẩu -->
+            <div class="form-group password-group">
+              <div class="password-header">
+                <label for="password">Mật khẩu</label>
+                <button
+                  type="button"
+                  id="toggle-password-btn"
+                  class="btn-change-password"
                 >
-                  <div class="form-group">
-                    <label for="current-password">Nhập mật khẩu hiện tại</label>
-                    <input
-                      type="password"
-                      id="current-password"
-                      name="current-password"
-                    />
-                    <div
-                      id="current-password-error"
-                      class="error-message"
-                      style="display: none"
-                    ></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="new-password">Nhập mật khẩu mới</label>
-                    <input
-                      type="password"
-                      id="new-password"
-                      name="new-password"
-                    />
-                    <div
-                      id="new-password-error"
-                      class="error-message"
-                      style="display: none"
-                    ></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="confirm-password">Nhập lại mật khẩu mới</label>
-                    <input
-                      type="password"
-                      id="confirm-password"
-                      name="confirm-password"
-                    />
-                    <div
-                      id="confirm-password-error"
-                      class="error-message"
-                      style="display: none"
-                    ></div>
-                  </div>
+                  Đổi mật khẩu
+                </button>
+              </div>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value="********"
+                readonly
+              />
+              <!-- Form thay đổi mật khẩu (ẩn ban đầu) -->
+              <div
+                id="change-password-form"
+                class="change-password-form"
+                style="display: none"
+              >
+                <div class="form-group">
+                  <label for="current-password">Nhập mật khẩu hiện tại</label>
+                  <input
+                    type="password"
+                    id="current-password"
+                    name="current-password"
+                  />
                   <div
-                    id="password-change-success"
-                    class="success-message"
+                    id="current-password-error"
+                    class="error-message"
                     style="display: none"
                   ></div>
-                  <button type="button" id="submit-password-change">
-                    Đổi mật khẩu
-                  </button>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <label for="phone">Số điện thoại</label>
-                <input type="tel" id="phone" name="phone" value="0987654321" />
-              </div>
-
-              <div class="form-group">
-                <label for="birthday">Ngày sinh</label>
-                <input
-                  type="date"
-                  id="birthday"
-                  name="birthday"
-                  value="1990-01-01"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="gender">Giới tính</label>
-                <select id="gender" name="gender">
-                  <option value="male">Nam</option>
-                  <option value="female">Nữ</option>
-                  <option value="other">Khác</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="address">Địa chỉ</label>
-                <textarea id="address" name="address" rows="3">
-27 Trần Phú, Hà Đông, Hà Nội</textarea
-                >
-              </div>
-
-              <div class="form-actions">
-                <button type="submit" class="btn-save">Lưu thay đổi</button>
-              </div>
-            </form>
-
-            <div class="account-stats">
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-newspaper"></i>
+                <div class="form-group">
+                  <label for="new-password">Nhập mật khẩu mới</label>
+                  <input
+                    type="password"
+                    id="new-password"
+                    name="new-password"
+                  />
+                  <div
+                    id="new-password-error"
+                    class="error-message"
+                    style="display: none"
+                  ></div>
                 </div>
-                <div class="stat-info">
-                  <h4>Bài viết đã đọc</h4>
-                  <p id="read-count">128</p>
+                <div class="form-group">
+                  <label for="confirm-password">Nhập lại mật khẩu mới</label>
+                  <input
+                    type="password"
+                    id="confirm-password"
+                    name="confirm-password"
+                  />
+                  <div
+                    id="confirm-password-error"
+                    class="error-message"
+                    style="display: none"
+                  ></div>
                 </div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-bookmark"></i>
-                </div>
-                <div class="stat-info">
-                  <h4>Bài viết đã lưu</h4>
-                  <p id="saved-count">24</p>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="stat-info">
-                  <h4>Thành viên từ</h4>
-                  <p id="join-date">12/2023</p>
-                </div>
+                <div
+                  id="password-change-success"
+                  class="success-message"
+                  style="display: none"
+                ></div>
+                <button type="button" id="submit-password-change">
+                  Đổi mật khẩu
+                </button>
               </div>
             </div>
-          </div>
-          <!-- Tab Bài viết đã lưu -->
-          <div id="saved-articles" class="account-tab">
-            <h2 class="account-title">Bài viết đã lưu</h2>
-            <div class="saved-articles-list">
-              <!-- Bài viết 1 -->
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="1">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
+          </form>
+
+          <div class="account-stats">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-newspaper"></i>
               </div>
-              <!-- Bài viết 2 -->
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 2"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="2">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 3 -->
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 3"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="3">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 4"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="4">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <!-- 5 -->
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 5"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="5">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <!-- 6 -->
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 6"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="6">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="7">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="8">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="9">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="10">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="1">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="11">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="12">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="13">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="saved-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <button class="btn-unsave" data-article-id="14">
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                </div>
+              <div class="stat-info">
+                <h4>Bài viết đã đọc</h4>
+                <p id="read-count">128</p>
               </div>
             </div>
 
-            <!-- Phân trang -->
-            <div class="pagination">
-              <button class="prev-btn">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <button class="page-btn active">1</button>
-              <button class="page-btn">2</button>
-              <button class="page-btn">3</button>
-              <span class="page-dots">...</span>
-              <button class="next-btn">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Tab bài viết đã đọc -->
-          <div id="reading-history" class="account-tab">
-            <h2 class="account-title">Bài viết đã đọc</h2>
-            <div class="reading-history-list">
-              <!-- Bài viết 1 -->
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-bookmark"></i>
               </div>
-              <!-- Bài viết 2 -->
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 2"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 3 -->
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 3"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <class class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 4"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </class>
-              <!-- 5 -->
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 5"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 6 -->
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 6"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="read-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
+              <div class="stat-info">
+                <h4>Bài viết đã lưu</h4>
+                <p id="saved-count">24</p>
               </div>
             </div>
-            <!-- Phân trang -->
-            <div class="pagination-read">
-              <button class="prev-btn-read">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <button class="page-btn-read active">1</button>
-              <button class="page-btn-read">2</button>
-              <button class="page-btn-read">3</button>
-              <span class="page-dots-read">...</span>
-              <button class="next-btn-read">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Tab lịch sử bình luận -->
-          <div id="comment-history" class="account-tab">
-            <h2 class="account-title">Bình luận của bạn</h2>
-            <div class="cmt-history-list">
-              <!-- Bài viết 1 -->
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo com
-                    ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg fhdks
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 2 -->
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 2"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo com
-                    ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg fhdks
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 3 -->
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 3"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <class class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 4"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </class>
-              <!-- 5 -->
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 5"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 6 -->
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 6"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    "rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo
-                    com ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg
-                    fhdks "
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="cmt-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="cmt-detail">
-                    rat hay yeu Dang yeu nha nuoc yeu truong yeu cho yeu meo com
-                    ao gao tien html css js uehfvjdksdc uehnv yhueijdcsfg fhdks
-                  </div>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Phân trang -->
-            <div class="pagination-cmt">
-              <button class="prev-btn-cmt">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <button class="page-btn-cmt active">1</button>
-              <button class="page-btn-cmt">2</button>
-              <button class="page-btn-cmt">3</button>
-              <span class="page-dots-cmt">...</span>
-              <button class="next-btn-cmt">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Tab đky viết bài -->
-          <div id="author-register" class="account-tab">
-            <h2 class="account-title">Đăng ký thành tác giả</h2>
-            <form id="authorRegistrationForm">
-              <!-- Họ và tên -->
-              <div class="form-group">
-                <label for="fullname1">Họ và tên đầy đủ</label>
-                <input type="text" id="fullname1" class="form-control" />
-                <div class="error-message" id="fullname1-error"></div>
-              </div>
 
-              <!-- Email -->
-              <div class="form-group">
-                <label for="email1">Email</label>
-                <input type="email" id="email1" class="form-control" />
-                <div class="error-message" id="email1-error"></div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-alt"></i>
               </div>
-
-              <!-- Số điện thoại -->
-              <div class="form-group">
-                <label for="phone1">Số điện thoại</label>
-                <input type="tel" id="phone1" class="form-control" />
-                <div class="error-message" id="phone1-error"></div>
-              </div>
-
-              <!-- Kinh nghiệm viết lách -->
-              <div class="form-group">
-                <label for="experience">Kinh nghiệm viết lách</label>
-                <textarea id="experience" class="form-control"></textarea>
-                <div class="error-message" id="experience-error"></div>
-              </div>
-
-              <!-- Ảnh thẻ nhà báo mặt trước -->
-              <div class="form-group">
-                <label>Ảnh thẻ nhà báo mặt trước</label>
-                <div class="file-upload">
-                  <div class="file-upload-btn">
-                    <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
-                    <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
-                    <input
-                      type="file"
-                      id="frontIdCard"
-                      class="file-upload-input"
-                      accept="image/*"
-                    />
-                  </div>
-                  <div class="file-upload-preview" id="frontPreview"></div>
-                  <div class="error-message" id="frontIdCard-error"></div>
-                </div>
-              </div>
-
-              <!-- Ảnh thẻ nhà báo mặt sau -->
-              <div class="form-group">
-                <label>Ảnh thẻ nhà báo mặt sau</label>
-                <div class="file-upload">
-                  <div class="file-upload-btn">
-                    <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
-                    <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
-                    <input
-                      type="file"
-                      id="backIdCard"
-                      class="file-upload-input"
-                      accept="image/*"
-                    />
-                  </div>
-                  <div class="file-upload-preview" id="backPreview"></div>
-                  <div class="error-message" id="backIdCard-error"></div>
-                </div>
-              </div>
-              <!-- Lĩnh vực quan tâm -->
-              <div class="form-group">
-                <label>Lĩnh vực bạn muốn viết (Chọn tối thiểu 3)</label>
-                <div class="checkbox-group">
-                  <label
-                    ><input type="checkbox" name="topics" value="film" />Phim
-                    ảnh</label
-                  >
-                  <label
-                    ><input type="checkbox" name="topics" value="music" /> Âm
-                    nhạc</label
-                  >
-                  <label
-                    ><input type="checkbox" name="topics" value="social" /> Xã
-                    hội</label
-                  >
-                  <label
-                    ><input type="checkbox" name="topics" value="health" /> Sức
-                    khỏe</label
-                  >
-                  <label
-                    ><input type="checkbox" name="topics" value="life" /> Đời
-                    sống</label
-                  >
-                  <label
-                    ><input type="checkbox" name="topics" value="beauty" />
-                    Beauty & Fashion</label
-                  >
-                </div>
-                <div class="error-message" id="topics-error"></div>
-              </div>
-              <!-- Portfolio -->
-              <div class="form-group">
-                <label for="portfolio"
-                  >Link portfolio/bài viết mẫu (nếu có)</label
-                >
-                <input type="url" id="portfolio" class="form-control" />
-              </div>
-              <!-- Submit -->
-              <div class="form-actions">
-                <button type="submit" class="submit-btn">Gửi đăng ký</button>
-              </div>
-            </form>
-          </div>
-          <!-- Tab đăng bài cho btv -->
-          <div id="author-site" class="account-tab">
-            <h2 class="account-title">Đăng bài viết</h2>
-            <form id="articleForm">
-              <div class="form-group">
-                <label for="article-title">Tiêu đề:</label>
-                <input
-                  type="text"
-                  id="articleTitle"
-                  placeholder="Nhập tiêu đề bài báo"
-                  class="form-control"
-                />
-                <div class="error-message" id="articleTitle-error"></div>
-              </div>
-              <div class="form-group">
-                <label>Chọn chủ đề</label>
-                <select id="film-cate">
-                  <option>-- Chọn danh mục Phim --</option>
-                  <option>Phim Việt</option>
-                  <option>Phim quốc tế</option>
-                  <option>Phim truyền hình</option>
-                  <option>Phim chiếu rạp</option>
-                </select>
-                <select id="music-cate">
-                  <option>-- Chọn danh mục Nhạc --</option>
-                  <option>Nhạc Việt</option>
-                  <option>Nhạc châu Á</option>
-                  <option>Nhạc US-UK</option>
-                </select>
-                <select id="beauty-cate">
-                  <option>-- Chọn danh mục Beauty --</option>
-                  <option>Trending</option>
-                  <option>Thời trang</option>
-                  <option>Làm đẹp</option>
-                  <option>Phong cách</option>
-                </select>
-                <select id="life-cate">
-                  <option>-- Chọn danh mục Đời sống --</option>
-                  <option>Soi sao</option>
-                  <option>Sống xanh</option>
-                </select>
-                <select id="social-cate">
-                  <option>-- Chọn danh mục Xã hội --</option>
-                  <option>Pháp luật</option>
-                  <option>Điểm nóng</option>
-                  <option>Thế giới đó đây</option>
-                </select>
-                <select id="health-cate">
-                  <option>-- Chọn danh mục Sức khỏe --</option>
-                  <option>Dinh dưỡng</option>
-                  <option>Khỏe đẹp</option>
-                  <option>Giới tính</option>
-                  <option>Các bệnh</option>
-                </select>
-                <div class="error-message" id="article-topics-error"></div>
-              </div>
-              <div class="form-group">
-                <label for="tagInput">Hashtag:</label>
-                <input
-                  type="text"
-                  id="tagInput"
-                  placeholder="Nhập #hastag"
-                  class="form-control"
-                />
-                <div class="error-message" id="tagInput-error"></div>
-              </div>
-              <div class="form-group">
-                <label for="articleContent">Nội dung:</label>
-                <textarea
-                  id="articleContent"
-                  placeholder="Nhập nội dung bài báo"
-                  class="form-control"
-                ></textarea>
-                <div class="error-message" id="articleContent-error"></div>
-              </div>
-              <!-- Thêm phần upload ảnh mới -->
-              <div class="form-group">
-                <label>Hình ảnh bài báo (Chọn tối đa 10 ảnh):</label>
-                <div class="image-upload-container">
-                  <div class="upload-btn">
-                    <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
-                    <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
-                    <input
-                      type="file"
-                      id="articleImages"
-                      accept="image/*"
-                      multiple
-                    />
-                  </div>
-                  <div id="imagePreview" class="image-preview-grid"></div>
-                  <div class="error-message" id="articleImages-error"></div>
-                </div>
-              </div>
-              <div class="form-actions">
-                <button type="submit" class="btn-add">Gửi bài báo</button>
-              </div>
-            </form>
-          </div>
-          <!-- Tab thông báo -->
-          <div id="announcement" class="account-tab">
-            <h2 class="account-title">Thông báo của bạn</h2>
-          </div>
-          <!-- Tab bài viết đã đăng cho btv -->
-          <div id="posted-article" class="account-tab">
-            <h2 class="account-title">Bài viết đã đăng</h2>
-            <div class="posted-history-list">
-              <!-- Bài viết 1 -->
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                    <div class="article-action">
-                      <span><i class="fa-solid fa-eye"></i>29</span>
-                      <span><i class="fa-solid fa-share"></i>5</span>
-                      <span><i class="fa-solid fa-comment"></i>11</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 2 -->
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 2"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Bài viết 3 -->
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 3"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <class class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 4"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </class>
-              <!-- 5 -->
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 5"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <!-- 6 -->
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 6"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/anh1.jpg"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
-              </div>
-              <div class="posted-article-item">
-                <div class="article-image">
-                  <img
-                    src="../the-outsider/assets/img/tranthanh.png"
-                    alt="Bài viết 1"
-                  />
-                </div>
-                <div class="article-info">
-                  <h3 class="article-title">
-                    <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                  </h3>
-                  <div class="article-social">
-                    <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  </div>
-                </div>
+              <div class="stat-info">
+                <h4>Thành viên từ</h4>
+                <p id="join-date">12/2023</p>
               </div>
             </div>
-            <!-- Phân trang -->
-            <div class="pagination-posted">
-              <button class="prev-btn-posted">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <button class="page-btn-posted active">1</button>
-              <button class="page-btn-posted">2</button>
-              <button class="page-btn-posted">3</button>
-              <button class="next-btn-posted">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Tab thống kê bài viết cho btv -->
-          <div id="post-statistic" class="account-tab">
-            <h2 class="account-title">Thống kê bài viết</h2>
           </div>
         </div>
-      </main>
-    </div>
-    <!-- footer -->
-    <footer class="footer">
-      <div class="main-content">
-        <div class="row">
-          <!-- column1 -->
-          <div class="column">
-            <img
-              src="/assets/img/gio-outsider.png"
-              alt="The Outsider"
-              class="logo"
-            />
-            <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
-            <div class="social">
-              <a href="">
-                <i class="fa-brands fa-facebook"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-x-twitter"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-linkedin"></i>
-              </a>
-            </div>
+        <!-- Tab Bài viết đã lưu -->
+        <div id="saved-articles" class="account-tab save">
+          <h2 class="account-title">Bài viết đã lưu</h2>
+          <div class="saved-articles-list">
           </div>
-          <!-- column 2 -->
-          <div class="column">
-            <h3 class="title">Về chúng tôi</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Tầm nhìn</a>
-              </li>
-              <li>
-                <a href="#!">Sứ mệnh</a>
-              </li>
-              <li>
-                <a href="#!">Mục tiêu</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 3 -->
-          <div class="column">
-            <h3 class="title">Hợp pháp</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Chính sách bảo mật</a>
-              </li>
-              <li>
-                <a href="#!">Điều khoản sử dụng</a>
-              </li>
-              <li>
-                <a href="#!">Tùy chọn quảng cáo</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 4 -->
-          <div class="column">
-            <h3 class="title">Liên hệ</h3>
-            <ul class="list">
-              <li>
-                <a href="#!"
-                  ><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a
-                >
-              </li>
-              <li>
-                <a href="#!"><strong>Email:</strong> email@gmail.com</a>
-              </li>
-              <li>
-                <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
-              </li>
-            </ul>
+          <!-- Phân trang -->
+          <div class="pagination">
+            <button class="prev-btn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span class="page-dots">...</span>
+            <button class="next-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
         </div>
-        <div class="copyright">
-          <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
+        <!-- Tab bài viết đã đọc -->
+        <div id="reading-history" class="account-tab">
+          <h2 class="account-title">Bài viết đã đọc</h2>
+          <div class="reading-history-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-read">
+            <button class="prev-btn-read">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-read active">1</button>
+            <button class="page-btn-read">2</button>
+            <button class="page-btn-read">3</button>
+            <span class="page-dots-read">...</span>
+            <button class="next-btn-read">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Tab lịch sử bình luận -->
+        <div id="comment-history" class="account-tab">
+          <h2 class="account-title">Bình luận của bạn</h2>
+          <div class="cmt-history-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-cmt">
+            <button class="prev-btn-cmt">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-cmt active">1</button>
+            <button class="page-btn-cmt">2</button>
+            <button class="page-btn-cmt">3</button>
+            <span class="page-dots-cmt">...</span>
+            <button class="next-btn-cmt">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Tab đky viết bài -->
+        <div id="author-register" class="account-tab">
+          <h2 class="account-title">Đăng ký thành tác giả</h2>
+          <form id="authorRegistrationForm" enctype="multipart/form-data">
+            <!-- Họ và tên -->
+            <div class="form-group">
+              <label for="fullname1">Họ và tên đầy đủ</label>
+              <input
+                type="text"
+                id="fullname1"
+                name="fullname"
+                class="form-control"
+              />
+              <div class="error-message" id="fullname1-error"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email1">Email</label>
+              <input
+                type="email"
+                id="email1"
+                name="email"
+                class="form-control"
+              />
+              <div class="error-message" id="email1-error"></div>
+            </div>
+
+            <!-- Số điện thoại -->
+            <div class="form-group">
+              <label for="phone1">Số điện thoại</label>
+              <input type="tel" id="phone1" name="phone" class="form-control" />
+              <div class="error-message" id="phone1-error"></div>
+            </div>
+
+            <!-- Kinh nghiệm viết lách -->
+            <div class="form-group">
+              <label for="experience">Kinh nghiệm viết lách</label>
+              <textarea
+                id="experience"
+                name="experience"
+                class="form-control"
+              ></textarea>
+              <div class="error-message" id="experience-error"></div>
+            </div>
+
+            <!-- Ảnh thẻ nhà báo mặt trước -->
+            <div class="form-group">
+              <label>Ảnh thẻ nhà báo mặt trước</label>
+              <div class="file-upload">
+                <div class="file-upload-btn">
+                  <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                  <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
+                  <input
+                    type="file"
+                    id="frontIdCard"
+                    name="frontIdCard"
+                    class="file-upload-input"
+                    accept="image/*"
+                  />
+                </div>
+                <div class="file-upload-preview" id="frontPreview"></div>
+                <div class="error-message" id="frontIdCard-error"></div>
+              </div>
+              <input type="hidden" id="frontIdCardUrl" name="frontIdCardUrl" />
+            </div>
+
+            <!-- Ảnh thẻ nhà báo mặt sau -->
+            <div class="form-group">
+              <label>Ảnh thẻ nhà báo mặt sau</label>
+              <div class="file-upload">
+                <div class="file-upload-btn">
+                  <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                  <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
+                  <input
+                    type="file"
+                    id="backIdCard"
+                    name="backIdCard"
+                    class="file-upload-input"
+                    accept="image/*"
+                  />
+                </div>
+                <div class="file-upload-preview" id="backPreview"></div>
+                <div class="error-message" id="backIdCard-error"></div>
+              </div>
+              <input type="hidden" id="backIdCardUrl" name="backIdCardUrl" />
+            </div>
+            <!-- Lĩnh vực quan tâm -->
+            <div class="form-group">
+              <label>Lĩnh vực bạn muốn viết (Chọn tối thiểu 3)</label>
+              <div class="checkbox-group">
+              </div>
+              <div class="error-message" id="topics-error"></div>
+            </div>
+            <!-- Portfolio -->
+            <div class="form-group">
+              <label for="portfolio"
+                >Link portfolio/bài viết mẫu (nếu có)</label
+              >
+              <input
+                type="url"
+                id="portfolio"
+                name="portfolio"
+                class="form-control"
+              />
+            </div>
+            <!-- Submit -->
+            <div class="form-actions">
+              <button type="submit" class="submit-btn">Gửi đăng ký</button>
+            </div>
+          </form>
+        </div>
+        <!-- Tab đăng bài cho btv -->
+        <div id="author-site" class="account-tab">
+          <h2 class="account-title">Đăng bài viết</h2>
+          <form id="articleForm">
+            <div class="form-group">
+              <label for="article-title">Tiêu đề:</label>
+              <input
+                type="text"
+                id="articleTitle"
+                name="title"
+                placeholder="Nhập tiêu đề bài báo"
+                class="form-control"
+              />
+              <div class="error-message" id="articleTitle-error"></div>
+            </div>
+            <div class="form-group">
+              <label>Chọn chủ đề</label>
+              <div class="category-selects">
+                <!-- JS sẽ tự sinh các <select> vào đây -->
+              </div>
+              <div class="error-message" id="article-topics-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="tagInput">Hashtag:</label>
+              <input
+                type="text"
+                id="tagInput"
+                name="tags"
+                placeholder="Nhập #hastag"
+                class="form-control"
+              />
+              <div class="error-message" id="tagInput-error"></div>
+            </div>
+            <div class="form-group">
+              <label for="articleContent">Nội dung:</label>
+              <textarea
+                id="articleContent"
+                placeholder="Nhập nội dung bài báo"
+                class="form-control"
+              ></textarea>
+              <div class="error-message" id="articleContent-error"></div>
+            </div>
+            <!-- Thêm phần upload ảnh mới -->
+            <div class="form-group">
+              <label>Hình ảnh bài báo:</label>
+              <div class="image-upload-container">
+                <div class="upload-btn">
+                  <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                  <p><small>Định dạng: JPG, PNG (tối đa 5MB)</small></p>
+                  <input
+                    type="file"
+                    id="articleImages"
+                    name="featuredImage"
+                    accept="image/*"
+                    multiple
+                  />
+                </div>
+                <div id="imagePreview" class="image-preview-grid"></div>
+                <div class="error-message" id="articleImages-error"></div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-add">Gửi bài báo</button>
+            </div>
+          </form>
+        </div>
+        <!-- Tab thông báo -->
+        <div id="announcement" class="account-tab">
+          <h2 class="account-title">Thông báo của bạn</h2>
+          <div class="filter-noti-status">
+            <label for="notiStatusFilter">Lọc theo trạng thái:</label>
+            <select id="notiStatusFilter">
+              <option value="">Tất cả</option>
+              <option value="read">Đã đọc</option>
+              <option value="unread">Chưa đọc</option>
+            </select>
+          </div>  
+          <div class="noti-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-noti">
+            <button class="prev-btn-noti">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-noti active">1</button>
+            <button class="page-btn-noti">2</button>
+            <button class="page-btn-noti">3</button>
+            <button class="next-btn-noti">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Tab bài viết đã đăng cho btv -->
+        <div id="posted-article" class="account-tab">
+          <h2 class="account-title">Bài viết đã đăng</h2>
+          <div class="filter-posted-status">
+            <label for="postStatusFilter">Lọc theo trạng thái:</label>
+            <select id="postStatusFilter">
+              <option value="">Tất cả</option>
+              <option value="published">Đã duyệt</option>
+              <option value="pending">Chưa duyệt</option>
+            </select>
+          </div>          
+          <div class="posted-history-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-posted">
+            <button class="prev-btn-posted">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-posted active">1</button>
+            <button class="page-btn-posted">2</button>
+            <button class="page-btn-posted">3</button>
+            <button class="next-btn-posted">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Tab thống kê bài viết cho btv -->
+        <div id="post-statistic" class="account-tab">
+          <h2 class="account-title">Thống kê bài viết</h2>
         </div>
       </div>
-    </footer>
+    </main>
+    <!-- footer -->
+    <div id="isfooter"></div>
+    <!-- CKEditor Classic -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script src="../components/header/header.js"></script>
     <script src="../assets/js/user-profile.js"></script>
-    <script src="../assets/js/trangbaiviet.js"></script>
   </body>
 </html>

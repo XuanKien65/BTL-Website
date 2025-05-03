@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Quản Trị</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container-wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <div class="sidebar-logo">
+          <img src="Giờ outsider.png" alt="Logo" />
+        </div>
+        <!-- Diệu Linh vừa sửa vừa xóa không biết cmt gì, cứ copy hết cái ul lại là ok -->
+        <ul class="sidebar-nav">
+          <li class="sidebar-item active">
+            <a href="#dashboard" class="sidebar-link">
+              <span class="material-icons">analytics</span>
+              <span>Thống kê</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../pages/index.html" class="sidebar-link">
+              <span class="material-icons">home</span>
+              <span>Xem trang báo</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#noti" class="sidebar-link">
+              <span class="material-icons">notifications</span>
+              <span>Thông báo</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#users" class="sidebar-link has-dropdown" data-bs-toggle="collapse">
+              <span class="material-icons">manage_accounts</span>
+              <span>Quản lý người dùng</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#authorRequests" class="sidebar-link">
+              <span class="material-icons">assignment_ind</span>
+              <span>Đơn đăng ký tác giả</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#posts" class="sidebar-link">
+              <span class="material-icons">library_books</span>
+              <span>Quản lý bài viết</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#comments" class="sidebar-link">
+              <span class="material-icons">comment</span>
+              <span>Quản lý bình luận</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#categories" class="sidebar-link">
+              <span class="material-icons">label</span>
+              <span>Quản lý danh mục</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#activities" class="sidebar-link">
+              <span class="material-icons">history</span>
+              <span>Hoạt động</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#settings" class="sidebar-link">
+              <span class="material-icons">settings</span>
+              <span>Cài đặt</span>
+            </a>
+          </li>
+        </ul>        
+        <div class="sidebar-footer">
+          <a href="#" class="sidebar-link">
+            <span class="material-icons">logout</span>
+            <span>Đăng xuất</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Nav -->
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container-fluid">
+            <div class="greeting-container">
+              <div class="greeting-content">
+                <span class="material-icons greeting-icon">wb_sunny</span>
+                <div class="greeting-text">
+                  <div class="greeting-main">
+                    Chào buổi sáng, <span class="user-name">Admin</span>
+                  </div>
+                  <div class="greeting-message">
+                    Chúc bạn một ngày làm việc hiệu quả!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="user-actions">
+              <img
+                src="https://tinyurl.com/ybzjcrrj"
+                width="30"
+                alt="VietNam"
+              />
+              <span class="material-icons">light_mode</span>
+              <span class="material-icons">notifications</span>
+              <img
+                src="https://img.freepik.com/premium-vector/avatar-icon0002_750950-43.jpg"
+                class="user-avatar"
+                alt="User"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              />
+            </div>
+          </div>
+        </nav>
+
+        <!-- ============================== Các section sẽ là các trang tương ứng với khung trang ===================================================== -->
+        <!-- Dashboard Content -->
+        <section id="dashboard" class="content-section active">
+          <div class="stats-cards">
+            <div class="card-card">
+              <div class="card-icon bg-blue">
+                <i class="fas fa-newspaper"></i>
+              </div>
+              <div class="card-info">
+                <h3>Tổng bài viết</h3>
+                <p>1,245</p>
+              </div>
+            </div>
+            <div class="card-card">
+              <div class="card-icon bg-green">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="card-info">
+                <h3>Người dùng</h3>
+                <p>568</p>
+              </div>
+            </div>
+            <div class="card-card">
+              <div class="card-icon bg-orange">
+                <i class="fas fa-list"></i>
+              </div>
+              <div class="card-info">
+                <h3>Danh mục</h3>
+                <p>24</p>
+              </div>
+            </div>
+            <div class="card-card">
+              <div class="card-icon bg-red">
+                <i class="fas fa-comments"></i>
+              </div>
+              <div class="card-info">
+                <h3>Bình luận</h3>
+                <p>3,456</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="charts">
+            <div class="chart-container">
+              <canvas id="postsChart"></canvas>
+            </div>
+            <div class="chart-container">
+              <canvas id="usersChart"></canvas>
+            </div>
+          </div>
+
+          <div class="recent-activities">
+            <h2>Hoạt động gần đây</h2>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon">
+                  <i class="fas fa-plus-circle text-green"></i>
+                </div>
+                <div class="activity-content">
+                  <p>
+                    <strong>Admin</strong> đã thêm bài viết mới "Hướng dẫn sử
+                    dụng trang quản trị"
+                  </p>
+                  <small>10 phút trước</small>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon">
+                  <i class="fas fa-user-edit text-blue"></i>
+                </div>
+                <div class="activity-content">
+                  <p>
+                    <strong>Admin</strong> đã cập nhật thông tin người dùng
+                    "Nguyễn Văn A"
+                  </p>
+                  <small>25 phút trước</small>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon">
+                  <i class="fas fa-check-circle text-orange"></i>
+                </div>
+                <div class="activity-content">
+                  <p><strong>Admin</strong> đã duyệt bình luận từ "user123"</p>
+                  <small>1 giờ trước</small>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon">
+                  <i class="fas fa-trash-alt text-red"></i>
+                </div>
+                <div class="activity-content">
+                  <p><strong>Admin</strong> đã xóa bài viết "Tin tức cũ"</p>
+                  <small>2 giờ trước</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Categories Management Content -->
+        <section id="categories" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý danh mục</h2>
+            <button class="btn btn-primary" id="addCategoryBtn">
+              <i class="fas fa-plus"></i> Thêm danh mục
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tên danh mục</th>
+                  <th>Slug</th>
+                  <th>Số bài viết</th>
+                  <th>Danh mục cha</th>
+                  <th width="120px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="paginationControls"></div>
+        </section>
+
+        <!-- Users Management Content -->
+        <section id="users" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý người dùng</h2>
+            <button class="btn btn-primary" id="addUserBtn">
+              <i class="fas fa-plus"></i> Thêm người dùng
+            </button>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="userFilter">Lọc theo:</label>
+              <select id="userFilter">
+                <option value="all">Tất cả</option>
+                <option value="admin">Quản trị viên</option>
+                <option value="author">Tác giả</option>
+                <option value="user">Người dùng</option>
+                <option value="banned">Đã khoá</option>
+              </select>
+            </div>
+            <div class="search-group">
+              <input type="text" placeholder="Tìm người dùng..." />
+              <button class="btn btn-search">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tên người dùng</th>
+                  <th>Email</th>
+                  <th>Vai trò</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Trạng thái</th>
+                  <th width="150px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div class="pagination"></div>
+        </section>
+
+        <!-- Comments Management Content --> <!-- Cái comment section có sẵn này -->
+        <section id="comments" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý bình luận</h2>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="commentFilter">Lọc theo:</label>
+              <select id="commentFilter">
+                <option value="all">Tất cả</option>
+                <option value="approved">Đã duyệt</option>
+                <option value="pending">Chờ duyệt</option>
+                <!-- DL bỏ option là spam =======================================================================================-->
+              </select>
+            </div>
+            <div class="search-group">
+              <input type="text" placeholder="Tìm bình luận..." />
+              <button class="btn btn-search">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Nội dung</th>
+                  <th>Người bình luận</th>
+                  <th>Bài viết</th>
+                  <th>Ngày bình luận</th>
+                  <th>Trạng thái</th>
+                  <th width="120px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td class="comment-content">
+                    Bài viết rất hữu ích, cảm ơn tác giả!
+                  </td>
+                  <td>
+                    <div class="user-info">
+                      <img src="https://tinyurl.com/ms4ebrkc" alt="User" />
+                      <span>User123</span>
+                    </div>
+                  </td>
+                  <td>Hướng dẫn sử dụng trang quản trị</td>
+                  <td>10/05/2023</td>
+                  <td><span class="status-badge approved">Đã duyệt</span></td>
+                  <td class="comment-actions">
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td class="comment-content">
+                    Tôi không đồng ý với quan điểm trong bài viết này.
+                  </td>
+                  <td>
+                    <div class="user-info">
+                      <img src="https://tinyurl.com/ms4ebrkc" alt="User" />
+                      <span>User456</span>
+                    </div>
+                  </td>
+                  <td>Tin tức mới nhất tháng 5</td>
+                  <td>09/05/2023</td>
+                  <td><span class="status-badge pending">Chờ duyệt</span></td>
+                  <td class="comment-actions">
+                    <button class="btn btn-approve">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td class="comment-content">Spam comment for promotion!</td>
+                  <td>
+                    <div class="user-info">
+                      <img src="https://tinyurl.com/ms4ebrkc" alt="User" />
+                      <span>Spammer</span>
+                    </div>
+                  </td>
+                  <td>Bài viết mẫu</td>
+                  <td>08/05/2023</td>
+                  <td><span class="status-badge spam">Spam</span></td>
+                  <td class="comment-actions">
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination">
+            <button class="btn btn-prev" disabled>
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="btn btn-page active">1</button>
+            <button class="btn btn-page">2</button>
+            <button class="btn btn-page">3</button>
+            <button class="btn btn-next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Pending Authors Content -->
+        <section id="authorRequests" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý đơn đăng ký tác giả</h2>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Điện thoại</th>
+                  <th>Kinh nghiệm</th>
+                  <th>Chuyên mục</th>
+                  <th>Ngày đăng ký</th>
+                  <th width="150px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="authorRequestsBody">
+                <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Cài đặt-->
+        <section id="settings" class="content-section">
+          <div class="section-header">
+            <h2>Cài Đặt Hệ Thống</h2>
+          </div>
+
+          <div class="settings-container">
+            <div class="settings-tabs">
+              <button class="settings-tab active" data-tab="general">
+                Cài Đặt Chung
+              </button>
+              <button class="settings-tab" data-tab="appearance">
+                Giao Diện
+              </button>
+              <button class="settings-tab" data-tab="notifications">
+                Thông Báo
+              </button>
+              <button class="settings-tab" data-tab="security">Bảo Mật</button>
+            </div>
+
+            <div class="settings-content">
+              <!-- Tab Cài Đặt Chung -->
+              <div id="general" class="settings-tab-content active">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label for="site-name">Tên Website</label>
+                    <input type="text" id="site-name" value="Giờ Outsider" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="site-description">Mô Tả Website</label>
+                    <textarea id="site-description">
+Trang tin tức giải trí hàng đầu</textarea
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="timezone">Múi Giờ</label>
+                    <select id="timezone">
+                      <option value="+7">(GMT+7) Giờ Việt Nam</option>
+                      <option value="+0">(GMT+0) Giờ GMT</option>
+                      <option value="-5">(GMT-5) Giờ EST</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="maintenance-mode">
+                      <input type="checkbox" id="maintenance-mode" />
+                      Chế Độ Bảo Trì
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Lưu Cài Đặt
+                  </button>
+                </form>
+              </div>
+
+              <!-- Tab Giao Diện -->
+              <div id="appearance" class="settings-tab-content">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label>Chủ Đề Màu Sắc</label>
+                    <div class="theme-options">
+                      <div class="theme-option" data-theme="red">
+                        <div class="theme-preview red-theme"></div>
+                        <span>Đỏ</span>
+                      </div>
+                      <div class="theme-option" data-theme="blue">
+                        <div class="theme-preview blue-theme"></div>
+                        <span>Xanh</span>
+                      </div>
+                      <div class="theme-option" data-theme="green">
+                        <div class="theme-preview green-theme"></div>
+                        <span>Xanh Lá</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="dark-mode">
+                      <input type="checkbox" id="dark-mode" />
+                      Chế Độ Tối
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="font-size">Cỡ Chữ</label>
+                    <select id="font-size">
+                      <option value="small">Nhỏ</option>
+                      <option value="medium" selected>Vừa</option>
+                      <option value="large">Lớn</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Lưu Thay Đổi
+                  </button>
+                </form>
+              </div>
+
+              <!-- Tab Thông Báo -->
+              <div id="notifications" class="settings-tab-content">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label for="email-notifications">
+                      <input type="checkbox" id="email-notifications" checked />
+                      Thông Báo Qua Email
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="browser-notifications">
+                      <input type="checkbox" id="browser-notifications" />
+                      Thông Báo Trình Duyệt
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="notification-sound">
+                      <input type="checkbox" id="notification-sound" checked />
+                      Âm Thanh Thông Báo
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Tần Suất Thông Báo</label>
+                    <div class="radio-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="notification-frequency"
+                          value="immediate"
+                          checked
+                        />
+                        Ngay Lập Tức
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="notification-frequency"
+                          value="daily"
+                        />
+                        Hàng Ngày
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="notification-frequency"
+                          value="weekly"
+                        />
+                        Hàng Tuần
+                      </label>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Lưu Cài Đặt
+                  </button>
+                </form>
+              </div>
+
+              <!-- Tab Bảo Mật -->
+              <div id="security" class="settings-tab-content">
+                <form class="settings-form">
+                  <div class="form-group">
+                    <label for="two-factor-auth">
+                      <input type="checkbox" id="two-factor-auth" />
+                      Xác Thực 2 Yếu Tố
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password-change">Thay Đổi Mật Khẩu</label>
+                    <input
+                      type="password"
+                      id="current-password"
+                      placeholder="Mật khẩu hiện tại"
+                    />
+                    <input
+                      type="password"
+                      id="new-password"
+                      placeholder="Mật khẩu mới"
+                    />
+                    <input
+                      type="password"
+                      id="confirm-password"
+                      placeholder="Xác nhận mật khẩu"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="login-history">Lịch Sử Đăng Nhập</label>
+                    <div class="login-history">
+                      <div class="login-item">
+                        <span>Đăng nhập từ Chrome, Windows</span>
+                        <small>10 phút trước - IP: 192.168.1.1</small>
+                      </div>
+                      <div class="login-item">
+                        <span>Đăng nhập từ Safari, MacOS</span>
+                        <small>2 ngày trước - IP: 192.168.1.2</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Cập Nhật Bảo Mật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hoạt động -->
+        <section id="activities" class="content-section">
+          <div class="section-header">
+            <h2>Hoạt Động Gần Đây</h2>
+            <div class="activity-filters">
+              <select id="activity-type">
+                <option value="all">Tất Cả Hoạt Động</option>
+                <option value="posts">Bài Viết</option>
+                <option value="users">Người Dùng</option>
+                <option value="comments">Bình Luận</option>
+              </select>
+              <select id="activity-time">
+                <option value="today">Hôm Nay</option>
+                <option value="week">Tuần Này</option>
+                <option value="month">Tháng Này</option>
+                <option value="all">Tất Cả</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon post-activity">
+                <span class="material-icons">edit</span>
+              </div>
+              <div class="activity-content">
+                <p>
+                  <strong>Admin</strong> đã tạo bài viết mới
+                  <a href="#">"Công nghệ AI năm 2023"</a>
+                </p>
+                <div class="activity-meta">
+                  <span class="activity-time">10 phút trước</span>
+                  <span class="activity-category">Bài viết</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon user-activity">
+                <span class="material-icons">person_add</span>
+              </div>
+              <div class="activity-content">
+                <p>
+                  <strong>Người dùng</strong> "Nguyễn Văn A" đã đăng ký tài
+                  khoản mới
+                </p>
+                <div class="activity-meta">
+                  <span class="activity-time">1 giờ trước</span>
+                  <span class="activity-category">Người dùng</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon comment-activity">
+                <span class="material-icons">comment</span>
+              </div>
+              <div class="activity-content">
+                <p><strong>Bình luận</strong> từ "user123" đã được duyệt</p>
+                <div class="activity-meta">
+                  <span class="activity-time">3 giờ trước</span>
+                  <span class="activity-category">Bình luận</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon system-activity">
+                <span class="material-icons">update</span>
+              </div>
+              <div class="activity-content">
+                <p><strong>Hệ thống</strong> đã cập nhật phiên bản 2.1.0</p>
+                <div class="activity-meta">
+                  <span class="activity-time">5 giờ trước</span>
+                  <span class="activity-category">Hệ thống</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon login-activity">
+                <span class="material-icons">login</span>
+              </div>
+              <div class="activity-content">
+                <p>
+                  <strong>Đăng nhập</strong> từ thiết bị mới: Chrome trên
+                  Windows
+                </p>
+                <div class="activity-meta">
+                  <span class="activity-time">1 ngày trước</span>
+                  <span class="activity-category">Bảo mật</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="activity-pagination">
+            <button class="btn btn-outline">Xem Thêm</button>
+          </div>
+        </section>
+
+        <!-- Diệu Linh thêm ======================================================================== -->
+        <!-- Section Thông báo -->
+        <section id="noti" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý thông báo</h2>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="notiFilter">Lọc theo:</label>
+              <select id="notiFilter">
+                <option value="all">Tất cả</option>
+                <option value="read">Đã đọc</option>
+                <option value="unread">Chưa đọc</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tiêu đề</th>
+                  <th>Nội dung</th>
+                  <th>Ngày nhận</th>
+                  <th>Trạng thái</th>
+                  <th width="120px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dummy data -->
+                <tr>
+                  <td>1</td>
+                  <td>Thông báo hệ thống</td>
+                  <td>Hệ thống sẽ bảo trì vào 02:00 - 04:00</td>
+                  <td>10/05/2024</td>
+                  <td><span class="status-badge unread">Chưa đọc</span></td>
+                  <td>
+                    <button class="btn btn-mark-read">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Bài viết đã được duyệt</td>
+                  <td>Bài viết "Hướng dẫn sử dụng" đã được phê duyệt</td>
+                  <td>09/05/2024</td>
+                  <td><span class="status-badge read">Đã đọc</span></td>
+                  <td>
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Diệu Linh sửa lại ===================================================================== -->
+        <!-- Section Quản lý bài viết  -->
+        <section id="posts" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý bài viết</h2>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="postStatusFilter">Lọc theo trạng thái:</label>
+              <select id="postStatusFilter">
+                <option value="all">Tất cả</option>
+                <option value="published">Đã duyệt</option>
+                <option value="pending">Chờ duyệt</option>
+                <option value="draft">Bản nháp</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tiêu đề</th>
+                  <th>Danh mục</th>
+                  <th>Ngày đăng</th>
+                  <th>Lượt xem</th>
+                  <th>Trạng thái</th>
+                  <th width="150px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dummy data -->
+                <tr>
+                  <td>1</td>
+                  <td>Hướng dẫn sử dụng cơ bản</td>
+                  <td>Hướng dẫn</td>
+                  <td>10/05/2024</td>
+                  <td>1,234</td>
+                  <td><span class="status-badge published">Đã duyệt</span></td>
+                  <td>
+                    <button class="btn btn-edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-view">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Bài viết mẫu đang chờ duyệt</td>
+                  <td>Khác</td>
+                  <td>09/05/2024</td>
+                  <td>0</td>
+                  <td><span class="status-badge pending">Chờ duyệt</span></td>
+                  <td>
+                    <button class="btn btn-edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modals: là những cái ô mà khi bấm vào mấy nút hành động sẽ hiện ra =========================================================-->
+    <!-- Add Post Modal --> <!-- Vũ Linh xóa cái này đi nhé vì cái này lúc trước là cái ô chi tiết thêm bài viết, m lướt xuống dưới sẽ có cái modal trống -->
+
+    <!-- Add Category Modal -->
+    <div class="modal" id="addCategoryModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Thêm danh mục mới</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="categoryForm">
+            <div class="form-group">
+              <label for="categoryName">Tên danh mục</label>
+              <input type="text" id="categoryName" required />
+            </div>
+            <div class="form-group">
+              <label for="categorySlug">Slug</label>
+              <input type="text" id="categorySlug" required />
+            </div>
+            <div class="form-group">
+              <label for="categoryParent">Danh mục cha</label>
+              <select id="categoryParent">
+                <option value="">Không có</option>
+                <!-- Các danh mục cha sẽ được thêm bằng JavaScript -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="categoryDescription">Mô tả</label>
+              <textarea id="categoryDescription" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary modal-close">Huỷ</button>
+          <button class="btn btn-primary" id="submitCategory">
+            Lưu danh mục
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal" id="addUserModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Thêm quản trị viên mới</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="userForm">
+            <div class="form-group">
+              <label for="userName">Tên người dùng</label>
+              <input type="text" id="userName" name="userName" required />
+            </div>
+            <div class="form-group">
+              <label for="userEmail">Email</label>
+              <input type="email" id="userEmail" name="userEmail" required />
+            </div>
+            <div class="form-group" id="passwordField">
+              <label for="userPassword">Mật khẩu</label>
+              <input
+                type="password"
+                id="userPassword"
+                name="userPassword"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userRole">Vai trò</label>
+              <select id="userRole" name="userRole" required>
+                <option value="admin">Quản trị viên</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary modal-close">Huỷ</button>
+          <button class="btn btn-primary" id="submitUser">
+            Lưu người dùng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal author regis -->
+    <div class="modal" id="authorRequestModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Đơn đăng ký tác giả</h3>
+          <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Họ tên:</strong> <span id="authorFullname"></span></p>
+          <p><strong>Email:</strong> <span id="authorEmail"></span></p>
+          <p><strong>Điện thoại:</strong> <span id="authorPhone"></span></p>
+          <p>
+            <strong>Kinh nghiệm:</strong> <span id="authorExperience"></span>
+          </p>
+          <p><strong>Portfolio:</strong> <span id="authorPortfolio"></span></p>
+          <p>
+            <strong>Chuyên mục đăng ký:</strong> <span id="authorTopics"></span>
+          </p>
+          <p>
+            <strong>Mặt trước CMND:</strong><br /><img
+              id="authorFrontId"
+              style="max-width: 100%; height: auto"
+            />
+          </p>
+          <p>
+            <strong>Mặt sau CMND:</strong><br /><img
+              id="authorBackId"
+              style="max-width: 100%; height: auto"
+            />
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button id="approveAuthorBtn" class="btn btn-success">
+            Duyệt đơn
+          </button>
+          <button id="rejectAuthorBtn" class="btn btn-danger">Từ chối</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+      <div class="modal-content small">
+        <div class="modal-header">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i> Xác nhận hành động
+          </h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="confirm-icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <div class="confirm-message">
+            <p id="confirmMainMessage">
+              Bạn có chắc chắn muốn thực hiện hành động này?
+            </p>
+            <p id="confirmWarningMessage" class="warning-message"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline modal-close">Huỷ</button>
+          <button
+            class="btn btn-danger"
+            id="confirmAction"
+            onclick="confirmAction()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Xem bài viết --> <!-- Đây là cái tab "click vào xem sẽ hiển thị ra 1 tab như đơn đky ý, nma m cứ để trống đã" của bài viết-->
+    <div class="modal" id="viewPostModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Chi tiết bài viết</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Nội dung chi tiết sẽ được thêm bằng JS -->
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/categories.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

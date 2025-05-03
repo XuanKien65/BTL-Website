@@ -11,9 +11,10 @@
       href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
     />
     <!-- style -->
-    <link rel="stylesheet" href="../assets/css/trangbaiviet.css" />
+    <link rel="stylesheet" href="../components/footer/footer.css" />
+    <link rel="stylesheet" href="../components/header/header.css" />
     <link rel="stylesheet" href="../assets/css/trangchu.css" />
-
+    <link rel="stylesheet" href="../assets/css/trangbaiviet.css" />
     <!-- embedded font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,101 +38,16 @@
 
   <body>
     <!-- header -->
-    <header class="header fixed">
-      <div class="header banner">
-        <img
-          src="../assets/img/gio-outsider-red.png"
-          alt="the outsider"
-          class="banner-logo"
-        />
-      </div>
-    </header>
-    <nav class="nav">
-      <div id="backtohome">
-        <a href="../index.html">
-          <img class="logo" src="../assets/img/gio-outsider.png" alt="" />
-        </a>
-      </div>
-      <a href="../index.html" class="home">
-        <i class="fa-solid fa-house"></i>
-      </a>
-      <div class="contain-navbar">
-        <ul class="navbar">
-          <li class="main-category">
-            <a href="#!" class="category">Phim ảnh</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Phim chiếu rạp</a></li>
-              <li><a class="subnav-link" href="#">Phim Việt Nam</a></li>
-              <li><a class="subnav-link" href="#">Phim truyền hình</a></li>
-              <li><a class="subnav-link" href="#">Phim quốc tế</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Âm nhạc</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">US-UK</a></li>
-              <li><a class="subnav-link" href="#">Châu Á</a></li>
-              <li><a class="subnav-link" href="#">Việt Nam</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="./topic.html" class="category">Beauty & Fashion</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Trending</a></li>
-              <li><a class="subnav-link" href="#">Thời trang</a></li>
-              <li><a class="subnav-link" href="#">Làm đẹp</a></li>
-              <li><a class="subnav-link" href="#">Phong cách</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Đời sống</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Soi sao</a></li>
-              <li><a class="subnav-link" href="#">Sống xanh</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Xã hội</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Điểm nóng</a></li>
-              <li><a class="subnav-link" href="#">Pháp luật</a></li>
-              <li><a class="subnav-link" href="#">Thế giới đó đây</a></li>
-            </ul>
-          </li>
-          <li class="main-category">
-            <a href="#!" class="category">Sức khỏe</a>
-            <ul class="subnav">
-              <li><a class="subnav-link" href="#">Dinh dưỡng</a></li>
-              <li><a class="subnav-link" href="#">Khỏe đẹp</a></li>
-              <li><a class="subnav-link" href="#">Giới tính</a></li>
-              <li><a class="subnav-link" href="#">Các bệnh</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="search">
-        <input type="text" placeholder="Tìm kiếm..." />
-        <a href="./search.html">
-          <i class="fa-solid fa-magnifying-glass"> </i>
-        </a>
-      </div>
-      <div class="register">
-        <a href="./login.html" class="dn-text"
-          ><i class="fa-solid fa-user"></i>Đăng nhập</a
-        >
-      </div>
-      <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
-    </nav>
-    <!-- body -->
+    <div id="headernav"></div>
     <!-- bài báo -->
     <div class="body">
       <div class="article">
         <div class="content">
           <div class="header-content">
-            <div class="tag">
+            <!-- <div class="tag">
               <a href="#!"><strong>Thời sự</strong></a>
               <br />
-            </div>
+            </div> -->
             <div class="main-content">
               <div class="news-title">
                 <h1>
@@ -164,12 +80,8 @@
                   cùng nhân viên trong quán có mối quan hệ bất chính mà đã kéo
                   dài 5 tháng qua.
                 </p>
-                <figure>
-                  <img
-                    src="../assets/img/anh1.jpg"
-                    alt="Ảnh cắt từ clip"
-                    class="news pic1"
-                  />
+                <figure class="image">
+                  <img src="../assets/img/anh1.jpg" alt="Ảnh cắt từ clip" />
                   <figcaption>Ảnh cắt từ clip</figcaption>
                 </figure>
                 <br />
@@ -202,11 +114,40 @@
                 </p>
               </div>
             </div>
+
+            <div class="hashtag-container">
+              <span class="hashtag">#đời sống</span>
+              <span class="hashtag">#30/4</span>
+              <span class="hashtag">#Hòa bình đẹp lắm</span>
+              <span class="hashtag">#Đào Quang Hà</span>
+              <span class="hashtag">#đạp xe</span>
+              <span class="hashtag">#khối trường khối chờ loa</span>
+              <span class="hashtag">#Diễu binh diễu hành</span>
+            </div>
+            <div class="social-share">
+              <span>Chia sẻ: </span>
+              <a
+                href="#"
+                id="share-facebook"
+                class="share-btn facebook"
+                data-social="facebook"
+              >
+                <img src="../assets/img/fb.png" alt="facebook" />
+              </a>
+              <a
+                id="share-zalo"
+                href="#"
+                class="share-btn zalo"
+                data-social="zalo"
+              >
+                <img src="../assets/img/zalo.png" alt="Zalo" />
+              </a>
+            </div>
           </div>
         </div>
-        <!-- tin xem nhiều-->
+        <!-- tin mới nhất-->
         <div class="most-view">
-          <h3 class="header">Xem nhiều</h3>
+          <h3 class="header">Tin mới nhất</h3>
           <div class="news">
             <div class="news n1">
               <a href="#!">
@@ -271,16 +212,13 @@
         <h3 class="header">Bình luận</h3>
         <template class="reply-input-template">
           <div class="reply-input container">
-            <img
-              src="../assets/img/image-amyrobson.png"
-              alt=""
-              class="usr-img"
-            />
+            <img src="../assets/img/user-default.jpg" alt="" class="usr-img" />
             <textarea
               class="cmnt-input"
               placeholder="Add a comment..."
             ></textarea>
             <button class="bu-primary">Gửi</button>
+            <div id="comment-error" class="error-message"></div>
           </div>
         </template>
         <template class="comment-template">
@@ -295,10 +233,6 @@
                 <a class="delete"
                   ><i class="fa-solid fa-trash control-icon"></i> Xóa</a
                 >
-                <a class="edit"
-                  ><i class="fa-solid fa-pen-to-square control-icon"></i>Chỉnh
-                  sửa</a
-                >
                 <a class="reply">
                   <i class="fa-solid fa-reply control-icon"></i>
                   Trả lời</a
@@ -306,7 +240,7 @@
               </div>
               <div class="c-user">
                 <img
-                  src="../assets/img/image-amyrobson.png"
+                  src="../assets/img/user-default.jpg"
                   alt=""
                   class="usr-img"
                 />
@@ -329,7 +263,7 @@
             <!--commentS wrapper-->
             <div class="reply-input container">
               <img
-                src="../assets/img/image-amyrobson.png"
+                src="../assets/img/user-default.jpg"
                 alt=""
                 class="usr-img"
               />
@@ -339,6 +273,7 @@
               ></textarea>
               <button class="bu-primary">Gửi</button>
             </div>
+            <div id="comment-error" class="error-message"></div>
             <!--reply input-->
           </div>
           <!--comment sectio-->
@@ -357,365 +292,37 @@
         </main>
       </div>
       <!-- Tin theo chủ đề -->
-      <!-- container 1 -->
       <div class="container">
         <div class="grid">
           <div class="grid_row app_content">
             <div class="grid_column12">
               <div class="news-header">
-                <h2 class="news-heading">Phim ảnh</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-chieu-rap">Phim chiếu rạp</a>
-                  <a href="#" data-category="phim-viet">Phim Việt Nam</a>
-                  <a href="#" data-category="phim-truyen-hinh"
+                <h2
+                  class="news-heading tab-link"
+                  data-category-id="1"
+                  data-is-parent="true"
+                  style="cursor: pointer"
+                >
+                  Phim ảnh
+                </h2>
+                <div class="news-subject" data-parent-id="1">
+                  <a href="#" class="tab-link" data-category="phim-chieu-rap"
+                    >Phim chiếu rạp</a
+                  >
+                  <a href="#" class="tab-link" data-category="phim-viet"
+                    >Phim Việt Nam</a
+                  >
+                  <a href="#" class="tab-link" data-category="phim-truyen-hinh"
                     >Phim truyền hình</a
                   >
-                  <a href="#" data-category="phim-quoc-te">Phim quốc tế</a>
+                  <a href="#" class="tab-link" data-category="phim-quoc-te"
+                    >Phim quốc tế</a
+                  >
                 </div>
               </div>
 
               <div class="news-home">
-                <div class="grid__row-1">
-                  <!-- 1 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 2 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 3 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 4 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 5 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 6 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 7 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 8 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 9 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-
-                  <!-- 10 -->
-                  <a
-                    class="grid__column-2"
-                    href="#"
-                    data-category="phim-chieu-rap"
-                  >
-                    <div class="news-home-item">
-                      <div
-                        class="news-home-item--img"
-                        style="
-                          background-image: url(https://tinyurl.com/ms6p2r93);
-                        "
-                      ></div>
-                      <div class="news-home-item--content">
-                        <h4 class="news-home-item--name">
-                          Tháng Tư: Người lao động có 2 kỳ nghỉ lễ dài ngày, rơi
-                          vào thứ mấy?
-                        </h4>
-                        <p class="news-home-item--excerpt">
-                          Trong tháng 4 tới đây, dịp Giỗ Tổ Hùng Vương và dịp
-                          30/4-1/5 có ngày lễ rơi vào ngày làm việc bình thường
-                          nên công chức, người lao động được nghỉ liền kề, hoán
-                          đổi để có kỳ nghỉ dài 3-5 ngày.
-                        </p>
-                        <div class="news-home-item--meta">
-                          <span class="news-home-item--date"> 15/03/2023</span>
-                          <span class="news-home-item--read-time"
-                            >5 phút đọc</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+                <div class="grid__row-1" id="postGrid"></div>
               </div>
             </div>
           </div>
@@ -1241,85 +848,8 @@
       </div>
     </div>
     <!-- footer -->
-    <footer class="footer">
-      <div class="main-content">
-        <div class="row">
-          <!-- column1 -->
-          <div class="column">
-            <img
-              src="../assets/img/gio-outsider.png"
-              alt="The Outsider"
-              class="logo"
-            />
-            <p class="desc">Tin tức thế giới, nhanh hơn một nhịp</p>
-            <div class="social">
-              <a href="">
-                <i class="fa-brands fa-facebook"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-x-twitter"></i>
-              </a>
-              <a href="">
-                <i class="fa-brands fa-linkedin"></i>
-              </a>
-            </div>
-          </div>
-          <!-- column 2 -->
-          <div class="column">
-            <h3 class="title">Về chúng tôi</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Tầm nhìn</a>
-              </li>
-              <li>
-                <a href="#!">Sứ mệnh</a>
-              </li>
-              <li>
-                <a href="#!">Mục tiêu</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 3 -->
-          <div class="column">
-            <h3 class="title">Hợp pháp</h3>
-            <ul class="list">
-              <li>
-                <a href="#!">Chính sách bảo mật</a>
-              </li>
-              <li>
-                <a href="#!">Điều khoản sử dụng</a>
-              </li>
-              <li>
-                <a href="#!">Tùy chọn quảng cáo</a>
-              </li>
-            </ul>
-          </div>
-          <!-- column 4 -->
-          <div class="column">
-            <h3 class="title">Liên hệ</h3>
-            <ul class="list">
-              <li>
-                <a href="#!"
-                  ><strong>Location:</strong> 27 Trần Phú, Hà Đông, Hà Nội</a
-                >
-              </li>
-              <li>
-                <a href="#!"><strong>Email:</strong> email@gmail.com</a>
-              </li>
-              <li>
-                <a href="#!"><strong>Phone:</strong> + 000 1234 567 890</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="copyright">
-          <p>Copyright ©2025 toàn bộ bản quyền thuộc nhóm 5</p>
-        </div>
-      </div>
-    </footer>
+    <div id="isfooter"></div>
+    <script src="../components/header/header.js"></script>
     <script src="../assets/js/trangbaiviet.js"></script>
     <script src="../assets/js/trangchu.js"></script>
   </body>

@@ -1,154 +1,8 @@
-// Dữ liệu mẫu
-const sampleArticles = [
-  {
-    id: 1,
-    title:
-      "10 xu hướng thiết kế web năm 2023 10 xu hướng thiết kế web năm 2023",
-    excerpt:
-      "Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.Khám phá các xu hướng thiết kế web hàng đầu sẽ thống trị trong năm 2023 và cách áp dụng chúng vào dự án của bạn.",
-    category: "Beauty & Fashion",
-    date: "2023-05-15",
-    views: 1245,
-    image:
-      "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-  },
-  {
-    id: 2,
-    title: "Hướng dẫn React JS cho người mới bắt đầu",
-    excerpt:
-      "Bài viết này sẽ hướng dẫn bạn từng bước cách xây dựng ứng dụng đầu tiên với React JS.",
-    category: "Phim ảnh",
-    date: "2023-04-22",
-    views: 2873,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 3,
-    title: "Chiến lược tiếp thị nội dung hiệu quả",
-    excerpt:
-      "Tìm hiểu cách xây dựng chiến lược tiếp thị nội dung giúp tăng trưởng doanh nghiệp của bạn.",
-    category: "Âm nhạc",
-    date: "2023-06-10",
-    views: 892,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 4,
-    title: "Cách tối ưu hóa SEO cho website",
-    excerpt:
-      "Các kỹ thuật SEO quan trọng giúp cải thiện thứ hạng trang web của bạn trên công cụ tìm kiếm.",
-    category: "Sức khỏe",
-    date: "2023-03-18",
-    views: 3567,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 5,
-    title: "Lối sống tối giản: Bắt đầu từ đâu?",
-    excerpt:
-      "Hướng dẫn thực tế để áp dụng lối sống tối giản vào cuộc sống hàng ngày của bạn.",
-    category: "Đời sống",
-    date: "2023-05-30",
-    views: 1532,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 6,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 7,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 8,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 9,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 10,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 11,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 12,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 13,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-  {
-    id: 14,
-    title: "Công nghệ AI và tương lai của ngành công nghiệp",
-    excerpt:
-      "Phân tích tác động của trí tuệ nhân tạo đến các ngành công nghiệp trong tương lai gần.",
-    category: "Xã hội",
-    date: "2023-06-05",
-    views: 2104,
-    image: "https://sieupet.com/sites/default/files/phoi_giong_aln2.png",
-  },
-];
-
 // Biến toàn cục
 let currentView = "list";
+let totalPages = 1;
 let currentPage = 1;
-const articlesPerPage = 12;
-let filteredArticles = [...sampleArticles];
+const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
@@ -161,10 +15,50 @@ const resultsCount = document.getElementById("results-count");
 const pagination = document.getElementById("pagination");
 
 // Hàm khởi tạo
-function init() {
-  renderArticles();
+async function init() {
+  try {
+    const res = await fetch("/api/posts");
+    const data = await res.json();
+
+    if (data.success && Array.isArray(data.data.posts)) {
+      renderArticles(articles, pages, totalItems);
+    } else {
+      console.warn("Không lấy được bài viết.");
+    }
+  } catch (err) {
+    console.error("❌ Lỗi khi tải bài viết từ DB:", err);
+  }
+
   setupEventListeners();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryFilter = document.getElementById("category-filter");
+
+  async function loadParentCategories() {
+    try {
+      const res = await fetch("/api/categories/");
+      const data = await res.json();
+
+      if (data.success && Array.isArray(data.data)) {
+        // Xóa sạch các option cũ (nếu cần)
+        categoryFilter.innerHTML = `<option value="">Tất cả chuyên mục</option>`;
+
+        // Thêm từng danh mục
+        data.data.forEach((cat) => {
+          const option = document.createElement("option");
+          option.value = cat.name;
+          option.textContent = cat.name;
+          categoryFilter.appendChild(option);
+        });
+      }
+    } catch (err) {
+      console.error("Không thể tải danh mục:", err);
+    }
+  }
+
+  loadParentCategories();
+});
 
 // Thiết lập event listeners
 function setupEventListeners() {
@@ -185,7 +79,7 @@ function setupEventListeners() {
       option.classList.add("active");
       currentView = option.dataset.view;
       resultsList.classList.toggle("grid-view", currentView === "grid");
-      renderArticles();
+      renderArticles(currentArticles, totalPages, currentTotalItems);
     });
   });
 }
@@ -197,114 +91,141 @@ function handleSearch() {
 }
 
 // Xử lý thay đổi bộ lọc
-function handleFilterChange() {
-  const searchTerm = searchInput.value.toLowerCase();
+async function handleFilterChange() {
+  const searchTerm = searchInput.value.trim();
   const category = categoryFilter.value;
   const sortValue = sortBy.value;
 
-  // Lọc bài viết
-  filteredArticles = sampleArticles.filter((article) => {
-    const matchesSearch =
-      article.title.toLowerCase().includes(searchTerm) ||
-      article.excerpt.toLowerCase().includes(searchTerm);
-    const matchesCategory = category === "" || article.category === category;
-    return matchesSearch && matchesCategory;
-  });
+  const queryParams = new URLSearchParams();
 
-  // Sắp xếp bài viết
-  switch (sortValue) {
-    case "newest":
-      filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-      break;
-    case "oldest":
-      filteredArticles.sort((a, b) => new Date(a.date) - new Date(b.date));
-      break;
-    case "popular":
-      filteredArticles.sort((a, b) => b.views - a.views);
-      break;
+  if (searchTerm) queryParams.append("keyword", searchTerm);
+  if (category) queryParams.append("categoryName", category);
+  if (sortValue) queryParams.append("sortBy", sortValue);
+  queryParams.append("page", currentPage);
+  queryParams.append("pageSize", articlesPerPage);
+
+  const url = `/api/posts/search?${queryParams.toString()}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.success && Array.isArray(data.data.posts)) {
+      const articles = data.data.posts;
+      const pages = data.data.pagination?.totalPages || 1;
+      const totalItems = data.data.pagination?.total ?? articles.length;
+
+      console.log("✅ Tổng bài viết:", totalItems);
+      renderArticles(articles, pages, totalItems);
+    } else {
+      renderArticles([], 1, 0);
+    }
+  } catch (err) {
+    console.error("Lỗi khi tìm kiếm bài viết:", err);
+    renderArticles([], 1, 0);
   }
-
-  renderArticles();
 }
 
-// Hiển thị bài viết
-function renderArticles() {
-  const startIndex = (currentPage - 1) * articlesPerPage;
-  const paginatedArticles = filteredArticles.slice(
-    startIndex,
-    startIndex + articlesPerPage
-  );
+function renderCategory(article) {
+  const cat = article?.categories?.[0];
+  if (!cat) return "Chưa phân loại";
 
+  // Nếu là string (dạng ["Việt Nam"]), trả về trực tiếp
+  if (typeof cat === "string") return cat;
+
+  // Nếu là object thì kiểm tra có cha
+  if (cat.parent) return `${cat.parent.name}`;
+  return cat.name;
+}
+
+function renderSingleArticle(article) {
+  const articleEl = document.createElement("div");
+  articleEl.className = "article-card";
+  console.log("article.categories:", article.categories);
+  articleEl.innerHTML = `
+    <a href="/pages/trangbaiviet.html?slug=${
+      article.slug
+    }" class="article-image">
+      <img src="${article.featuredimage}" alt="${article.title}">
+    </a>
+    <div class="article-content">
+      <span class="article-category">${renderCategory(article)}</span>
+
+      <!-- Tiêu đề là thẻ a -->
+      <h3 class="article-title">
+        <a href="/pages/trangbaiviet.html?slug=${article.slug}">
+          ${article.title}
+        </a>
+      </h3>
+
+      <p class="article-excerpt">${article.excerpt}</p>
+
+      <a href="/pages/trangbaiviet.html?slug=${article.slug}">
+        <div class="read-more">Đọc tiếp <span>→</span></div>
+      </a>
+
+      <div class="article-meta">
+        <span>${new Date(
+          article.publishedat || article.createdat
+        ).toLocaleDateString("vi-VN")}</span>
+        <span>${article.views.toLocaleString()} lượt xem</span>
+      </div>
+    </div>
+    `;
+
+  return articleEl;
+}
+
+function renderArticles(articles, pages, totalItems = 0) {
   resultsList.innerHTML = "";
-  resultsCount.textContent = `${filteredArticles.length} kết quả tìm thấy`;
+  resultsList.classList.remove("grid-view", "list-view");
+  resultsList.classList.add(`${currentView}-view`);
 
-  if (paginatedArticles.length === 0) {
+  const totalDisplay =
+    typeof totalItems === "number" && !isNaN(totalItems) ? totalItems : 0;
+  resultsCount.textContent = `${totalDisplay} bài viết được tìm thấy`;
+
+  if (!Array.isArray(articles) || articles.length === 0) {
     resultsList.innerHTML =
       '<p class="no-results">Không tìm thấy bài viết phù hợp.</p>';
     pagination.innerHTML = "";
     return;
   }
 
-  paginatedArticles.forEach((article) => {
-    const articleEl = document.createElement("div");
-    articleEl.className = "article-card";
-    articleEl.innerHTML = `
-            <a href="#" class="article-image">
-                <img src="${article.image}" alt="${article.title}">
-            </a>
-            <div class="article-content">
-                <span class="article-category">${getCategoryName(
-                  article.category
-                )}</span>
-                <h3 class="article-title">${article.title}</h3>
-                <p class="article-excerpt">${article.excerpt}</p>
-                <a href="#" class="read-more">
-                    <span>Đọc thêm</span> 
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-                <div class="article-meta">
-                    <span>${article.date}</span>
-                    <span>${article.views.toLocaleString()} lượt xem</span>
-                </div>
-            </div>
-        `;
+  articles.forEach((article) => {
+    const articleEl = renderSingleArticle(article);
     resultsList.appendChild(articleEl);
   });
 
-  renderPagination();
+  renderPagination(pages);
 }
 
 // Hiển thị phân trang (đã cập nhật theo yêu cầu)
-function renderPagination() {
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+function renderPagination(pages) {
   pagination.innerHTML = "";
 
-  if (totalPages <= 1) return;
+  if (pages <= 1) return;
 
-  // Nút Previous
-  const prevBtn = document.createElement("button");
-  prevBtn.className = "prev-btn";
-  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage > 1) {
-      currentPage--;
-      renderArticles();
-      window.scrollTo(0, 0);
-    }
-  });
-  if (currentPage > 1) {
-    pagination.appendChild(prevBtn);
-  }
-  // Các nút trang
+  // dùng `pages` thay cho `totalPages` cũ
   const maxVisiblePages = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  let endPage = Math.min(pages, startPage + maxVisiblePages - 1);
 
-  // Đảm bảo luôn hiển thị đủ maxVisiblePages nút nếu có thể
   if (endPage - startPage + 1 < maxVisiblePages) {
     startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+
+  if (currentPage > 1) {
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "prev-btn";
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentPage--;
+      handleFilterChange();
+      window.scrollTo(0, 0);
+    });
+    pagination.appendChild(prevBtn);
   }
 
   for (let i = startPage; i <= endPage; i++) {
@@ -314,87 +235,35 @@ function renderPagination() {
     pageBtn.addEventListener("click", (e) => {
       e.preventDefault();
       currentPage = i;
-      renderArticles();
+      handleFilterChange();
       window.scrollTo(0, 0);
     });
     pagination.appendChild(pageBtn);
   }
 
-  // Nút Next
-  const nextBtn = document.createElement("button");
-  nextBtn.className = "next-btn";
-  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage < totalPages) {
+  if (currentPage < pages) {
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "next-btn";
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       currentPage++;
-      renderArticles();
+      handleFilterChange();
       window.scrollTo(0, 0);
-    }
-  });
-  if (currentPage < totalPages) {
+    });
     pagination.appendChild(nextBtn);
   }
 }
 
-// Hàm trợ giúp: Lấy tên chuyên mục
-function getCategoryName(category) {
-  const categories = {
-    technology: "Công nghệ",
-    design: "Thiết kế",
-    business: "Kinh doanh",
-    lifestyle: "Lối sống",
-  };
-  return categories[category] || category;
-}
-
-// Khởi chạy ứng dụng
 init();
 
-// Xử lý advanced search panel
 document.addEventListener("DOMContentLoaded", function () {
-  const searchContainer = document.getElementById("searchContainer");
-  const searchToggle = document.getElementById("searchToggle");
-  const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+  // Lấy keyword từ URL và gán vào ô input, sau đó lọc kết quả luôn
+  const params = new URLSearchParams(window.location.search);
+  const keyword = params.get("keyword");
 
-  if (searchToggle) {
-    searchToggle.addEventListener("click", function () {
-      searchContainer.classList.toggle("active");
-    });
-  }
-
-  if (applyFiltersBtn) {
-    applyFiltersBtn.addEventListener("click", function () {
-      const selectedSort = document.querySelector(
-        'input[name="filter-type"]:checked'
-      )?.value;
-      const contentTypes = [];
-      document
-        .querySelectorAll('input[name="content-type"]:checked')
-        .forEach((checkbox) => {
-          contentTypes.push(checkbox.value);
-        });
-
-      const categories = [];
-      document
-        .querySelectorAll('input[name="category"]:checked')
-        .forEach((checkbox) => {
-          categories.push(checkbox.value);
-        });
-
-      const filters = {
-        sortBy: selectedSort,
-        contentTypes: contentTypes,
-        categories: categories,
-      };
-
-      if (searchContainer) {
-        searchContainer.classList.remove("active");
-      }
-
-      // Áp dụng bộ lọc
-      // applyFiltersToData(filters);
-    });
+  if (keyword) {
+    searchInput.value = keyword; // Gán vào ô input hiện tại
+    handleFilterChange(); // Lọc và render luôn các bài viết theo keyword
   }
 });

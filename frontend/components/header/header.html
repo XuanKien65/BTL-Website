@@ -1,0 +1,43 @@
+<header class="header fixed">
+  <div class="header banner">
+    <img
+      src="../assets/img/gio-outsider-red.png"
+      alt="the outsider"
+      class="banner-logo"
+    />
+  </div>
+</header>
+<div class="nav">
+  <div id="backtohome">
+    <a href="../pages/index.html">
+      <img class="logo" src="../assets/img/gio-outsider.png" alt="" />
+    </a>
+  </div>
+  <a href="../pages/index.html" class="home">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <div class="contain-navbar">
+    <ul class="navbar"></ul>
+  </div>
+  <div class="search">
+    <input type="text" placeholder="Tìm kiếm..." />
+    <button type="button">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+  <div class="register">
+    <!-- Hiển thị khi chưa đăng nhập -->
+    <a href="../pages/login.html" class="dn-text" id="login-link">
+      <i class="fa-solid fa-user"></i>Đăng nhập
+    </a>
+
+    <!-- Hiển thị khi đã đăng nhập -->
+    <div class="user-info" style="display: none">
+      <a href="#" id="user-profile-link">
+        <i class="fa-solid fa-user"></i>
+        <span class="username"></span>
+      </a>
+    </div>
+  </div>
+  <div id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+</div>
