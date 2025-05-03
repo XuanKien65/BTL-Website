@@ -137,7 +137,8 @@ p {
 .main-topic {
   display: flex;
   width: 100%;
-
+  max-width: 100%;
+  padding: 0;
   justify-content: center;
 }
 
@@ -159,13 +160,18 @@ p {
 /* Featured Article */
 .articles-trend {
   display: flex;
+  align-items: stretch; /* ← thêm dòng này */
   margin-bottom: 3rem;
   border-bottom: 1px solid var(--border-accent);
   padding-bottom: 3rem;
+  height: auto;
 }
 
 .l-trending {
   width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .l-img {
@@ -202,10 +208,18 @@ p {
   margin-left: 2%;
   padding-left: 2%;
   border-left: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.r-trending {
+  height: auto !important;
+  flex-grow: 1;
 }
 
 .scroll-div {
-  max-height: 500px;
+  max-height: 700px;
   overflow-y: auto;
   padding-right: 1rem;
 }
@@ -708,9 +722,10 @@ p {
 #pagination.l-main-button {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 3rem auto; /* căn giữa và thêm khoảng cách trên dưới */
-  width: fit-content; /* hoặc xóa width nếu nó chiếm toàn bộ chiều ngang */
+  gap: 8px;
+  margin-top: 30px;
+  padding: 20px 0;
+  flex-wrap: wrap; /* hoặc xóa width nếu nó chiếm toàn bộ chiều ngang */
 }
 
 .l-main {
