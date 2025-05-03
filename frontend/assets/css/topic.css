@@ -334,19 +334,6 @@ p {
 
 /* Right Column - Sidebar */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .page-btn {
   padding: 0.8rem 1.2rem;
   border: 1px solid #ddd;
@@ -470,27 +457,15 @@ p {
 /* ============ MEDIA QUERIES ============ */
 /* Large Desktop */
 
-
-
 /* Medium Desktop */
-
-
 
 /* Tablet Landscape */
 
-
-
 /* Tablet Portrait */
-
-
 
 /* Mobile */
 
-
-
 /* Extra Small Mobile */
-
-
 
 /* ============ CUSTOM OVERRIDES FOR RESPONSIVENESS ============ */
 
@@ -525,20 +500,13 @@ p {
 
 /* Tablet: Hiển thị 2 ảnh */
 
-
-
 /* Mobile: Hiển thị 1 ảnh */
-
-
 
 /* Luôn hiện 2 nút điều hướng */
 .swiper-button-next,
 .swiper-button-prev {
   display: block !important;
 }
-
-
-
 
 /* ============ "YOU MAY LIKE" SECTION ============ */
 .topic {
@@ -714,9 +682,6 @@ p {
 .news-slider-container {
   position: relative;
 }
-
-
-
 
 #pagination.l-main-button {
   display: flex;

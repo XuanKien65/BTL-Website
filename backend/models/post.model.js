@@ -15,26 +15,24 @@ const Post = {
       LEFT JOIN categories c ON pc.categoryid = c.id
       WHERE 1=1
     `;
-
+  
     const params = [];
-
+  
     if (status) {
       query += ` AND p.status = $${params.length + 1}`;
       params.push(status);
     }
-
+  
     if (categoryId) {
       query += ` AND pc.categoryid = $${params.length + 1}`;
       params.push(categoryId);
     }
-
+  
     if (searchTerm) {
-      query += ` AND (p.title ILIKE $${params.length + 1} OR p.content ILIKE $${
-        params.length + 2
-      })`;
+      query += ` AND (p.title ILIKE $${params.length + 1} OR p.content ILIKE $${params.length + 2})`;
       params.push(`%${searchTerm}%`, `%${searchTerm}%`);
     }
-
+  
     query += `
       GROUP BY p.postid, u.userid
       ORDER BY p.createdat DESC
@@ -43,7 +41,7 @@ const Post = {
     const result = await pool.query(query, params);
     return result.rows;
   },
-
+  
   findById: async (id) => {
     if (!id || isNaN(id)) {
       throw new Error("Invalid post ID");
@@ -356,6 +354,7 @@ const Post = {
         query += ` AND pc.categoryid = ANY($${params.length})`;
       }
     }
+    
 
     if (tag) {
       params.push(tag);
