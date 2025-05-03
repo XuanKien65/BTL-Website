@@ -127,9 +127,6 @@ async function handleFilterChange() {
   }
 }
 
-
-
-
 function renderCategory(article) {
   const cat = article?.categories?.[0];
   if (!cat) return "Chưa phân loại";

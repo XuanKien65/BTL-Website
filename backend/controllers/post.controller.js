@@ -245,4 +245,6 @@ exports.searchPosts = async (req, res, next) => {
   } catch (error) {
     next(new ErrorHandler(500, "Error searching posts", error));
   }
+
+  
 };
