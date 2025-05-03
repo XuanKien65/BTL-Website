@@ -145,9 +145,9 @@
             </div>
           </div>
         </div>
-        <!-- tin xem nhiều-->
+        <!-- tin mới nhất-->
         <div class="most-view">
-          <h3 class="header">Xem nhiều</h3>
+          <h3 class="header">Tin mới nhất</h3>
           <div class="news">
             <div class="news n1">
               <a href="#!">
@@ -218,6 +218,7 @@
               placeholder="Add a comment..."
             ></textarea>
             <button class="bu-primary">Gửi</button>
+            <div id="comment-error" class="error-message"></div>
           </div>
         </template>
         <template class="comment-template">
@@ -272,6 +273,7 @@
               ></textarea>
               <button class="bu-primary">Gửi</button>
             </div>
+            <div id="comment-error" class="error-message"></div>
             <!--reply input-->
           </div>
           <!--comment sectio-->
@@ -290,20 +292,32 @@
         </main>
       </div>
       <!-- Tin theo chủ đề -->
-      <!-- container 1 -->
       <div class="container">
         <div class="grid">
           <div class="grid_row app_content">
             <div class="grid_column12">
               <div class="news-header">
-                <h2 class="news-heading">Phim ảnh</h2>
-                <div class="news-subject">
-                  <a href="#" data-category="phim-chieu-rap">Phim chiếu rạp</a>
-                  <a href="#" data-category="phim-viet">Phim Việt Nam</a>
-                  <a href="#" data-category="phim-truyen-hinh"
+                <h2
+                  class="news-heading tab-link"
+                  data-category-id="1"
+                  data-is-parent="true"
+                  style="cursor: pointer"
+                >
+                  Phim ảnh
+                </h2>
+                <div class="news-subject" data-parent-id="1">
+                  <a href="#" class="tab-link" data-category="phim-chieu-rap"
+                    >Phim chiếu rạp</a
+                  >
+                  <a href="#" class="tab-link" data-category="phim-viet"
+                    >Phim Việt Nam</a
+                  >
+                  <a href="#" class="tab-link" data-category="phim-truyen-hinh"
                     >Phim truyền hình</a
                   >
-                  <a href="#" data-category="phim-quoc-te">Phim quốc tế</a>
+                  <a href="#" class="tab-link" data-category="phim-quoc-te"
+                    >Phim quốc tế</a
+                  >
                 </div>
               </div>
 

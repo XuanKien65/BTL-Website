@@ -2,14 +2,7 @@ const pool = require("../config/db.config");
 const slugify = require("../utils/slugify");
 
 const Post = {
-  findAll: async (
-    page = 1,
-    pageSize = 10,
-    status = null,
-    categoryId = null,
-    searchTerm = null
-  ) => {
-    const offset = (page - 1) * pageSize;
+  findAll: async (status = null, categoryId = null, searchTerm = null) => {
     let query = `
       SELECT 
         p.postid, p.title, p.slug, p.excerpt, p.featuredimage, 
@@ -45,9 +38,7 @@ const Post = {
     query += `
       GROUP BY p.postid, u.userid
       ORDER BY p.createdat DESC
-      LIMIT $${params.length + 1} OFFSET $${params.length + 2}
     `;
-    params.push(pageSize, offset);
 
     const result = await pool.query(query, params);
     return result.rows;
@@ -79,6 +70,30 @@ const Post = {
     return result.rows[0];
   },
 
+  findByAuthor: async (id, status = null) => {
+    if (!id || isNaN(id)) {
+      throw new Error("invalid author id");
+    }
+
+    let query = `
+      SELECT p.*, u.username 
+      FROM posts p
+      INNER JOIN users u ON p.authorid = u.userid
+      WHERE u.userid = $1
+    `;
+    const params = [parseInt(id)];
+
+    if (status) {
+      query += ` AND p.status = $2`;
+      params.push(status);
+    }
+
+    query += ` ORDER BY p.createdat DESC`;
+
+    const result = await pool.query(query, params);
+    return result.rows;
+  },
+
   findBySlug: async (slug) => {
     if (!slug || typeof slug !== "string") {
       throw new Error("Invalid post slug");
@@ -88,7 +103,12 @@ const Post = {
       SELECT 
         p.*, 
         u.username AS authorname, 
-        ARRAY_AGG(DISTINCT c.name) FILTER (WHERE c.name IS NOT NULL) AS category,
+        JSON_AGG(DISTINCT JSONB_BUILD_OBJECT(
+          'id', c.id,
+          'name', c.name,
+          'slug', c.slug,
+          'parent_id', c.parent_id
+        )) FILTER (WHERE c.id IS NOT NULL) AS categories,
         ARRAY_AGG(DISTINCT h.name) FILTER (WHERE h.name IS NOT NULL) AS tags
       FROM posts p
       INNER JOIN users u ON p.authorid = u.userid
@@ -96,7 +116,7 @@ const Post = {
       LEFT JOIN categories c ON pc.categoryid = c.id
       LEFT JOIN post_hashtags ph ON p.postid = ph.postid
       LEFT JOIN hashtags h ON ph.tagid = h.tagid
-      WHERE p.slug = $1
+      WHERE p.slug = $1 and p.status='published'
       GROUP BY p.postid, u.userid;
       `,
       [slug]
@@ -130,10 +150,29 @@ const Post = {
 
     // Gắn categories
     if (post.categoryIds && post.categoryIds.length > 0) {
-      const valueStrings = post.categoryIds
+      const categorySet = new Set();
+
+      for (const categoryId of post.categoryIds) {
+        categorySet.add(categoryId);
+
+        const parentResult = await pool.query(
+          `SELECT parent_id FROM categories WHERE id = $1`,
+          [categoryId]
+        );
+
+        const parentId = parentResult.rows[0]?.parent_id;
+        if (parentId) {
+          categorySet.add(parentId);
+        }
+      }
+
+      const finalCategoryIds = Array.from(categorySet);
+
+      const valueStrings = finalCategoryIds
         .map((_, i) => `($1, $${i + 2})`)
         .join(", ");
-      const values = [postId, ...post.categoryIds];
+      const values = [postId, ...finalCategoryIds];
+
       await pool.query(
         `INSERT INTO post_categories (postid, categoryid) VALUES ${valueStrings}`,
         values
@@ -268,7 +307,7 @@ const Post = {
   countSearchResults: async ({
     keyword = null,
     tag = null,
-    categoryId = null,
+    categoryName,
     status = "published",
     fromDate = null,
     toDate = null,
@@ -300,9 +339,22 @@ const Post = {
       query += ` AND p.status = $${params.length}`;
     }
 
-    if (categoryId) {
-      params.push(categoryId);
-      query += ` AND pc.categoryid = $${params.length}`;
+    if (categoryName) {
+      const categoryRes = await pool.query(
+        `SELECT id FROM categories WHERE name ILIKE $1`,
+        [categoryName]
+      );
+      const parentId = categoryRes.rows[0]?.id;
+
+      if (parentId) {
+        const childCats = await pool.query(
+          `SELECT id FROM categories WHERE id = $1 OR parent_id = $1`,
+          [parentId]
+        );
+        const catIds = childCats.rows.map((row) => row.id);
+        params.push(catIds);
+        query += ` AND pc.categoryid = ANY($${params.length})`;
+      }
     }
 
     if (tag) {
@@ -363,7 +415,12 @@ const Post = {
         strict: true,
         locale: "vi",
       });
-      params.push(`%${keyword}%`, `%${keyword}%`, `%${slugKeyword}%`, `%${keyword}%`);
+      params.push(
+        `%${keyword}%`,
+        `%${keyword}%`,
+        `%${slugKeyword}%`,
+        `%${keyword}%`
+      );
       query += ` AND (
          p.title ILIKE $${params.length - 3} OR
          p.content ILIKE $${params.length - 2} OR
@@ -511,6 +568,64 @@ const Post = {
        DO UPDATE SET viewed_at = CURRENT_TIMESTAMP`,
       [userId, postId]
     );
+  },
+  getParentCategoryIdByPost: async (postId) => {
+    const result = await pool.query(
+      `
+    SELECT DISTINCT 
+      CASE 
+        WHEN c.parent_id IS NULL THEN c.id 
+        ELSE c.parent_id 
+      END AS parent_id
+      FROM posts p
+      JOIN post_categories pc ON p.postid = pc.postid
+      JOIN categories c ON pc.categoryid = c.id
+      LEFT JOIN categories cp ON c.parent_id = cp.id
+      WHERE p.postid = $1
+    `,
+      [postId]
+    );
+
+    return result.rows[0]?.parent_id || null;
+  },
+  getPostsByParentCategory: async (
+    parentId,
+    excludePostId = null,
+    limit = 10
+  ) => {
+    let query = `
+      SELECT DISTINCT p.*
+      FROM posts p
+      JOIN post_categories pc ON p.postid = pc.postid
+      JOIN categories c ON pc.categoryid = c.id
+      WHERE (c.parent_id = $1 OR c.id = $1)
+        AND p.status = 'published'
+    `;
+
+    const params = [parentId];
+
+    if (excludePostId) {
+      query += ` AND p.postid != $2`;
+      query += ` ORDER BY p.views DESC LIMIT $3`;
+      params.push(excludePostId, limit);
+    } else {
+      query += ` ORDER BY p.views DESC LIMIT $2`;
+      params.push(limit);
+    }
+
+    const result = await pool.query(query, params);
+    return result.rows;
+  },
+  getLatestPosts: async (limit = 10) => {
+    const result = await pool.query(
+      `SELECT postid, title, slug, featuredimage, createdat 
+       FROM posts 
+       WHERE status = 'published'
+       ORDER BY publishedat DESC 
+       LIMIT $1`,
+      [limit]
+    );
+    return result.rows;
   },
 };
 

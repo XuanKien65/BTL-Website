@@ -1,7 +1,8 @@
 // Biến toàn cục
 let currentView = "list";
+let totalPages = 1;
 let currentPage = 1;
-const articlesPerPage = 12;
+const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
 
 // DOM Elements
@@ -20,8 +21,7 @@ async function init() {
     const data = await res.json();
 
     if (data.success && Array.isArray(data.data.posts)) {
-      filteredArticles = data.data.posts;
-      renderArticles();
+      renderArticles(articles, pages, totalItems);
     } else {
       console.warn("Không lấy được bài viết.");
     }
@@ -79,7 +79,7 @@ function setupEventListeners() {
       option.classList.add("active");
       currentView = option.dataset.view;
       resultsList.classList.toggle("grid-view", currentView === "grid");
-      renderArticles();
+      renderArticles(currentArticles, totalPages, currentTotalItems);
     });
   });
 }
@@ -102,7 +102,7 @@ async function handleFilterChange() {
   if (category) queryParams.append("categoryName", category);
   if (sortValue) queryParams.append("sortBy", sortValue);
   queryParams.append("page", currentPage);
-  queryParams.append("pageSize", articlesPerPage); // giữ phân trang
+  queryParams.append("pageSize", articlesPerPage);
 
   const url = `/api/posts/search?${queryParams.toString()}`;
 
@@ -111,16 +111,18 @@ async function handleFilterChange() {
     const data = await res.json();
 
     if (data.success && Array.isArray(data.data.posts)) {
-      filteredArticles = data.data.posts;
-      renderArticles();
+      const articles = data.data.posts;
+      const pages = data.data.pagination?.totalPages || 1;
+      const totalItems = data.data.pagination?.total ?? articles.length;
+
+      console.log("✅ Tổng bài viết:", totalItems);
+      renderArticles(articles, pages, totalItems);
     } else {
-      filteredArticles = [];
-      renderArticles();
+      renderArticles([], 1, 0);
     }
   } catch (err) {
     console.error("Lỗi khi tìm kiếm bài viết:", err);
-    filteredArticles = [];
-    renderArticles();
+    renderArticles([], 1, 0);
   }
 }
 
@@ -141,16 +143,27 @@ function renderSingleArticle(article) {
   articleEl.className = "article-card";
   console.log("article.categories:", article.categories);
   articleEl.innerHTML = `
-    <a href="/bai-viet/${article.slug}" class="article-image">
+    <a href="/pages/trangbaiviet.html?slug=${
+      article.slug
+    }" class="article-image">
       <img src="${article.featuredimage}" alt="${article.title}">
     </a>
     <div class="article-content">
       <span class="article-category">${renderCategory(article)}</span>
-      <h3 class="article-title">${article.title}</h3>
+
+      <!-- Tiêu đề là thẻ a -->
+      <h3 class="article-title">
+        <a href="/pages/trangbaiviet.html?slug=${article.slug}">
+          ${article.title}
+        </a>
+      </h3>
+
       <p class="article-excerpt">${article.excerpt}</p>
-      <a href="/bai-viet/${article.slug}">
+
+      <a href="/pages/trangbaiviet.html?slug=${article.slug}">
         <div class="read-more">Đọc tiếp <span>→</span></div>
       </a>
+
       <div class="article-meta">
         <span>${new Date(
           article.publishedat || article.createdat
@@ -158,67 +171,61 @@ function renderSingleArticle(article) {
         <span>${article.views.toLocaleString()} lượt xem</span>
       </div>
     </div>
-  `;
+    `;
 
   return articleEl;
 }
 
-function renderArticles() {
-  const startIndex = (currentPage - 1) * articlesPerPage;
-  const paginatedArticles = filteredArticles.slice(
-    startIndex,
-    startIndex + articlesPerPage
-  );
-
+function renderArticles(articles, pages, totalItems = 0) {
   resultsList.innerHTML = "";
-  resultsCount.textContent = `${filteredArticles.length} kết quả tìm thấy`;
+  resultsList.classList.remove("grid-view", "list-view");
+  resultsList.classList.add(`${currentView}-view`);
 
-  if (paginatedArticles.length === 0) {
+  const totalDisplay =
+    typeof totalItems === "number" && !isNaN(totalItems) ? totalItems : 0;
+  resultsCount.textContent = `${totalDisplay} bài viết được tìm thấy`;
+
+  if (!Array.isArray(articles) || articles.length === 0) {
     resultsList.innerHTML =
       '<p class="no-results">Không tìm thấy bài viết phù hợp.</p>';
     pagination.innerHTML = "";
     return;
   }
 
-  paginatedArticles.forEach((article) => {
+  articles.forEach((article) => {
     const articleEl = renderSingleArticle(article);
     resultsList.appendChild(articleEl);
   });
 
-  renderPagination();
+  renderPagination(pages);
 }
 
 // Hiển thị phân trang (đã cập nhật theo yêu cầu)
-function renderPagination() {
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+function renderPagination(pages) {
   pagination.innerHTML = "";
 
-  if (totalPages <= 1) return;
+  if (pages <= 1) return;
 
-  // Nút Previous
-  const prevBtn = document.createElement("button");
-  prevBtn.className = "prev-btn";
-  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage > 1) {
-      currentPage--;
-      renderArticles();
-      window.scrollTo(0, 0);
-    }
-  });
-  if (currentPage > 1) {
-    pagination.appendChild(prevBtn);
-  }
-  // Các nút trang
+  // dùng `pages` thay cho `totalPages` cũ
   const maxVisiblePages = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  let endPage = Math.min(pages, startPage + maxVisiblePages - 1);
 
-  // Đảm bảo luôn hiển thị đủ maxVisiblePages nút nếu có thể
   if (endPage - startPage + 1 < maxVisiblePages) {
     startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+
+  if (currentPage > 1) {
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "prev-btn";
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentPage--;
+      handleFilterChange();
+      window.scrollTo(0, 0);
+    });
+    pagination.appendChild(prevBtn);
   }
 
   for (let i = startPage; i <= endPage; i++) {
@@ -228,26 +235,22 @@ function renderPagination() {
     pageBtn.addEventListener("click", (e) => {
       e.preventDefault();
       currentPage = i;
-      renderArticles();
+      handleFilterChange();
       window.scrollTo(0, 0);
     });
     pagination.appendChild(pageBtn);
   }
 
-  // Nút Next
-  const nextBtn = document.createElement("button");
-  nextBtn.className = "next-btn";
-  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage < totalPages) {
+  if (currentPage < pages) {
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "next-btn";
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       currentPage++;
-      renderArticles();
+      handleFilterChange();
       window.scrollTo(0, 0);
-    }
-  });
-  if (currentPage < totalPages) {
+    });
     pagination.appendChild(nextBtn);
   }
 }

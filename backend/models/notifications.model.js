@@ -35,15 +35,6 @@ const Notification = {
     return result.rows;
   },
 
-  // Lấy thông báo theo trang
-  getNotificationsByPage: async (userId, limit, offset) => {
-    const result = await pool.query(
-      "SELECT * FROM notifications WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3",
-      [userId, limit, offset]
-    );
-    return result.rows;
-  },
-
   // Đếm số thông báo chưa đọc
   countUnread: async (userId) => {
     const result = await pool.query(
@@ -77,6 +68,13 @@ const Notification = {
       [id, userId]
     );
     return result.rows[0];
+  },
+  getByStatus: async (userId, isRead) => {
+    const result = await pool.query(
+      "SELECT * FROM notifications WHERE user_id = $1 AND is_read = $2 ORDER BY created_at DESC",
+      [userId, isRead]
+    );
+    return result.rows;
   },
 };
 

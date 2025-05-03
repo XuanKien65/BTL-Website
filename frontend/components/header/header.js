@@ -297,6 +297,10 @@ document.addEventListener("headerLoaded", () => {
 
   function performSearch() {
     const keyword = searchInput.value.trim();
+    if (!keyword) {
+      // alert("Vui lòng nhập từ khóa để tìm kiếm.");
+      return;
+    }
     const encoded = encodeURIComponent(keyword);
     window.location.href = `/pages/search.html?keyword=${encoded}`;
   }
@@ -314,4 +318,3 @@ document.addEventListener("headerLoaded", () => {
     searchButton.addEventListener("click", performSearch);
   }
 });
-

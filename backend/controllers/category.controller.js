@@ -159,16 +159,7 @@ exports.deleteCategory = async (req, res) => {
       return res.status(404).json({ error: "Không tìm thấy danh mục" });
     }
 
-    // Kiểm tra danh mục có danh mục con không
-    const children = await Category.findChildren(id);
-    if (children.length > 0) {
-      return res.status(400).json({
-        error:
-          "Không thể xóa danh mục vì có danh mục con. Hãy xóa hoặc di chuyển các danh mục con trước.",
-      });
-    }
-
-    // Xóa danh mục
+    // Xóa danh mục và tất cả danh mục con đệ quy
     const deletedCategory = await Category.delete(id);
 
     res.json({

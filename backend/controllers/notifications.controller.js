@@ -2,17 +2,22 @@ const { Notification, userExists } = require("../models/notifications.model");
 const ApiResponse = require("../utils/apiResponse");
 const ErrorHandler = require("../utils/errorHandler");
 
+// Gửi thông báo
 exports.sendNotification = async (req, res, next) => {
   try {
     const { title, message, toUserId } = req.body;
+
+    if (!title || !message || !toUserId) {
+      return next(new ErrorHandler(400, "Thiếu thông tin bắt buộc"));
+    }
+
     const exists = await userExists(toUserId);
     if (!exists) {
-      return res.status(404).json({ message: "Người dùng không tồn tại" });
+      return next(new ErrorHandler(404, "Người dùng không tồn tại"));
     }
-    const receiverId = toUserId;
 
     const notification = await Notification.createNotification(
-      receiverId,
+      toUserId,
       title,
       message
     );
@@ -23,92 +28,96 @@ exports.sendNotification = async (req, res, next) => {
   }
 };
 
-exports.getMyNotificationsWithPagination = async (req, res) => {
+exports.getMyNotifications = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const offset = (page - 1) * limit;
+    const { status } = req.query;
 
-    const total = await Notification.getTotalNotifications(userId);
-    const totalPages = Math.ceil(total / limit);
-    const data = await Notification.getNotificationsByPage(
-      userId,
-      limit,
-      offset
-    );
+    let notiList = [];
 
-    res.status(200).json({ data, page, total, totalPages });
+    if (status === "read") {
+      notiList = await Notification.getByStatus(userId, true);
+    } else if (status === "unread") {
+      notiList = await Notification.getByStatus(userId, false);
+    } else {
+      notiList = await Notification.getNotificationsByUserId(userId);
+    }
+
+    ApiResponse.success(res, "Lấy thông báo thành công", notiList);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(new ErrorHandler(500, "Lỗi khi lấy thông báo", err));
   }
 };
 
-exports.getMyNotifications = async (req, res) => {
-  try {
-    const userId = req.userId;
-    const data = await Notification.getNotificationsByUserId(userId);
-    res.status(200).json({ data });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-exports.getUnreadCount = async (req, res) => {
+// Đếm số thông báo chưa đọc
+exports.getUnreadCount = async (req, res, next) => {
   try {
     const userId = req.userId;
     const unread = await Notification.countUnread(userId);
-    res.status(200).json({ unread });
+    ApiResponse.success(res, "Lấy số thông báo chưa đọc thành công", {
+      unread,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(new ErrorHandler(500, "Lỗi khi đếm thông báo chưa đọc", err));
   }
 };
 
-exports.markAsRead = async (req, res) => {
+// Đánh dấu 1 thông báo là đã đọc
+exports.markAsRead = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
+
+    if (isNaN(id)) {
+      return next(new ErrorHandler(400, "ID không hợp lệ"));
+    }
+
     const updated = await Notification.markOneAsRead(id, userId);
     if (!updated) {
-      return res.status(404).json({ message: "Thông báo không tồn tại" });
+      return next(new ErrorHandler(404, "Thông báo không tồn tại"));
     }
-    res
-      .status(200)
-      .json({ message: "Đã đánh dấu đã đọc", notification: updated });
+
+    ApiResponse.success(res, "Đã đánh dấu đã đọc", updated);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(new ErrorHandler(500, "Lỗi khi đánh dấu đã đọc", err));
   }
 };
 
-exports.markAllAsRead = async (req, res) => {
+// Đánh dấu tất cả là đã đọc
+exports.markAllAsRead = async (req, res, next) => {
   try {
     const userId = req.userId;
     const updated = await Notification.markAllAsRead(userId);
 
     if (updated.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "Không có thông báo chưa đọc nào để đánh dấu" });
+      return next(
+        new ErrorHandler(404, "Không có thông báo chưa đọc nào để đánh dấu")
+      );
     }
 
-    res.status(200).json({ message: "Đã đánh dấu tất cả là đã đọc", updated });
+    ApiResponse.success(res, "Đã đánh dấu tất cả là đã đọc", updated);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(new ErrorHandler(500, "Lỗi khi đánh dấu tất cả là đã đọc", err));
   }
 };
 
-exports.deleteNotification = async (req, res) => {
+// Xoá 1 thông báo
+exports.deleteNotification = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
+
+    if (isNaN(id)) {
+      return next(new ErrorHandler(400, "ID không hợp lệ"));
+    }
+
     const deleted = await Notification.deleteNotification(id, userId);
     if (!deleted) {
-      return res.status(404).json({ message: "Thông báo không tồn tại" });
+      return next(new ErrorHandler(404, "Thông báo không tồn tại"));
     }
-    res
-      .status(200)
-      .json({ message: "Đã xóa thông báo", notification: deleted });
+
+    ApiResponse.success(res, "Đã xóa thông báo", deleted);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(new ErrorHandler(500, "Lỗi khi xóa thông báo", err));
   }
 };

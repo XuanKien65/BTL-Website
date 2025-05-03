@@ -479,261 +479,41 @@
         <!-- Tab thông báo -->
         <div id="announcement" class="account-tab">
           <h2 class="account-title">Thông báo của bạn</h2>
+          <div class="filter-noti-status">
+            <label for="notiStatusFilter">Lọc theo trạng thái:</label>
+            <select id="notiStatusFilter">
+              <option value="">Tất cả</option>
+              <option value="read">Đã đọc</option>
+              <option value="unread">Chưa đọc</option>
+            </select>
+          </div>  
+          <div class="noti-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-noti">
+            <button class="prev-btn-noti">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-noti active">1</button>
+            <button class="page-btn-noti">2</button>
+            <button class="page-btn-noti">3</button>
+            <button class="next-btn-noti">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
         <!-- Tab bài viết đã đăng cho btv -->
         <div id="posted-article" class="account-tab">
           <h2 class="account-title">Bài viết đã đăng</h2>
+          <div class="filter-posted-status">
+            <label for="postStatusFilter">Lọc theo trạng thái:</label>
+            <select id="postStatusFilter">
+              <option value="">Tất cả</option>
+              <option value="published">Đã duyệt</option>
+              <option value="pending">Chưa duyệt</option>
+            </select>
+          </div>          
           <div class="posted-history-list">
-            <!-- Bài viết 1 -->
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                  <div class="article-action">
-                    <span><i class="fa-solid fa-eye"></i>29</span>
-                    <span><i class="fa-solid fa-share"></i>5</span>
-                    <span><i class="fa-solid fa-comment"></i>11</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Bài viết 2 -->
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 2"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <!-- Bài viết 3 -->
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 3"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <class class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 4"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </class>
-            <!-- 5 -->
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 5"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <!-- 6 -->
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 6"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/tranthanh.png"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/anh1.jpg"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
-            <div class="posted-article-item">
-              <div class="article-image">
-                <img
-                  src="../the-outsider/assets/img/tranthanh.png"
-                  alt="Bài viết 1"
-                />
-              </div>
-              <div class="article-info">
-                <h3 class="article-title">
-                  <a href="#">Cách thiết kế giao diện người dùng hiện đại</a>
-                </h3>
-                <div class="article-social">
-                  <p class="article-meta">Điểm nóng - 29/3/2025</p>
-                </div>
-              </div>
-            </div>
           </div>
           <!-- Phân trang -->
           <div class="pagination-posted">

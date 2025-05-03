@@ -42,17 +42,11 @@ app.use("/api", require("./routes/authorRegister.routes"));
 app.use("/api", require("./routes/savedPost.routes"));
 app.use("/api", require("./routes/upload.routes"));
 app.use("/api/viewed-posts", require("./routes/viewedPost.routes"));
-
 app.use("/uploads", express.static("uploads"));
-
-// Health check
-app.get("/health", async (req, res) => {
-  try {
-    await pool.query("SELECT 1");
-    res.status(200).json({ status: "OK", database: "connected" });
-  } catch (err) {
-    res.status(500).json({ status: "ERROR", database: "disconnected" });
-  }
+app.use((err, req, res, next) => {
+  const status = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ success: false, message });
 });
 
 // 404 handler

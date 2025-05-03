@@ -59,9 +59,19 @@ const Category = {
 
   // Xóa danh mục
   delete: async (id) => {
-    const query = "DELETE FROM categories WHERE id = $1 RETURNING *";
+    const query = `
+      WITH RECURSIVE subcategories AS (
+        SELECT id FROM categories WHERE id = $1
+        UNION ALL
+        SELECT c.id FROM categories c
+        INNER JOIN subcategories s ON c.parent_id = s.id
+      )
+      DELETE FROM categories WHERE id IN (SELECT id FROM subcategories)
+      RETURNING *;
+    `;
     const { rows } = await db.query(query, [id]);
-    return rows[0];
+    // Trả về danh mục gốc đã xóa
+    return rows.find((row) => row.id === parseInt(id)) || null;
   },
 
   // Kiểm tra slug đã tồn tại chưa (trừ trường hợp đang cập nhật)

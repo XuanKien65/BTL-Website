@@ -83,6 +83,22 @@ const User = {
     );
     return rowCount > 0;
   },
+  saveResetToken: async (userId, token, expiry) => {
+    const { rowCount } = await pool.query(
+      `UPDATE users 
+       SET resetpasswordtoken = $1, resetpasswordexpiry = $2 
+       WHERE userid = $3`,
+      [token, expiry, userId]
+    );
+    return rowCount > 0;
+  },
+  findByResetToken: async (token) => {
+    const { rows } = await pool.query(
+      "SELECT * FROM users WHERE resetpasswordtoken = $1",
+      [token]
+    );
+    return rows[0];
+  },
 };
 
 module.exports = User;

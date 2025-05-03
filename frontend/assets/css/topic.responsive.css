@@ -19,6 +19,7 @@
   
   .main-container {
     max-width: 720px;
+    padding: 0 1rem !important; /* ép sát hai bên */
   }
   
   .l-main {
@@ -29,7 +30,11 @@
   padding-right: 0;
 }
   
-  
+.main-topic {
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 100%;
+}  
   
   .l-trending {
     width: 100%;
@@ -63,6 +68,23 @@
   .swiper-button-next::after,
   .swiper-button-prev::after {
     font-size: 2.5rem !important;
+  }
+
+  ul.articles {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .l-main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  }
+
+  .news-slider-container {
+    display: none;
   }
 }
 @media (min-width: 576px) and (max-width: 767px) {
@@ -150,6 +172,10 @@
   
   .swiper-news-item {
     width: 22rem;
+  }
+
+  .news-slider-container {
+    display: none;
   }
 }
 @media (max-width: 575px) {
@@ -280,6 +306,10 @@
   
   .swiper-news-item-img {
     height: 20rem;
+  }
+
+  .news-slider-container {
+    display: none;
   }
 }
 @media (max-width: 375px) {

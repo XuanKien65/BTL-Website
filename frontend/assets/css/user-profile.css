@@ -38,9 +38,17 @@ a {
   transform: translateX(-50%); /* Điều chỉnh vị trí chính xác */
   text-align: center; /* Căn giữa nội dung */
 }
-/* .error-message {
-    background: lightcoral;
-  } */
+.errors-message {
+  background: lightcoral;
+  z-index: 100000;
+  position: fixed;
+  top: 10rem;
+  padding: 10px;
+  border-radius: 5px;
+  left: 50%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-50%); /* Điều chỉnh vị trí chính xác */
+  text-align: center; /* Căn giữa nội dung */
+}
 .account-container {
   display: flex;
   margin: 6.4rem 20rem;
@@ -443,6 +451,7 @@ textarea {
     transform: rotate(360deg);
   }
 }
+
 .posted-article-item,
 .cmt-article-item,
 .read-article-item,
@@ -453,7 +462,25 @@ textarea {
   border-bottom: 1px solid #eee;
   transition: background-color 0.3s;
 }
-
+.noti-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s;
+}
+.noti-item .noti-title {
+  font-weight: 600;
+}
+.noti-content {
+  color: #666;
+  font-size: 2rem;
+}
+.noti-meta {
+  margin-left: auto;
+  font-size: 1.6rem;
+}
 .article-image {
   flex: 0 0 200px;
   height: 120px;
@@ -540,7 +567,8 @@ textarea {
   color: var(--heading-color);
 }
 
-.page-btn {
+.page-btn,
+.page-btn-noti {
   padding: 8px 12px;
   border: 1px solid #ddd;
   background: transparent;
@@ -557,12 +585,15 @@ textarea {
   background: transparent;
   border: none !important;
 }
+.page-btn-noti.active,
 .page-btn.active,
 .page-btn-read.active {
   background: var(--heading-color);
   color: var(--yellow-color);
 }
 /* Phân trang */
+.pagination-noti,
+.pagination-cmt,
 .pagination-posted,
 .pagination-cmt,
 .pagination-read,
@@ -614,14 +645,6 @@ textarea {
 .account-menu li.active {
   background-color: #f0f0f0;
 }
-
-/* Ẩn bài viết không thuộc trang hiện tại */
-/* .posted-article-item,
-.cmt-article-item,
-.read-article-item,
-.saved-article-item {
-  display: none;
-} */
 
 /* Hiển thị bài viết thuộc trang hiện tại */
 .posted-article-item,
@@ -871,4 +894,17 @@ select:disabled {
   color: #444;
   font-size: 1.6rem;
   padding: 0 1rem;
+}
+.noti-item.read {
+  background-color: #f0f0f0;
+  opacity: 0.7;
+}
+.noti-item {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+.noti-item:hover {
+  transform: translateY(-2px); /* nâng lên một chút */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* bóng đổ nhẹ */
 }

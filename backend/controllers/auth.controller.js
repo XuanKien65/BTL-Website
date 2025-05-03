@@ -194,3 +194,86 @@ exports.userLogout = async (req, res) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 };
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
+exports.forgotPassword = async (req, res, next) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findByEmail(email);
+    if (!user) {
+      return next(new ErrorHandler(404, "Email không tồn tại"));
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 phút
+
+    // Lưu token vào DB
+    await User.saveResetToken(user.userid, token, expiry);
+
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password.html?token=${token}`;
+
+    await sendResetEmail(user.email, user.username, resetUrl);
+
+    ApiResponse.success(res, "Email đặt lại mật khẩu đã được gửi");
+  } catch (error) {
+    next(new ErrorHandler(500, "Gửi yêu cầu quên mật khẩu thất bại", error));
+  }
+};
+const sendResetEmail = async (toEmail, username, resetUrl) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: `"The Outsider" <${process.env.EMAIL_USER}>`,
+    to: toEmail,
+    subject: "Yêu cầu đặt lại mật khẩu",
+    html: `
+      <p>Chào ${username},</p>
+      <p>Bạn đã yêu cầu đặt lại mật khẩu. Nhấn vào nút bên dưới để tiếp tục:</p>
+      <a href="${resetUrl}" style="display:inline-block;padding:12px 24px;background-color:#c22b2b;color:white;text-decoration:none;border-radius:4px;">Đặt lại mật khẩu</a>
+      <p>Nếu bạn không yêu cầu hành động này, vui lòng bỏ qua email này.</p>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+exports.resetPassword = async (req, res, next) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const user = await User.findByResetToken(token);
+
+    if (!user) {
+      return next(new ErrorHandler(400, "Token không hợp lệ"));
+    }
+
+    if (new Date(user.resetpasswordexpiry) < new Date()) {
+      return next(
+        new ErrorHandler(
+          400,
+          "Liên kết đặt lại mật khẩu đã hết hạn. Vui lòng gửi lại yêu cầu."
+        )
+      );
+    }
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+    await User.updatePassword(user.userid, hashedPassword);
+
+    // Xoá token sau khi reset
+    await User.saveResetToken(user.userid, null, null);
+
+    ApiResponse.success(res, "Mật khẩu đã được đặt lại thành công", {
+      userId: user.userid,
+    });
+  } catch (error) {
+    next(new ErrorHandler(500, "Đặt lại mật khẩu thất bại", error));
+  }
+};

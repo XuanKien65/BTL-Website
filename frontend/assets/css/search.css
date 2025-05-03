@@ -539,7 +539,9 @@ i {
   color: #f9d232 !important;
   font-weight: bold;
 }
-
+.article-title a:hover {
+  color: var(--heading-color);
+}
 .results-list.grid-view .read-more .material-icons {
   font-size: 20px;
 }

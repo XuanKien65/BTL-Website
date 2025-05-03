@@ -1,6 +1,7 @@
 const Comment = require("../models/comment.model");
 const ApiResponse = require("../utils/apiResponse");
 const ErrorHandler = require("../utils/errorHandler");
+const { isToxicContent } = require("../utils/moderation");
 
 exports.getAllComments = async (req, res, next) => {
   try {
@@ -40,6 +41,8 @@ exports.createComment = async (req, res, next) => {
   try {
     const { content, postId, parentId, replyingTo } = req.body;
 
+    const isToxic = await isToxicContent(content);
+
     const newComment = await Comment.create({
       content,
       postId,
@@ -47,11 +50,19 @@ exports.createComment = async (req, res, next) => {
       authorIp: req.ip,
       parentId,
       replyingTo,
-      status: "pending",
+      status: isToxic ? "pending" : "approved",
     });
 
-    ApiResponse.created(res, "Comment created successfully", newComment);
+    const message = isToxic
+      ? "Bình luận đã được gửi và chờ duyệt do chứa nội dung cần kiểm tra thêm."
+      : "Bình luận đã được đăng thành công.";
+    ApiResponse.created(res, message, {
+      comment: newComment,
+      moderated: isToxic,
+    });
   } catch (error) {
+    console.error("Lỗi tạo bình luận:", error);
+    res.status(500).json({ message: "Lỗi máy chủ khi tạo bình luận." });
     next(new ErrorHandler(500, "Error creating comment", error));
   }
 };

@@ -57,7 +57,7 @@ const Comment = {
         u.username, u.avatarurl
       FROM comments c
       LEFT JOIN users u ON c.userid = u.userid
-      WHERE c.postid = $1
+      WHERE c.postid = $1 and c.status='approved'
       ORDER BY c.createdat ASC
       `,
       [postId]
@@ -77,7 +77,7 @@ const Comment = {
       FROM comments c
       LEFT JOIN posts p ON c.postid = p.postid
       LEFT JOIN users u ON c.userid = u.userid
-      WHERE c.userid = $1
+      WHERE c.userid = $1 and c.status='approved'
       ORDER BY c.createdat DESC
       `,
       [userId]
@@ -91,7 +91,7 @@ const Comment = {
         `
         INSERT INTO comments (
           content, postid, userid, authorip, parentid, replyingto, score, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, 0, 'pending')
+        ) VALUES ($1, $2, $3, $4, $5, $6, 0, $7)
         RETURNING cmtid
         `,
         [
@@ -101,6 +101,7 @@ const Comment = {
           comment.authorIp,
           comment.parentId || null,
           comment.replyingTo || null,
+          comment.status || "pending",
         ]
       );
 
@@ -109,7 +110,7 @@ const Comment = {
 
       return await Comment.findById(commentId);
     } catch (error) {
-      console.error("❌ Error creating comment:", error);
+      console.error("Error creating comment:", error);
       throw error;
     }
   },
