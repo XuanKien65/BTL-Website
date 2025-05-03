@@ -78,8 +78,14 @@ exports.createPost = async (req, res, next) => {
     });
 
     ApiResponse.created(res, "Post created successfully", newPost);
-  } catch (error) {
-    next(new ErrorHandler(500, "Error creating post", error));
+  } catch (err) {
+    if (err.code === "23505" && err.constraint === "posts_slug_key") {
+      return next(
+        new ErrorHandler(400, "Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác")
+      );
+    }
+
+    return next(new ErrorHandler(500, "Lỗi khi tạo bài viết", err));
   }
 };
 

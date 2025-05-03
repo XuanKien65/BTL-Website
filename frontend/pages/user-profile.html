@@ -479,6 +479,28 @@
         <!-- Tab thông báo -->
         <div id="announcement" class="account-tab">
           <h2 class="account-title">Thông báo của bạn</h2>
+          <div class="filter-noti-status">
+            <label for="notiStatusFilter">Lọc theo trạng thái:</label>
+            <select id="notiStatusFilter">
+              <option value="">Tất cả</option>
+              <option value="read">Đã đọc</option>
+              <option value="unread">Chưa đọc</option>
+            </select>
+          </div>  
+          <div class="noti-list">
+          </div>
+          <!-- Phân trang -->
+          <div class="pagination-noti">
+            <button class="prev-btn-noti">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn-noti active">1</button>
+            <button class="page-btn-noti">2</button>
+            <button class="page-btn-noti">3</button>
+            <button class="next-btn-noti">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
         <!-- Tab bài viết đã đăng cho btv -->
         <div id="posted-article" class="account-tab">

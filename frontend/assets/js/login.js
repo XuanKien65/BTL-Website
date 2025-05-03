@@ -234,6 +234,24 @@ async function handleLoginSubmit(e) {
     showError(loginPasswordInput, "Lỗi kết nối đến server");
   }
 }
+const sendNotification = async ({ title, message, toUserId }) => {
+  const res = await fetch("/api/noti/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, message, toUserId }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Gửi thông báo thất bại");
+  }
+
+  return data;
+};
+
 async function handleRegisterSubmit(e) {
   e.preventDefault();
 
@@ -267,6 +285,13 @@ async function handleRegisterSubmit(e) {
     const data = await response.json();
 
     if (response.ok) {
+      const userid = data.data.id;
+      sendNotification({
+        title: "Giờ Outsider xin chào",
+        message:
+          "Chào mừng bạn đến với Giờ Outsider - trang tin tức giải trí số 1",
+        toUserId: userid,
+      });
       const messageDiv = document.createElement("div");
       messageDiv.className = `success-message`;
       messageDiv.textContent = "Đăng ký thành công, vui lòng đăng nhập lại";

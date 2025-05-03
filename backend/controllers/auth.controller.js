@@ -270,7 +270,9 @@ exports.resetPassword = async (req, res, next) => {
     // Xoá token sau khi reset
     await User.saveResetToken(user.userid, null, null);
 
-    ApiResponse.success(res, "Mật khẩu đã được đặt lại thành công");
+    ApiResponse.success(res, "Mật khẩu đã được đặt lại thành công", {
+      userId: user.userid,
+    });
   } catch (error) {
     next(new ErrorHandler(500, "Đặt lại mật khẩu thất bại", error));
   }

@@ -66,6 +66,22 @@ class MyUploadAdapter {
     // Nếu cần handle hủy upload
   }
 }
+const sendNotification = async ({ title, message, toUserId }) => {
+  const res = await fetch("/api/noti/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, message, toUserId }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || "Gửi thông báo thất bại");
+  }
+
+  return data;
+};
 
 document.addEventListener("DOMContentLoaded", async function () {
   // ==================== PHẦN KHỞI TẠO DỮ LIỆU ====================
@@ -257,6 +273,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         try {
           const accessToken = window.currentAccessToken;
+          const tokenPayload = accessToken.split(".")[1];
+          const decodedPayload = JSON.parse(atob(tokenPayload));
+          const userId = decodedPayload.id;
           const res = await fetch("/api/auth/verify-password", {
             method: "POST",
             headers: {
@@ -294,28 +313,24 @@ document.addEventListener("DOMContentLoaded", async function () {
               document.getElementById("password-change-success").style.display =
                 "block";
 
+              sendNotification({
+                title: "Thông báo bảo mật",
+                message:
+                  "Bạn vừa thực hiện thay đổi mật khẩu, thực hiện bảo mật tài khoản nếu đây không phải bạn",
+                toUserId: userId,
+              });
               submitPasswordChange.textContent = originalBtnText;
               submitPasswordChange.disabled = false;
-
-              // Ẩn form sau 2s
-              // setTimeout(() => {
-              //   passwordForm.reset();
-              //   passwordForm.style.display = "none";
-              //   togglePasswordBtn.textContent = "Đổi mật khẩu";
-              //   document.getElementById(
-              //     "password-change-success"
-              //   ).style.display = "none";
-              // }, 2000);
             })
             .catch((err) => {
               console.error("Lỗi đổi mật khẩu:", err.message);
-              showMessage("Đổi mật khẩu thất bại", "error");
+              showMessage("Đổi mật khẩu thất bại", "errors");
               submitPasswordChange.textContent = originalBtnText;
               submitPasswordChange.disabled = false;
             });
         } catch (err) {
           console.error("Lỗi xác minh mật khẩu:", err);
-          showMessage("Đã xảy ra lỗi. Vui lòng thử lại.", "error");
+          showMessage("Đã xảy ra lỗi. Vui lòng thử lại.", "errors");
           submitPasswordChange.textContent = originalBtnText;
           submitPasswordChange.disabled = false;
         }
@@ -352,7 +367,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           const uploadData = await uploadRes.json();
 
           if (!uploadData.url) {
-            showMessage("Upload ảnh thất bại", "error");
+            showMessage("Upload ảnh thất bại", "errors");
             return;
           }
 
@@ -380,7 +395,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById("usr-avatar").src = avaUrl;
             showMessage("Ảnh đại diện đã được cập nhật!", "success");
           } else {
-            showMessage("Lỗi khi cập nhật avatar", "error");
+            showMessage("Lỗi khi cập nhật avatar", "errors");
           }
         } catch (err) {
           console.error("Lỗi upload avatar:", err);
@@ -629,6 +644,111 @@ document.addEventListener("DOMContentLoaded", async function () {
     ".posted-article-item"
   );
   PostedArticlePagination.init();
+
+  // Khởi tạo phân trang cho tab noti
+  const NotiPagination = createPagination("pagination-noti", ".noti-item");
+  NotiPagination.init();
+
+  //=====================PHẦN THÔNG BÁO==============
+  document
+    .getElementById("notiStatusFilter")
+    .addEventListener("change", function () {
+      const selectedStatus = this.value;
+      loadNotifications(selectedStatus);
+    });
+
+  async function loadNotifications(status = "") {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) return;
+
+    const url = new URL("http://localhost:5501/api/noti/");
+    if (status) url.searchParams.append("status", status);
+
+    try {
+      const res = await fetch(url.toString(), {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Lỗi khi lấy danh sách thông báo");
+
+      const result = await res.json();
+      const notiList = result.data || [];
+
+      const container = document.querySelector(".noti-list");
+      const pagi = document.querySelector(".pagination-noti");
+
+      container.innerHTML = "";
+
+      if (notiList.length === 0) {
+        container.innerHTML = "<p>Chưa có thông báo nào.</p>";
+        pagi.style.display = "none";
+        return;
+      }
+
+      notiList.forEach((noti) => {
+        const notiItem = document.createElement("div");
+        notiItem.className = "noti-item";
+        if (noti.is_read) notiItem.classList.add("read"); // Nếu đã đọc từ đầu
+
+        notiItem.dataset.id = noti.id; // Để biết ID khi click
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "noti-title";
+        titleDiv.textContent = noti.title;
+
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "noti-content";
+        contentDiv.textContent = noti.message;
+
+        const metaDiv = document.createElement("div");
+        metaDiv.className = "noti-meta";
+
+        if (noti.created_at) {
+          const date = new Date(noti.created_at);
+          metaDiv.textContent = date.toLocaleDateString("vi-VN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
+        }
+
+        notiItem.appendChild(titleDiv);
+        notiItem.appendChild(contentDiv);
+        notiItem.appendChild(metaDiv);
+
+        // Gắn sự kiện click: đánh dấu đã đọc
+        notiItem.addEventListener("click", async () => {
+          const notificationId = notiItem.dataset.id;
+
+          try {
+            const res = await fetch(
+              `http://localhost:5501/api/noti/read/${notificationId}`,
+              {
+                method: "PUT",
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
+
+            if (!res.ok) throw new Error("Không thể đánh dấu là đã đọc");
+
+            notiItem.classList.add("read"); // Gắn class đã đọc
+          } catch (err) {
+            console.error("❌ Lỗi khi đánh dấu đã đọc:", err);
+          }
+        });
+
+        container.appendChild(notiItem);
+      });
+
+      NotiPagination.init();
+    } catch (err) {
+      console.error("❌ Lỗi khi tải thông báo:", err);
+    }
+  }
 
   // ==================== PHẦN ĐÃ ĐỌC ====================
   async function loadViewedPosts() {
@@ -918,8 +1038,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           });
 
         const accessToken = window.currentAccessToken;
+        const tokenPayload = accessToken.split(".")[1];
+        const decodedPayload = JSON.parse(atob(tokenPayload));
+        const userId = decodedPayload.id;
         if (!accessToken) {
-          showMessage("Vui lòng đăng nhập lại", "error");
+          showMessage("Vui lòng đăng nhập lại", "errors");
           return;
         }
 
@@ -937,6 +1060,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         const result = await response.json();
 
         if (result.success) {
+          sendNotification({
+            title: "Đăng ký viết bài",
+            message:
+              "Đơn đăng ký trở thành tác giả của bạn đã được gửi thành công. Kết quả sẽ có trong 1-2 ngày làm việc",
+            toUserId: userId,
+          });
           showMessage(
             "Đăng ký thành công! Chúng tôi sẽ liên hệ bạn sớm.",
             "success"
@@ -945,11 +1074,11 @@ document.addEventListener("DOMContentLoaded", async function () {
           document.getElementById("frontPreview").innerHTML = "";
           document.getElementById("backPreview").innerHTML = "";
         } else {
-          showMessage("Đăng ký thất bại: " + result.message, "error");
+          showMessage("Đăng ký thất bại: " + result.message, "errors");
         }
       } catch (error) {
         console.error("Lỗi gửi form:", error);
-        showMessage("Có lỗi xảy ra, vui lòng thử lại!", "error");
+        showMessage("Có lỗi xảy ra, vui lòng thử lại!", "errors");
       } finally {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
@@ -1278,6 +1407,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         const accessToken = window.currentAccessToken;
+        const tokenPayload = accessToken.split(".")[1];
+        const decodedPayload = JSON.parse(atob(tokenPayload));
+        const userId = decodedPayload.id;
+
         if (!accessToken) {
           throw new Error(
             "Không tìm thấy accessToken. Vui lòng đăng nhập lại."
@@ -1294,16 +1427,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const result = await response.json();
         if (result.success) {
+          sendNotification({
+            title: "Gửi bài viết thành công",
+            message:
+              "Bài viết của bạn đã được gửi đi đợi duyệt, kết quả sẽ có sau 1-2 ngày làm việc",
+            toUserId: userId,
+          });
           showMessage("Gửi bài thành công!", "success");
           articleForm.reset();
           imagePreview.innerHTML = "";
           window.articleEditor.setData("");
         } else {
-          showMessage("Đăng bài thất bại: " + result.message, "error");
+          showMessage("Đăng bài thất bại: " + result.message, "errors");
         }
       } catch (error) {
         console.error("Error submitting article:", error);
-        showMessage("Có lỗi xảy ra, vui lòng thử lại sau!", "error");
+        showMessage("Có lỗi xảy ra, vui lòng thử lại sau!", "errors");
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
@@ -1438,6 +1577,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await window.updateNavbarAuthState();
   await initAccountSection();
   initTabs();
+  loadNotifications();
   loadSavedArticles();
   loadViewedPosts();
   loadUserComments();
