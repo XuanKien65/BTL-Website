@@ -33,31 +33,33 @@ async function getAccessTokenFromRefresh() {
 }
 
 // ==================== XỬ LÝ LOGOUT ====================
-document.querySelector('.sidebar-footer .sidebar-link').addEventListener('click', async (e) => {
-  e.preventDefault();
+document
+  .querySelector(".sidebar-footer .sidebar-link")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
 
-  try {
-    const token = await getAccessTokenFromRefresh();
-    
-    const response = await fetch('http://localhost:5501/api/auth/logout', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      credentials: 'include'
-    });
+    try {
+      const token = await getAccessTokenFromRefresh();
 
-    if (response.ok) {
-      // Xóa token và chuyển hướng
-      accessToken = null;
-      tokenExpiration = 0;
-      window.location.href = 'http://localhost:5501/pages/login.html';
-    } else {
-      const errorData = await response.json();
-      showToast(errorData.message || 'Đăng xuất thất bại', 'error');
+      const response = await fetch("http://localhost:5501/api/auth/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        // Xóa token và chuyển hướng
+        accessToken = null;
+        tokenExpiration = 0;
+        window.location.href = "http://localhost:5501/pages/login.html";
+      } else {
+        const errorData = await response.json();
+        showToast(errorData.message || "Đăng xuất thất bại", "error");
+      }
+    } catch (error) {
+      console.error("Lỗi logout:", error);
+      showToast("Lỗi kết nối khi đăng xuất", "error");
     }
-  } catch (error) {
-    console.error('Lỗi logout:', error);
-    showToast('Lỗi kết nối khi đăng xuất', 'error');
-  }
-});
+  });

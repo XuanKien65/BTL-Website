@@ -108,33 +108,14 @@ exports.increaseView = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   try {
-    const {
-      title,
-      content,
-      categoryIds,
-      tagIds,
-      status,
-      excerpt,
-      featuredImage,
-      isFeatured,
-    } = req.body;
+    const { title, content } = req.body;
     const slug = slugify(title);
 
-    const updatedPost = await Post.update(req.params.id, {
+    const updatedPost = await Post.updatePost(req.params.id, {
       title,
       slug,
       content,
-      categoryIds,
-      tagIds,
-      excerpt,
-      featuredImage,
-      isFeatured: isFeatured || false,
-      status,
     });
-
-    if (!updatedPost) {
-      return next(new ErrorHandler(404, "Post not found"));
-    }
 
     ApiResponse.success(res, "Post updated successfully", updatedPost);
   } catch (error) {
@@ -159,20 +140,11 @@ exports.approvePost = async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
-    const updatedPost = await Post.update(req.params.id, {
-      title: post.title,
-      slug: post.slug,
-      content: post.content,
-      excerpt: post.excerpt,
-      featuredImage: post.featuredimage,
-      isFeatured: post.is_featured,
-      status: "published",
-      categoryIds: post.categories || [],
-      tagIds: post.tags || [],
-    });
+    const updatedPost = await Post.updateStatus(req.params.id, "published");
 
     ApiResponse.success(res, "Post approved and published", updatedPost);
   } catch (error) {
+    console.error("❌ Error in approvePost:", error);
     next(new ErrorHandler(500, "Error approving post", error));
   }
 };
@@ -182,21 +154,23 @@ exports.rejectPost = async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
-    const updatedPost = await Post.update(req.params.id, {
-      title: post.title,
-      slug: post.slug,
-      content: post.content,
-      excerpt: post.excerpt,
-      featuredImage: post.featuredimage,
-      isFeatured: post.is_featured,
-      status: "rejected",
-      categoryIds: post.categories || [],
-      tagIds: post.tags || [],
-    });
+    const updatedPost = await Post.updateStatus(req.params.id, "rejected");
 
     ApiResponse.success(res, "Post rejected", updatedPost);
   } catch (error) {
     next(new ErrorHandler(500, "Error rejecting post", error));
+  }
+};
+exports.unapprovePost = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return next(new ErrorHandler(404, "Post not found"));
+
+    const updatedPost = await Post.updateStatus(req.params.id, "pending");
+
+    ApiResponse.success(res, "Post moved to pending", updatedPost);
+  } catch (error) {
+    next(new ErrorHandler(500, "Error updating post status", error));
   }
 };
 

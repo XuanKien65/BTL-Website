@@ -107,10 +107,12 @@ p {
   border-bottom: 0.2rem solid var(--border-accent);
   padding-bottom: 1rem;
   margin-bottom: 2rem;
+  font-family: var(--font-title);
 }
 
 .title h1 {
   font-family: var(--font-title);
+  font-weight: bold;
 }
 
 .list-topic {
@@ -179,6 +181,12 @@ p {
   aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: 4px;
+}
+
+.l-img img {
+  width: 100%;
+  height: auto;
+  max-height: 650px;
 }
 
 .l-img img {
