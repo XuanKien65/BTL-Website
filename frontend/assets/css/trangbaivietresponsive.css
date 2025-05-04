@@ -104,3 +104,142 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 1023px) {
+  .comment-section {
+    width: 90%;
+  }
+
+  .comment {
+    grid-template-areas:
+      "user user user"
+      "comment comment comment"
+      "score ... controls";
+    gap: 1rem;
+  }
+
+  .c-score {
+    flex-direction: row;
+    width: auto;
+    padding: 1rem;
+  }
+
+  .reply-input {
+    grid-template-areas:
+      "input input input"
+      "avatar ... button";
+    grid-template-rows: auto min-content;
+    gap: 1rem;
+  }
+
+  .reply-input img {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .reply-input textarea {
+    font-size: 1.8rem;
+    height: 8rem;
+  }
+
+  .replies {
+    padding-left: 1rem;
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .reply-input img {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
+
+  .reply-input textarea {
+    font-size: 1.6rem;
+    height: 7rem;
+  }
+
+  .c-score {
+    font-size: 1.6rem;
+    padding: 0.8rem;
+  }
+
+  .usr-img {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .comment {
+    gap: 0.8rem;
+  }
+
+  .replies {
+    margin-left: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  .bu-primary {
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .comment-section {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .usr-name {
+    font-size: 1.4rem;
+  }
+
+  .reply-input textarea {
+    font-size: 1.4rem;
+    height: 6rem;
+  }
+
+  .c-controls {
+    gap: 1rem;
+  }
+
+  .c-score {
+    gap: 0.5rem;
+  }
+
+  .modal {
+    width: 90%;
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .reply-input {
+    grid-template-rows: auto auto;
+    gap: 0.5rem;
+  }
+
+  .reply-input textarea {
+    height: 5rem;
+    font-size: 1.3rem;
+  }
+
+  .usr-img {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .c-score {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .bu-primary {
+    font-size: 1.3rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .comment .container {
+    padding: 1rem 0.5rem;
+  }
+}

@@ -1622,6 +1622,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const monthKey = `${date.getFullYear()}-${String(
         date.getMonth() + 1
       ).padStart(2, "0")}`;
+      console.log(monthKey);
 
       if (!monthly[monthKey]) {
         monthly[monthKey] = { count: 0, views: 0 };
@@ -1645,7 +1646,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const { labels, counts, views } = groupPostsByMonth(posts);
 
-    const ctx = document.getElementById("myStatsChart").getContext("2d");
+    const ctx = document.getElementById("author-chart").getContext("2d");
 
     new Chart(ctx, {
       type: "bar",

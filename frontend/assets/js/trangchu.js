@@ -617,7 +617,7 @@ function initSlider() {
   updateSlide();
 
   // Tự động chạy slide mỗi 3 giây
-  let slideInterval = setInterval(nextSlide, 3000);
+  let slideInterval = setInterval(nextSlide, 10000);
 
   document
     .querySelector(".slider")
@@ -719,63 +719,100 @@ function initLoadMoreNews({
   fetchAllPosts();
 }
 
-// Gọi cả hàm khi DOM đã sẵn sàng
-document.addEventListener("DOMContentLoaded", () => {
-  loadPopularPosts();
-  loadLeastViewedPosts();
-  loadTinKhac2(".tinkhac2--first .news-container", 9); // Vùng đầu tiên: 9 bài
-  loadTinKhac2(".tinkhac2--second .news-container", 8); // Vùng thứ hai: 8 bài
-  initTopicContainers();
-  loadRecommendedPosts();
-  loadSliderPosts();
-  // Gọi chung initLoadMoreNews()
-  // 1-Sắp xếp theo mới nhất
-  initLoadMoreNews({
-    containerSelector: ".articles-news-1",
-    buttonSelector: ".readmore-news-1",
-    sortBy: "newest",
-    pageSize: 8,
-    excludePostIds: shownPostIds,
-    renderItem: (post) => `
-      <a class="highlighted-article" href="/pages/trangbaiviet.html?slug=${
-        post.slug
-      }">
-        <img src="${post.featuredimage}" alt="${post.title}" />
-        <div class="article-content">
-          <span class="category-tag">${post.categories}</span>
-          <h3 class="article-title">${post.title}</h3>
-          <p class="article-excerpt">${post.excerpt}</p>
-          <div class="read-more">Đọc tiếp <span>→</span></div>
-          <div class="article-meta">
-            <span>${new Date(post.createdat).toLocaleDateString()}</span>
-            <span>${post.views} lượt đọc</span>
-          </div>
-        </div>
-      </a>
-    `,
-  });
+// Hàm ẩn loader
+function hideGlobalLoader() {
+  const loader = document.querySelector(".global-loader");
+  if (loader) {
+    loader.classList.add("hidden");
 
-  // 2-Sắp xếp theo nhiều lượt xem nhất
-  initLoadMoreNews({
-    containerSelector: ".articles-news-2",
-    buttonSelector: ".readmore-news-2",
-    sortBy: "views",
-    pageSize: 8,
-    excludePostIds: shownPostIds,
-    renderItem: (post) => `
-      <a class="article-card" href="/pages/trangbaiviet.html?slug=${post.slug}">
-        <img src="${post.featuredimage}" alt="${post.title}" />
-        <div class="article-content">
-          <span class="category-tag">${post.categories}</span>
-          <h3 class="article-title">${post.title}</h3>
-          <p class="article-excerpt">${post.excerpt}</p>
-          <div class="read-more">Đọc tiếp <span>→</span></div>
-          <div class="article-meta">
-            <span>${new Date(post.createdat).toLocaleDateString()}</span>
-            <span>${post.views} lượt đọc</span>
-          </div>
-        </div>
-      </a>
-    `,
-  });
-});
+    // Xóa loader sau khi animation kết thúc
+    loader.addEventListener(
+      "transitionend",
+      () => {
+        loader.remove();
+      },
+      { once: true }
+    );
+  }
+}
+
+// Khởi tạo trang
+async function initializeHomepage() {
+  try {
+    // Hiển thị loader
+    document.querySelector(".global-loader").classList.remove("hidden");
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    // Tải dữ liệu
+    await Promise.all([
+      loadPopularPosts(),
+      loadLeastViewedPosts(),
+      loadTinKhac2(".tinkhac2--first .news-container", 9),
+      loadTinKhac2(".tinkhac2--second .news-container", 8),
+      loadRecommendedPosts(),
+      loadSliderPosts(),
+      initTopicContainers(),
+      // Gọi chung initLoadMoreNews()
+      // 1-Sắp xếp theo mới nhất
+      initLoadMoreNews({
+        containerSelector: ".articles-news-1",
+        buttonSelector: ".readmore-news-1",
+        sortBy: "newest",
+        pageSize: 8,
+        excludePostIds: shownPostIds,
+        renderItem: (post) => `
+          <a class="highlighted-article" href="/pages/trangbaiviet.html?slug=${
+            post.slug
+          }">
+            <img src="${post.featuredimage}" alt="${post.title}" />
+            <div class="article-content">
+              <span class="category-tag">${post.categories}</span>
+              <h3 class="article-title">${post.title}</h3>
+              <p class="article-excerpt">${post.excerpt}</p>
+              <div class="read-more">Đọc tiếp <span>→</span></div>
+              <div class="article-meta">
+                <span>${new Date(post.createdat).toLocaleDateString()}</span>
+                <span>${post.views} lượt đọc</span>
+              </div>
+            </div>
+          </a>
+        `,
+      }),
+
+      // 2-Sắp xếp theo nhiều lượt xem nhất
+      initLoadMoreNews({
+        containerSelector: ".articles-news-2",
+        buttonSelector: ".readmore-news-2",
+        sortBy: "views",
+        pageSize: 8,
+        excludePostIds: shownPostIds,
+        renderItem: (post) => `
+          <a class="article-card" href="/pages/trangbaiviet.html?slug=${
+            post.slug
+          }">
+            <img src="${post.featuredimage}" alt="${post.title}" />
+            <div class="article-content">
+              <span class="category-tag">${post.categories}</span>
+              <h3 class="article-title">${post.title}</h3>
+              <p class="article-excerpt">${post.excerpt}</p>
+              <div class="read-more">Đọc tiếp <span>→</span></div>
+              <div class="article-meta">
+                <span>${new Date(post.createdat).toLocaleDateString()}</span>
+                <span>${post.views} lượt đọc</span>
+              </div>
+            </div>
+          </a>
+        `,
+      }),
+    ]);
+  } catch (error) {
+    console.error("Initialization error:", error);
+  } finally {
+    // Luôn ẩn loader dù thành công hay thất bại
+    hideGlobalLoader();
+  }
+}
+
+// Khởi chạy
+document.addEventListener("DOMContentLoaded", initializeHomepage);

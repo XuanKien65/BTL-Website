@@ -468,7 +468,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadRecommendedPosts();
   await loadSliderPosts();
   loadTinKhac2(".tinkhac2--second .news-container", 8); // Vùng thứ hai: 8 bài
-  // 2-Sắp xếp theo nhiều lượt xem nhất
+  // 2-Sắp xếp theo mới nhất
   initLoadMoreNews({
     containerSelector: ".articles-news-2",
     buttonSelector: ".readmore-news-2",

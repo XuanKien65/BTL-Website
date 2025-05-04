@@ -908,3 +908,14 @@ select:disabled {
   transform: translateY(-2px); /* nâng lên một chút */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* bóng đổ nhẹ */
 }
+/* THỐNG KÊ */
+#post-statistic .chart {
+  width: 100%;
+  max-width: 100%;
+}
+
+#author-chart {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
