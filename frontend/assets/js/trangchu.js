@@ -6,7 +6,7 @@ const shownPostIds = new Set(); // dùng để xem bài viết nào đã đượ
 // Hàm chính gọi API bài viết phổ biến
 async function loadPopularPosts() {
   try {
-    const response = await fetch('/api/posts/search?sortBy=popular&pageSize=5&status=published');
+    const response = await fetch('/api/posts/search?sortBy=popular&status=published');
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
