@@ -51,7 +51,11 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a href="#users" class="sidebar-link has-dropdown" data-bs-toggle="collapse">
+            <a
+              href="#users"
+              class="sidebar-link has-dropdown"
+              data-bs-toggle="collapse"
+            >
               <span class="material-icons">manage_accounts</span>
               <span>Quản lý người dùng</span>
             </a>
@@ -92,7 +96,7 @@
               <span>Cài đặt</span>
             </a>
           </li>
-        </ul>        
+        </ul>
         <div class="sidebar-footer">
           <a href="#" class="sidebar-link">
             <span class="material-icons">logout</span>
@@ -316,7 +320,8 @@
           <div class="pagination"></div>
         </section>
 
-        <!-- Comments Management Content --> <!-- Cái comment section có sẵn này -->
+        <!-- Comments Management Content -->
+        <!-- Cái comment section có sẵn này -->
         <section id="comments" class="content-section">
           <div class="section-header">
             <h2>Quản lý bình luận</h2>
@@ -329,7 +334,6 @@
                 <option value="all">Tất cả</option>
                 <option value="approved">Đã duyệt</option>
                 <option value="pending">Chờ duyệt</option>
-                <!-- DL bỏ option là spam =======================================================================================-->
               </select>
             </div>
             <div class="search-group">
@@ -837,79 +841,76 @@ Trang tin tức giải trí hàng đầu</textarea
             </table>
           </div>
         </section>
-
-        <!-- Diệu Linh sửa lại ===================================================================== -->
         <!-- Section Quản lý bài viết  -->
         <section id="posts" class="content-section">
           <div class="section-header">
             <h2>Quản lý bài viết</h2>
+            <button class="btn btn-primary" id="addPostBtn">
+              <i class="fas fa-plus"></i> Đăng bài viết
+            </button>
           </div>
 
           <div class="filter-bar">
+            <div class="search-group">
+              <input
+                type="text"
+                placeholder="Tìm bài viết"
+                id="postSearchInput"
+              />
+              <button class="btn btn-search" id="postSearchBtn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
             <div class="filter-group">
-              <label for="postStatusFilter">Lọc theo trạng thái:</label>
+              <label for="postCateFilter">Chủ đề:</label>
+              <select id="postCateFilter">
+                <option value="all">Tất cả</option>
+                <option value="am-nhac">Âm nhạc</option>
+                <option value="pending">Chờ duyệt</option>
+                <option value="reject">Từ chối</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="postStatusFilter">Trạng thái:</label>
               <select id="postStatusFilter">
                 <option value="all">Tất cả</option>
                 <option value="published">Đã duyệt</option>
                 <option value="pending">Chờ duyệt</option>
-                <option value="draft">Bản nháp</option>
+                <option value="reject">Từ chối</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="postViews">Lượt xem: </label>
+              <select id="postViews">
+                <option value="from-high">Cao - Thấp</option>
+                <option value="from-low">Thấp - Cao</option>
               </select>
             </div>
           </div>
-
           <div class="table-responsive">
             <table class="data-table">
               <thead>
                 <tr>
                   <th width="50px">ID</th>
                   <th>Tiêu đề</th>
-                  <th>Danh mục</th>
+                  <th>Tác giả</th>
                   <th>Ngày đăng</th>
                   <th>Lượt xem</th>
                   <th>Trạng thái</th>
                   <th width="150px">Hành động</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- Dummy data -->
-                <tr>
-                  <td>1</td>
-                  <td>Hướng dẫn sử dụng cơ bản</td>
-                  <td>Hướng dẫn</td>
-                  <td>10/05/2024</td>
-                  <td>1,234</td>
-                  <td><span class="status-badge published">Đã duyệt</span></td>
-                  <td>
-                    <button class="btn btn-edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-view">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Bài viết mẫu đang chờ duyệt</td>
-                  <td>Khác</td>
-                  <td>09/05/2024</td>
-                  <td>0</td>
-                  <td><span class="status-badge pending">Chờ duyệt</span></td>
-                  <td>
-                    <button class="btn btn-edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
+          <div class="pagination"></div>
         </section>
       </main>
     </div>
 
     <!-- Modals: là những cái ô mà khi bấm vào mấy nút hành động sẽ hiện ra =========================================================-->
-    <!-- Add Post Modal --> <!-- Vũ Linh xóa cái này đi nhé vì cái này lúc trước là cái ô chi tiết thêm bài viết, m lướt xuống dưới sẽ có cái modal trống -->
+    <!-- Add Post Modal -->
+    <!-- Vũ Linh xóa cái này đi nhé vì cái này lúc trước là cái ô chi tiết thêm bài viết, m lướt xuống dưới sẽ có cái modal trống -->
 
     <!-- Add Category Modal -->
     <div class="modal" id="addCategoryModal">
@@ -1038,7 +1039,11 @@ Trang tin tức giải trí hàng đầu</textarea
       <div class="modal-content small">
         <div class="modal-header">
           <h3>
-            <i class="fas fa-exclamation-triangle"></i> Xác nhận hành động
+            <i
+              class="fas fa-exclamation-triangle"
+              style="padding-right: 5px"
+            ></i>
+            Xác nhận hành động
           </h3>
           <button class="modal-close">&times;</button>
         </div>
@@ -1055,32 +1060,42 @@ Trang tin tức giải trí hàng đầu</textarea
         </div>
         <div class="modal-footer">
           <button class="btn btn-outline modal-close">Huỷ</button>
-          <button
-            class="btn btn-danger"
-            id="confirmAction"
-            onclick="confirmAction()"
-          >
-            Xác nhận
-          </button>
+          <button class="btn btn-danger" id="confirmAction">Xác nhận</button>
         </div>
       </div>
     </div>
 
-    <!-- Modal Xem bài viết --> <!-- Đây là cái tab "click vào xem sẽ hiển thị ra 1 tab như đơn đky ý, nma m cứ để trống đã" của bài viết-->
-    <div class="modal" id="viewPostModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Chi tiết bài viết</h3>
-          <button class="modal-close">&times;</button>
+    <!-- Modal Xem bài viết -->
+    <div id="postDetailModal" class="modal">
+      <div class="modal-contents">
+        <h2>
+          <span id="post-title-view"></span>
+          <textarea
+            id="post-title-edit"
+            type="text"
+            style="display: none"
+          ></textarea>
+        </h2>
+
+        <div class="meta">
+          <p id="post-meta-view"></p>
         </div>
-        <div class="modal-body">
-          <!-- Nội dung chi tiết sẽ được thêm bằng JS -->
+
+        <div id="post-body-view" class="news-body"></div>
+        <textarea id="articleContent" style="display: none"></textarea>
+
+        <div id="modal-post-tags" class="hashtag-container"></div>
+
+        <div class="modal-actions">
+          <button id="edit-btn">Chỉnh sửa</button>
+          <button id="save-btn" style="display: none">Lưu</button>
+          <button id="cancel-btn">Huỷ</button>
         </div>
       </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/layout.js"></script>

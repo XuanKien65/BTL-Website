@@ -1,561 +1,209 @@
-const articles = [
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi thángFly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi thángFly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://images2.thanhnien.vn/528068263637045248/2024/12/4/3-17332802768611370004247.jpg",
-    title: "Kiếm chục nghìn USD từ game 'tạo bằng vài câu lệnh AI'",
-    desc: "Fly Pieter, game 'được tạo đơn giản bằng vài câu lệnh AI', hiện giúp chủ nhân kiếm hơn 50.000 USD mỗi tháng.",
-    comments: 15,
-    date: "15/03/2023",
-    time: "2 phút hơn",
-  },
-  {
-    img: "https://example.com/image2.jpg",
-    title: "Công nghệ AI có thể thay thế lập trình viên?",
-    desc: "Các chuyên gia đang tranh cãi về việc AI có thể thay thế hoàn toàn công việc lập trình viên hay không.",
-    comments: 12,
-    date: "16/03/2023",
-    time: "3 phút",
-  },
-  {
-    img: "https://example.com/image3.jpg",
-    title: "Cách kiếm tiền từ lập trình AI",
-    desc: "Tổng hợp các cách kiếm tiền hiệu quả từ việc lập trình AI mà bạn có thể áp dụng ngay.",
-    comments: 20,
-    date: "17/03/2023",
-    time: "5 phút",
-  },
-  {
-    img: "https://example.com/image4.jpg",
-    title: "Những xu hướng công nghệ nổi bật năm 2024",
-    desc: "Cùng điểm qua những công nghệ sẽ thay đổi thế giới trong năm nay.",
-    comments: 8,
-    date: "18/03/2023",
-    time: "4 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-  {
-    img: "https://example.com/image5.jpg",
-    title: "Lập trình viên nên học gì trong năm 2024?",
-    desc: "Hướng dẫn những kỹ năng cần thiết giúp lập trình viên phát triển sự nghiệp trong năm nay.",
-    comments: 30,
-    date: "19/03/2023",
-    time: "6 phút",
-  },
-];
-
+let articles = [];
 let currentPage = 1;
 const articlesPerPage = 10;
-const totalPages = Math.ceil(articles.length / articlesPerPage);
+let totalPages = 1;
+let currentCategoryName = "";
+let topArticleId = null;
+
+
+// ================= HIỂN THỊ DANH SÁCH BÀI VIẾT =================
+
+async function loadArticlesAndTopPopular(page = 1) {
+  const params = new URLSearchParams(window.location.search);
+  const categoryName = params.get("categoryName");
+  if (!categoryName) return;
+
+  currentCategoryName = categoryName;
+  currentPage = page;
+
+  try {
+    const query = new URLSearchParams({
+      categoryName,
+      sortBy: "newest",
+      page,
+      pageSize: articlesPerPage
+    });
+
+    const res = await fetch(`/api/posts/search/?${query.toString()}`);
+    const result = await res.json();
+
+    if (!result.success) {
+      console.error("Không thể lấy bài viết:", result.message);
+      return;
+    }
+
+    const allPosts = result.data.posts || [];
+
+    if (!allPosts.length) {
+      articles = [];
+      totalPages = 1;
+      renderPopularArticle(null); // xóa nếu không có bài
+      displayArticles();
+      return;
+    }
+
+    // ✅ Tìm bài có views cao nhất trong trang hiện tại
+    const topPost = allPosts.reduce((max, post) =>
+      (post.views > max.views ? post : max), allPosts[0]);
+
+    topArticleId = topPost.postid;
+    renderPopularArticle(topPost); // ✅ hiển thị bài nổi bật
+
+    // ✅ Loại bài đó khỏi danh sách
+    articles = allPosts.filter(post => post.postid !== topArticleId);
+    totalPages = result.data.pagination?.totalPages || 1;
+
+    displayArticles();
+    const res2 = await fetch("/api/categories/");
+    const data2 = await res2.json();
+
+    let parentCategory = data2.data.find(cat =>
+      cat.name.trim().toLowerCase() === currentCategoryName.trim().toLowerCase()
+    );
+
+    if (!parentCategory) {
+      parentCategory = data2.data.find(cat =>
+        (cat.children || []).some(
+          (child) => child.name.trim().toLowerCase() === currentCategoryName.trim().toLowerCase()
+        )
+  );
+}
+    const isChildCategory = parentCategory && parentCategory.name.trim().toLowerCase() !== currentCategoryName.trim().toLowerCase();
+    updateSectionsVisibility(page, isChildCategory);
+
+  } catch (err) {
+    console.error("❌ Lỗi khi tải bài viết:", err);
+  }
+}
+
+
+
+function renderPopularArticle(article) {
+  const container = document.querySelector(".l-body");
+  if (!container) return;
+
+  if (!article) {
+    container.innerHTML = ""; // ❌ không có bài thì clear
+    return;
+  }
+
+  container.innerHTML = `
+    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="l-img">
+      <img src="${article.featuredimage || '/assets/default.jpg'}" alt="${article.title}">
+    </a>
+    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="l-content">
+      <h3>${article.title}</h3>
+      <p>${article.excerpt || ""}</p>
+    </a>
+  `;
+}
+
+
 
 function displayArticles() {
   const list = document.getElementById("articles-list");
-  const trend = document.getElementById("articles-trend");
-
   list.innerHTML = "";
 
-  // Ẩn/hiện articles-trend
-  trend.style.display = currentPage === 1 ? "flex" : "none";
+  if (!articles.length) {
+    list.innerHTML = "<p>Không có bài viết nào trong chuyên mục này.</p>";
+    return;
+  }
 
-  // Hiển thị bài viết cho trang hiện tại
-  const start = (currentPage - 1) * articlesPerPage;
-  const end = start + articlesPerPage;
-  articles.slice(start, end).forEach((article) => {
-    const articleItem = document.createElement("li");
-    articleItem.classList.add("one-article");
-    articleItem.innerHTML = `
-      <a href="#" class="article-image">
-        <img src="${article.img}" alt="">
-      </a>
-      <a href="#" class="article-title">
-        <h3>${article.title}</h3>
-        <div class="article-desc">
-          <p>${article.desc}</p>
-        </div>
-        <div class="ar-cmt2">
-          <div class="ar-time">
-            <span class="ar-item">
-              <span>${article.date}</span>
-            </span>
-            <span class="ar-item">
-              <span>${article.time}</span>
-            </span>
-          </div>
-        </div>
-      </a>
-    `;
-    list.appendChild(articleItem);
+  articles.forEach((article) => {
+    const li = document.createElement("li");
+    li.className = "one-article";
+    li.innerHTML = renderArticleCard(article);
+    list.appendChild(li);
   });
 
   updatePagination();
+}
+
+function renderArticleCard(article) {
+  return `
+    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="article-image">
+      <img src="${article.featuredimage || '/assets/default.jpg'}" alt="${article.title}">
+    </a>
+    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="article-title">
+      <h3>${article.title}</h3>
+      <div class="article-desc"><p>${article.excerpt || ""}</p></div>
+      <div class="ar-cmt2">
+        <div class="ar-time">
+          <span class="ar-item"><span>${new Date(article.publishedat || article.createdat).toLocaleDateString("vi-VN")}</span></span>
+          <span class="ar-item"><span>${article.views || 0} lượt xem</span></span>
+        </div>
+      </div>
+    </a>
+  `;
 }
 
 function updatePagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  if (totalPages <= 1) return;
-
-  // Nút Previous
-  const prevBtn = document.createElement("button");
-  prevBtn.className = "prev-btn";
-  prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage > 1) changePage(e, currentPage - 1);
-  });
-  if (currentPage > 1) {
-    pagination.appendChild(prevBtn);
-  }
-  // Các nút trang
   const maxVisiblePages = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-  // Đảm bảo luôn hiển thị đủ maxVisiblePages nút nếu có thể
   if (endPage - startPage + 1 < maxVisiblePages) {
     startPage = Math.max(1, endPage - maxVisiblePages + 1);
   }
 
-  for (let i = startPage; i <= endPage; i++) {
-    const pageBtn = document.createElement("button");
-    pageBtn.className = `page-btn ${i === currentPage ? "active" : ""}`;
-    pageBtn.textContent = i;
-    pageBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      changePage(e, i);
+
+  // Prev
+  if (currentPage > 1) {
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "prev-btn";
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.addEventListener("click", () => {
+      changePage(currentPage - 1);
     });
-    pagination.appendChild(pageBtn);
+    pagination.appendChild(prevBtn);
   }
 
-  // Nút Next
-  const nextBtn = document.createElement("button");
-  nextBtn.className = "next-btn";
-  nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (currentPage < totalPages) changePage(e, currentPage + 1);
-  });
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.className = "page-btn" + (i === currentPage ? " active" : "");
+    btn.textContent = i;
+
+    // ✅ Gắn sự kiện click
+    btn.addEventListener("click", () => {
+      if (i !== currentPage) {
+        changePage(i);
+      }
+    });
+
+    pagination.appendChild(btn);
+  }
+
+  // Next
   if (currentPage < totalPages) {
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "next-btn";
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.addEventListener("click", () => {
+      changePage(currentPage + 1);
+    });
     pagination.appendChild(nextBtn);
   }
 }
 
-function changePage(event, page) {
-  event.preventDefault();
+
+function changePage(page) {
   if (page >= 1 && page <= totalPages) {
-    currentPage = page;
-    displayArticles();
+    loadArticlesAndTopPopular(page);
     window.scrollTo(0, 0);
   }
 }
 
-document.addEventListener("DOMContentLoaded", displayArticles);
 
-// Đảm bảo đồng bộ hoàn toàn khi cuộn
-scrollDiv.addEventListener("scroll", function () {
-  updateScrollThumb();
-  window.requestAnimationFrame(updateScrollThumb); // Đảm bảo mượt mà
-});
-
-// Thêm xử lý cuộn khi click vào track
-// document.querySelector('.fake-scrollbar-track').addEventListener('click', function(e) {
-//   if (e.target !== fakeScrollbarThumb) {
-//     const trackRect = this.getBoundingClientRect();
-//     const clickPositionPercentage = (e.clientY - trackRect.top) / trackRect.height;
-//     scrollDiv.scrollTop = clickPositionPercentage * (scrollDiv.scrollHeight - scrollDiv.clientHeight);
-//   }
-// });
-
-// Bạn có thể thích
+// ================= SLIDER (BẠN CÓ THỂ THÍCH) =================
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
-    slidesPerView: 4, // Giảm số lượng ô hiển thị để tạo khoảng cách tốt hơn
-    spaceBetween: 20, // Thêm khoảng cách giữa các ô
-    loop: true, // Thêm tính năng loop
+    slidesPerView: 4,
+    spaceBetween: 20,
+    loop: true,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -565,23 +213,159 @@ document.addEventListener("DOMContentLoaded", function () {
       clickable: true,
     },
     breakpoints: {
-      // Thêm responsive breakpoints
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 10,
-      },
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 15,
-      },
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 15,
-      },
-      1024: {
-        slidesPerView: 4,
-        spaceBetween: 20,
-      },
+      320: { slidesPerView: 1, spaceBetween: 10 },
+      640: { slidesPerView: 2, spaceBetween: 15 },
+      768: { slidesPerView: 3, spaceBetween: 15 },
+      1024: { slidesPerView: 4, spaceBetween: 20 },
     },
   });
 });
+
+// ================= CHUYÊN MỤC CHA VÀ CON (dựa trên categoryName từ URL) =================
+async function loadCategoryBlock() {
+  const params = new URLSearchParams(window.location.search);
+  const categoryName = params.get("categoryName");
+
+  if (!categoryName) return;
+
+  try {
+    const res = await fetch("/api/categories/");
+    const data = await res.json();
+
+    // Tìm danh mục cha theo tên hoặc theo children
+    let parentCategory = data.data.find(
+      (cat) => cat.name.trim().toLowerCase() === categoryName.trim().toLowerCase()
+    );  
+
+    if (!parentCategory) {
+  // Nếu không khớp tên cha, tìm trong children
+      parentCategory = data.data.find((cat) =>
+        (cat.children || []).some(
+          (child) => child.name.trim().toLowerCase() === categoryName.trim().toLowerCase()
+    )
+  );
+}
+
+    const { name, children } = parentCategory;
+
+    const titleContainer = document.querySelector(".title");
+    if (!titleContainer) return;
+
+    const headerHTML = `
+      <div class="title-header">
+       <a href="/pages/topic.html?categoryName=${encodeURIComponent(name)}"
+          <h1>${name}</h1>
+       <a>
+      </div>
+    `;
+
+    const listItemsHTML = (children || [])
+    .map((child) => {
+    const isActive =
+      child.name.trim().toLowerCase() === categoryName.trim().toLowerCase();
+
+    return `
+      <li class="single">
+        <a href="/pages/topic.html?categoryName=${encodeURIComponent(child.name)}" 
+           class="page ${isActive ? "active" : ""}">
+          <h1>${child.name}</h1>
+        </a>
+      </li>`;
+  })
+  .join("");
+
+    const listHTML = `<ul class="list-topic">${listItemsHTML}</ul>`;
+    titleContainer.innerHTML = headerHTML + listHTML;
+
+    const currentCategory = categoryName.trim().toLowerCase();
+    const topicLinks = document.querySelectorAll(".list-topic .page");
+
+    topicLinks.forEach((link) => {
+      const url = new URL(link.href);
+      const linkCat = url.searchParams.get("categoryName")?.trim().toLowerCase();
+
+      if (linkCat === currentCategory) {
+        link.classList.add("active");
+    }
+  });
+
+  loadArticlesAndTopPopular(1);
+
+  } catch (err) {
+    console.error("❌ Lỗi khi tải danh mục:", err);
+  }
+}
+
+async function loadTrendingSubcategoryPosts() {
+  const params = new URLSearchParams(window.location.search);
+  const parentName = params.get("categoryName");
+  if (!parentName) return;
+
+  try {
+    const res = await fetch("/api/categories/");
+    const data = await res.json();
+
+    const parentCategory = data.data.find(cat =>
+      cat.name.trim().toLowerCase() === parentName.trim().toLowerCase()
+    );
+
+    if (!parentCategory || !parentCategory.children?.length) return;
+
+    const trendList = document.querySelector(".trend-list");
+    trendList.innerHTML = ""; // Xoá nội dung cũ
+
+    for (const sub of parentCategory.children) {
+      const query = new URLSearchParams({
+        categoryName: sub.name,
+        sortBy: "popular",
+        page: 1,
+        pageSize: 3
+      });
+
+      const postRes = await fetch(`/api/posts/search/?${query.toString()}`);
+      const postData = await postRes.json();
+
+      if (postData.success && postData.data.posts?.length) {
+        postData.data.posts.forEach(post => {
+          const li = document.createElement("li");
+          li.className = "trend-container";
+          li.innerHTML = `
+            <a href="/pages/trangbaiviet.html?slug=${post.slug}" class="trend-words">
+              <h3>${post.title}</h3>
+              <span class="trend-content">${post.excerpt || ""}</span>
+            </a>
+          `;
+          trendList.appendChild(li);
+        });
+      }
+    }
+  } catch (error) {
+    console.error("❌ Lỗi khi tải trending chuyên mục con:", error);
+  }
+}
+
+
+function updateSectionsVisibility(page, isChildCategory = false) {
+  const trending = document.getElementById("trending-section");
+  const popular = document.getElementById("popularArticle");
+
+  if (!trending || !popular) return;
+
+  if (page === 1 && !isChildCategory) {
+    loadTrendingSubcategoryPosts();
+    trending.classList.remove("hidden");
+    popular.classList.remove("full-width");
+  } else {
+    trending.classList.add("hidden");
+    popular.classList.add("full-width");
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCategoryBlock();
+});
+
+
+

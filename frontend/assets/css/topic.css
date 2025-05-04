@@ -107,10 +107,12 @@ p {
   border-bottom: 0.2rem solid var(--border-accent);
   padding-bottom: 1rem;
   margin-bottom: 2rem;
+  font-family: var(--font-title);
 }
 
 .title h1 {
   font-family: var(--font-title);
+  font-weight: bold;
 }
 
 .list-topic {
@@ -137,7 +139,8 @@ p {
 .main-topic {
   display: flex;
   width: 100%;
-
+  max-width: 100%;
+  padding: 0;
   justify-content: center;
 }
 
@@ -159,13 +162,17 @@ p {
 /* Featured Article */
 .articles-trend {
   display: flex;
+  align-items: stretch; /* ← thêm dòng này */
   margin-bottom: 3rem;
   border-bottom: 1px solid var(--border-accent);
   padding-bottom: 3rem;
+  height: auto;
 }
 
 .l-trending {
   width: 70%;
+  display: flex;
+  flex-direction: column;
 }
 
 .l-img {
@@ -174,6 +181,12 @@ p {
   aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: 4px;
+}
+
+.l-img img {
+  width: 100%;
+  height: auto;
+  max-height: 650px;
 }
 
 .l-img img {
@@ -202,10 +215,18 @@ p {
   margin-left: 2%;
   padding-left: 2%;
   border-left: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.r-trending {
+  height: auto !important;
+  flex-grow: 1;
 }
 
 .scroll-div {
-  max-height: 500px;
+  max-height: 700px;
   overflow-y: auto;
   padding-right: 1rem;
 }
@@ -320,19 +341,6 @@ p {
 }
 
 /* Right Column - Sidebar */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .page-btn {
   padding: 0.8rem 1.2rem;
@@ -457,27 +465,15 @@ p {
 /* ============ MEDIA QUERIES ============ */
 /* Large Desktop */
 
-
-
 /* Medium Desktop */
-
-
 
 /* Tablet Landscape */
 
-
-
 /* Tablet Portrait */
-
-
 
 /* Mobile */
 
-
-
 /* Extra Small Mobile */
-
-
 
 /* ============ CUSTOM OVERRIDES FOR RESPONSIVENESS ============ */
 
@@ -512,20 +508,13 @@ p {
 
 /* Tablet: Hiển thị 2 ảnh */
 
-
-
 /* Mobile: Hiển thị 1 ảnh */
-
-
 
 /* Luôn hiện 2 nút điều hướng */
 .swiper-button-next,
 .swiper-button-prev {
   display: block !important;
 }
-
-
-
 
 /* ============ "YOU MAY LIKE" SECTION ============ */
 .topic {
@@ -702,15 +691,13 @@ p {
   position: relative;
 }
 
-
-
-
 #pagination.l-main-button {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 3rem auto; /* căn giữa và thêm khoảng cách trên dưới */
-  width: fit-content; /* hoặc xóa width nếu nó chiếm toàn bộ chiều ngang */
+  gap: 8px;
+  margin-top: 30px;
+  padding: 20px 0;
+  flex-wrap: wrap; /* hoặc xóa width nếu nó chiếm toàn bộ chiều ngang */
 }
 
 .l-main {
