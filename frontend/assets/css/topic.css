@@ -704,3 +704,200 @@ ul.articles {
   margin: 0 auto;
   padding: 0 2rem; /* nếu muốn có padding ngang */
 }
+
+#popularArticle {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 2rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Ảnh bên trái chiếm 40% */
+#popularArticle .l-img {
+  flex: 0 0 72% !important;
+  max-width: none !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+}
+
+/* Ảnh bên trong */
+#popularArticle .l-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+/* Nội dung bên phải vừa vặn */
+#popularArticle .l-trending {
+  flex: 1 !important;
+  padding-left: 2rem !important;
+  display: flex;
+  flex-direction: column;
+}
+
+#popularArticle {
+  display: flex !important;
+  flex-direction: column !important;  /* Stack theo chiều dọc */
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Ảnh phía trên */
+#popularArticle .l-img {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16/9 !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+}
+
+/* Ảnh bên trong */
+#popularArticle .l-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Phần nội dung bên dưới ảnh */
+#popularArticle .l-trending {
+  width: 100% !important;
+  padding-left: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+#popularArticle .l-content {
+  padding-bottom: 2rem !important;  /* Hoặc 3rem nếu bạn muốn rộng hơn */
+}
+
+/* Tổng thể khối bài viết + trending */
+.articles-trend {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+/* Bài viết nổi bật bên trái — tăng nhẹ chiều rộng */
+.articles-trend .l-body {
+  width: 70% !important; /* ← tăng từ 65% lên */
+}
+
+/* Bên phải: box trending */
+.articles-trend .r-trending {
+  width: 32% !important; /* ← giảm từ 35% xuống */
+}
+
+/* Thanh cuộn chiếm nhỏ hơn toàn phần */
+.articles-trend .scroll-div {
+  width: 95% !important;         /* ↓ Giảm nhẹ để không chạm lề */
+  max-width: 95% !important;
+  box-sizing: border-box;
+}
+
+.a-l-content h3 {
+  font-size: 2.4rem !important;  /* Tăng cỡ tiêu đề */
+  line-height: 1.4;
+}
+
+.a-l-content p {
+  font-size: 1.8rem !important;  /* Tăng cỡ đoạn văn bản mô tả */
+  line-height: 1.6;
+}
+
+.list-topic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-topic .parent h1 {
+  font-size: 2.4rem; /* chữ to hơn */
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.list-topic .page h1 {
+  font-size: 1.8rem;
+  color: #888;
+}
+
+.list-topic .page.active h1 {
+  color: var(--heading-color); /* màu đỏ */
+}
+
+.article-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ar-time {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.title-header {
+  font-family: "Merriweather", serif !important;
+  font-size: 2.4rem;          /* Điều chỉnh kích thước theo nhu cầu */
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;      /* Bỏ gạch chân nếu không muốn */
+}
+
+.title-header:hover {
+  color: var(--heading-color); /* Màu đỏ giống các tab khác */
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Đề phòng tràn dòng trên mobile */
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--border-accent);
+  margin-bottom: 2rem;
+}
+
+/* CATEGORY CHA – bên trái */
+.title-header {
+  font-family: "Merriweather", serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.title-header:hover {
+  color: var(--heading-color);
+}
+
+/* CATEGORY CON – bên phải */
+ul.list-topic {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+ul.list-topic li a {
+  font-family: "Merriweather", serif;
+  font-size: 1.6rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+ul.list-topic li a:hover,
+ul.list-topic li a.active {
+  color: var(--heading-color);
+  font-weight: 600;
+}
