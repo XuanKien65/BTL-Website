@@ -7,7 +7,7 @@ const shownPostIds = new Set(); // dùng để xem bài viết nào đã đượ
 async function loadPopularPosts() {
   try {
     const response = await fetch(
-      "/api/posts/search?sortBy=popular&pageSize=5&status=published"
+      "/api/posts/search?sortBy=popular&status=published"
     );
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -141,10 +141,6 @@ async function loadLeastViewedPosts() {
     console.error("Lỗi khi tải bài viết ít lượt xem:", error);
   }
 }
-
-// TINKHAC - lọc theo mới nhất
-// tin khác 1
-
 // tin khác 2
 // Biến toàn cục lưu ID bài viết đã hiển thị
 const tinkhac2ShownIds = new Set();
@@ -653,7 +649,10 @@ function initLoadMoreNews({
       let posts = data.data.posts;
 
       // Lọc bài đã hiển thị toàn cục
-      posts = posts.filter((post) => !excludePostIds.has(post.postid));
+      posts = posts.filter(
+        (post) =>
+          post.status === "published" && !excludePostIds.has(post.postid)
+      );
 
       // Sắp xếp theo loại
       if (sortBy === "views") {
