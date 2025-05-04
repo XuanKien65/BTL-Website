@@ -117,8 +117,10 @@ a {
   object-fit: cover;
 }
 figcaption i {
-  font-size: 2rem;
-  color: #5f5b53;
+  padding-left: 10px !important;
+  font-size: 1.8rem !important;
+  color: #5f5b53 !important;
+  font-style: italic !important;
 }
 figure {
   background-color: var(--Very-light-gray);
