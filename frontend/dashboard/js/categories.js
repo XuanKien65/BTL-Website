@@ -43,7 +43,7 @@ function flattenAndSortCategoriesByParentGroup(categories) {
         const parentB = b.parent_id === null ? -1 : b.parent_id;
 
         if (parentA !== parentB) return parentA - parentB;
-        return a.name.localeCompare(b.name, 'vi');
+        return a.id - b.id; // Sắp xếp theo ID tăng dần thay vì tên
     });
 
     return flat;

@@ -166,3 +166,23 @@ function hideLoading(selector) {
     }
   }
 }
+
+const sendNotification = async ({ title, message, toUserId }) => {
+  const res = await fetch("/api/noti/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, message, toUserId }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Gửi thông báo thất bại");
+  }
+
+  return data;
+};
+
+

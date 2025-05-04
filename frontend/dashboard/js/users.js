@@ -317,6 +317,12 @@ function setupUserEventListeners() {
               await updateUserRole(userId, "user");
               showToast("Đã thu hồi quyền tác giả thành công", "success");
 
+              await sendNotification({
+                title: "Thay đổi vai trò hệ thống",
+                message: "Quyền tác giả của bạn đã được thu hồi.",
+                toUserId: userId
+              });
+
               // Cập nhật lại danh sách người dùng
               await initUserManagement();
             } catch (error) {
@@ -399,6 +405,13 @@ function fillAuthorRequestModal(data) {
       // 2. Cập nhật role người dùng
       await updateUserRole(userId, "author");
 
+      // GỬI THÔNG BÁO CHÀO MỪNG TÁC GIẢ
+      await sendNotification({
+        title: "Chào mừng tác giả mới 🎉",
+        message: "Chúc mừng bạn đã trở thành tác giả chính thức của Giờ Outsider!",
+        toUserId: userId
+      });
+
       // 3. Làm mới bảng
       await initUserManagement();
 
@@ -425,6 +438,7 @@ function fillAuthorRequestModal(data) {
     } catch (error) {
       console.error("Full error:", error);
       showToast(error.message || "Lỗi khi duyệt đơn đăng ký", "error");
+      console.error("Lỗi gửi thông báo:", error);
     }
   });
 
@@ -458,6 +472,13 @@ function fillAuthorRequestModal(data) {
           const errorData = await response.json();
           throw new Error(errorData.message || "Lỗi khi từ chối đơn");
         }
+
+        // THÔNG BÁO ĐƠN ĐĂNG KÝ TÁC GIẢ BỊ TỪ CHỐI
+        await sendNotification({
+          title: "Đơn đăng ký tác giả bị từ chối",
+          message: "Rất tiếc, đơn đăng ký trở thành tác giả của bạn đã không được chấp thuận. Vui lòng liên hệ quản trị viên để biết thêm chi tiết.",
+          toUserId: userId
+        });
 
         await initUserManagement();
 
@@ -496,6 +517,7 @@ function fillAuthorRequestModal(data) {
       } catch (error) {
         console.error("Lỗi khi xử lý từ chối:", error);
         showToast(error.message || "Lỗi khi từ chối đơn đăng ký", "error");
+        console.error("Lỗi gửi thông báo:", error);
       }
     });
   });
@@ -717,6 +739,15 @@ async function updateUserStatus(userId, status) {
           console.error("API error response:", errorData);
           throw new Error(errorData.message || "Lỗi khi cập nhật trạng thái");
         }
+        
+        // GỬI THÔNG BÁO TRẠNG THÁI
+        await sendNotification({
+          title: status === "banned" ? "Tài khoản bị khóa 🔒" : "Tài khoản đã mở khóa 🎉",
+          message: status === "banned" 
+            ? "Tài khoản của bạn đã bị khóa do vi phạm điều khoản cộng đồng." 
+            : "Tài khoản của bạn đã được kích hoạt lại. Chào mừng quay trở lại!",
+          toUserId: userId
+        });
 
         await initUserManagement();
         showToast(
@@ -728,6 +759,7 @@ async function updateUserStatus(userId, status) {
       } catch (error) {
         console.error("updateUserStatus error:", error);
         showToast(error.message || "Có lỗi xảy ra", "error");
+        console.error("Lỗi gửi thông báo:", error);
       }
     }
   );

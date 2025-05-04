@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         (post_tab.style.display = "none"),
           (posted_tab.style.display = "none"),
           (post_statistic.style.display = "none");
-      } else if (userData.role == "author") {
+      } else if (userData.role == "author" || userData.role == "admin") {
         author_register.style.display = "none";
       }
     }
@@ -413,33 +413,45 @@ document.addEventListener("DOMContentLoaded", async function () {
   // ==================== PHẦN TAB ====================
   function initTabs() {
     function showTab(tabName) {
+      // 1. Ẩn toàn bộ tab
       document.querySelectorAll(".account-tab").forEach((tab) => {
         tab.style.display = "none";
       });
 
-      // Xóa active class từ menu
+      // 2. Xóa active khỏi menu
       document.querySelectorAll(".account-menu li").forEach((item) => {
         item.classList.remove("active");
       });
 
-      // Hiển thị tab được chọn
+      // 3. Hiển thị tab được chọn
       const tabElement = document.getElementById(tabName);
       if (tabElement) {
         tabElement.style.display = "block";
-        document
-          .querySelector(`.account-menu a[href="#${tabName}"]`)
-          .parentElement.classList.add("active");
+
+        const menuLink = document.querySelector(
+          `.account-menu a[href="#${tabName}"]`
+        );
+        if (menuLink?.parentElement) {
+          menuLink.parentElement.classList.add("active");
+        }
+
+        // ✅ Cập nhật URL hash khi chuyển tab
+        window.location.hash = tabName;
       }
     }
 
-    // Mặc định hiển thị tab thông tin cá nhân
-    showTab("account-info");
+    // ✅ Khi trang load: kiểm tra hash trên URL
+    const initialTab = window.location.hash
+      ? window.location.hash.substring(1)
+      : "account-info";
+    showTab(initialTab);
 
-    // Xử lý click menu tab
+    // ✅ Click menu tab
     document.querySelectorAll(".account-menu a").forEach((tab) => {
       tab.addEventListener("click", function (e) {
         e.preventDefault();
-        showTab(this.getAttribute("href").substring(1));
+        const tabName = this.getAttribute("href").substring(1);
+        showTab(tabName);
       });
     });
   }
@@ -1410,6 +1422,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const tokenPayload = accessToken.split(".")[1];
         const decodedPayload = JSON.parse(atob(tokenPayload));
         const userId = decodedPayload.id;
+        console.log(userId);
 
         if (!accessToken) {
           throw new Error(

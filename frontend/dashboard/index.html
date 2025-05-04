@@ -30,6 +30,7 @@
         <div class="sidebar-logo">
           <img src="Giờ outsider.png" alt="Logo" />
         </div>
+        <!-- Diệu Linh vừa sửa vừa xóa không biết cmt gì, cứ copy hết cái ul lại là ok -->
         <ul class="sidebar-nav">
           <li class="sidebar-item active">
             <a href="#dashboard" class="sidebar-link">
@@ -39,17 +40,13 @@
           </li>
           <li class="sidebar-item">
             <a href="../pages/index.html" class="sidebar-link">
-              <span class="material-icons"
-                ><i class="fa-solid fa-house"></i
-              ></span>
+              <span class="material-icons">home</span>
               <span>Xem trang báo</span>
             </a>
           </li>
           <li class="sidebar-item">
             <a href="#noti" class="sidebar-link">
-              <span class="material-icons"
-                ><i class="fa-solid fa-bell"></i
-              ></span>
+              <span class="material-icons">notifications</span>
               <span>Thông báo</span>
             </a>
           </li>
@@ -70,50 +67,26 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a href="#allPosts" class="sidebar-link">
-              <span class="material-icons">
-                <i class="fa-regular fa-square-check"></i>
-              </span>
+            <a href="#posts" class="sidebar-link">
+              <span class="material-icons">library_books</span>
               <span>Quản lý bài viết</span>
             </a>
           </li>
           <li class="sidebar-item">
-            <a href="#postController" class="sidebar-link">
-              <span class="material-icons"
-                ><i class="fa-regular fa-newspaper"></i
-              ></span>
-              <span>Duyệt bài viết</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
             <a href="#comments" class="sidebar-link">
-              <span class="material-icons"
-                ><i class="fa-regular fa-comment"></i
-              ></span>
+              <span class="material-icons">comment</span>
               <span>Quản lý bình luận</span>
             </a>
           </li>
           <li class="sidebar-item">
             <a href="#categories" class="sidebar-link">
-              <span class="material-icons">category</span>
+              <span class="material-icons">label</span>
               <span>Quản lý danh mục</span>
             </a>
           </li>
           <li class="sidebar-item">
-            <a href="#posts" class="sidebar-link">
-              <span class="material-icons">description</span>
-              <span>Quản lý bài viết</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="#comments" class="sidebar-link">
-              <span class="material-icons">forum</span>
-              <span>Quản lý bình luận</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
             <a href="#activities" class="sidebar-link">
-              <span class="material-icons">folder_open</span>
+              <span class="material-icons">history</span>
               <span>Hoạt động</span>
             </a>
           </li>
@@ -170,6 +143,7 @@
           </div>
         </nav>
 
+        <!-- ============================== Các section sẽ là các trang tương ứng với khung trang ===================================================== -->
         <!-- Dashboard Content -->
         <section id="dashboard" class="content-section active">
           <div class="stats-cards">
@@ -269,117 +243,6 @@
           </div>
         </section>
 
-        <!-- Posts Management Content -->
-        <section id="posts" class="content-section">
-          <div class="section-header">
-            <h2>Quản lý bài viết</h2>
-            <button class="btn btn-primary" id="addPostBtn">
-              <i class="fas fa-plus"></i> Thêm bài viết
-            </button>
-          </div>
-
-          <div class="filter-bar">
-            <div class="filter-group">
-              <label for="postFilter">Lọc theo:</label>
-              <select id="postFilter">
-                <option value="all">Tất cả</option>
-                <option value="published">Đã xuất bản</option>
-                <option value="draft">Bản nháp</option>
-                <option value="pending">Chờ duyệt</option>
-              </select>
-            </div>
-            <div class="search-group">
-              <input type="text" placeholder="Tìm bài viết..." />
-              <button class="btn btn-search">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th width="50px">ID</th>
-                  <th>Tiêu đề</th>
-                  <th>Danh mục</th>
-                  <th>Tác giả</th>
-                  <th>Ngày đăng</th>
-                  <th>Trạng thái</th>
-                  <th width="120px">Hành động</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Hướng dẫn sử dụng trang quản trị</td>
-                  <td>Hướng dẫn</td>
-                  <td>Admin</td>
-                  <td>10/05/2023</td>
-                  <td>
-                    <span class="status-badge published">Đã xuất bản</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Tin tức mới nhất tháng 5</td>
-                  <td>Tin tức</td>
-                  <td>Editor</td>
-                  <td>08/05/2023</td>
-                  <td><span class="status-badge pending">Chờ duyệt</span></td>
-                  <td>
-                    <button class="btn btn-approve">
-                      <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn btn-edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Bài viết mẫu</td>
-                  <td>Khác</td>
-                  <td>Admin</td>
-                  <td>05/05/2023</td>
-                  <td><span class="status-badge draft">Bản nháp</span></td>
-                  <td>
-                    <button class="btn btn-edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="pagination">
-            <button class="btn btn-prev" disabled>
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="btn btn-page active">1</button>
-            <button class="btn btn-page">2</button>
-            <button class="btn btn-page">3</button>
-            <button class="btn btn-next">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-        </section>
-
         <!-- Categories Management Content -->
         <section id="categories" class="content-section">
           <div class="section-header">
@@ -458,6 +321,7 @@
         </section>
 
         <!-- Comments Management Content -->
+        <!-- Cái comment section có sẵn này -->
         <section id="comments" class="content-section">
           <div class="section-header">
             <h2>Quản lý bình luận</h2>
@@ -470,7 +334,6 @@
                 <option value="all">Tất cả</option>
                 <option value="approved">Đã duyệt</option>
                 <option value="pending">Chờ duyệt</option>
-                <option value="spam">Spam</option>
               </select>
             </div>
             <div class="search-group">
@@ -914,56 +777,140 @@ Trang tin tức giải trí hàng đầu</textarea
             <button class="btn btn-outline">Xem Thêm</button>
           </div>
         </section>
+
+        <!-- Diệu Linh thêm ======================================================================== -->
+        <!-- Section Thông báo -->
+        <section id="noti" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý thông báo</h2>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="notiFilter">Lọc theo:</label>
+              <select id="notiFilter">
+                <option value="all">Tất cả</option>
+                <option value="read">Đã đọc</option>
+                <option value="unread">Chưa đọc</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tiêu đề</th>
+                  <th>Nội dung</th>
+                  <th>Ngày nhận</th>
+                  <th>Trạng thái</th>
+                  <th width="120px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dummy data -->
+                <tr>
+                  <td>1</td>
+                  <td>Thông báo hệ thống</td>
+                  <td>Hệ thống sẽ bảo trì vào 02:00 - 04:00</td>
+                  <td>10/05/2024</td>
+                  <td><span class="status-badge unread">Chưa đọc</span></td>
+                  <td>
+                    <button class="btn btn-mark-read">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Bài viết đã được duyệt</td>
+                  <td>Bài viết "Hướng dẫn sử dụng" đã được phê duyệt</td>
+                  <td>09/05/2024</td>
+                  <td><span class="status-badge read">Đã đọc</span></td>
+                  <td>
+                    <button class="btn btn-delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <!-- Section Quản lý bài viết  -->
+        <section id="posts" class="content-section">
+          <div class="section-header">
+            <h2>Quản lý bài viết</h2>
+            <button class="btn btn-primary" id="addPostBtn">
+              <i class="fas fa-plus"></i> Đăng bài viết
+            </button>
+          </div>
+
+          <div class="filter-bar">
+            <div class="search-group">
+              <input
+                type="text"
+                placeholder="Tìm bài viết"
+                id="postSearchInput"
+              />
+              <button class="btn btn-search" id="postSearchBtn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div class="filter-group">
+              <label for="postCateFilter">Chủ đề:</label>
+              <select id="postCateFilter">
+                <option value="all">Tất cả</option>
+                <option value="am-nhac">Âm nhạc</option>
+                <option value="pending">Chờ duyệt</option>
+                <option value="reject">Từ chối</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="postStatusFilter">Trạng thái:</label>
+              <select id="postStatusFilter">
+                <option value="all">Tất cả</option>
+                <option value="published">Đã duyệt</option>
+                <option value="pending">Chờ duyệt</option>
+                <option value="reject">Từ chối</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="postViews">Lượt xem: </label>
+              <select id="postViews">
+                <option value="from-high">Cao - Thấp</option>
+                <option value="from-low">Thấp - Cao</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th width="50px">ID</th>
+                  <th>Tiêu đề</th>
+                  <th>Tác giả</th>
+                  <th>Ngày đăng</th>
+                  <th>Lượt xem</th>
+                  <th>Trạng thái</th>
+                  <th width="150px">Hành động</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pagination"></div>
+        </section>
       </main>
     </div>
 
-    <!-- Modals -->
+    <!-- Modals: là những cái ô mà khi bấm vào mấy nút hành động sẽ hiện ra =========================================================-->
     <!-- Add Post Modal -->
-    <div class="modal" id="addPostModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Thêm bài viết mới</h3>
-          <button class="modal-close">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form id="postForm">
-            <div class="form-group">
-              <label for="postTitle">Tiêu đề</label>
-              <input type="text" id="postTitle" required />
-            </div>
-            <div class="form-group">
-              <label for="postCategory">Danh mục</label>
-              <select id="postCategory" required>
-                <option value="">Chọn danh mục</option>
-                <option value="1">Tin tức</option>
-                <option value="2">Hướng dẫn</option>
-                <option value="3">Sản phẩm</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="postContent">Nội dung</label>
-              <textarea id="postContent" rows="6" required></textarea>
-            </div>
-            <div class="form-group">
-              <label for="postStatus">Trạng thái</label>
-              <select id="postStatus">
-                <option value="draft">Bản nháp</option>
-                <option value="pending">Chờ duyệt</option>
-                <option value="published">Xuất bản ngay</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="postImage">Ảnh đại diện</label>
-              <input type="file" id="postImage" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary modal-close">Huỷ</button>
-          <button class="btn btn-primary" id="submitPost">Lưu bài viết</button>
-        </div>
-      </div>
-    </div>
+    <!-- Vũ Linh xóa cái này đi nhé vì cái này lúc trước là cái ô chi tiết thêm bài viết, m lướt xuống dưới sẽ có cái modal trống -->
 
     <!-- Add Category Modal -->
     <div class="modal" id="addCategoryModal">
@@ -1092,7 +1039,11 @@ Trang tin tức giải trí hàng đầu</textarea
       <div class="modal-content small">
         <div class="modal-header">
           <h3>
-            <i class="fas fa-exclamation-triangle"></i> Xác nhận hành động
+            <i
+              class="fas fa-exclamation-triangle"
+              style="padding-right: 5px"
+            ></i>
+            Xác nhận hành động
           </h3>
           <button class="modal-close">&times;</button>
         </div>
@@ -1109,17 +1060,42 @@ Trang tin tức giải trí hàng đầu</textarea
         </div>
         <div class="modal-footer">
           <button class="btn btn-outline modal-close">Huỷ</button>
-          <button
-            class="btn btn-danger"
-            id="confirmAction"
-            onclick="confirmAction()"
-          >
-            Xác nhận
-          </button>
+          <button class="btn btn-danger" id="confirmAction">Xác nhận</button>
         </div>
       </div>
     </div>
+
+    <!-- Modal Xem bài viết -->
+    <div id="postDetailModal" class="modal">
+      <div class="modal-contents">
+        <h2>
+          <span id="post-title-view"></span>
+          <textarea
+            id="post-title-edit"
+            type="text"
+            style="display: none"
+          ></textarea>
+        </h2>
+
+        <div class="meta">
+          <p id="post-meta-view"></p>
+        </div>
+
+        <div id="post-body-view" class="news-body"></div>
+        <textarea id="articleContent" style="display: none"></textarea>
+
+        <div id="modal-post-tags" class="hashtag-container"></div>
+
+        <div class="modal-actions">
+          <button id="edit-btn">Chỉnh sửa</button>
+          <button id="save-btn" style="display: none">Lưu</button>
+          <button id="cancel-btn">Huỷ</button>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/layout.js"></script>

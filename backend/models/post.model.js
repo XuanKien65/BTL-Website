@@ -5,7 +5,7 @@ const Post = {
   findAll: async (status = null, categoryId = null, searchTerm = null) => {
     let query = `
       SELECT 
-        p.postid, p.title, p.slug, p.excerpt, p.featuredimage, 
+        p.postid, p.title, p.slug, p.excerpt,p.content, p.featuredimage, 
         p.status, p.views, p.createdat, p.publishedat, p.is_featured,
         u.userid AS authorid, u.username AS authorname, u.avatarurl AS authoravatar,
         ARRAY_AGG(DISTINCT c.name) FILTER (WHERE c.name IS NOT NULL) AS categories
@@ -210,61 +210,23 @@ const Post = {
     return Post.findById(postId);
   },
 
-  update: async (id, post) => {
-    await pool.query(
+  updatePost: async (id, { title, slug, content }) => {
+    const result = await pool.query(
       `UPDATE posts SET
         title = $1,
         slug = $2,
         content = $3,
-        status = $4,
-        featuredimage = $5,
-        excerpt = $6,
-        updatedat = NOW(),
-        is_featured = $7,
-        publishedat = CASE 
-          WHEN $4 = 'published' AND publishedat IS NULL THEN NOW()
-          WHEN $4 != 'published' THEN NULL
-          ELSE publishedat
-        END
-      WHERE postid = $8`,
-      [
-        post.title,
-        post.slug,
-        post.content,
-        post.status,
-        post.featuredImage || null,
-        post.excerpt || null,
-        post.isFeatured || false,
-        id,
-      ]
+        updatedat = NOW()
+       WHERE postid = $4
+       RETURNING *`,
+      [title, slug, content, id]
     );
 
-    await pool.query("DELETE FROM post_categories WHERE postid = $1", [id]);
-    await pool.query("DELETE FROM post_hashtags WHERE postid = $1", [id]);
-
-    if (post.categoryIds && post.categoryIds.length > 0) {
-      const valueStrings = post.categoryIds
-        .map((_, i) => `($1, $${i + 2})`)
-        .join(", ");
-      const values = [id, ...post.categoryIds];
-      await pool.query(
-        `INSERT INTO post_categories (postid, categoryid) VALUES ${valueStrings}`,
-        values
-      );
+    if (result.rowCount === 0) {
+      throw new Error("Post not found");
     }
 
-    if (post.tagIds && post.tagIds.length > 0) {
-      const valueStrings = post.tagIds
-        .map((_, i) => `($1, $${i + 2})`)
-        .join(", ");
-      const values = [id, ...post.tagIds];
-      await pool.query(
-        `INSERT INTO post_hashtags (postid, tagid) VALUES ${valueStrings}`,
-        values
-      );
-    }
-
-    return Post.findById(id);
+    return result.rows[0];
   },
 
   delete: async (id) => {
@@ -626,6 +588,27 @@ const Post = {
       [limit]
     );
     return result.rows;
+  },
+  updateStatus: async (id, status) => {
+    const result = await pool.query(
+      `UPDATE posts SET 
+        status = CAST($1 AS VARCHAR),
+        updatedat = NOW(),
+        publishedat = CASE 
+          WHEN CAST($1 AS VARCHAR) = 'published' AND publishedat IS NULL THEN NOW()
+          WHEN CAST($1 AS VARCHAR) != 'published' THEN NULL
+          ELSE publishedat
+        END
+      WHERE postid = $2
+      RETURNING *`,
+      [status, id]
+    );
+
+    if (result.rows.length === 0) {
+      throw new Error("Post not found");
+    }
+
+    return result.rows[0];
   },
 };
 
