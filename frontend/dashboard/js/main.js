@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Khởi tạo các module chức năng
   initUserManagement();
   loadAndRenderCategories();
+  initCommentManagement();
   // Thêm sự kiện cho các nút chung
   document
     .getElementById("confirmAction")

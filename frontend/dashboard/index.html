@@ -331,7 +331,11 @@
               </select>
             </div>
             <div class="search-group">
-              <input type="text" placeholder="Tìm bình luận..." />
+              <input
+                type="text"
+                placeholder="Tìm bình luận..."
+                id="commentSearchInput"
+              />
               <button class="btn btn-search">
                 <i class="fas fa-search"></i>
               </button>
@@ -417,17 +421,7 @@
             </table>
           </div>
 
-          <div class="pagination">
-            <button class="btn btn-prev" disabled>
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="btn btn-page active">1</button>
-            <button class="btn btn-page">2</button>
-            <button class="btn btn-page">3</button>
-            <button class="btn btn-next">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
+          <div class="pagination"></div>
         </section>
 
         <!-- Pending Authors Content -->
@@ -1095,6 +1089,7 @@ Trang tin tức giải trí hàng đầu</textarea
     <script src="js/users.js"></script>
     <script src="js/posts.js"></script>
     <script src="js/categories.js"></script>
+    <script src="js/comment.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

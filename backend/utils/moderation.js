@@ -13,6 +13,7 @@ const badWords = [
   "clm",
   "da đen",
   "nigga",
+  "vl",
 ];
 
 async function isToxicContent(text) {

@@ -572,7 +572,7 @@ document.getElementById("edit-btn").addEventListener("click", async () => {
   editorContainer.value = currentPost.content;
 
   // Hiển thị textarea để CKEditor tạo editor
-  editorContainer.style.display = "block";
+  editorContainer.style.display = "none";
 
   // Nếu đã có editor rồi, không khởi tạo lại
   if (window.articleEditor) return;
