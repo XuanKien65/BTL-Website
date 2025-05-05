@@ -56,14 +56,8 @@
               class="sidebar-link has-dropdown"
               data-bs-toggle="collapse"
             >
-              <span class="material-icons">manage_accounts</span>
-              <span>Quản lý người dùng</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a href="#authorRequests" class="sidebar-link">
               <span class="material-icons">assignment_ind</span>
-              <span>Đơn đăng ký tác giả</span>
+              <span>Quản lý người dùng</span>
             </a>
           </li>
           <li class="sidebar-item">
@@ -147,7 +141,7 @@
         <!-- Dashboard Content -->
         <section id="dashboard" class="content-section active">
           <div class="stats-cards">
-            <div class="card-card">
+            <div class="card-card posts">
               <div class="card-icon bg-blue">
                 <i class="fas fa-newspaper"></i>
               </div>
@@ -156,7 +150,7 @@
                 <p>1,245</p>
               </div>
             </div>
-            <div class="card-card">
+            <div class="card-card users">
               <div class="card-icon bg-green">
                 <i class="fas fa-users"></i>
               </div>
@@ -165,7 +159,7 @@
                 <p>568</p>
               </div>
             </div>
-            <div class="card-card">
+            <div class="card-card cate">
               <div class="card-icon bg-orange">
                 <i class="fas fa-list"></i>
               </div>
@@ -174,7 +168,7 @@
                 <p>24</p>
               </div>
             </div>
-            <div class="card-card">
+            <div class="card-card cmt">
               <div class="card-icon bg-red">
                 <i class="fas fa-comments"></i>
               </div>
@@ -909,8 +903,6 @@ Trang tin tức giải trí hàng đầu</textarea
     </div>
 
     <!-- Modals: là những cái ô mà khi bấm vào mấy nút hành động sẽ hiện ra =========================================================-->
-    <!-- Add Post Modal -->
-    <!-- Vũ Linh xóa cái này đi nhé vì cái này lúc trước là cái ô chi tiết thêm bài viết, m lướt xuống dưới sẽ có cái modal trống -->
 
     <!-- Add Category Modal -->
     <div class="modal" id="addCategoryModal">
@@ -994,7 +986,7 @@ Trang tin tức giải trí hàng đầu</textarea
       </div>
     </div>
 
-    <!-- Modal author regis -->
+    <!-- Modal author register -->
     <div class="modal" id="authorRequestModal">
       <div class="modal-content">
         <div class="modal-header">
@@ -1013,15 +1005,15 @@ Trang tin tức giải trí hàng đầu</textarea
             <strong>Chuyên mục đăng ký:</strong> <span id="authorTopics"></span>
           </p>
           <p>
-            <strong>Mặt trước CMND:</strong><br /><img
+            <strong>Ảnh thẻ nhà báo mặt trước:</strong><br /><img
               id="authorFrontId"
-              style="max-width: 100%; height: auto"
+              style="width: 200px; height: 100px"
             />
           </p>
           <p>
-            <strong>Mặt sau CMND:</strong><br /><img
+            <strong>Ảnh thẻ nhà báo mặt sau:</strong><br /><img
               id="authorBackId"
-              style="max-width: 100%; height: auto"
+              style="width: 200px; height: 100px"
             />
           </p>
         </div>

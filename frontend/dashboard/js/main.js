@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Khởi tạo các module chức năng
   initUserManagement();
-  initAuthorRequests();
   loadAndRenderCategories();
   // Thêm sự kiện cho các nút chung
   document

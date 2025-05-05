@@ -4,24 +4,42 @@ const shownPostIds = new Set(); // dùng để xem bài viết nào đã đượ
 
 // TODAY NEWS
 // Hàm chính gọi API bài viết phổ biến
+// TODAY NEWS - Cập nhật hàm này
 async function loadPopularPosts() {
   try {
-    const response = await fetch(
-      "/api/posts/search?sortBy=popular&status=published"
-    );
+    let allFetchedPosts = [];
+    let page = 1;
+    let maxPages = 5; // tránh gọi vô hạn trong trường hợp có lỗi
+    const limitPerPage = 10;
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    // Tiếp tục gọi API đến khi đủ 5 bài chưa hiển thị
+    while (allFetchedPosts.length < 5 && page <= maxPages) {
+      const response = await fetch(
+        `/api/posts/search?sortBy=popular&status=published&page=${page}&pageSize=${limitPerPage}`
+      );
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
 
-    const data = await response.json();
-    if (!data?.data?.posts) throw new Error("Invalid response structure");
+      const data = await response.json();
+      if (!data?.data?.posts) throw new Error("Invalid response structure");
 
-    // Lọc bài viết chưa hiển thị
-    const filteredPosts = data.data.posts
-      .filter((post) => !shownPostIds.has(post.postid))
-      .slice(0, 5);
+      const newPosts = data.data.posts.filter(
+        (post) => !shownPostIds.has(post.postid)
+      );
+      allFetchedPosts = allFetchedPosts.concat(newPosts);
 
-    // Đánh dấu đã hiển thị
+      if (newPosts.length === 0) break; // nếu không còn bài mới nào, dừng
+      page++;
+    }
+
+    const filteredPosts = allFetchedPosts.slice(0, 5);
     filteredPosts.forEach((post) => shownPostIds.add(post.postid));
+
+    if (filteredPosts.length < 3) {
+      document.querySelector(".todaybignews").innerHTML =
+        '<div class="error-message">Không đủ bài viết để hiển thị layout.</div>';
+      return;
+    }
 
     renderTodayNews(filteredPosts);
   } catch (error) {
@@ -244,26 +262,59 @@ const categoryMap = {
 
 async function fetchPostsByCategory(categoryName, container) {
   const MAX_POSTS = 10;
+  const PAGE_SIZE = 10;
+  let page = 1;
+  let allPosts = [];
+
   try {
-    const response = await fetch(
-      `/api/posts/search?categoryName=${encodeURIComponent(
-        categoryName
-      )}&status=published&pageSize=10`
-    );
-    const data = await response.json();
+    while (true) {
+      const response = await fetch(
+        `/api/posts/search?categoryName=${encodeURIComponent(
+          categoryName
+        )}&status=published&page=${page}&pageSize=${PAGE_SIZE}`
+      );
+      if (!response.ok) break;
 
-    // Lọc bài viết chưa hiển thị
-    const newPosts = data.data.posts.filter(
-      (post) => !shownPostIds.has(post.postid)
-    );
+      const data = await response.json();
+      const posts = data.data?.posts || [];
 
-    // Đánh dấu bài đã hiển thị
+      if (posts.length === 0) break; // hết dữ liệu
+
+      allPosts.push(...posts);
+      page++;
+    }
+
+    // Ưu tiên bài chưa hiển thị
+    const newPosts = allPosts.filter((post) => !shownPostIds.has(post.postid));
+    const resultPosts = [...newPosts];
+
+    // Nếu chưa đủ thì dùng tiếp bài đã hiển thị trước đó
+    if (resultPosts.length < MAX_POSTS) {
+      const reusedPosts = allPosts.filter((post) =>
+        shownPostIds.has(post.postid)
+      );
+      const needed = MAX_POSTS - resultPosts.length;
+      resultPosts.push(...reusedPosts.slice(0, needed));
+    }
+
+    // Đánh dấu bài chưa hiển thị (không cần thêm lại bài đã trùng)
     newPosts.forEach((post) => shownPostIds.add(post.postid));
 
-    // Trả về tối đa MAX_POSTS bài viết
-    return newPosts.slice(0, MAX_POSTS);
+    console.log(`📂 Chủ đề: ${categoryName}`);
+    console.log(`📄 Tổng bài tải từ API:`, allPosts.length);
+    console.log(
+      `🔁 Bài đã hiển thị trước đó:`,
+      allPosts.length - newPosts.length
+    );
+    console.log(`✅ Bài được hiển thị lần này:`, resultPosts.length);
+    console.log(
+      `🆔 Các ID được hiển thị:`,
+      resultPosts.map((p) => p.postid)
+    );
+
+    return resultPosts.slice(0, MAX_POSTS);
   } catch (error) {
-    console.error("Lỗi tải bài viết:", error);
+    console.error("Lỗi tải bài viết theo chủ đề:", error);
     return [];
   }
 }
@@ -304,58 +355,58 @@ function renderTopicPosts(container, posts) {
   });
 }
 
+// Cập nhật: Trả về Promise
 function initTopicContainers() {
-  document
-    .querySelectorAll(".container[data-main-category]")
-    .forEach((container) => {
-      const sibling = container.nextElementSibling;
-      const readMoreBtn =
-        sibling && sibling.classList.contains("readmore-container")
-          ? sibling
-          : sibling?.querySelector(".readmore-container");
+  return new Promise((resolve) => {
+    document
+      .querySelectorAll(".container[data-main-category]")
+      .forEach((container) => {
+        const sibling = container.nextElementSibling;
+        const readMoreBtn =
+          sibling && sibling.classList.contains("readmore-container")
+            ? sibling
+            : sibling?.querySelector(".readmore-container");
 
-      let currentCategory = null;
+        let currentCategory = null;
 
-      // Xử lý click category
-      container.querySelectorAll(".news-subject a").forEach((link) => {
-        link.addEventListener("click", async (e) => {
-          e.preventDefault();
+        container.querySelectorAll(".news-subject a").forEach((link) => {
+          link.addEventListener("click", async (e) => {
+            e.preventDefault();
+            container
+              .querySelectorAll(".news-subject a")
+              .forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
 
-          // Xóa active và thêm class mới
-          container
-            .querySelectorAll(".news-subject a")
-            .forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
+            shownPostIds.clear();
 
-          // Reset bài viết đã hiển thị
-          shownPostIds.clear(); // <-- Thêm dòng này
+            const dataCategory = link.dataset.category;
+            currentCategory = dataCategory;
+            const categoryName = categoryMap[dataCategory];
 
-          const dataCategory = link.dataset.category;
-          currentCategory = dataCategory;
-
-          const categoryName = categoryMap[dataCategory];
-          const posts = await fetchPostsByCategory(categoryName, container);
-          renderTopicPosts(container, posts);
+            const posts = await fetchPostsByCategory(categoryName, container);
+            renderTopicPosts(container, posts);
+          });
         });
+
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener("click", () => {
+            const categorySlug =
+              currentCategory ||
+              container.querySelector(".news-subject a")?.dataset.category;
+            const categoryName = categoryMap[categorySlug] || "Danh mục";
+            window.location.href = `/pages/topic.html?categoryName=${encodeURIComponent(
+              categoryName
+            )}`;
+          });
+        }
+
+        const firstLink = container.querySelector(".news-subject a");
+        if (firstLink) firstLink.click();
       });
 
-      // Xử lý nút Đọc thêm
-      if (readMoreBtn) {
-        readMoreBtn.addEventListener("click", () => {
-          const categorySlug =
-            currentCategory ||
-            container.querySelector(".news-subject a")?.dataset.category;
-          const categoryName = categoryMap[categorySlug] || "Danh mục";
-          window.location.href = `/pages/topic.html?categoryName=${encodeURIComponent(
-            categoryName
-          )}`;
-        });
-      }
-
-      // Tải mặc định category đầu tiên
-      const firstLink = container.querySelector(".news-subject a");
-      if (firstLink) firstLink.click();
-    });
+    // Đợi 300ms để các click async hoàn thành render
+    setTimeout(resolve, 300);
+  });
 }
 
 // BẠN CÓ THỂ THÍCH - Recommended Posts
@@ -739,12 +790,9 @@ function hideGlobalLoader() {
 // Khởi tạo trang
 async function initializeHomepage() {
   try {
-    // Hiển thị loader
     document.querySelector(".global-loader").classList.remove("hidden");
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    // Tải dữ liệu
     await Promise.all([
       loadPopularPosts(),
       loadLeastViewedPosts(),
@@ -752,7 +800,7 @@ async function initializeHomepage() {
       loadTinKhac2(".tinkhac2--second .news-container", 8),
       loadRecommendedPosts(),
       loadSliderPosts(),
-      initTopicContainers(),
+      initTopicContainers(), // giờ đã là Promise
       // Gọi chung initLoadMoreNews()
       // 1-Sắp xếp theo mới nhất
       initLoadMoreNews({
@@ -809,7 +857,6 @@ async function initializeHomepage() {
   } catch (error) {
     console.error("Initialization error:", error);
   } finally {
-    // Luôn ẩn loader dù thành công hay thất bại
     hideGlobalLoader();
   }
 }
