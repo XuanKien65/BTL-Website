@@ -201,9 +201,9 @@ function changePage(page) {
 // ================= SLIDER (BẠN CÓ THỂ THÍCH) =================
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
-    slidesPerView: 4,
+    slidesPerView: 3, // hoặc 4 tùy thiết kế
     spaceBetween: 20,
-    loop: true,
+    loop: false, // ✅ KHÔNG loop để tránh thêm chấm
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -211,14 +211,15 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+      dynamicBullets: true, // ✅ để gọn
     },
     breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 10 },
-      640: { slidesPerView: 2, spaceBetween: 15 },
-      768: { slidesPerView: 3, spaceBetween: 15 },
-      1024: { slidesPerView: 4, spaceBetween: 20 },
+      320: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
     },
   });
+  
 });
 
 // ================= CHUYÊN MỤC CHA VÀ CON (dựa trên categoryName từ URL) =================
@@ -361,11 +362,67 @@ function updateSectionsVisibility(page, isChildCategory = false) {
   }
 }
 
+async function loadRecommendedPosts() {
+  try {
+    const response = await fetch(
+      "/api/posts/search?sortBy=popular&pageSize=20&status=published"
+    );
+    if (!response.ok) throw new Error("Lỗi tải dữ liệu");
+
+    const data = await response.json();
+    const posts = data.data?.posts || [];
+
+    const filteredPosts = posts
+      .filter((post) => !shownPostIds.has(post.postid) && post.featuredimage)
+      .slice(0, 20);
+
+    if (filteredPosts.length === 0) {
+      document.querySelector(
+        ".news-slider-container"
+      ).innerHTML += `<p class="error">Không có bài viết đề xuất mới</p>`;
+      return;
+    }
+
+    filteredPosts.forEach((post) => shownPostIds.add(post.postid));
+
+    const swiperWrapper = document.querySelector(".news-slider .swiper-wrapper");
+    swiperWrapper.innerHTML = filteredPosts
+      .map(
+        (post) => `
+        <div class="swiper-slide">
+          <a href="/pages/trangbaiviet.html?slug=${post.slug}">
+            <div class="swiper-news-item">
+              <div class="swiper-news-item-img" style="background-image: url('${post.featuredimage}')"></div>
+              <h4 class="swiper-news-item-title">${post.title}</h4>
+            </div>
+          </a>
+        </div>
+      `
+      )
+      .join("");
+
+    function updateNavButtons(swiper) {
+      const nextBtn = document.querySelector(".swiper-button-next");
+      const prevBtn = document.querySelector(".swiper-button-prev");
+      const totalSlides = swiper.slides.length;
+      const currentIndex = swiper.activeIndex;
+
+      prevBtn.classList.toggle("disabled", currentIndex === 0);
+      nextBtn.classList.toggle("disabled", currentIndex >= totalSlides - swiper.params.slidesPerView);
+    }
+  } catch (error) {
+    console.error("Lỗi tải bài đề xuất:", error);
+    document.querySelector(
+      ".news-slider-container"
+    ).innerHTML += `<p class="error">Không thể tải đề xuất</p>`;
+  }
+}
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
   loadCategoryBlock();
+  loadRecommendedPosts();
 });
-
 
 
