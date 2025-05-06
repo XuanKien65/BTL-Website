@@ -133,17 +133,34 @@ const AuthorRegistration = {
 
   findByUserId: async (userId) => {
     try {
+      // Lấy đơn đăng ký gần nhất của user
       const result = await pool.query(
         `
         SELECT *
         FROM author_registrations
         WHERE userid = $1
         ORDER BY created_at DESC
-      `,
+        LIMIT 1
+        `,
         [userId]
       );
 
-      return result.rows;
+      const registration = result.rows[0];
+      if (!registration) return null;
+
+      // Truy vấn thêm các chuyên mục
+      const topicsResult = await pool.query(
+        `
+        SELECT c.id, c.name
+        FROM author_registration_topics t
+        JOIN categories c ON c.id = t.category_id
+        WHERE t.author_registration_id = $1
+        `,
+        [registration.id]
+      );
+      registration.topics = topicsResult.rows;
+
+      return registration;
     } catch (error) {
       console.error("Error finding author registration by userId:", error);
       throw error;

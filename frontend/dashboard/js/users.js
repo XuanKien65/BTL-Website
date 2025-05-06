@@ -1,3 +1,34 @@
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const token = await getAccessTokenFromRefresh();
+
+    const payloadBase64 = accessToken.split(".")[1];
+    const decodedPayload = JSON.parse(
+      atob(payloadBase64.replace(/-/g, "+").replace(/_/g, "/"))
+    );
+    const userId = decodedPayload.id;
+
+    const userRes = await fetch(`http://localhost:5501/api/users/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const userData = await userRes.json();
+    const status = userData?.data?.status;
+    const role = userData?.data?.role;
+
+    if (status === "banned") {
+      alert("Tài khoản của bạn đã bị khóa. Truy cập trang admin bị từ chối.");
+      window.location.href = "/pages/login.html"; // hoặc về trang chính
+    } else if (role !== "admin") {
+      alert("Bạn không có quyền truy cập trang admin.");
+      window.location.href = "/"; // về trang chủ nếu không phải admin
+    }
+  } catch (err) {
+    console.warn("Lỗi xác thực hoặc kết nối:", err.message);
+    window.location.href = "/pages/login.html";
+  }
+});
+
 // ==================== QUẢN LÝ NGƯỜI DÙNG ====================
 
 // Biến toàn cục
@@ -71,8 +102,13 @@ function renderUserTable(users) {
   const tbody = document.querySelector("#users tbody");
   if (!tbody) return;
 
-  // Sắp xếp theo tên (alphabet)
   const sortedUsers = [...users].sort((a, b) => {
+    // Ưu tiên người có đơn đăng ký tác giả (true sẽ đứng trước false)
+    if (a.hasAuthorRequest !== b.hasAuthorRequest) {
+      return b.hasAuthorRequest - a.hasAuthorRequest;
+    }
+
+    // Nếu cùng trạng thái đơn đăng ký, sắp xếp theo tên
     const nameA = (a.username || "").toLowerCase();
     const nameB = (b.username || "").toLowerCase();
     return nameA.localeCompare(nameB);
@@ -292,6 +328,7 @@ function setupUserEventListeners() {
           const authorRequest = Array.isArray(data.data)
             ? data.data[0]
             : data.data;
+          console.log("📦 DỮ LIỆU ĐƠN ĐĂNG KÝ TÁC GIẢ:", authorRequest);
 
           if (!authorRequest) {
             showToast("Không có đơn đăng ký tác giả nào", "error");
@@ -320,7 +357,7 @@ function setupUserEventListeners() {
               await sendNotification({
                 title: "Thay đổi vai trò hệ thống",
                 message: "Quyền tác giả của bạn đã được thu hồi.",
-                toUserId: userId
+                toUserId: userId,
               });
 
               // Cập nhật lại danh sách người dùng
@@ -353,11 +390,12 @@ function fillAuthorRequestModal(data) {
   document.getElementById("authorPortfolio").innerHTML = data.portfolio
     ? `<a href="${data.portfolio}" target="_blank">Xem</a>`
     : "Không có";
-  document.getElementById("authorTopics").textContent = (
-    data.topics || []
-  ).join(", ");
-  document.getElementById("authorFrontId").src = data.frontidcardurl;
-  document.getElementById("authorBackId").src = data.backidcardurl;
+  document.getElementById("authorTopics").textContent = (data.topics || [])
+    .map((topic) => (typeof topic === "string" ? topic : topic.name))
+    .join(", ");
+
+  document.getElementById("authorFrontId").src = data.front_id_card_url;
+  document.getElementById("authorBackId").src = data.back_id_card_url;
 
   // Gắn ID để xử lý duyệt
   document.getElementById("approveAuthorBtn").setAttribute("data-id", data.id);
@@ -384,7 +422,7 @@ function fillAuthorRequestModal(data) {
     try {
       const token = await getAccessTokenFromRefresh();
 
-      // 1. Cập nhật trạng thái đơn
+      // Cập nhật trạng thái đơn
       const response = await fetch(
         `http://localhost:5501/api/author-registrations/${authorRequestId}/status`,
         {
@@ -402,37 +440,31 @@ function fillAuthorRequestModal(data) {
         throw new Error(errorData.message || "Lỗi khi duyệt đơn");
       }
 
-      // 2. Cập nhật role người dùng
+      // Cập nhật role người dùng
       await updateUserRole(userId, "author");
+
+      // Sau khi cập nhật role thì xóa đơn duyệt
+      await fetch(
+        `http://localhost:5501/api/author-registrations/${authorRequestId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // GỬI THÔNG BÁO CHÀO MỪNG TÁC GIẢ
       await sendNotification({
         title: "Chào mừng tác giả mới 🎉",
-        message: "Chúc mừng bạn đã trở thành tác giả chính thức của Giờ Outsider!",
-        toUserId: userId
+        message:
+          "Chúc mừng bạn đã trở thành tác giả chính thức của Giờ Outsider!",
+        toUserId: userId,
       });
 
       // 3. Làm mới bảng
       await initUserManagement();
 
-      // 3. Xoá dòng ngay lập tức khỏi bảng duyệt đơn
-      const row = document.querySelector(
-        `#authorRequestsBody tr[data-id="${authorRequestId}"]`
-      );
-      if (row) row.remove();
-
-      const tbody = document.getElementById("authorRequestsBody");
-      if (tbody && tbody.querySelectorAll("tr").length === 0) {
-        tbody.innerHTML = `
-                <tr class="no-requests">
-                <td colspan="8">
-                    <div class="empty-state">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Không có đơn đăng ký nào</p>
-                    </div>
-                </td>
-                </tr>`;
-      }
       closeModal();
       showToast("Đã duyệt đơn và cập nhật vai trò tác giả", "success");
     } catch (error) {
@@ -476,30 +508,23 @@ function fillAuthorRequestModal(data) {
         // THÔNG BÁO ĐƠN ĐĂNG KÝ TÁC GIẢ BỊ TỪ CHỐI
         await sendNotification({
           title: "Đơn đăng ký tác giả bị từ chối",
-          message: "Rất tiếc, đơn đăng ký trở thành tác giả của bạn đã không được chấp thuận. Vui lòng liên hệ quản trị viên để biết thêm chi tiết.",
-          toUserId: userId
+          message:
+            "Rất tiếc, đơn đăng ký trở thành tác giả của bạn đã không được chấp thuận. Vui lòng liên hệ quản trị viên để biết thêm chi tiết.",
+          toUserId: userId,
         });
 
         await initUserManagement();
 
-        // Xóa dòng sau khi từ chối đơn bên bảng duyệt
-        const row = document.querySelector(
-          `#authorRequestsBody tr[data-id="${authorRequestId}"]`
+        // Sau khi từ chối xong thì xóa đơn duyệt
+        await fetch(
+          `http://localhost:5501/api/author-registrations/${authorRequestId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        if (row) row.remove();
-
-        const tbody = document.getElementById("authorRequestsBody");
-        if (tbody && tbody.querySelectorAll("tr").length === 0) {
-          tbody.innerHTML = `
-                    <tr class="no-requests">
-                    <td colspan="8">
-                        <div class="empty-state">
-                        <i class="fas fa-file-alt"></i>
-                        <p>Không có đơn đăng ký nào</p>
-                        </div>
-                    </td>
-                    </tr>`;
-        }
 
         // Đóng modal xác nhận
         closeModal();
@@ -521,6 +546,26 @@ function fillAuthorRequestModal(data) {
       }
     });
   });
+
+  function setupImageZoom(imgElement) {
+    imgElement.style.cursor = "zoom-in";
+    imgElement.addEventListener("click", () => {
+      const overlay = document.createElement("div");
+      overlay.className = "image-zoom-overlay";
+      overlay.innerHTML = `<img src="${imgElement.src}" alt="Zoomed Image">`;
+
+      // Đóng overlay khi click bất kỳ đâu
+      overlay.addEventListener("click", () => {
+        document.body.removeChild(overlay);
+      });
+
+      document.body.appendChild(overlay);
+    });
+  }
+
+  // ... trong fillAuthorRequestModal()
+  setupImageZoom(document.getElementById("authorFrontId"));
+  setupImageZoom(document.getElementById("authorBackId"));
 }
 
 // Thiết lập chức năng tìm kiếm
@@ -739,14 +784,18 @@ async function updateUserStatus(userId, status) {
           console.error("API error response:", errorData);
           throw new Error(errorData.message || "Lỗi khi cập nhật trạng thái");
         }
-        
+
         // GỬI THÔNG BÁO TRẠNG THÁI
         await sendNotification({
-          title: status === "banned" ? "Tài khoản bị khóa 🔒" : "Tài khoản đã mở khóa 🎉",
-          message: status === "banned" 
-            ? "Tài khoản của bạn đã bị khóa do vi phạm điều khoản cộng đồng." 
-            : "Tài khoản của bạn đã được kích hoạt lại. Chào mừng quay trở lại!",
-          toUserId: userId
+          title:
+            status === "banned"
+              ? "Tài khoản bị khóa 🔒"
+              : "Tài khoản đã mở khóa 🎉",
+          message:
+            status === "banned"
+              ? "Tài khoản của bạn đã bị khóa do vi phạm điều khoản cộng đồng."
+              : "Tài khoản của bạn đã được kích hoạt lại. Chào mừng quay trở lại!",
+          toUserId: userId,
         });
 
         await initUserManagement();
@@ -941,85 +990,3 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   document.head.appendChild(style);
 });
-
-//================== ĐƠN ĐĂNG KÝ ===========
-
-async function initAuthorRequests() {
-  try {
-    const token = await getAccessTokenFromRefresh();
-    const res = await fetch("http://localhost:5501/api/author-registrations", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!res.ok) throw new Error("Lỗi khi tải danh sách đơn đăng ký");
-    const data = await res.json();
-    const requests = (Array.isArray(data.data) ? data.data : data).filter(
-      (r) => r.status === "pending"
-    );
-    renderAuthorRequests(requests);
-  } catch (error) {
-    console.error(error);
-    showToast(error.message || "Lỗi khi tải đơn đăng ký", "error");
-  }
-}
-
-function renderAuthorRequests(requests) {
-  const tbody = document.getElementById("authorRequestsBody");
-  if (!tbody) return;
-
-  if (requests.length === 0) {
-    tbody.innerHTML = `
-        <tr class="no-requests">
-          <td colspan="8">
-            <div class="empty-state">
-              <i class="fas fa-file-alt"></i>
-              <p>Không có đơn đăng ký nào</p>
-            </div>
-          </td>
-        </tr>`;
-    return;
-  }
-
-  // Sắp xếp theo ngày tạo (tăng dần) và đánh số
-  requests
-    .sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
-    .forEach((r, i) => (r.displayId = i + 1));
-
-  tbody.innerHTML = requests
-    .map(
-      (r) => `
-      <tr data-id="${r.id}" data-userid="${r.userid}">
-        <td>${r.displayId}</td>
-        <td>${r.fullname}</td>
-        <td>${r.email}</td>
-        <td>${r.phone || "N/A"}</td>
-        <td>${r.experience || "N/A"}</td>
-        <td>${r.topics?.join(", ") || "N/A"}</td>
-        <td>${new Date(r.created_at).toLocaleDateString()}</td>
-        <td>
-          <button class="btn btn-view-author" data-id="${r.id}">
-            <i class="fas fa-eye"></i> Xem
-          </button>
-        </td>
-      </tr>`
-    )
-    .join("");
-
-  // Gán dữ liệu và sự kiện
-  document.querySelectorAll("#authorRequestsBody tr").forEach((tr, i) => {
-    tr.__data = requests[i];
-  });
-
-  document.querySelectorAll(".btn-view-author").forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
-      const row = e.target.closest("tr");
-      const userId = row?.dataset.userid;
-      const requestData = row?.__data;
-
-      if (!userId || !requestData)
-        return showToast("Không thể tìm dữ liệu đơn đăng ký", "error");
-      fillAuthorRequestModal(requestData);
-      openModal("authorRequestModal");
-    });
-  });
-}

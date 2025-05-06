@@ -1394,3 +1394,34 @@ body {
 #post-title-edit {
   width: 100%;
 }
+
+.image-zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-zoom-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border: 4px solid white;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #000;
+}
+
+.image-zoom-overlay:after {
+  content: "✕";
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
