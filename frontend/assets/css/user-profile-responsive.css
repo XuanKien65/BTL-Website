@@ -1,0 +1,370 @@
+/* Responsive CSS cho User Profile */
+
+/* Desktop đến tablet lớn */
+@media (max-width: 1200px) {
+    .account-container {
+      margin: 6.4rem 10rem;
+    }
+    
+    .account-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+  }
+  
+  /* Tablet */
+  @media (max-width: 992px) {
+    .account-container {
+      margin: 4rem 5rem;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .account-sidebar {
+      width: 100%;
+      position: static;
+      margin-bottom: 20px;
+    }
+    
+    .account-content {
+      width: 100%;
+    }
+    
+    .account-menu ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .account-menu li {
+      flex-basis: calc(50% - 10px);
+    }
+    
+    .account-menu a {
+      padding: 8px 12px;
+      font-size: 1.8rem;
+    }
+    
+    .account-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .account-form {
+      padding: 1rem;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .btn-save, .submit-btn, .btn-add {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  /* Tablet nhỏ và điện thoại lớn */
+  @media (max-width: 768px) {
+    .account-container {
+      margin: 3rem 2rem;
+      padding: 0 10px;
+    }
+    
+    .account-title {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+    }
+    
+    .account-menu li {
+      flex-basis: 100%;
+    }
+    
+    .account-form .change-avatar {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .stat-card {
+      padding: 15px;
+    }
+    
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .stat-info h4 {
+      font-size: 1.4rem;
+    }
+    
+    .stat-info p {
+      font-size: 1.8rem;
+    }
+    
+    .posted-article-item,
+    .cmt-article-item,
+    .read-article-item,
+    .saved-article-item,
+    .noti-item {
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px;
+    }
+    
+    .article-image {
+      width: 100%;
+      height: 180px;
+    }
+    
+    .article-title {
+      font-size: 1.8rem;
+    }
+    
+    .article-meta {
+      font-size: 1.4rem;
+    }
+    
+    .pagination, 
+    .pagination-noti, 
+    .pagination-cmt, 
+    .pagination-posted, 
+    .pagination-read {
+      gap: 5px;
+      margin-top: 20px;
+      padding: 15px 0;
+    }
+    
+    .page-btn, 
+    .page-btn-noti {
+      min-width: 35px;
+      padding: 6px 10px;
+    }
+    
+    .image-preview-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .image-preview-item img {
+      height: 80px;
+    }
+    
+    .checkbox-group {
+      padding: 5px 10px;
+    }
+  }
+  
+  /* Điện thoại */
+  @media (max-width: 576px) {
+    .account-container {
+      margin: 2rem 1rem;
+      padding: 0 5px;
+    }
+    
+    .account-sidebar {
+      padding: 15px;
+    }
+    
+    .account-content {
+      padding: 15px;
+    }
+    
+    .profile-avatar, .avatar {
+      width: 6rem;
+      height: 6rem;
+    }
+    
+    .username {
+      font-size: 1.8rem;
+    }
+    
+    .user-email {
+      font-size: 1.4rem;
+    }
+    
+    .account-title {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+    
+    .account-form {
+      padding: 0;
+    }
+    
+    .account-form input,
+    .account-form select,
+    textarea {
+      padding: 8px 12px;
+      font-size: 1.6rem;
+    }
+    
+    .account-stats {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .stat-card {
+      padding: 12px;
+    }
+    
+    .article-title {
+      font-size: 1.6rem;
+    }
+    
+    .article-meta {
+      font-size: 1.2rem;
+    }
+    
+    .change-password-form {
+      padding: 15px;
+    }
+    
+    .file-upload-btn {
+      padding: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .preview-item {
+      width: 100px;
+      height: 70px;
+    }
+    
+    .image-preview-grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+    }
+    
+    .image-preview-item img {
+      height: 70px;
+    }
+    
+    .btn-save, 
+    .submit-btn, 
+    .btn-add, 
+    #submit-password-change {
+      font-size: 1.6rem;
+      padding: 8px 15px;
+    }
+    
+    .noti-content {
+      font-size: 1.6rem;
+    }
+    
+    .noti-meta {
+      font-size: 1.4rem;
+    }
+    
+    .cmt-article-item .article-info .cmt-detail {
+      font-size: 1.4rem;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      max-height: calc(1.6em * 3);
+    }
+  }
+  
+  /* Điện thoại nhỏ */
+  @media (max-width: 400px) {
+    .account-container {
+      margin: 1rem 0.5rem;
+    }
+    
+    .account-sidebar {
+      padding: 10px;
+    }
+    
+    .account-content {
+      padding: 10px;
+    }
+    
+    .profile-avatar, .avatar {
+      width: 5rem;
+      height: 5rem;
+    }
+    
+    .username {
+      font-size: 1.6rem;
+    }
+    
+    .user-email {
+      font-size: 1.2rem;
+    }
+    
+    .account-menu a {
+      padding: 6px 10px;
+      font-size: 1.6rem;
+    }
+    
+    .account-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .account-form label {
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+    }
+    
+    .account-form input,
+    .account-form select,
+    textarea {
+      padding: 6px 10px;
+      font-size: 1.4rem;
+    }
+    
+    .page-btn, 
+    .page-btn-noti {
+      min-width: 30px;
+      padding: 5px 8px;
+      font-size: 1.4rem;
+    }
+    
+    .btn-save, 
+    .submit-btn, 
+    .btn-add, 
+    #submit-password-change {
+      font-size: 1.4rem;
+      padding: 6px 12px;
+    }
+    
+    .article-title {
+      font-size: 1.4rem;
+    }
+    
+    .article-meta {
+      font-size: 1.2rem;
+    }
+    
+    .article-image {
+      height: 150px;
+    }
+    
+    .preview-item {
+      width: 80px;
+      height: 60px;
+    }
+  }
+  
+  /* Tablet nhỏ và điện thoại lớn */
+  @media (max-width: 768px) {
+      .account-sidebar {
+          margin-top: 20px; /* hoặc 16px nếu bạn muốn khoảng cách nhỏ hơn */
+      }
+  }
+  
+  /* Điện thoại */
+  @media (max-width: 576px) {
+      .account-sidebar {
+          margin-top: 50px;
+      }
+  }
+  
+  /* Điện thoại nhỏ */
+  @media (max-width: 400px) {
+      .account-sidebar {
+          margin-top: 50px;
+      }
+  }
+    
