@@ -62,7 +62,7 @@ exports.signin = async (req, res, next) => {
     // Set refresh token as HttpOnly cookie
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Only use secure in production
+      secure: true, // Only use secure in production
       path: "/",
       sameSite: "strict",
     });

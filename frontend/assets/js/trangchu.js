@@ -300,18 +300,6 @@ async function fetchPostsByCategory(categoryName, container) {
     // Đánh dấu bài chưa hiển thị (không cần thêm lại bài đã trùng)
     newPosts.forEach((post) => shownPostIds.add(post.postid));
 
-    console.log(`📂 Chủ đề: ${categoryName}`);
-    console.log(`📄 Tổng bài tải từ API:`, allPosts.length);
-    console.log(
-      `🔁 Bài đã hiển thị trước đó:`,
-      allPosts.length - newPosts.length
-    );
-    console.log(`✅ Bài được hiển thị lần này:`, resultPosts.length);
-    console.log(
-      `🆔 Các ID được hiển thị:`,
-      resultPosts.map((p) => p.postid)
-    );
-
     return resultPosts.slice(0, MAX_POSTS);
   } catch (error) {
     console.error("Lỗi tải bài viết theo chủ đề:", error);

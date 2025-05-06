@@ -464,7 +464,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Hiển thị trang cụ thể
     function showPage(page) {
-      console.log("Current page:", page, "Total items:", allItems.length); // Thêm dòng này vào đầu hàm showPage()
       currentPage = page;
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -1011,7 +1010,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       try {
         const formData = new FormData();
 
-        console.log(userData.id);
         formData.append("userId", userData.id);
         formData.append(
           "fullname",
@@ -1115,7 +1113,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (!res.ok) throw new Error("Lỗi khi lấy danh sách bài viết đã lưu");
 
       const result = await res.json();
-      console.log("result", result);
       const articles = result.data;
       const container = document.querySelector(".saved-articles-list");
       const pagi = document.querySelector(".save .pagination");
@@ -1422,7 +1419,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const tokenPayload = accessToken.split(".")[1];
         const decodedPayload = JSON.parse(atob(tokenPayload));
         const userId = decodedPayload.id;
-        console.log(userId);
 
         if (!accessToken) {
           throw new Error(
@@ -1498,7 +1494,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     let url = `http://localhost:5501/api/posts/author/${userId}`;
     if (status) {
       url += `?status=${status}`;
-      console.log(url);
     }
 
     try {
@@ -1622,8 +1617,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const monthKey = `${date.getFullYear()}-${String(
         date.getMonth() + 1
       ).padStart(2, "0")}`;
-      console.log(monthKey);
-
       if (!monthly[monthKey]) {
         monthly[monthKey] = { count: 0, views: 0 };
       }

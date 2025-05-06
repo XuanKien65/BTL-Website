@@ -5,7 +5,6 @@ let currentPage = 1;
 const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
 
-
 // DOM Elements
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
@@ -201,7 +200,6 @@ function renderArticles(articles, pages, totalItems = 0) {
   renderPagination(pages);
 }
 
-
 // Hiển thị phân trang (đã cập nhật theo yêu cầu)
 function renderPagination(pages) {
   pagination.innerHTML = "";
@@ -256,7 +254,6 @@ function renderPagination(pages) {
     pagination.appendChild(nextBtn);
   }
 }
-
 
 init();
 
