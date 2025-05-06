@@ -16,7 +16,7 @@ router.get("/:id", commentController.getCommentById);
 router.post("/", verifyToken, commentController.createComment);
 
 router.put(
-  "/:id/approve",
+  "/:id/approved",
   verifyToken,
   isAdmin,
   commentController.approveComment

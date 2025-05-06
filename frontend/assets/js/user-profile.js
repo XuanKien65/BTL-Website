@@ -1498,6 +1498,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let url = `http://localhost:5501/api/posts/author/${userId}`;
     if (status) {
       url += `?status=${status}`;
+      console.log(url);
     }
 
     try {
@@ -1586,6 +1587,103 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
+  // =====================PHẦN THỐNG KÊ======================
+  async function loadPostData() {
+    const accessToken = window.currentAccessToken;
+    if (!accessToken) return;
+
+    const tokenPayload = accessToken.split(".")[1];
+    const decodedPayload = JSON.parse(atob(tokenPayload));
+    const userId = decodedPayload.id;
+
+    let url = `http://localhost:5501/api/posts/author/${userId}?status=published`;
+
+    try {
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Lỗi khi lấy bài viết");
+
+      const result = await res.json();
+      const posts = result.data;
+      return posts;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  function groupPostsByMonth(posts) {
+    const monthly = {};
+
+    posts.forEach((post) => {
+      const date = new Date(post.createdat);
+      const monthKey = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+      console.log(monthKey);
+
+      if (!monthly[monthKey]) {
+        monthly[monthKey] = { count: 0, views: 0 };
+      }
+
+      monthly[monthKey].count += 1;
+      monthly[monthKey].views += post.views || 0;
+    });
+
+    const labels = Object.keys(monthly).sort();
+    const counts = labels.map((key) => monthly[key].count);
+    const views = labels.map((key) => monthly[key].views);
+
+    return { labels, counts, views };
+  }
+
+  async function initChart() {
+    const posts = await loadPostData(); // ✅ đợi dữ liệu xong
+
+    if (!posts) return;
+
+    const { labels, counts, views } = groupPostsByMonth(posts);
+
+    const ctx = document.getElementById("author-chart").getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Số bài viết",
+            data: counts,
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+          },
+          {
+            label: "Lượt xem",
+            data: views,
+            backgroundColor: "rgba(255, 99, 132, 0.6)",
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Biểu đồ thống kê bài viết theo tháng",
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0,
+            },
+          },
+        },
+      },
+    });
+  }
   // ==================== KHỞI TẠO CHÍNH ====================
   await window.updateNavbarAuthState();
   await initAccountSection();
@@ -1597,5 +1695,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadPostedArticles();
   initAuthorRegistration();
   initAuthorSite();
+  initChart();
   handleLogout();
 });

@@ -154,7 +154,7 @@ exports.rejectPost = async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     if (!post) return next(new ErrorHandler(404, "Post not found"));
 
-    const updatedPost = await Post.updateStatus(req.params.id, "rejected");
+    const updatedPost = await Post.updateStatus(req.params.id, "reject");
 
     ApiResponse.success(res, "Post rejected", updatedPost);
   } catch (error) {
