@@ -20,7 +20,7 @@ async function loadComments(status = "all", searchQuery = "") {
     currentStatus = status;
     currentSearch = searchQuery;
 
-    const token = await safeGetToken();
+    const token = await getAccessTokenFromRefresh();
     if (!token) return;
 
     const response = await fetch("/api/comments", {
@@ -44,19 +44,6 @@ async function loadComments(status = "all", searchQuery = "") {
     showToast(error.message || "Lỗi tải danh sách bình luận", "error");
   } finally {
     hideLoading("#comments .table-responsive");
-  }
-}
-
-// An toàn khi lấy access token
-async function safeGetToken() {
-  try {
-    return await getAccessTokenFromRefresh();
-  } catch (err) {
-    showToast("Phiên đăng nhập đã hết, vui lòng đăng nhập lại", "error");
-    setTimeout(() => {
-      window.location.href = "/pages/login.html";
-    }, 1500);
-    return null;
   }
 }
 
@@ -237,7 +224,7 @@ function setupCommentActions() {
 }
 
 async function updateCommentStatus(commentId, status) {
-  const token = await safeGetToken();
+  const token = await getAccessTokenFromRefresh();
   if (!token) return;
 
   try {
@@ -261,7 +248,7 @@ async function updateCommentStatus(commentId, status) {
 }
 
 async function deleteComment(commentId) {
-  const token = await safeGetToken();
+  const token = await getAccessTokenFromRefresh();
   if (!token) return;
 
   try {
