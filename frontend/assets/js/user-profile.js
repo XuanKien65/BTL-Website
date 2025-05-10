@@ -180,11 +180,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       const posted_tab = document.getElementById("posted-tab");
       const post_statistic = document.getElementById("post-statistic-tab");
       const author_register = document.getElementById("author-register-tab");
+      const dashboard = document.getElementById("go-dashboard");
       if (userData.role == "user") {
         (post_tab.style.display = "none"),
           (posted_tab.style.display = "none"),
-          (post_statistic.style.display = "none");
-      } else if (userData.role == "author" || userData.role == "admin") {
+          (post_statistic.style.display = "none"),
+          (dashboard.style.display = "none");
+      } else if (userData.role == "author") {
+        (author_register.style.display = "none"),
+          (dashboard.style.display = "none");
+      } else if (userData.role == "admin") {
         author_register.style.display = "none";
       }
     }
@@ -455,6 +460,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
     });
   }
+
+  document.getElementById("go-dashboard")?.addEventListener("click", () => {
+    window.location.href = "/dashboard/index.html";
+  });
 
   // ==================== PHẦN PHÂN TRANG ====================
   function createPagination(containerClass, itemClass, countElementId = null) {
@@ -1690,4 +1699,22 @@ document.addEventListener("DOMContentLoaded", async function () {
   initAuthorSite();
   initChart();
   handleLogout();
+});
+window.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("theme-toggle");
+
+  // Nếu tồn tại nút gạt mới thực hiện gán giá trị và event
+  if (toggle) {
+    const theme = localStorage.getItem("theme");
+    const isDark = theme === "dark";
+
+    document.body.classList.toggle("dark-mode", isDark);
+    toggle.checked = isDark;
+
+    toggle.addEventListener("change", () => {
+      const newTheme = toggle.checked ? "dark" : "light";
+      document.body.classList.toggle("dark-mode", toggle.checked);
+      localStorage.setItem("theme", newTheme);
+    });
+  }
 });

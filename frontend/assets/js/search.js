@@ -267,3 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
     handleFilterChange(); // Lọc và render luôn các bài viết theo keyword
   }
 });
+window.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+});

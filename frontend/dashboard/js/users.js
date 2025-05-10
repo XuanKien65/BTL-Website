@@ -382,6 +382,7 @@ function setupUserEventListeners() {
 
 //Hàm hiển thị dữ liệu đơn đăng ký thành tác giả
 function fillAuthorRequestModal(data) {
+  console.log("[DEBUG] GỌI fillAuthorRequestModal");
   document.getElementById("authorFullname").textContent = data.fullname;
   document.getElementById("authorEmail").textContent = data.email;
   document.getElementById("authorPhone").textContent = data.phone || "N/A";

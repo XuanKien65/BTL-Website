@@ -1159,3 +1159,9 @@ function renderTinkhac2(posts, selector = ".tinkhac2 .news-container") {
     });
   });
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+});
