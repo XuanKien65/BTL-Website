@@ -83,7 +83,7 @@ function renderCommentsTable(comments, page = 1, perPage = 10) {
       </td>
       <td>${comment.posttitle || "N/A"}</td>
       <td>${formatDateTime(comment.createdat)}</td>
-      <td><span class="status-badge ${comment.status}">
+      <td><span class="status-badge ${comment.status}" data-i18n="${comment.status}">
           ${getCommentStatusText(comment.status)}</span></td>
       <td class="comment-actions">
         ${

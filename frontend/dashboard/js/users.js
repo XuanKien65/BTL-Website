@@ -130,14 +130,12 @@ function renderUserTable(users) {
                     <span>${user.username}</span>
                 </div>
             </td>
-            <td>${user.email}</td>
-            <td><span class="role-badge ${user.role}">${getRoleName(
-        user.role
-      )}</span></td>
+            <td>${user.email}</td> 
+            <td><span class="role-badge ${user.role}" data-i18n = "${user.role}">${getRoleName( user.role)}</span></td>
             <td>${formatDateTime(user.createdat)}</td>
             <td><span class="status-badge ${
               user.status || "active"
-            }">${getStatusName(user.status || "active")}</span></td>
+            }"  data-i18n = "${user.status || "active"}">${getStatusName(user.status || "active")}</span></td>
             <td>
                 ${
                   user.hasAuthorRequest

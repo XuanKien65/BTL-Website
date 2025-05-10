@@ -125,7 +125,7 @@ function renderPostTable() {
           <td>${post.authorname}</td>
           <td>${date}</td>
           <td>${post.views}</td>
-          <td><span class="status-badge ${post.status}">${
+          <td><span class="status-badge ${post.status}" data-i18n="${post.status}">${
         statusMap[post.status]
       }</span></td>
           <td>${actions}</td>
@@ -202,7 +202,6 @@ async function loadPosts() {
     const data = await res.json();
     postsData = data.data.posts || [];
     filteredPostsData = [...postsData]; // Khởi tạo filteredPostsData
-
     // Áp dụng filter mặc định
     applyFilters();
   } catch (err) {
@@ -260,14 +259,22 @@ async function loadCategoriesToFilter() {
     const select = document.getElementById("postCateFilter");
     if (!select) return;
 
-    select.innerHTML = `<option value="all">Tất cả</option>`;
+    select.innerHTML = `<option value="all" data-i18n="all">Tất cả</option>`;
 
     flatCategories.forEach((cat) => {
       const option = document.createElement("option");
+
+      // Dịch thông qua categories-list nếu có
+      option.setAttribute("data-i18n", `categories-list.${cat.name}`);
       option.value = cat.id;
       option.textContent = cat.name;
+
       select.appendChild(option);
     });
+
+    // Sau khi render xong: dịch
+    const lang = localStorage.getItem("lang") || "vietnamese";
+    updateText(lang);
   } catch (err) {
     console.error("Lỗi load danh mục:", err);
   }
