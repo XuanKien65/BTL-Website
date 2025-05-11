@@ -202,7 +202,7 @@ p {
 
 .l-content h3 {
   font-size: 2.6rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .l-content p {
@@ -246,7 +246,7 @@ p {
 }
 
 .scroll-div {
-  max-height: 700px;
+  max-height: 650px;
   overflow-y: auto;
   padding-right: 1rem;
 }
@@ -413,7 +413,7 @@ p {
 }
 
 .news-slider-container {
-  margin: 3rem 0 5rem;
+  margin: 2rem 10rem 3rem;
   position: relative;
   padding: 0 5rem;
 }
@@ -430,6 +430,7 @@ p {
 }
 
 .swiper-slide {
+  margin: 0 2rem;
   display: flex;
   justify-content: center;
 }
@@ -482,7 +483,6 @@ p {
   gap: 2rem;
 }
 
-
 #pagination.l-main-button {
   display: flex;
   justify-content: center;
@@ -519,18 +519,18 @@ p {
 
 /* Thanh cuộn chiếm nhỏ hơn toàn phần */
 .articles-trend .scroll-div {
-  width: 95% !important;         /* ↓ Giảm nhẹ để không chạm lề */
+  width: 95% !important; /* ↓ Giảm nhẹ để không chạm lề */
   max-width: 95% !important;
   box-sizing: border-box;
 }
 
 .a-l-content h3 {
-  font-size: 2.4rem !important;  /* Tăng cỡ tiêu đề */
+  font-size: 2.4rem !important; /* Tăng cỡ tiêu đề */
   line-height: 1.4;
 }
 
 .a-l-content p {
-  font-size: 1.8rem !important;  /* Tăng cỡ đoạn văn bản mô tả */
+  font-size: 1.8rem !important; /* Tăng cỡ đoạn văn bản mô tả */
   line-height: 1.6;
 }
 
@@ -570,10 +570,10 @@ p {
 
 .title-header {
   font-family: "Merriweather", serif !important;
-  font-size: 2.4rem;          /* Điều chỉnh kích thước theo nhu cầu */
+  font-size: 2.4rem; /* Điều chỉnh kích thước theo nhu cầu */
   font-weight: 700;
   color: var(--primary-color);
-  text-decoration: none;      /* Bỏ gạch chân nếu không muốn */
+  text-decoration: none; /* Bỏ gạch chân nếu không muốn */
 }
 
 .title-header:hover {
@@ -623,4 +623,19 @@ ul.list-topic li a:hover,
 ul.list-topic li a.active {
   color: var(--heading-color);
   font-weight: 600;
+}
+body.dark-mode {
+  background-color: var(--primary-color);
+}
+body.dark-mode a,
+body.dark-mode p,
+body.dark-mode span {
+  color: white;
+}
+body.dark-mode .swiper-news-item-title {
+  background-color: var(--primary-color);
+  color: white;
+}
+body.dark-mode button {
+  color: white;
 }

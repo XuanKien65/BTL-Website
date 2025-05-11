@@ -121,7 +121,7 @@ i {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-.search button{
+.search button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -308,4 +308,7 @@ i {
   .search:hover input {
     width: 7rem;
   }
+}
+body.dark-mode .banner {
+  background-color: var(--primary-color);
 }

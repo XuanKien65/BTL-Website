@@ -1,7 +1,6 @@
 // ==================== AUTH TOKEN ====================
 let accessToken = null;
 let tokenExpiration = 0;
-
 async function getAccessTokenFromRefresh() {
   // Kiểm tra nếu token còn hiệu lực
   if (accessToken && Date.now() < tokenExpiration) {
