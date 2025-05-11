@@ -567,7 +567,7 @@ body.dark-mode .c-score {
   color: white;
 }
 body.dark-mode .c-controls i,
-body.dark-mode .news-subject a.active-tab {
+body.dark-mode .news-header .active-tab {
   color: var(--heading-color);
 }
 body.dark-mode .c-score i {

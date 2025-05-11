@@ -200,7 +200,6 @@ i {
 
 /* Search box */
 .search-container {
-  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   padding: 2rem;
@@ -717,4 +716,25 @@ footer {
   text-align: center;
   font-size: 1.6rem;
   line-height: 1.86;
+}
+body.dark-mode {
+  background-color: var(--primary-color);
+}
+body.dark-mode select,
+body.dark-mode .search-box {
+  background-color: #444;
+  color: white;
+}
+body.dark-mode .search-box input {
+  color: white;
+}
+body.dark-mode .results-container {
+  background-color: var(--primary-color);
+}
+body.dark-mode a,
+body.dark-mode p,
+body.dark-mode .article-card span,
+body.dark-mode .page-btn,
+body.dark-mode h2 {
+  color: white;
 }

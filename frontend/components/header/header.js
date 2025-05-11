@@ -522,11 +522,10 @@ function resetUserStateCompletely() {
   console.log("✅ Toàn bộ thông tin người dùng đã được xoá.");
 }
 
-
 // Trong header.js
 async function loadHeaderFooterSettings() {
   try {
-    const response = await fetch('/api/homepage-settings');
+    const response = await fetch("/api/homepage-settings");
     const result = await response.json();
     const data = result.data;
     const timestamp = `?t=${Date.now()}`;

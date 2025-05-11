@@ -32,7 +32,6 @@ html.font-large {
   font-size: 120%;
 }
 
-
 .content-section,
 .table-responsive,
 .modal-content,
@@ -57,7 +56,6 @@ body {
   display: flex;
   min-height: 100vh;
 }
-
 
 /* Sidebar mới với hover */
 #sidebar {
@@ -1486,7 +1484,7 @@ body.dark-mode {
   color: #f1f1f1;
 }
 
-body.dark-mode .main-content{
+body.dark-mode .main-content {
   background-color: #1e1e1e;
   color: #e0e0e0;
 }
@@ -1504,8 +1502,8 @@ body.dark-mode .navbar {
   background-color: #060606;
 }
 
-body.dark-mode #sidebar{
-  background-color: #121212
+body.dark-mode #sidebar {
+  background-color: #121212;
 }
 
 body.dark-mode .btn {
@@ -1540,17 +1538,15 @@ body.dark-mode .data-table td,
 body.dark-mode .settings-content,
 body.dark-mode .chart-container,
 body.dark-mode .recent-activities,
-body.dark-mode .table-responsive{
+body.dark-mode .table-responsive {
   background-color: #2a2a2a;
   color: #f1f1f1;
 }
-
 
 body.dark-mode .data-table thead th {
   background-color: #343434;
   color: #f1f1f1;
 }
-
 
 /* Cards hover */
 body.dark-mode .chart-container:hover,
@@ -1581,8 +1577,8 @@ body.dark-mode .btn-approve-post,
 body.dark-mode .btn-approve-author,
 body.dark-mode .btn-edit,
 body.dark-mode .btn-ban,
-body.dark-mode .btn-mark-read{
-  background-color: #28a745 !important;  /* Xanh lá nổi bật */
+body.dark-mode .btn-mark-read {
+  background-color: #28a745 !important; /* Xanh lá nổi bật */
   color: white !important;
 }
 
@@ -1595,7 +1591,7 @@ body.dark-mode .btn-approve-author:hover {
 /* === Nút BỎ DUYỆT - UNAPPROVE === */
 body.dark-mode .btn-unapprove,
 body.dark-mode .btn-unapprove-post {
-  background-color: #ffb703 !important;  /* Cam đậm */
+  background-color: #ffb703 !important; /* Cam đậm */
   color: black !important;
 }
 
@@ -1608,7 +1604,7 @@ body.dark-mode .btn-unapprove-post:hover {
 body.dark-mode .btn-delete,
 body.dark-mode .btn-delete-post,
 body.dark-mode .btn-reject-post {
-  background-color: #e63946 !important;  /* Đỏ tươi */
+  background-color: #e63946 !important; /* Đỏ tươi */
   color: white !important;
 }
 
@@ -1618,9 +1614,8 @@ body.dark-mode .btn-reject-post:hover {
   background-color: #c92a3b !important;
 }
 
-body.dark-mode .btn-page{
+body.dark-mode .btn-page {
   background: #121212;
-
 }
 
 body.dark-mode .activity-item {
@@ -1629,33 +1624,30 @@ body.dark-mode .activity-item {
   box-shadow: rgb(96, 96, 96) !important;
 }
 
-
-body.dark-mode .status-badge.pending
-{
-  background-color: #ffb703 !important;  /* Cam đậm */
+body.dark-mode .status-badge.pending {
+  background-color: #ffb703 !important; /* Cam đậm */
   color: black !important;
 }
 
 body.dark-mode .status-badge.approved,
 body.dark-mode .status-badge.active,
 body.dark-mode .status-badge.published,
-body.dark-mode .role-badge.author
-{
-  background-color: #28a745 !important;  /* Xanh lá nổi bật */
+body.dark-mode .role-badge.author {
+  background-color: #28a745 !important; /* Xanh lá nổi bật */
   color: white !important;
 }
 
-body.dark-mode .btn-page .active{
+body.dark-mode .btn-page .active {
   border: #f9d232;
 }
 
-body.dark-mode .role-badge.admin{
-  background-color: #e22626 !important;  /* Xanh lá nổi bật */
+body.dark-mode .role-badge.admin {
+  background-color: #e22626 !important; /* Xanh lá nổi bật */
   color: white !important;
 }
 
-body.dark-mode .role-badge.user{
-  background-color: #fcb64e !important;  /* Xanh lá nổi bật */
+body.dark-mode .role-badge.user {
+  background-color: #fcb64e !important; /* Xanh lá nổi bật */
   color: rgb(0, 0, 0) !important;
 }
 
@@ -1729,7 +1721,7 @@ body.dark-mode .settings-tab {
 
 body.dark-mode .settings-tab:hover {
   background-color: #444; /* màu nền khi hover */
-  color: #fff;            /* màu chữ khi hover */
+  color: #fff; /* màu chữ khi hover */
 }
 
 body.dark-mode .settings-tab.active {
@@ -1746,12 +1738,12 @@ body.dark-mode .form-control-plaintext {
   font-weight: 700;
 }
 
-.form-group.mode{
+.form-group.mode {
   display: flex;
   /* align-items: center; */
   justify-content: flex-start;
 }
 
-#languageToggle{
+#languageToggle {
   cursor: pointer;
 }

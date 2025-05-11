@@ -1,5 +1,7 @@
+
 const HomepageSettings = require('../models/homepageSettings.model');
 const upload = require('../middlewares/upload.middleware');
+
 
 exports.updateSettings = async (req, res) => {
   try {
@@ -66,12 +68,11 @@ exports.getSettings = async (req, res) => {
           : null,
       },
     });
-
-
   } catch (error) {
     res.status(500).json({
       success: false,
       message: error.message
+
     });
   }
 };

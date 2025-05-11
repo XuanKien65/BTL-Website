@@ -966,20 +966,36 @@ document.addEventListener("DOMContentLoaded", async function () {
         'input[name="topics"]:checked'
       );
 
+      // Regex kiểm tra
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^(0|\+84)\d{9,10}$/;
+
       if (!fullname) {
         showError("fullname1", "Vui lòng nhập họ tên");
         valid = false;
-      } else clearError("fullname1");
+      } else {
+        clearError("fullname1");
+      }
 
       if (!email) {
         showError("email1", "Vui lòng nhập email");
         valid = false;
-      } else clearError("email1");
+      } else if (!emailRegex.test(email)) {
+        showError("email1", "Email không hợp lệ");
+        valid = false;
+      } else {
+        clearError("email1");
+      }
 
       if (!phone) {
         showError("phone1", "Vui lòng nhập số điện thoại");
         valid = false;
-      } else clearError("phone1");
+      } else if (!phoneRegex.test(phone)) {
+        showError("phone1", "Số điện thoại không hợp lệ");
+        valid = false;
+      } else {
+        clearError("phone1");
+      }
 
       if (!experience) {
         showError("experience", "Vui lòng chia sẻ kinh nghiệm viết");
@@ -1530,25 +1546,28 @@ document.addEventListener("DOMContentLoaded", async function () {
           : `http://localhost:5501${post.featuredimage}`;
 
         const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+        const isPending = post.status === "pending";
+
+        const titleElement = isPending
+          ? `<span class="article-title disabled" title="Bài chưa được duyệt">${post.title}</span>`
+          : `<a href="/pages/trangbaiviet.html?slug=${post.slug}">${post.title}</a>`;
 
         const item = document.createElement("div");
         item.className = "posted-article-item";
         item.innerHTML = `
-            <div class="article-image">
-              <img src="${imageUrl}" alt="${post.title}" />
-            </div>
-            <div class="article-info">
-              <h3 class="article-title">
-                <a href="/pages/trangbaiviet.html?slug=${post.slug}">${
-          post.title
-        }</a>
-              </h3>
-              <div class="article-social">
-                <p class="article-meta">${date}</p>
-                <div class="article-action">${post.views || 0} views</div>
-              </div>
-            </div>
-          `;
+        <div class="article-image">
+          <img src="${imageUrl}" alt="${post.title}" />
+        </div>
+        <div class="article-info">
+          <h3 class="article-title">
+            ${titleElement}
+          </h3>
+          <div class="article-social">
+            <p class="article-meta">${date}</p>
+            <div class="article-action">${post.views || 0} views</div>
+          </div>
+        </div>
+      `;
         container.appendChild(item);
       });
 
@@ -1582,6 +1601,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         if (!res.ok) throw new Error("Đăng xuất thất bại");
+        localStorage.removeItem("theme");
 
         window.location.href = "/pages/index.html";
       } catch (err) {
@@ -1694,7 +1714,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadSavedArticles();
   loadViewedPosts();
   loadUserComments();
-  loadPostedArticles();
+  loadPostedArticles("published");
   initAuthorRegistration();
   initAuthorSite();
   initChart();
@@ -1717,4 +1737,41 @@ window.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", newTheme);
     });
   }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const languageBtn = document.querySelector(".language-btn");
+  const languageSelector = document.querySelector(".language-selector");
+  const languageOptions = document.querySelectorAll(".language-option");
+
+  // Toggle dropdown
+  languageBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    languageSelector.classList.toggle("active");
+  });
+
+  // Đóng dropdown khi click bên ngoài
+  document.addEventListener("click", function () {
+    languageSelector.classList.remove("active");
+  });
+
+  // Xử lý khi chọn ngôn ngữ
+  languageOptions.forEach((option) => {
+    option.addEventListener("click", function (e) {
+      e.preventDefault();
+      const lang = this.getAttribute("data-lang");
+
+      // Thay đổi ngôn ngữ hiển thị
+      const selectedLang = document.querySelector(".selected-language");
+      selectedLang.innerHTML = this.innerHTML;
+
+      // Ẩn dropdown
+      languageSelector.classList.remove("active");
+
+      // Ở đây bạn có thể thêm code để thay đổi ngôn ngữ thực sự
+      console.log("Ngôn ngữ đã chọn:", lang);
+
+      // Ví dụ: reload trang với tham số ngôn ngữ
+      // window.location.href = window.location.pathname + '?lang=' + lang;
+    });
+  });
 });
