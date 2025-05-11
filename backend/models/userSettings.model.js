@@ -19,6 +19,6 @@ exports.updateUserSettings = async (userId, settings) => {
         font_size = EXCLUDED.font_size,
         language = EXCLUDED.language,
         updated_at = NOW()`,
-    [userId, theme, dark_mode, font_size, language]
+    [userId, dark_mode, font_size, language]
   );
 };

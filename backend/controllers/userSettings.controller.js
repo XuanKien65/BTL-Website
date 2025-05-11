@@ -1,7 +1,7 @@
 const UserSettings = require("../models/userSettings.model");
 
 exports.getSettings = async (req, res) => {
-  const userId = parseInt(req.params.userid);
+  const userId = req.userId;
   try {
     const settings = await UserSettings.getUserSettings(userId);
     if (!settings) return res.status(404).json({ error: "Không tìm thấy cài đặt" });
@@ -13,7 +13,7 @@ exports.getSettings = async (req, res) => {
 };
 
 exports.updateSettings = async (req, res) => {
-  const userId = parseInt(req.params.userid);
+  const userId = req.userId;
   try {
     await UserSettings.updateUserSettings(userId, req.body);
     res.json({ message: "Cập nhật thành công" });

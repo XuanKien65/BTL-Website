@@ -733,10 +733,16 @@ async function submitUserForm() {
 
 // Cập nhật trạng thái người dùng
 async function updateUserStatus(userId, status) {
+  const lang = localStorage.getItem("lang") || "vietnamese";
+  const actionText = status === "banned"
+    ? translations[lang]["lock"]
+    : translations[lang]["unlock"];
+
+  const template = translations[lang]["confirm-message"];
+  const message = template.replace("{{action}}", actionText);
+  console.log("Test message:", message);
   showConfirmModal(
-    `Bạn có chắc muốn ${
-      status === "banned" ? "khóa" : "mở khóa"
-    } người dùng này?`,
+    message,
     async () => {
       try {
         const token = await getAccessTokenFromRefresh();

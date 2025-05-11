@@ -304,4 +304,76 @@
         localStorage.setItem("fontSize", size);
     });
 
+    document.getElementById("saveSettingsBtn").addEventListener("click", (event) => {
+      event.preventDefault(); // ✅ chặn form submit reload
+
+      const token = localStorage.getItem("accessToken");
+      if (!token) return alert("Bạn chưa đăng nhập.");
+
+      const settings = {
+        dark_mode: localStorage.getItem("darkMode") === "enabled",
+        language: localStorage.getItem("lang") || "vietnamese",
+        font_size: localStorage.getItem("fontSize") || "medium"
+      };
+
+      fetch("/api/user-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(settings)
+      })  
+        .then(res => {
+          if (!res.ok) throw new Error("Lỗi khi lưu");
+          return res.json();
+        })
+        .then(() => alert("Đã lưu cài đặt thành công!"))
+        .catch(() => alert("Lưu cài đặt thất bại."));
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) return;
+
+      fetch("/api/user-settings", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(settings => {
+          if (!settings) return;
+
+          // 1. Áp dụng dark mode
+          const enableDark = settings.dark_mode;
+          if (enableDark) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("darkMode", "enabled");
+          } else {
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("darkMode", "disabled");
+          }
+
+          // 2. Áp dụng ngôn ngữ
+          if (settings.language) {
+            localStorage.setItem("lang", settings.language);
+            document.getElementById("language").value = settings.language;
+            updateText(settings.language);
+          }
+
+          // 3. Áp dụng font size
+          if (settings.font_size) {
+            document.documentElement.classList.remove("font-small", "font-medium", "font-large");
+            document.documentElement.classList.add(`font-${settings.font_size}`);
+            document.getElementById("fontSizeSelect").value = settings.font_size;
+            localStorage.setItem("fontSize", settings.font_size);
+          }
+        })
+        .catch(err => {
+          console.warn("Không thể tải cài đặt người dùng:", err);
+        });
+    });
+
  
