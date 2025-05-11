@@ -1,6 +1,6 @@
 
 const HomepageSettings = require('../models/homepageSettings.model');
-const upload = require('../middlewares/upload.middleware');
+const upload = require('../middlewares/upload');
 
 
 exports.updateSettings = async (req, res) => {
