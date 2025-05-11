@@ -4,11 +4,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const pool = require("./config/db.config");
 const cookieParser = require("cookie-parser");
-const open = require("open");
 const path = require("path");
 const fs = require("fs");
+const open = require("open");
+
+const http = require("http");
+const setupWebSocket = require("./realtime/socketServer");
 
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -21,7 +23,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5501", // hoặc frontend port bạn đang dùng
+    origin: "http://localhost:5501",
     credentials: true,
   })
 );
@@ -42,7 +44,8 @@ app.use("/api", require("./routes/authorRegister.routes"));
 app.use("/api", require("./routes/savedPost.routes"));
 app.use("/api", require("./routes/upload.routes"));
 app.use("/api/viewed-posts", require("./routes/viewedPost.routes"));
-app.use("/uploads", express.static("uploads"));
+
+// Error handler
 app.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
@@ -67,14 +70,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`✅ Server is running at http://localhost:${PORT}`);
+const server = http.createServer(app);
+setupWebSocket(server); // Kích hoạt socket
+
+server.listen(PORT, () => {
+  console.log(` Server is running at http://localhost:${PORT}`);
 
   const indexPath = path.join(frontendPath, "pages", "index.html");
   if (fs.existsSync(indexPath)) {
     open(`http://localhost:${PORT}/pages/index.html`);
   } else {
-    console.warn("⚠️ File index.html không tồn tại tại: ", indexPath);
+    console.warn(" File index.html không tồn tại tại: ", indexPath);
   }
 });
