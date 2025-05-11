@@ -44,11 +44,14 @@ app.use("/api", require("./routes/upload.routes"));
 app.use("/api/viewed-posts", require("./routes/viewedPost.routes"));
 app.use("/uploads", express.static("uploads"));
 app.use("/api/user-settings", require("./routes/userSettings.route"));
+app.use('/api/homepage-settings', require("./routes/homepageSettings.route"));
+
 app.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(status).json({ success: false, message });
 });
+
 
 // 404 handler
 app.use((req, res, next) => {

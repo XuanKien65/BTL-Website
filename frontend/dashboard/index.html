@@ -90,7 +90,7 @@
             </a>
           </li>
         </ul>
-        <div class="sidebar-item">
+        <div class="sidebar-footer">
           <a href="#" class="sidebar-link">
             <span class="material-icons">logout</span>
             <span data-i18n="logout">Đăng xuất</span>
@@ -497,44 +497,76 @@
               <div id="general" class="settings-tab-content active">
                 <form class="settings-form">
                   <div class="form-group">
-                    <label for="site-name" data-i18n="site-name">
-                      Tên Website
-                    </label>
-                    <input type="text" id="site-name" value="Giờ Outsider" />
+                    <label for="site-name" data-i18n="site-name">Tên Website</label>
+                    <div class="form-control-plaintext">Giờ Outsider</div>
                   </div>
 
                   <div class="form-group">
-                    <label for="site-description" data-i18n="site-description">
-                      Mô Tả Website
-                    </label>
-                    <textarea id="site-description">
-                      Trang tin tức giải trí hàng đầu
-                    </textarea>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="timezone" data-i18n="timezone">Múi Giờ</label>
-                    <select id="timezone">
-                      <option
-                        value="+7"
-                        data-i18n="timezone-vietnam"
+                    <label data-i18n="main-logo">Logo chính</label>
+                    <div class="image-upload-group">
+                      <input 
+                        type="file" 
+                        id="homepageLogoUpload" 
+                        accept="image/*"
+                        class="form-control"
                       >
-                        (GMT+7) Giờ Việt Nam
-                      </option>
-                      <option value="+0" data-i18n="timezone-gmt">
-                        (GMT+0) Giờ GMT
-                      </option>
-                      <option value="-5" data-i18n="timezone-est">
-                        (GMT-5) Giờ EST
-                      </option>
-                    </select>
+                      <div class="image-preview" id="homepageLogoPreview"></div>
+                    </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    data-i18n="save-settings"
-                  >
+                  <div class="form-group">
+                    <label data-i18n="banner-image">Ảnh banner</label>
+                    <div class="image-upload-group">
+                      <input 
+                        type="file" 
+                        id="homepageBannerUpload" 
+                        accept="image/*"
+                        class="form-control"
+                      >
+                      <div class="image-preview" id="homepageBannerPreview"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homepageSlogan" data-i18n="slogan">Khẩu hiệu</label>
+                    <input 
+                      type="text" 
+                      id="homepageSlogan" 
+                      class="form-control"
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label data-i18n="contact-info">Thông tin liên hệ</label>
+                    <div class="row">
+                      <div class="col">
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          id="footerAddress"
+                          placeholder="Địa chỉ"
+                        >
+                      </div>
+                      <div class="col">
+                        <input 
+                          type="email" 
+                          class="form-control" 
+                          id="footerEmail"
+                          placeholder="Email"
+                        >
+                      </div>
+                      <div class="col">
+                        <input 
+                          type="tel" 
+                          class="form-control" 
+                          id="footerPhone"
+                          placeholder="Số điện thoại"
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" data-i18n="save-settings">
                     Lưu Cài Đặt
                   </button>
                 </form>
@@ -1099,12 +1131,13 @@
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>
-    <script src ="lang.js"></script>
+    <script src ="js/lang.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/users.js"></script>
     <script src="js/posts.js"></script>
     <script src="js/categories.js"></script>
     <script src="js/comment.js"></script>
+    <script src="js/setting.js"></script>
   </body>
 </html>

@@ -1457,6 +1457,31 @@ body {
 }
 
 
+/* Image Upload Preview */
+.image-upload-group {
+  margin: 15px 0;
+}
+
+.image-preview {
+  margin-top: 10px;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-image {
+  max-width: 200px;
+  max-height: 150px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* ==============================DARK MODE====================================== */
+
 body.dark-mode {
   background-color: rgb(17, 20, 23);
   color: #f1f1f1;
