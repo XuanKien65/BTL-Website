@@ -204,7 +204,6 @@
   }
   
   /* Điều chỉnh chế độ xem lưới trên màn hình nhỏ */
-  @media (max-width: 768px) {
   .results-list .article-card {
     flex-direction: column !important;
     width: 100% !important;
@@ -251,7 +250,41 @@
     margin-top: 1rem !important;
     font-size: 1.2rem !important;
   }
-}
+  
+  html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .container,
+  .results-container,
+  .results-list,
+  .article-card,
+  .article-image,
+  .article-content,
+  .search-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+  }
+
+  .article-card {
+    flex-wrap: nowrap !important;
+    flex-direction: column !important;
+  }
+
+  .article-image img {
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block;
+  }
+
+  /* Thêm lớp hạn chế min-width không mong muốn */
+  * {
+    min-width: 0 !important;
+  }
 
 }
 
