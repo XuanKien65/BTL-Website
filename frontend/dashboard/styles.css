@@ -1456,7 +1456,6 @@ body {
   cursor: pointer;
 }
 
-
 /* Image Upload Preview */
 .image-upload-group {
   margin: 15px 0;
@@ -1743,7 +1742,6 @@ body.dark-mode .settings-tab.active {
   /* align-items: center; */
   justify-content: flex-start;
 }
-
 
 #languageToggle{
   cursor: pointer;
