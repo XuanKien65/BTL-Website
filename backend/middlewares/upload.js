@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 // Cấu hình lưu trữ
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "backend/uploads/"); 
+    cb(null, "backend/uploads/");
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
@@ -20,7 +20,12 @@ const fileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Invalid file type. Only JPEG, PNG, and WEBP images are allowed."), false);
+    cb(
+      new Error(
+        "Invalid file type. Only JPEG, PNG, and WEBP images are allowed."
+      ),
+      false
+    );
   }
 };
 

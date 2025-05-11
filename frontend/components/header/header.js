@@ -532,34 +532,35 @@ async function loadHeaderFooterSettings() {
 
     // ✅ Cập nhật logo
     if (data.logo_url) {
-      document.querySelectorAll('.logo, .banner-logo').forEach(img => {
+      document.querySelectorAll(".logo, .banner-logo").forEach((img) => {
         img.src = data.logo_url + timestamp;
       });
     }
 
     // ✅ Cập nhật banner
     if (data.banner_url) {
-      const bannerImg = document.querySelector('.banner-logo');
+      const bannerImg = document.querySelector(".banner-logo");
       if (bannerImg) bannerImg.src = data.banner_url + timestamp;
     }
 
     // ✅ Cập nhật footer
     if (data.slogan) {
-      const sloganEl = document.querySelector('#footer-slogan');
+      const sloganEl = document.querySelector("#footer-slogan");
       if (sloganEl) sloganEl.textContent = data.slogan;
     }
 
     if (data.contact_info) {
-      document.getElementById('footer-address').innerHTML =
-        `<strong>Location:</strong> ${data.contact_info.address}`;
-      document.getElementById('footer-email').innerHTML =
-        `<strong>Email:</strong> ${data.contact_info.email}`;
-      document.getElementById('footer-phone').innerHTML =
-        `<strong>Phone:</strong> ${data.contact_info.phone}`;
+      document.getElementById(
+        "footer-address"
+      ).innerHTML = `<strong>Location:</strong> ${data.contact_info.address}`;
+      document.getElementById(
+        "footer-email"
+      ).innerHTML = `<strong>Email:</strong> ${data.contact_info.email}`;
+      document.getElementById(
+        "footer-phone"
+      ).innerHTML = `<strong>Phone:</strong> ${data.contact_info.phone}`;
     }
-
   } catch (error) {
-    console.error('Lỗi tải cài đặt:', error);
+    console.error("Lỗi tải cài đặt:", error);
   }
 }
-
