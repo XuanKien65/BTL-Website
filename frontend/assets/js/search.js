@@ -5,7 +5,6 @@ let currentPage = 1;
 const articlesPerPage = 10;
 const viewOptions = document.querySelectorAll(".view-option");
 
-
 // DOM Elements
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
@@ -201,7 +200,6 @@ function renderArticles(articles, pages, totalItems = 0) {
   renderPagination(pages);
 }
 
-
 // Hiển thị phân trang (đã cập nhật theo yêu cầu)
 function renderPagination(pages) {
   pagination.innerHTML = "";
@@ -257,7 +255,6 @@ function renderPagination(pages) {
   }
 }
 
-
 init();
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -269,4 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.value = keyword; // Gán vào ô input hiện tại
     handleFilterChange(); // Lọc và render luôn các bài viết theo keyword
   }
+});
+window.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
 });

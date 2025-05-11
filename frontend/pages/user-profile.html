@@ -38,7 +38,6 @@
         <div class="user-profile">
           <div class="profile-avatar">
             <img
-              src="../the-outsider/assets/img/image-amyrobson.png"
               alt="User Avatar"
               id="usr-avatar"
             />
@@ -49,6 +48,11 @@
 
         <nav class="account-menu">
           <ul>
+            <li id="go-dashboard">
+              <a href="#go-dashboard">
+                <i class="fa-solid fa-table-columns"></i>Trang quản trị
+              </a>
+            </li>
             <li class="active">
               <a href="#account-info"
                 ><i class="fas fa-user"></i> Thông tin cá nhân</a
@@ -207,6 +211,34 @@
                   Đổi mật khẩu
                 </button>
               </div>
+            </div>
+            <div class=" form-group language-selector">
+              <label>Tuỳ chọn ngôn ngữ</label>
+              <div class="language-btn" style="cursor: pointer;">
+                  <span class="selected-language">
+                      <span class="flag-icon vi"></span>
+                      Tiếng Việt
+                  </span>
+                  <span class="arrow">▼</span>
+              </div>
+              <div class="language-dropdown">
+                  <a href="#" class="language-option" data-lang="vi">
+                      <span class="flag-icon vi"></span>
+                      Tiếng Việt
+                  </a>
+                  <a href="#" class="language-option" data-lang="en">
+                      <span class="flag-icon en"></span>
+                      English
+                  </a>
+              </div>
+          </div>
+            
+            <div class="form-group color">
+              <label >Tuỳ chọn chế độ xem</label>
+              <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+              </label>
             </div>
           </form>
 
@@ -509,8 +541,7 @@
           <div class="filter-posted-status">
             <label for="postStatusFilter">Lọc theo trạng thái:</label>
             <select id="postStatusFilter">
-              <option value="">Tất cả</option>
-              <option value="published">Đã duyệt</option>
+              <option value="published" selected>Đã duyệt</option>
               <option value="pending">Chưa duyệt</option>
             </select>
           </div>          

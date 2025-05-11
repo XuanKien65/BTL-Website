@@ -180,11 +180,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       const posted_tab = document.getElementById("posted-tab");
       const post_statistic = document.getElementById("post-statistic-tab");
       const author_register = document.getElementById("author-register-tab");
+      const dashboard = document.getElementById("go-dashboard");
       if (userData.role == "user") {
         (post_tab.style.display = "none"),
           (posted_tab.style.display = "none"),
-          (post_statistic.style.display = "none");
-      } else if (userData.role == "author" || userData.role == "admin") {
+          (post_statistic.style.display = "none"),
+          (dashboard.style.display = "none");
+      } else if (userData.role == "author") {
+        (author_register.style.display = "none"),
+          (dashboard.style.display = "none");
+      } else if (userData.role == "admin") {
         author_register.style.display = "none";
       }
     }
@@ -456,6 +461,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
+  document.getElementById("go-dashboard")?.addEventListener("click", () => {
+    window.location.href = "/dashboard/index.html";
+  });
+
   // ==================== PHẦN PHÂN TRANG ====================
   function createPagination(containerClass, itemClass, countElementId = null) {
     let currentPage = 1;
@@ -464,7 +473,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Hiển thị trang cụ thể
     function showPage(page) {
-      console.log("Current page:", page, "Total items:", allItems.length); // Thêm dòng này vào đầu hàm showPage()
       currentPage = page;
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -958,20 +966,36 @@ document.addEventListener("DOMContentLoaded", async function () {
         'input[name="topics"]:checked'
       );
 
+      // Regex kiểm tra
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^(0|\+84)\d{9,10}$/;
+
       if (!fullname) {
         showError("fullname1", "Vui lòng nhập họ tên");
         valid = false;
-      } else clearError("fullname1");
+      } else {
+        clearError("fullname1");
+      }
 
       if (!email) {
         showError("email1", "Vui lòng nhập email");
         valid = false;
-      } else clearError("email1");
+      } else if (!emailRegex.test(email)) {
+        showError("email1", "Email không hợp lệ");
+        valid = false;
+      } else {
+        clearError("email1");
+      }
 
       if (!phone) {
         showError("phone1", "Vui lòng nhập số điện thoại");
         valid = false;
-      } else clearError("phone1");
+      } else if (!phoneRegex.test(phone)) {
+        showError("phone1", "Số điện thoại không hợp lệ");
+        valid = false;
+      } else {
+        clearError("phone1");
+      }
 
       if (!experience) {
         showError("experience", "Vui lòng chia sẻ kinh nghiệm viết");
@@ -1011,7 +1035,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       try {
         const formData = new FormData();
 
-        console.log(userData.id);
         formData.append("userId", userData.id);
         formData.append(
           "fullname",
@@ -1115,7 +1138,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (!res.ok) throw new Error("Lỗi khi lấy danh sách bài viết đã lưu");
 
       const result = await res.json();
-      console.log("result", result);
       const articles = result.data;
       const container = document.querySelector(".saved-articles-list");
       const pagi = document.querySelector(".save .pagination");
@@ -1422,7 +1444,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const tokenPayload = accessToken.split(".")[1];
         const decodedPayload = JSON.parse(atob(tokenPayload));
         const userId = decodedPayload.id;
-        console.log(userId);
 
         if (!accessToken) {
           throw new Error(
@@ -1498,7 +1519,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     let url = `http://localhost:5501/api/posts/author/${userId}`;
     if (status) {
       url += `?status=${status}`;
-      console.log(url);
     }
 
     try {
@@ -1526,25 +1546,28 @@ document.addEventListener("DOMContentLoaded", async function () {
           : `http://localhost:5501${post.featuredimage}`;
 
         const date = new Date(post.createdat).toLocaleDateString("vi-VN");
+        const isPending = post.status === "pending";
+
+        const titleElement = isPending
+          ? `<span class="article-title disabled" title="Bài chưa được duyệt">${post.title}</span>`
+          : `<a href="/pages/trangbaiviet.html?slug=${post.slug}">${post.title}</a>`;
 
         const item = document.createElement("div");
         item.className = "posted-article-item";
         item.innerHTML = `
-            <div class="article-image">
-              <img src="${imageUrl}" alt="${post.title}" />
-            </div>
-            <div class="article-info">
-              <h3 class="article-title">
-                <a href="/pages/trangbaiviet.html?slug=${post.slug}">${
-          post.title
-        }</a>
-              </h3>
-              <div class="article-social">
-                <p class="article-meta">${date}</p>
-                <div class="article-action">${post.views || 0} views</div>
-              </div>
-            </div>
-          `;
+        <div class="article-image">
+          <img src="${imageUrl}" alt="${post.title}" />
+        </div>
+        <div class="article-info">
+          <h3 class="article-title">
+            ${titleElement}
+          </h3>
+          <div class="article-social">
+            <p class="article-meta">${date}</p>
+            <div class="article-action">${post.views || 0} views</div>
+          </div>
+        </div>
+      `;
         container.appendChild(item);
       });
 
@@ -1578,6 +1601,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         if (!res.ok) throw new Error("Đăng xuất thất bại");
+        localStorage.removeItem("theme");
 
         window.location.href = "/pages/index.html";
       } catch (err) {
@@ -1622,8 +1646,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const monthKey = `${date.getFullYear()}-${String(
         date.getMonth() + 1
       ).padStart(2, "0")}`;
-      console.log(monthKey);
-
       if (!monthly[monthKey]) {
         monthly[monthKey] = { count: 0, views: 0 };
       }
@@ -1692,9 +1714,64 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadSavedArticles();
   loadViewedPosts();
   loadUserComments();
-  loadPostedArticles();
+  loadPostedArticles("published");
   initAuthorRegistration();
   initAuthorSite();
   initChart();
   handleLogout();
+});
+window.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("theme-toggle");
+
+  // Nếu tồn tại nút gạt mới thực hiện gán giá trị và event
+  if (toggle) {
+    const theme = localStorage.getItem("theme");
+    const isDark = theme === "dark";
+
+    document.body.classList.toggle("dark-mode", isDark);
+    toggle.checked = isDark;
+
+    toggle.addEventListener("change", () => {
+      const newTheme = toggle.checked ? "dark" : "light";
+      document.body.classList.toggle("dark-mode", toggle.checked);
+      localStorage.setItem("theme", newTheme);
+    });
+  }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const languageBtn = document.querySelector(".language-btn");
+  const languageSelector = document.querySelector(".language-selector");
+  const languageOptions = document.querySelectorAll(".language-option");
+
+  // Toggle dropdown
+  languageBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    languageSelector.classList.toggle("active");
+  });
+
+  // Đóng dropdown khi click bên ngoài
+  document.addEventListener("click", function () {
+    languageSelector.classList.remove("active");
+  });
+
+  // Xử lý khi chọn ngôn ngữ
+  languageOptions.forEach((option) => {
+    option.addEventListener("click", function (e) {
+      e.preventDefault();
+      const lang = this.getAttribute("data-lang");
+
+      // Thay đổi ngôn ngữ hiển thị
+      const selectedLang = document.querySelector(".selected-language");
+      selectedLang.innerHTML = this.innerHTML;
+
+      // Ẩn dropdown
+      languageSelector.classList.remove("active");
+
+      // Ở đây bạn có thể thêm code để thay đổi ngôn ngữ thực sự
+      console.log("Ngôn ngữ đã chọn:", lang);
+
+      // Ví dụ: reload trang với tham số ngôn ngữ
+      // window.location.href = window.location.pathname + '?lang=' + lang;
+    });
+  });
 });

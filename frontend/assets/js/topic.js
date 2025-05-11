@@ -5,7 +5,6 @@ let totalPages = 1;
 let currentCategoryName = "";
 let topArticleId = null;
 
-
 // ================= HIỂN THỊ DANH SÁCH BÀI VIẾT =================
 
 async function loadArticlesAndTopPopular(page = 1) {
@@ -21,7 +20,7 @@ async function loadArticlesAndTopPopular(page = 1) {
       categoryName,
       sortBy: "newest",
       page,
-      pageSize: articlesPerPage
+      pageSize: articlesPerPage,
     });
 
     const res = await fetch(`/api/posts/search/?${query.toString()}`);
@@ -43,40 +42,46 @@ async function loadArticlesAndTopPopular(page = 1) {
     }
 
     // ✅ Tìm bài có views cao nhất trong trang hiện tại
-    const topPost = allPosts.reduce((max, post) =>
-      (post.views > max.views ? post : max), allPosts[0]);
+    const topPost = allPosts.reduce(
+      (max, post) => (post.views > max.views ? post : max),
+      allPosts[0]
+    );
 
     topArticleId = topPost.postid;
     renderPopularArticle(topPost); // ✅ hiển thị bài nổi bật
 
     // ✅ Loại bài đó khỏi danh sách
-    articles = allPosts.filter(post => post.postid !== topArticleId);
+    articles = allPosts.filter((post) => post.postid !== topArticleId);
     totalPages = result.data.pagination?.totalPages || 1;
 
     displayArticles();
     const res2 = await fetch("/api/categories/");
     const data2 = await res2.json();
 
-    let parentCategory = data2.data.find(cat =>
-      cat.name.trim().toLowerCase() === currentCategoryName.trim().toLowerCase()
+    let parentCategory = data2.data.find(
+      (cat) =>
+        cat.name.trim().toLowerCase() ===
+        currentCategoryName.trim().toLowerCase()
     );
 
     if (!parentCategory) {
-      parentCategory = data2.data.find(cat =>
+      parentCategory = data2.data.find((cat) =>
         (cat.children || []).some(
-          (child) => child.name.trim().toLowerCase() === currentCategoryName.trim().toLowerCase()
+          (child) =>
+            child.name.trim().toLowerCase() ===
+            currentCategoryName.trim().toLowerCase()
         )
-  );
-}
-    const isChildCategory = parentCategory && parentCategory.name.trim().toLowerCase() !== currentCategoryName.trim().toLowerCase();
+      );
+    }
+    const isChildCategory =
+      parentCategory &&
+      parentCategory.name.trim().toLowerCase() !==
+        currentCategoryName.trim().toLowerCase();
     updateSectionsVisibility(page, isChildCategory);
-
   } catch (err) {
     console.error("❌ Lỗi khi tải bài viết:", err);
   }
 }
-
-
 
 function renderPopularArticle(article) {
   const container = document.querySelector(".l-body");
@@ -89,7 +94,9 @@ function renderPopularArticle(article) {
 
   container.innerHTML = `
     <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="l-img">
-      <img src="${article.featuredimage || '/assets/default.jpg'}" alt="${article.title}">
+      <img src="${article.featuredimage || "/assets/default.jpg"}" alt="${
+    article.title
+  }">
     </a>
     <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="l-content">
       <h3>${article.title}</h3>
@@ -97,8 +104,6 @@ function renderPopularArticle(article) {
     </a>
   `;
 }
-
-
 
 function displayArticles() {
   const list = document.getElementById("articles-list");
@@ -121,16 +126,26 @@ function displayArticles() {
 
 function renderArticleCard(article) {
   return `
-    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="article-image">
-      <img src="${article.featuredimage || '/assets/default.jpg'}" alt="${article.title}">
+    <a href="/pages/trangbaiviet.html?slug=${
+      article.slug
+    }" class="article-image">
+      <img src="${article.featuredimage || "/assets/default.jpg"}" alt="${
+    article.title
+  }">
     </a>
-    <a href="/pages/trangbaiviet.html?slug=${article.slug}" class="article-title">
+    <a href="/pages/trangbaiviet.html?slug=${
+      article.slug
+    }" class="article-title">
       <h3>${article.title}</h3>
       <div class="article-desc"><p>${article.excerpt || ""}</p></div>
       <div class="ar-cmt2">
         <div class="ar-time">
-          <span class="ar-item"><span>${new Date(article.publishedat || article.createdat).toLocaleDateString("vi-VN")}</span></span>
-          <span class="ar-item"><span>${article.views || 0} lượt xem</span></span>
+          <span class="ar-item"><span>${new Date(
+            article.publishedat || article.createdat
+          ).toLocaleDateString("vi-VN")}</span></span>
+          <span class="ar-item"><span>${
+            article.views || 0
+          } lượt xem</span></span>
         </div>
       </div>
     </a>
@@ -148,7 +163,6 @@ function updatePagination() {
   if (endPage - startPage + 1 < maxVisiblePages) {
     startPage = Math.max(1, endPage - maxVisiblePages + 1);
   }
-
 
   // Prev
   if (currentPage > 1) {
@@ -189,7 +203,6 @@ function updatePagination() {
   }
 }
 
-
 function changePage(page) {
   if (page >= 1 && page <= totalPages) {
     loadArticlesAndTopPopular(page);
@@ -197,13 +210,12 @@ function changePage(page) {
   }
 }
 
-
 // ================= SLIDER (BẠN CÓ THỂ THÍCH) =================
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".news-slider", {
-    slidesPerView: 4,
+    slidesPerView: 3, // hoặc 4 tùy thiết kế
     spaceBetween: 20,
-    loop: true,
+    loop: false, // ✅ KHÔNG loop để tránh thêm chấm
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -211,12 +223,12 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
+      dynamicBullets: true, // ✅ để gọn
     },
     breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 10 },
-      640: { slidesPerView: 2, spaceBetween: 15 },
-      768: { slidesPerView: 3, spaceBetween: 15 },
-      1024: { slidesPerView: 4, spaceBetween: 20 },
+      320: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
     },
   });
 });
@@ -234,17 +246,20 @@ async function loadCategoryBlock() {
 
     // Tìm danh mục cha theo tên hoặc theo children
     let parentCategory = data.data.find(
-      (cat) => cat.name.trim().toLowerCase() === categoryName.trim().toLowerCase()
-    );  
+      (cat) =>
+        cat.name.trim().toLowerCase() === categoryName.trim().toLowerCase()
+    );
 
     if (!parentCategory) {
-  // Nếu không khớp tên cha, tìm trong children
+      // Nếu không khớp tên cha, tìm trong children
       parentCategory = data.data.find((cat) =>
         (cat.children || []).some(
-          (child) => child.name.trim().toLowerCase() === categoryName.trim().toLowerCase()
-    )
-  );
-}
+          (child) =>
+            child.name.trim().toLowerCase() ===
+            categoryName.trim().toLowerCase()
+        )
+      );
+    }
 
     const { name, children } = parentCategory;
 
@@ -260,19 +275,21 @@ async function loadCategoryBlock() {
     `;
 
     const listItemsHTML = (children || [])
-    .map((child) => {
-    const isActive =
-      child.name.trim().toLowerCase() === categoryName.trim().toLowerCase();
+      .map((child) => {
+        const isActive =
+          child.name.trim().toLowerCase() === categoryName.trim().toLowerCase();
 
-    return `
+        return `
       <li class="single">
-        <a href="/pages/topic.html?categoryName=${encodeURIComponent(child.name)}" 
+        <a href="/pages/topic.html?categoryName=${encodeURIComponent(
+          child.name
+        )}" 
            class="page ${isActive ? "active" : ""}">
           <h1>${child.name}</h1>
         </a>
       </li>`;
-  })
-  .join("");
+      })
+      .join("");
 
     const listHTML = `<ul class="list-topic">${listItemsHTML}</ul>`;
     titleContainer.innerHTML = headerHTML + listHTML;
@@ -282,15 +299,17 @@ async function loadCategoryBlock() {
 
     topicLinks.forEach((link) => {
       const url = new URL(link.href);
-      const linkCat = url.searchParams.get("categoryName")?.trim().toLowerCase();
+      const linkCat = url.searchParams
+        .get("categoryName")
+        ?.trim()
+        .toLowerCase();
 
       if (linkCat === currentCategory) {
         link.classList.add("active");
-    }
-  });
+      }
+    });
 
-  loadArticlesAndTopPopular(1);
-
+    loadArticlesAndTopPopular(1);
   } catch (err) {
     console.error("❌ Lỗi khi tải danh mục:", err);
   }
@@ -305,8 +324,8 @@ async function loadTrendingSubcategoryPosts() {
     const res = await fetch("/api/categories/");
     const data = await res.json();
 
-    const parentCategory = data.data.find(cat =>
-      cat.name.trim().toLowerCase() === parentName.trim().toLowerCase()
+    const parentCategory = data.data.find(
+      (cat) => cat.name.trim().toLowerCase() === parentName.trim().toLowerCase()
     );
 
     if (!parentCategory || !parentCategory.children?.length) return;
@@ -319,18 +338,20 @@ async function loadTrendingSubcategoryPosts() {
         categoryName: sub.name,
         sortBy: "popular",
         page: 1,
-        pageSize: 3
+        pageSize: 3,
       });
 
       const postRes = await fetch(`/api/posts/search/?${query.toString()}`);
       const postData = await postRes.json();
 
       if (postData.success && postData.data.posts?.length) {
-        postData.data.posts.forEach(post => {
+        postData.data.posts.forEach((post) => {
           const li = document.createElement("li");
           li.className = "trend-container";
           li.innerHTML = `
-            <a href="/pages/trangbaiviet.html?slug=${post.slug}" class="trend-words">
+            <a href="/pages/trangbaiviet.html?slug=${
+              post.slug
+            }" class="trend-words">
               <h3>${post.title}</h3>
               <span class="trend-content">${post.excerpt || ""}</span>
             </a>
@@ -343,7 +364,6 @@ async function loadTrendingSubcategoryPosts() {
     console.error("❌ Lỗi khi tải trending chuyên mục con:", error);
   }
 }
-
 
 function updateSectionsVisibility(page, isChildCategory = false) {
   const trending = document.getElementById("trending-section");
@@ -361,11 +381,74 @@ function updateSectionsVisibility(page, isChildCategory = false) {
   }
 }
 
+async function loadRecommendedPosts() {
+  try {
+    const response = await fetch(
+      "/api/posts/search?sortBy=popular&pageSize=20&status=published"
+    );
+    if (!response.ok) throw new Error("Lỗi tải dữ liệu");
 
+    const data = await response.json();
+    const posts = data.data?.posts || [];
+
+    const filteredPosts = posts
+      .filter((post) => !shownPostIds.has(post.postid) && post.featuredimage)
+      .slice(0, 20);
+
+    if (filteredPosts.length === 0) {
+      document.querySelector(
+        ".news-slider-container"
+      ).innerHTML += `<p class="error">Không có bài viết đề xuất mới</p>`;
+      return;
+    }
+
+    filteredPosts.forEach((post) => shownPostIds.add(post.postid));
+
+    const swiperWrapper = document.querySelector(
+      ".news-slider .swiper-wrapper"
+    );
+    swiperWrapper.innerHTML = filteredPosts
+      .map(
+        (post) => `
+        <div class="swiper-slide">
+          <a href="/pages/trangbaiviet.html?slug=${post.slug}">
+            <div class="swiper-news-item">
+              <div class="swiper-news-item-img" style="background-image: url('${post.featuredimage}')"></div>
+              <h4 class="swiper-news-item-title">${post.title}</h4>
+            </div>
+          </a>
+        </div>
+      `
+      )
+      .join("");
+
+    function updateNavButtons(swiper) {
+      const nextBtn = document.querySelector(".swiper-button-next");
+      const prevBtn = document.querySelector(".swiper-button-prev");
+      const totalSlides = swiper.slides.length;
+      const currentIndex = swiper.activeIndex;
+
+      prevBtn.classList.toggle("disabled", currentIndex === 0);
+      nextBtn.classList.toggle(
+        "disabled",
+        currentIndex >= totalSlides - swiper.params.slidesPerView
+      );
+    }
+  } catch (error) {
+    console.error("Lỗi tải bài đề xuất:", error);
+    document.querySelector(
+      ".news-slider-container"
+    ).innerHTML += `<p class="error">Không thể tải đề xuất</p>`;
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   loadCategoryBlock();
+  loadRecommendedPosts();
 });
 
-
-
+window.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+});

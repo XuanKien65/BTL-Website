@@ -1,44 +1,44 @@
 const postsPerPage = 10;
 let postsData = []; // Lưu toàn bộ bài viết từ API
 let filteredPostsData = []; // Lưu bài viết đã được filter và sắp xếp
-ClassicEditor.create(document.querySelector("#articleContent"), {
-  toolbar: [
-    "heading",
-    "|",
-    "bold",
-    "italic",
-    "link",
-    "|",
-    "bulletedList",
-    "numberedList",
-    "|",
-    "blockQuote",
-    "insertTable",
-    "|",
-    "imageUpload",
-    "undo",
-    "redo",
-  ],
-  image: {
-    toolbar: ["imageTextAlternative", "|", "toggleImageCaption"],
-    caption: {
-      enabled: true,
-    },
-  },
-})
-  .then((editor) => {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-      return new MyUploadAdapter(loader);
-    };
-    window.articleEditor = editor;
-    const voiceLabel = document.querySelector(".ck.ck-voice-label");
-    if (voiceLabel) {
-      voiceLabel.remove();
-    }
-  })
-  .catch((error) => {
-    console.error("CKEditor load failed:", error);
-  });
+// ClassicEditor.create(document.querySelector("#articleContent"), {
+//   toolbar: [
+//     "heading",
+//     "|",
+//     "bold",
+//     "italic",
+//     "link",
+//     "|",
+//     "bulletedList",
+//     "numberedList",
+//     "|",
+//     "blockQuote",
+//     "insertTable",
+//     "|",
+//     "imageUpload",
+//     "undo",
+//     "redo",
+//   ],
+//   image: {
+//     toolbar: ["imageTextAlternative", "|", "toggleImageCaption"],
+//     caption: {
+//       enabled: true,
+//     },
+//   },
+// })
+//   .then((editor) => {
+//     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+//       return new MyUploadAdapter(loader);
+//     };
+//     window.articleEditor = editor;
+//     const voiceLabel = document.querySelector(".ck.ck-voice-label");
+//     if (voiceLabel) {
+//       voiceLabel.remove();
+//     }
+//   })
+//   .catch((error) => {
+//     console.error("CKEditor load failed:", error);
+//   });
 
 // Hàm chính để render bảng bài viết
 function renderPostTable() {
@@ -673,3 +673,12 @@ async function updatePost(postId, updatedData) {
 document.getElementById("addPostBtn")?.addEventListener("click", () => {
   window.location.href = "/pages/user-profile.html#author-site";
 });
+// Đóng modal khi click ra ngoài nội dung modal
+document
+  .getElementById("postDetailModal")
+  ?.addEventListener("click", function (e) {
+    const content = this.querySelector(".modal-contents");
+    if (!content.contains(e.target)) {
+      this.classList.remove("show");
+    }
+  });

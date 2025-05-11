@@ -7,9 +7,14 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  background-color: white;
   color: #000;
   font-size: 2rem;
   font-family: "Inter", sans-serif;
+}
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
 }
 .btn:hover {
   opacity: 0.9;
@@ -918,4 +923,208 @@ select:disabled {
   width: 100% !important;
   height: auto !important;
   display: block;
+}
+/* Vỏ ngoài của switch */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Ẩn input checkbox */
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Phần trượt */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* Hình tròn trong switch */
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Khi bật: màu nền tối hơn */
+input:checked + .slider {
+  background-color: #ccc;
+}
+
+/* Khi bật: nút tròn di chuyển sang phải */
+input:checked + .slider::before {
+  transform: translateX(26px);
+}
+.color {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+body.dark-mode .account-sidebar {
+  background-color: var(--primary-color);
+  color: white !important;
+}
+body.dark-mode .account-menu a {
+  color: white;
+}
+body.dark-mode .account-menu li.active a {
+  background-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+body.dark-mode .account-menu li.active {
+  background-color: var(--primary-color);
+}
+body.dark-mode .account-content,
+body.dark-mode .change-password-form,
+body.dark-mode .cmt-detail {
+  background-color: var(--primary-color);
+  color: white !important;
+}
+body.dark-mode .account-content h2,
+body.dark-mode .account-content a,
+body.dark-mode p,
+body.dark-mode h3,
+body.dark-mode button,
+body.dark-mode div {
+  color: white;
+}
+body.dark-mode .noti-item.read {
+  background-color: #444;
+  color: #000;
+}
+body.dark-mode .stat-card,
+body.dark-mode .stat-card h4 {
+  background-color: var(--primary-color);
+  color: white;
+}
+body.dark-mode .account-menu a:hover {
+  background-color: var(--primary-color);
+}
+body.dark-mode .language-btn {
+  color: var(--primary-color);
+}
+body.dark-mode .language-dropdown a {
+  color: var(--primary-color);
+}
+body.dark-mode .upload-btn p {
+  color: var(--primary-color);
+}
+.language-selector {
+  position: relative;
+  width: 180px;
+}
+
+.language-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.language-btn:hover {
+  border-color: #aaa;
+}
+
+.selected-language {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.language-selector.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* Style cho dropdown */
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.language-selector.active .language-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
+  gap: 8px;
+}
+
+.language-option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Style cho cờ */
+.flag-icon {
+  display: inline-block;
+  width: 20px;
+  height: 15px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+}
+
+.flag-icon.vi {
+  background-image: url("https://flagcdn.com/w20/vn.png");
+}
+
+.flag-icon.en {
+  background-image: url("https://flagcdn.com/w20/gb.png");
+}
+.article-title.disabled {
+  cursor: not-allowed;
 }

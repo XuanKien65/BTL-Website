@@ -245,7 +245,8 @@
     font-weight: bold;
     color: var(--heading-color);
   }
-  .news-home-item {
+  .grid__column-2:nth-child(9),
+  .grid__column-2:nth-child(10) {
     display: none;
   }
 }

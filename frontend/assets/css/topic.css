@@ -157,6 +157,7 @@ p {
 
 .articles {
   list-style: none;
+  margin: 0;
 }
 
 /* Featured Article */
@@ -201,7 +202,7 @@ p {
 
 .l-content h3 {
   font-size: 2.6rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .l-content p {
@@ -209,6 +210,25 @@ p {
   color: #444;
 }
 
+#popularArticle {
+  width: 70%;
+}
+#popularArticle.full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 600px !important;
+  flex: 1 0 100% !important;
+}
+
+#popularArticle.full-width .l-img img {
+  height: 450px;
+  /* max-height: 550px; chỉnh lại nếu muốn ảnh nhỏ */
+  object-fit: cover;
+  object-position: top center;
+}
+.hidden {
+  display: none !important;
+}
 /* Trending Sidebar */
 .r-trending {
   width: 28%;
@@ -226,7 +246,7 @@ p {
 }
 
 .scroll-div {
-  max-height: 700px;
+  max-height: 650px;
   overflow-y: auto;
   padding-right: 1rem;
 }
@@ -393,7 +413,7 @@ p {
 }
 
 .news-slider-container {
-  margin: 3rem 0 5rem;
+  margin: 2rem 10rem 3rem;
   position: relative;
   padding: 0 5rem;
 }
@@ -410,6 +430,7 @@ p {
 }
 
 .swiper-slide {
+  margin: 0 2rem;
   display: flex;
   justify-content: center;
 }
@@ -462,235 +483,6 @@ p {
   gap: 2rem;
 }
 
-/* ============ MEDIA QUERIES ============ */
-/* Large Desktop */
-
-/* Medium Desktop */
-
-/* Tablet Landscape */
-
-/* Tablet Portrait */
-
-/* Mobile */
-
-/* Extra Small Mobile */
-
-/* ============ CUSTOM OVERRIDES FOR RESPONSIVENESS ============ */
-
-/* Tablet & Mobile: Ẩn 
-
-  
-
-  .l-main {
-    width: 100% !important;
-    padding-right: 0;
-  
-  max-width: 800px;
-  margin: 0 auto;
-  padding-right: 0;
-}
-}
-
-/* News Slider Responsive: Ít ảnh hơn khi thu nhỏ màn hình nhưng giữ khoảng cách và nút điều hướng */
-.news-slider-container {
-  padding: 0 2rem;
-}
-
-.swiper-wrapper {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: nowrap;
-}
-
-.swiper-slide {
-  flex: 0 0 auto;
-}
-
-/* Tablet: Hiển thị 2 ảnh */
-
-/* Mobile: Hiển thị 1 ảnh */
-
-/* Luôn hiện 2 nút điều hướng */
-.swiper-button-next,
-.swiper-button-prev {
-  display: block !important;
-}
-
-/* ============ "YOU MAY LIKE" SECTION ============ */
-.topic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.8rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: 4rem 0 2rem;
-  font-family: var(--font-title);
-  color: var(--primary-color);
-}
-
-.topic::before,
-.topic::after {
-  content: "";
-  flex: 1;
-  height: 2px;
-  background: var(--primary-color);
-  margin: 0 1.5rem;
-}
-
-.news-slider-container {
-  margin: 3rem 0 5rem;
-  position: relative;
-  padding: 0 6rem;
-  overflow: hidden;
-}
-
-.news-slider {
-  width: 100%;
-  position: relative;
-  overflow: visible;
-}
-
-.swiper {
-  width: 100%;
-  margin-top: 2rem;
-  overflow: visible;
-  position: relative;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-.swiper-news-item {
-  width: 25rem;
-  background: #fff;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  margin: 0 auto;
-}
-
-.swiper-news-item:hover {
-  transform: translateY(-5px);
-}
-
-.swiper-news-item-img {
-  width: 100%;
-  height: 0;
-  padding-bottom: 75%; /* Tỉ lệ 4:3 */
-  background-size: cover;
-  background-position: center;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.swiper-news-item-img img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.swiper-news-item-title {
-  padding: 1.2rem 1rem;
-  font-size: 1.6rem;
-  line-height: 1.4;
-  font-weight: bold;
-  color: var(--primary-color);
-  font-family: var(--font-title);
-  text-align: center;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  color: var(--yellow-color) !important;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 4rem !important;
-  height: 4rem !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border: none !important;
-  transition: background-color 0.3s ease;
-  margin-top: -2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.swiper-button-prev {
-  left: 0;
-}
-
-.swiper-button-next {
-  right: 0;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  font-size: 2rem !important;
-  font-weight: bold;
-}
-
-.swiper-pagination {
-  position: relative !important;
-  margin-top: 2.5rem;
-}
-
-.swiper-pagination-bullet-active {
-  background: var(--heading-color) !important;
-}
-
-.swiper-wrapper {
-  display: flex;
-  gap: 2.5rem;
-  flex-wrap: nowrap;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  color: var(--yellow-color) !important;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.swiper-button-prev {
-  left: 0;
-}
-
-.swiper-button-next {
-  right: 0;
-}
-
-.news-slider-container {
-  position: relative;
-}
-
 #pagination.l-main-button {
   display: flex;
   justify-content: center;
@@ -704,83 +496,6 @@ p {
   width: 100%;
   max-width: 1200px; /* giống navbar */
   margin: 0 auto;
-}
-
-ul.articles {
-  width: 100%;
-  max-width: 1200px; /* hoặc giá trị giống navbar */
-  margin: 0 auto;
-  padding: 0 2rem; /* nếu muốn có padding ngang */
-}
-
-#popularArticle {
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 2rem;
-  align-items: flex-start;
-  width: 100%;
-}
-
-/* Ảnh bên trái chiếm 40% */
-#popularArticle .l-img {
-  flex: 0 0 72% !important;
-  max-width: none !important;
-  height: auto !important;
-  aspect-ratio: 16 / 9 !important;
-  overflow: hidden !important;
-  border-radius: 4px !important;
-}
-
-/* Ảnh bên trong */
-#popularArticle .l-img img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block;
-}
-
-/* Nội dung bên phải vừa vặn */
-#popularArticle .l-trending {
-  flex: 1 !important;
-  padding-left: 2rem !important;
-  display: flex;
-  flex-direction: column;
-}
-
-#popularArticle {
-  display: flex !important;
-  flex-direction: column !important;  /* Stack theo chiều dọc */
-  gap: 1.5rem;
-  width: 100%;
-}
-
-/* Ảnh phía trên */
-#popularArticle .l-img {
-  width: 100% !important;
-  max-width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  overflow: hidden !important;
-  border-radius: 4px !important;
-}
-
-/* Ảnh bên trong */
-#popularArticle .l-img img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block !important;
-}
-
-/* Phần nội dung bên dưới ảnh */
-#popularArticle .l-trending {
-  width: 100% !important;
-  padding-left: 0 !important;
-  display: flex;
-  flex-direction: column;
-}
-
-#popularArticle .l-content {
-  padding-bottom: 2rem !important;  /* Hoặc 3rem nếu bạn muốn rộng hơn */
 }
 
 /* Tổng thể khối bài viết + trending */
@@ -804,18 +519,18 @@ ul.articles {
 
 /* Thanh cuộn chiếm nhỏ hơn toàn phần */
 .articles-trend .scroll-div {
-  width: 95% !important;         /* ↓ Giảm nhẹ để không chạm lề */
+  width: 95% !important; /* ↓ Giảm nhẹ để không chạm lề */
   max-width: 95% !important;
   box-sizing: border-box;
 }
 
 .a-l-content h3 {
-  font-size: 2.4rem !important;  /* Tăng cỡ tiêu đề */
+  font-size: 2.4rem !important; /* Tăng cỡ tiêu đề */
   line-height: 1.4;
 }
 
 .a-l-content p {
-  font-size: 1.8rem !important;  /* Tăng cỡ đoạn văn bản mô tả */
+  font-size: 1.8rem !important; /* Tăng cỡ đoạn văn bản mô tả */
   line-height: 1.6;
 }
 
@@ -855,10 +570,10 @@ ul.articles {
 
 .title-header {
   font-family: "Merriweather", serif !important;
-  font-size: 2.4rem;          /* Điều chỉnh kích thước theo nhu cầu */
+  font-size: 2.4rem; /* Điều chỉnh kích thước theo nhu cầu */
   font-weight: 700;
   color: var(--primary-color);
-  text-decoration: none;      /* Bỏ gạch chân nếu không muốn */
+  text-decoration: none; /* Bỏ gạch chân nếu không muốn */
 }
 
 .title-header:hover {
@@ -908,4 +623,19 @@ ul.list-topic li a:hover,
 ul.list-topic li a.active {
   color: var(--heading-color);
   font-weight: 600;
+}
+body.dark-mode {
+  background-color: var(--primary-color);
+}
+body.dark-mode a,
+body.dark-mode p,
+body.dark-mode span {
+  color: white;
+}
+body.dark-mode .swiper-news-item-title {
+  background-color: var(--primary-color);
+  color: white;
+}
+body.dark-mode button {
+  color: white;
 }

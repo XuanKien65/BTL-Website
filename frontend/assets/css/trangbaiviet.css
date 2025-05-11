@@ -96,14 +96,21 @@ a {
   margin-left: 3rem;
 }
 .news-body,
-.news-body h2,
-.news-body i {
+.news-body h2 {
   color: #000;
   margin-top: 2rem;
   font-size: 2rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.8; /* 28.8px */
+  line-height: 1.8;
+}
+.news-body i {
+  color: #000;
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.8;
+  margin-right: 0;
 }
 .news-body h2 {
   font-weight: 600;
@@ -119,7 +126,7 @@ a {
 figcaption i {
   padding-left: 10px !important;
   font-size: 1.8rem !important;
-  color: #5f5b53 !important;
+  color: #5f5b53;
   font-style: italic !important;
 }
 figure {
@@ -533,4 +540,48 @@ button:hover {
 }
 .tab-link {
   text-decoration: none;
+}
+body.dark-mode .body {
+  background-color: var(--primary-color) !important;
+  color: white;
+}
+body.dark-mode .body h1,
+body.dark-mode .body strong,
+body.dark-mode .body p,
+body.dark-mode .body h2,
+body.dark-mode .body i,
+body.dark-mode .body figcaption i,
+body.dark-mode .body .most-view .title,
+body.dark-mode .body h4,
+body.dark-mode .news-subject a,
+body.dark-mode .news-home-item span,
+body.dark-mode .topic {
+  color: white;
+}
+body.dark-mode .body figure {
+  background-color: #444;
+  color: white;
+}
+body.dark-mode .c-score {
+  background-color: var(--primary-color);
+  color: white;
+}
+body.dark-mode .c-controls i,
+body.dark-mode .news-header .active-tab {
+  color: var(--heading-color);
+}
+body.dark-mode .c-score i {
+  color: var(--yellow-color);
+}
+body.dark-mode .swiper-news-item-title {
+  background-color: var(--primary-color);
+}
+body.dark-mode .pagination-container span,
+body.dark-mode .pagination-container button i,
+body.dark-mode .pagination-container button {
+  background-color: var(--primary-color);
+  color: var(--yellow-color);
+}
+body.dark-mode .pagination-container .active-page {
+  color: var(--heading-color);
 }
