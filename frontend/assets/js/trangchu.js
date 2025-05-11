@@ -851,3 +851,8 @@ async function initializeHomepage() {
 
 // Khởi chạy
 document.addEventListener("DOMContentLoaded", initializeHomepage);
+window.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+});

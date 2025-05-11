@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initCharts();
 
   // Khởi tạo các module chức năng
-  initUserManagement();
   loadAndRenderCategories();
   initCommentManagement();
   // Thêm sự kiện cho các nút chung

@@ -9,18 +9,18 @@ let hasPendingRequests = false;
 // Hàm showToast
 // Hiển thị thông báo
 function showToast(message, type) {
-  const toast = document.createElement('div');
+  const toast = document.createElement("div");
   toast.className = `toast toast-${type}`;
   toast.textContent = message;
 
   document.body.appendChild(toast);
 
   setTimeout(() => {
-    toast.classList.add('show');
+    toast.classList.add("show");
   }, 10);
 
   setTimeout(() => {
-    toast.classList.remove('show');
+    toast.classList.remove("show");
     setTimeout(() => {
       toast.remove();
     }, 300);
@@ -28,7 +28,7 @@ function showToast(message, type) {
 }
 
 // Thêm style cho toast
-const toastStyles = document.createElement('style');
+const toastStyles = document.createElement("style");
 toastStyles.textContent = `
 .toast {
   position: fixed;
@@ -65,29 +65,39 @@ toastStyles.textContent = `
 function openModal(modalId) {
   currentModal = document.getElementById(modalId);
   if (currentModal) {
-    currentModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    currentModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    // Gắn sự kiện click ra ngoài để đóng modal
+    currentModal.addEventListener("click", handleOutsideClick);
+  }
+}
+function handleOutsideClick(event) {
+  // Nếu click vào chính phần overlay (modal), chứ không phải phần con bên trong
+  if (event.target === currentModal) {
+    closeModal();
   }
 }
 
 // Đóng modal
 function closeModal() {
   if (currentModal) {
-    currentModal.style.display = 'none';
+    currentModal.removeEventListener("click", handleOutsideClick); // gỡ sự kiện
+    currentModal.style.display = "none";
     currentModal = null;
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   }
 }
 
 // Hiển thị modal xác nhận
 function showConfirmModal(message, callback) {
-  const confirmModal = document.getElementById('confirmModal');
+  const confirmModal = document.getElementById("confirmModal");
   if (confirmModal) {
-    const modalBody = confirmModal.querySelector('.modal-body p');
+    const modalBody = confirmModal.querySelector(".modal-body p");
     if (modalBody) modalBody.textContent = message;
 
     actionCallback = callback;
-    openModal('confirmModal');
+    openModal("confirmModal");
   } else {
     if (confirm(message)) {
       callback();
@@ -101,7 +111,7 @@ async function confirmAction() {
     try {
       await actionCallback();
     } catch (err) {
-      console.error('Lỗi trong callback confirm:', err);
+      console.error("Lỗi trong callback confirm:", err);
     }
     actionCallback = null;
   }
@@ -111,9 +121,9 @@ async function confirmAction() {
 // Helper: Chuyển đổi role sang tên hiển thị
 function getRoleName(role) {
   const roles = {
-    'admin': 'Quản trị viên',
-    'author': 'Tác giả',
-    'user': 'Người dùng'
+    admin: "Quản trị viên",
+    author: "Tác giả",
+    user: "Người dùng",
   };
   return roles[role] || role;
 }
@@ -121,19 +131,21 @@ function getRoleName(role) {
 // Helper: Chuyển đổi status sang tên hiển thị
 function getStatusName(status) {
   const statuses = {
-    'active': 'Hoạt động',
-    'banned': 'Đã khóa',
-    'pending': 'Chờ xác nhận'
+    active: "Hoạt động",
+    banned: "Đã khóa",
+    pending: "Chờ xác nhận",
   };
   return statuses[status] || status;
 }
 
 // Helper: Định dạng ngày tháng
 function formatDateTime(dateString) {
-  if (!dateString) return 'N/A';
+  if (!dateString) return "N/A";
   try {
     const date = new Date(dateString);
-    return date.toLocaleDateString('vi-VN') + ' ' + date.toLocaleTimeString('vi-VN');
+    return (
+      date.toLocaleDateString("vi-VN") + " " + date.toLocaleTimeString("vi-VN")
+    );
   } catch (e) {
     return dateString;
   }
@@ -149,8 +161,8 @@ function validateEmail(email) {
 function showLoading(selector) {
   const container = document.querySelector(selector);
   if (container) {
-    const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'loading-overlay';
+    const loadingDiv = document.createElement("div");
+    loadingDiv.className = "loading-overlay";
     loadingDiv.innerHTML = '<div class="loading-spinner"></div>';
     container.appendChild(loadingDiv);
   }
@@ -160,7 +172,7 @@ function showLoading(selector) {
 function hideLoading(selector) {
   const container = document.querySelector(selector);
   if (container) {
-    const loadingDiv = container.querySelector('.loading-overlay');
+    const loadingDiv = container.querySelector(".loading-overlay");
     if (loadingDiv) {
       loadingDiv.remove();
     }
@@ -184,5 +196,3 @@ const sendNotification = async ({ title, message, toUserId }) => {
 
   return data;
 };
-
-

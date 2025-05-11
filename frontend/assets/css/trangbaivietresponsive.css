@@ -37,10 +37,10 @@
     line-height: 1.2;
     letter-spacing: -0.2px;
   }
-  .news-body {
+  .news-body,
+  .news-body i {
     margin-top: 2rem;
     font-size: 1.6rem;
-    font-style: normal;
     font-weight: 400;
     line-height: 1.8;
   }
@@ -440,7 +440,8 @@
 }
 
 @media screen and (max-width: 320px) {
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
   }
 
@@ -624,7 +625,7 @@
 }
 
 @media screen and (max-width: 767.98px) {
-  .slider{
+  .slider {
     display: none !important;
   }
 }
