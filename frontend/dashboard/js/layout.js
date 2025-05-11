@@ -376,4 +376,100 @@
         });
     });
 
- 
+  // ==================== HOME PAGE SETTINGS ====================
+// Xử lý upload ảnh
+function handleImageUpload(input, previewId) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById(previewId).innerHTML = `
+        <img src="${e.target.result}" alt="Preview" class="preview-image">
+      `;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// Xử lý submit form để cập nhật real-time
+async function handleSettingsSubmit(e) {
+  e.preventDefault();
+
+  const formData = new FormData();
+
+  const slogan = document.getElementById('homepageSlogan').value;
+  const address = document.getElementById('footerAddress').value;
+  const email = document.getElementById('footerEmail').value;
+  const phone = document.getElementById('footerPhone').value;
+  const logoFile = document.getElementById('homepageLogoUpload').files[0];
+  const bannerFile = document.getElementById('homepageBannerUpload').files[0];
+
+  // Append từng trường nếu có giá trị
+  if (slogan) formData.append('slogan', slogan);
+  if (address) formData.append('address', address);
+  if (email) formData.append('email', email);
+  if (phone) formData.append('phone', phone);
+  if (logoFile) formData.append('logo', logoFile);
+  if (bannerFile) formData.append('banner', bannerFile);
+
+  try {
+    const response = await fetch('/api/homepage-settings', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${await getAccessTokenFromRefresh()}`
+        // Không đặt 'Content-Type' khi dùng FormData
+      },
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.message || 'Cập nhật thất bại');
+
+    showToast('Cập nhật thành công!', 'success');
+    setTimeout(() => location.reload(), 1500);
+  } catch (error) {
+    showToast(error.message, 'error');
+  }
+}
+
+async function loadHomepageSettings() {
+  try {
+    const response = await fetch('/api/homepage-settings');
+    const data = await response.json();
+    
+    if (data.slogan) document.getElementById('homepageSlogan').value = data.slogan;
+    if (data.address) document.getElementById('footerAddress').value = data.address;
+    if (data.email) document.getElementById('footerEmail').value = data.email;
+    if (data.phone) document.getElementById('footerPhone').value = data.phone;
+    
+    // Cập nhật preview ảnh
+    const updatePreview = (previewId, url) => {
+      if (url) {
+        const preview = document.getElementById(previewId);
+        preview.innerHTML = `<img src="${url}?t=${Date.now()}" class="preview-image">`;
+      }
+    };
+    
+    updatePreview('homepageLogoPreview', data.logoUrl);
+    updatePreview('homepageBannerPreview', data.bannerUrl);
+  } catch (error) {
+    console.error('Lỗi tải cài đặt:', error);
+  }
+}
+
+// Khởi tạo sự kiện
+document.addEventListener('DOMContentLoaded', () => {
+  loadHomepageSettings();
+  // Xử lý preview ảnh
+  document.getElementById('homepageLogoUpload').addEventListener('change', (e) => {
+    handleImageUpload(e.target, 'homepageLogoPreview');
+  });
+
+  document.getElementById('homepageBannerUpload').addEventListener('change', (e) => {
+    handleImageUpload(e.target, 'homepageBannerPreview');
+  });
+
+  // Submit form
+  document.querySelector('#general form').addEventListener('submit', handleSettingsSubmit);
+});

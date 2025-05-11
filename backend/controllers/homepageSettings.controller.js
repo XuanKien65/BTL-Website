@@ -44,20 +44,29 @@ exports.getSettings = async (req, res) => {
       });
     }
 
-    const contactInfo = JSON.parse(settings.contact_info);
+    const contactInfo = typeof settings.contact_info === 'string'
+      ? JSON.parse(settings.contact_info)
+      : settings.contact_info;
 
     // Đường dẫn public (ví dụ: /uploads/homepage/logo-xxx.png)
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const normalizePath = (p) =>
+      p?.replace(/\\/g, "/").replace(/^backend\//, "").replace(/^uploads\//, "");
 
     res.json({
       success: true,
       data: {
         slogan: settings.slogan,
         contact_info: contactInfo,
-        logo_url: settings.logo_path ? `${baseUrl}/${settings.logo_path}` : null,
-        banner_url: settings.banner_path ? `${baseUrl}/${settings.banner_path}` : null,
-      }
+        logo_url: settings.logo_path
+          ? `${baseUrl}/uploads/${normalizePath(settings.logo_path)}`
+          : null,
+        banner_url: settings.banner_path
+          ? `${baseUrl}/uploads/${normalizePath(settings.banner_path)}`
+          : null,
+      },
     });
+
 
   } catch (error) {
     res.status(500).json({

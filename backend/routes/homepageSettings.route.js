@@ -4,7 +4,7 @@ const upload = require('../middlewares/upload.middleware');
 const homepageController = require('../controllers/homepageSettings.controller');
 const { verifyToken, isAdmin } = require("../middlewares/authJwt");
 
-router.get("/", verifyToken, isAdmin, homepageController.getSettings);
+router.get("/", homepageController.getSettings);
 
 router.post(
   "/",
