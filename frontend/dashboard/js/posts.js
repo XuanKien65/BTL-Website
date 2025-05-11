@@ -1,6 +1,16 @@
 const postsPerPage = 10;
 let postsData = []; // Lưu toàn bộ bài viết từ API
 let filteredPostsData = []; // Lưu bài viết đã được filter và sắp xếp
+
+function t(key, vars = {}) {
+  const lang = localStorage.getItem("lang") || "vietnamese";
+  let text = translations[lang]?.[key] || key;
+  for (const varName in vars) {
+    text = text.replace(`{{${varName}}}`, vars[varName]);
+  }
+  return text;
+}
+
 ClassicEditor.create(document.querySelector("#articleContent"), {
   toolbar: [
     "heading",
@@ -351,44 +361,44 @@ document.querySelector("#posts tbody").addEventListener("click", async (e) => {
 
     try {
       if (btn.classList.contains("btn-approve-post")) {
-        showConfirmModal("Bạn có chắc muốn duyệt bài viết này?", async () => {
+        showConfirmModal(t("confirm-approve-post"), async () => {
           await updatePostStatus(postId, "published");
           sendNotification({
-            title: "Bài viết đã được duyệt",
-            message: `Chúc mừng bạn, bài viết ${postTitle} đã được duyệt`,
+            title: t("noti-approve-title"),
+            message: t("noti-approve-msg", { title: postTitle }),
             toUserId: authorid,
           });
           showToast("Đã duyệt bài viết thành công", "success");
           loadPosts();
         });
       } else if (btn.classList.contains("btn-reject-post")) {
-        showConfirmModal("Bạn muốn từ chối bài viết này?", async () => {
+        showConfirmModal(t("confirm-reject-post"), async () => {
           await updatePostStatus(postId, "rejected");
           sendNotification({
-            title: "Bài viết đã bị từ chối",
-            message: `Chúng tôi rất tiếc phải thông báo rằng bài viết ${postTitle} đã không được phê duyệt`,
+            title: t("noti-reject-title"),
+            message: t("noti-reject-msg", { title: postTitle }),
             toUserId: authorid,
           });
           showToast("Đã từ chối bài viết", "success");
           loadPosts();
         });
       } else if (btn.classList.contains("btn-unapprove-post")) {
-        showConfirmModal("Bạn muốn gỡ duyệt bài viết này?", async () => {
+        showConfirmModal(t("confirm-unapprove-post"), async () => {
           await updatePostStatus(postId, "pending");
           sendNotification({
-            title: "Bài viết đang được xem xét lại",
-            message: `Bài viết ${postTitle} đang được chúng tôi duyệt lại, kết quả sẽ có sau 1-2 ngày làm việc`,
+            title: t("noti-unapprove-title"),
+            message: t("noti-unapprove-msg", { title: postTitle }),
             toUserId: authorid,
           });
           showToast("Đã gỡ duyệt bài viết", "success");
           loadPosts();
         });
       } else if (btn.classList.contains("btn-delete-post")) {
-        showConfirmModal("Bạn có chắc muốn xóa bài viết này?", async () => {
+        showConfirmModal(t("confirm-delete-post"), async () => {
           await deletePost(postId);
           sendNotification({
-            title: "Bài viết đã bị xoá",
-            message: `Bài viết ${postTitle} đã bị xoá, mọi khiếu nại xin vui lòng liên hệ chúng tôi`,
+            title: t("noti-delete-title"),
+            message: t("noti-delete-msg", { title: postTitle }),
             toUserId: authorid,
           });
           showToast("Đã xóa bài viết", "success");
