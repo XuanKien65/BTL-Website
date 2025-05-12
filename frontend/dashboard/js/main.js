@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initSidebar();
   initTabs();
   initModals();
-
   // Khởi tạo biểu đồ
   initCharts();
 

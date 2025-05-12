@@ -1,3 +1,7 @@
+let usersChart;
+let postsChart;
+
+
 async function initCharts() {
   await getNumUser();
   await getArticleNum();
@@ -93,7 +97,7 @@ function initUsersChart(users) {
 
   const usersCtx = document.getElementById("usersChart")?.getContext("2d");
   if (usersCtx) {
-    new Chart(usersCtx, {
+    usersChart = new Chart(usersCtx, {
       type: "bar",
       data: {
         labels,
@@ -113,7 +117,19 @@ function initUsersChart(users) {
           legend: { position: "top" },
           title: { display: true, text: "Người dùng mới theo tháng" },
         },
-        scales: { y: { beginAtZero: true } },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: getGridColor(),
+            }
+          },
+          x: {
+            grid: {
+              color: getGridColor(),
+            }
+          }
+        }        
       },
     });
   }
@@ -124,7 +140,7 @@ function initPostsChart(posts) {
 
   const postsCtx = document.getElementById("postsChart")?.getContext("2d");
   if (postsCtx) {
-    new Chart(postsCtx, {
+    postsChart = new Chart(postsCtx, {
       type: "line",
       data: {
         labels,
@@ -146,8 +162,37 @@ function initPostsChart(posts) {
           legend: { position: "top" },
           title: { display: true, text: "Bài viết theo tháng" },
         },
-        scales: { y: { beginAtZero: true } },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: getGridColor(),
+            }
+          },
+          x: {
+            grid: {
+              color: getGridColor(),
+            }
+          }
+        },        
       },
     });
+  }
+}
+
+function getGridColor() {
+  return document.body.classList.contains("dark-mode") ? "rgba(255, 255, 255, 0.61)" : "rgba(50, 50, 50, 0.23)";
+}
+
+function updateChartTheme() {
+  if (usersChart) {
+    usersChart.options.scales.x.grid.color = getGridColor();
+    usersChart.options.scales.y.grid.color = getGridColor();
+    usersChart.update();
+  }
+  if (postsChart) {
+    postsChart.options.scales.x.grid.color = getGridColor();
+    postsChart.options.scales.y.grid.color = getGridColor();
+    postsChart.update();
   }
 }

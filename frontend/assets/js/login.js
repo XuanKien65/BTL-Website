@@ -209,7 +209,7 @@ async function handleLoginSubmit(e) {
 
     if (response.ok) {
       const user = data.data;
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("accessToken", data.data.accessToken);
       const userData = {
         id: user.id,
         username: user.username,

@@ -15,15 +15,15 @@
     width: 95%;
     max-width: 95%;
   }
-  
+
   .article-title {
     font-size: 3rem;
   }
-  
+
   .article-excerpt {
     font-size: 1.3rem;
   }
-  
+
   .search-container {
     padding: 1.5rem;
   }
@@ -33,8 +33,8 @@
     justify-content: center;
     align-items: center;
     padding: 0.5rem 2rem !important;
-    background-color: #C22B2B;
-    color: #FFFFFF;
+    background-color: #c22b2b;
+    color: #ffffff;
     border-radius: 999px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -45,15 +45,15 @@
     width: fit-content !important;
     max-width: unset !important;
     overflow: visible !important;
-}
-    .article-content {
+  }
+  .article-content {
     overflow: visible !important; /* Ngăn cắt phần tử con */
-    min-width: 0 !important;      /* Cho phép co giãn */
-    flex: 1 1 auto !important;    /* Cho phép co giãn linh hoạt */
+    min-width: 0 !important; /* Cho phép co giãn */
+    flex: 1 1 auto !important; /* Cho phép co giãn linh hoạt */
   }
 
   .article-card {
-    flex-wrap: nowrap !important;  /* Đảm bảo cấu trúc ngang không bị wrap sai */
+    flex-wrap: nowrap !important; /* Đảm bảo cấu trúc ngang không bị wrap sai */
   }
 
   .article-title a {
@@ -67,46 +67,46 @@
   html {
     font-size: 55%;
   }
-  
+
   .container {
     padding: 1.5rem;
   }
-  
+
   .header h1 {
     font-size: 4rem;
   }
-  
+
   .filter-options {
     flex-wrap: wrap;
     gap: 1rem;
   }
-  
+
   .filter-options select {
     flex: 1;
     min-width: 120px;
   }
-  
+
   .article-card {
     height: auto;
     min-height: 28rem;
   }
-  
+
   .article-title {
     font-size: 2.8rem;
   }
-  
+
   /* Điều chỉnh chế độ hiển thị lưới (grid) */
   .results-list.grid-view {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
-  
+
   /* Navbar điều chỉnh tự động */
   .navbar .category {
     padding: 1.5rem 1vw;
     font-size: 1.8rem;
   }
-  
+
   .nav {
     padding: 0 4%;
   }
@@ -117,20 +117,20 @@
   html {
     font-size: 50%;
   }
-  
+
   .container {
     padding: 1rem;
     width: 100%;
   }
-  
+
   .header h1 {
     font-size: 3.5rem;
   }
-  
+
   .search-container {
     padding: 1.2rem;
   }
-  
+
   /* Điều chỉnh lại bộ lọc để hiển thị dọc trên màn hình nhỏ */
   .filter-options {
     display: flex;
@@ -139,70 +139,70 @@
     width: 100%;
     gap: 1rem;
   }
-  
+
   .filter-options select {
     width: 100%;
   }
-  
+
   /* Điều chỉnh thẻ bài viết */
   .article-card {
     flex-direction: column;
     height: auto;
     padding-bottom: 2rem;
   }
-  
+
   .article-image {
     width: 100%;
     height: 20rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .article-content {
     width: 100%;
     margin-left: 0;
   }
-  
+
   .article-category {
     width: auto;
     padding: 0.5rem 1.5rem;
     margin-bottom: 1rem;
   }
-  
+
   .article-title {
     font-size: 2.5rem;
   }
-  
+
   .article-excerpt {
     margin-top: 1rem;
   }
-  
+
   /* Chỉ hiển thị 1 cột trong chế độ lưới */
   .results-list.grid-view {
     grid-template-columns: 1fr;
   }
-  
+
   /* Điều chỉnh phần header kết quả */
   .results-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .view-toggle {
     align-self: flex-end;
   }
-  
+
   /* Điều chỉnh footer */
   .footer .row {
     flex-direction: column;
   }
-  
+
   .footer .row .column,
   .footer .row .column:first-child {
     width: 100%;
     margin-bottom: 3rem;
   }
-  
+
   /* Điều chỉnh chế độ xem lưới trên màn hình nhỏ */
   .results-list .article-card {
     flex-direction: column !important;
@@ -250,8 +250,9 @@
     margin-top: 1rem !important;
     font-size: 1.2rem !important;
   }
-  
-  html, body {
+
+  html,
+  body {
     max-width: 100% !important;
     overflow-x: hidden !important;
   }
@@ -285,7 +286,6 @@
   * {
     min-width: 0 !important;
   }
-
 }
 
 /* Màn hình rất nhỏ (mobile đứng) */
@@ -293,45 +293,45 @@
   html {
     font-size: 45%;
   }
-  
+
   .header h1 {
     font-size: 3rem;
   }
-  
+
   .article-title {
     font-size: 2.2rem;
   }
-  
+
   .results-container {
     padding: 1.5rem;
   }
-  
+
   /* Điều chỉnh phân trang */
   .pagination {
     gap: 5px;
   }
-  
+
   .page-btn {
     padding: 6px 10px !important;
     min-width: 32px;
   }
-  
+
   /* Điều chỉnh kích thước thẻ trong chế độ danh sách */
   .article-card {
     padding: 2rem 0;
   }
-  
+
   .article-excerpt {
     -webkit-line-clamp: 2;
     height: auto;
   }
-  
+
   /* Giảm padding trong các container */
   .search-container,
   .results-container {
     padding: 1rem;
   }
-  
+
   /* Điều chỉnh menu hiển thị */
   .view-option {
     width: 30px;
@@ -339,39 +339,38 @@
   }
 
   @media (max-width: 576px) {
-  .results-list .article-title {
-    font-size: 1.6rem !important;
-    line-height: 1.4 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
+    .results-list .article-title {
+      font-size: 1.6rem !important;
+      line-height: 1.4 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
 
-  .results-list .article-excerpt {
-    font-size: 1.3rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1rem !important;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+    .results-list .article-excerpt {
+      font-size: 1.3rem !important;
+      line-height: 1.5 !important;
+      margin-bottom: 1rem !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
-  .results-list .read-more {
-    margin-top: 0.5rem !important;
-    display: block !important;
-    font-size: 1.2rem !important;
-    color: #c22b2b !important;
-  }
+    .results-list .read-more {
+      margin-top: 0.5rem !important;
+      display: block !important;
+      font-size: 1.2rem !important;
+      color: #c22b2b !important;
+    }
 
-  .results-list .article-meta {
-    margin-top: 0.8rem !important;
-    font-size: 1.1rem !important;
-    color: #888 !important;
+    .results-list .article-meta {
+      margin-top: 0.8rem !important;
+      font-size: 1.1rem !important;
+      color: #888 !important;
+    }
   }
-}
-
 }
 
 /* Điều chỉnh cho màn hình rất nhỏ */
@@ -379,15 +378,15 @@
   html {
     font-size: 40%;
   }
-  
+
   .header h1 {
     font-size: 2.8rem;
   }
-  
+
   .search-box {
     padding: 0.5rem;
   }
-  
+
   .article-image {
     height: 16rem;
   }

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middlewares/upload.middleware");
+const upload = require("../middlewares/upload");
 const homepageController = require("../controllers/homepageSettings.controller");
 const { verifyToken, isAdmin } = require("../middlewares/authJwt");
 
