@@ -1,34 +1,48 @@
 // ==================== AUTH TOKEN ====================
 let accessToken = null;
 let tokenExpiration = 0;
+let refreshInProgress = null;
+
 async function getAccessTokenFromRefresh() {
-  // Kiểm tra nếu token còn hiệu lực
   if (accessToken && Date.now() < tokenExpiration) {
     return accessToken;
   }
 
-  try {
-    const response = await fetch("http://localhost:5501/api/auth/refresh", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      throw new Error("Không thể làm mới access token");
-    }
-
-    const data = await response.json();
-    accessToken = data.accessToken;
-
-    // Giả sử token hết hạn sau 30 phút (1800s)
-    tokenExpiration = Date.now() + 1800 * 1000;
-
-    return accessToken;
-  } catch (error) {
-    console.error("Lỗi refresh token:", error);
-    window.location.href = "http://localhost:5501/pages/login.html";
-    throw error;
+  if (refreshInProgress) {
+    return refreshInProgress;
   }
+
+  refreshInProgress = (async () => {
+    try {
+      const response = await fetch("http://localhost:5501/api/auth/refresh", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(
+          `Không thể làm mới access token (Status: ${response.status}, Body: ${text})`
+        );
+      }
+
+      const data = await response.json();
+      accessToken = data.accessToken;
+
+      const payload = JSON.parse(
+        atob(accessToken.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))
+      );
+      tokenExpiration = payload.exp * 1000;
+
+      return accessToken;
+    } catch (error) {
+      console.error("💥 Lỗi refresh token:", error);
+      throw error;
+    } finally {
+    }
+  })();
+
+  return refreshInProgress;
 }
 
 // ==================== XỬ LÝ LOGOUT ====================

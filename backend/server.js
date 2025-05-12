@@ -44,6 +44,8 @@ app.use("/api", require("./routes/authorRegister.routes"));
 app.use("/api", require("./routes/savedPost.routes"));
 app.use("/api", require("./routes/upload.routes"));
 app.use("/api/viewed-posts", require("./routes/viewedPost.routes"));
+app.use("/api/user-settings", require("./routes/userSettings.routes"));
+app.use("/api/homepage-settings", require("./routes/homepageSettings.routes"));
 
 // Error handler
 app.use((err, req, res, next) => {

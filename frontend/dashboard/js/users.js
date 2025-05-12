@@ -130,14 +130,12 @@ function renderUserTable(users) {
                     <span>${user.username}</span>
                 </div>
             </td>
-            <td>${user.email}</td>
-            <td><span class="role-badge ${user.role}">${getRoleName(
-        user.role
-      )}</span></td>
+            <td>${user.email}</td> 
+            <td><span class="role-badge ${user.role}" data-i18n = "${user.role}">${getRoleName( user.role)}</span></td>
             <td>${formatDateTime(user.createdat)}</td>
             <td><span class="status-badge ${
               user.status || "active"
-            }">${getStatusName(user.status || "active")}</span></td>
+            }"  data-i18n = "${user.status || "active"}">${getStatusName(user.status || "active")}</span></td>
             <td>
                 ${
                   user.hasAuthorRequest
@@ -735,10 +733,16 @@ async function submitUserForm() {
 
 // Cập nhật trạng thái người dùng
 async function updateUserStatus(userId, status) {
+  const lang = localStorage.getItem("lang") || "vietnamese";
+  const actionText = status === "banned"
+    ? translations[lang]["lock"]
+    : translations[lang]["unlock"];
+
+  const template = translations[lang]["confirm-message"];
+  const message = template.replace("{{action}}", actionText);
+  console.log("Test message:", message);
   showConfirmModal(
-    `Bạn có chắc muốn ${
-      status === "banned" ? "khóa" : "mở khóa"
-    } người dùng này?`,
+    message,
     async () => {
       try {
         const token = await getAccessTokenFromRefresh();

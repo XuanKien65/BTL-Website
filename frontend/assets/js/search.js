@@ -14,24 +14,6 @@ const resultsList = document.getElementById("results-list");
 const resultsCount = document.getElementById("results-count");
 const pagination = document.getElementById("pagination");
 
-// Hàm khởi tạo
-async function init() {
-  try {
-    const res = await fetch("/api/posts");
-    const data = await res.json();
-
-    if (data.success && Array.isArray(data.data.posts)) {
-      renderArticles(articles, pages, totalItems);
-    } else {
-      console.warn("Không lấy được bài viết.");
-    }
-  } catch (err) {
-    console.error("❌ Lỗi khi tải bài viết từ DB:", err);
-  }
-
-  setupEventListeners();
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   const categoryFilter = document.getElementById("category-filter");
 
@@ -115,7 +97,6 @@ async function handleFilterChange() {
       const pages = data.data.pagination?.totalPages || 1;
       const totalItems = data.data.pagination?.total ?? articles.length;
 
-      console.log("✅ Tổng bài viết:", totalItems);
       renderArticles(articles, pages, totalItems);
     } else {
       renderArticles([], 1, 0);
@@ -141,7 +122,6 @@ function renderCategory(article) {
 function renderSingleArticle(article) {
   const articleEl = document.createElement("div");
   articleEl.className = "article-card";
-  console.log("article.categories:", article.categories);
   articleEl.innerHTML = `
     <a href="/pages/trangbaiviet.html?slug=${
       article.slug
@@ -255,9 +235,8 @@ function renderPagination(pages) {
   }
 }
 
-init();
-
 document.addEventListener("DOMContentLoaded", function () {
+  setupEventListeners();
   // Lấy keyword từ URL và gán vào ô input, sau đó lọc kết quả luôn
   const params = new URLSearchParams(window.location.search);
   const keyword = params.get("keyword");

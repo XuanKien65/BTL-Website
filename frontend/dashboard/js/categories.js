@@ -63,10 +63,10 @@ function renderCategoryTablePage() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${start + idx + 1}</td>
-            <td>${cat.name}</td>
+            <td data-i18n="categories-list.${cat.name}">${cat.name}</td>
             <td>${cat.slug}</td>
             <td>${cat.post_count || 0}</td>
-            <td>${cat.parent_id || 'Không có'}</td>
+            <td td data-i18n="${cat.parent_id ? '' : 'no-parent'}">${cat.parent_id || 'Không có'}</td>
             <td>
                 <button class="btn btn-edit" data-id="${cat.id}"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-delete" data-id="${cat.id}"><i class="fas fa-trash"></i></button>
