@@ -95,7 +95,7 @@ async function handleFilterChange() {
     if (data.success && Array.isArray(data.data.posts)) {
       const articles = data.data.posts;
       const pages = data.data.pagination?.totalPages || 1;
-      const totalItems = data.data.pagination?.total ?? articles.length;
+      const totalItems = data.data.posts.length;
 
       renderArticles(articles, pages, totalItems);
     } else {

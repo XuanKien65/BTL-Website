@@ -417,6 +417,16 @@ async function handleSettingsSubmit(e) {
   const logoFile = document.getElementById("homepageLogoUpload").files[0];
   const bannerFile = document.getElementById("homepageBannerUpload").files[0];
 
+  // Validate số điện thoại (ví dụ: bắt đầu bằng số 0 và có 10 chữ số)
+  const phoneRegex = /^0\d{9}$/;
+  if (phone && !phoneRegex.test(phone)) {
+    showToast(
+      "Số điện thoại không hợp lệ. Vui lòng nhập đúng định dạng (10 chữ số, bắt đầu bằng 0).",
+      "error"
+    );
+    return;
+  }
+
   // Append từng trường nếu có giá trị
   if (slogan) formData.append("slogan", slogan);
   if (address) formData.append("address", address);

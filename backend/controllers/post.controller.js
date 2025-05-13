@@ -61,7 +61,7 @@ exports.createPost = async (req, res, next) => {
 
     const slug = slugify(title);
     const featuredImage = req.file ? `/uploads/${req.file.filename}` : null; // lấy ảnh từ multer upload
-    const safeStatus = (status || "pending").toLowerCase(); // luôn là string chuẩn
+    const safeStatus = (status || "pending").toLowerCase();
 
     // Trong controller
     const newPost = await Post.create({
@@ -70,7 +70,7 @@ exports.createPost = async (req, res, next) => {
       content,
       authorId: req.userId,
       categoryIds: Array.isArray(categoryIds) ? categoryIds : [categoryIds],
-      tagNames: Array.isArray(tags) ? tags : [tags], // chú ý: TAG NAMES
+      tagNames: Array.isArray(tags) ? tags : [tags],
       excerpt,
       featuredImage,
       isFeatured: isFeatured || false,

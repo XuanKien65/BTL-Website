@@ -2,20 +2,6 @@ const AuthorRegistration = require("../models/authorRegister.model");
 const cloudinary = require("../config/cloudinary.config");
 const { Readable } = require("stream");
 
-// Upload file buffer lên Cloudinary
-const uploadToCloudinary = (fileBuffer, folderName) => {
-  return new Promise((resolve, reject) => {
-    const upload_stream = cloudinary.uploader.upload_stream(
-      { folder: folderName },
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
-      }
-    );
-    Readable.from(fileBuffer).pipe(upload_stream);
-  });
-};
-
 // Đăng ký tác giả mới
 const registerAuthor = async (req, res) => {
   try {
@@ -34,14 +20,12 @@ const registerAuthor = async (req, res) => {
       ? req.body.topics
       : [req.body.topics];
 
-    // ✅ Kiểm tra các trường bắt buộc (dựa vào URL thay vì file)
     if (!userId || !fullname || !email || !frontIdCardUrl || !backIdCardUrl) {
       return res
         .status(400)
         .json({ success: false, message: "Thiếu thông tin bắt buộc" });
     }
 
-    // ✅ Lưu dữ liệu vào database (ảnh đã được upload sẵn)
     const authorId = await AuthorRegistration.create({
       userId,
       fullname,

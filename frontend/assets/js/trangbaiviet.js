@@ -549,7 +549,14 @@ function renderPost(post) {
   post.tags.forEach((tag) => {
     const span = document.createElement("span");
     span.className = "hashtag";
-    span.textContent = `#${tag}`;
+
+    const link = document.createElement("a");
+    link.href = `http://localhost:5501/pages/search.html?keyword=${tag}`;
+    link.textContent = `#${tag}`;
+    link.style.textDecoration = "none";
+    link.style.color = "inherit";
+
+    span.appendChild(link);
     tagContainer.appendChild(span);
   });
 }
